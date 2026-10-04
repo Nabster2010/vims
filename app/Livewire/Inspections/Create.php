@@ -9,5 +9,6 @@ use Livewire\Component;
 class Create extends Component
 {
     public string $vin = '';
+    public string $inspection_type = '';
 
 }
