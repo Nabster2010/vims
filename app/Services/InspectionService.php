@@ -12,4 +12,9 @@ class InspectionService
         $data['uuid'] = Str::uuid();
         return Inspection::create($data);
     }
+    private function generateInspectionNumber(): string
+    {
+
+
+    }
 }
