@@ -2,6 +2,7 @@
 
 use Livewire\Component;
 use App\Models\SalesRepresentative;
+use App\Models\InspectionType;
 use  Livewire\Attributes\Computed;
 
 new class extends Component {
@@ -14,6 +15,14 @@ new class extends Component {
     public function salesRepresentatives()
 {
     return SalesRepresentative::query()
+        ->where('is_active', true)
+        ->orderBy('name')
+        ->get();
+}
+    #[Computed]
+    public function inspectionTypes()
+{
+    return InspectionType::query()
         ->where('is_active', true)
         ->orderBy('name')
         ->get();
@@ -41,18 +50,12 @@ new class extends Component {
     <form class="mt-6 space-y-6">
         <flux:select wire:model.live="inspection_type" label="Inspection Type">
             <option value="">Select inspection type</option>
+            @foreach ($this->inspectionTypes as $inspectionType)
+                <option value="{{ $inspectionType->id }}">
+                    {{ $inspectionType->name }}
+                </option>
+            @endforeach
 
-            <option value="imported_vehicle">Imported Vehicle</option>
-
-            <option value="saber_gasoline">Saber Gasoline/Diesel</option>
-
-            <option value="saber_ev">Saber EV / HEV</option>
-
-            <option value="modified_light">Modified Vehicle (< 3500 kg)</option>
-
-            <option value="modified_heavy">Modified Vehicle (> 3500 kg)</option>
-
-            <option value="motorcycle">Motorcycle</option>
         </flux:select>
         <flux:card class="space-y-4">
             <div>
