@@ -1,3 +1,14 @@
+<?php
+
+use Livewire\Component;
+
+new class extends Component
+{
+    public string $vin = '';
+    public string $inspection_type = '';
+};
+?>
+
 <section class="w-full">
 
     <flux:heading size="xl">
@@ -63,3 +74,4 @@
     </form>
 
 </section>
+
