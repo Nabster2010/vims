@@ -3,44 +3,43 @@
 use Livewire\Component;
 use App\Models\SalesRepresentative;
 use App\Models\InspectionType;
-use  Livewire\Attributes\Computed;
+use Livewire\Attributes\Computed;
 
 new class extends Component {
-    public string $vin = '';
-    public string $inspection_type = '';
-    public string $salesRepresentative = '';
+    public string $vin = "";
+    public string $inspection_type = "";
+    public string $salesRepresentative = "";
     public bool $readyToCreate = false;
 
     #[Computed]
     public function salesRepresentatives()
-{
-    return SalesRepresentative::query()
-        ->where('is_active', true)
-        ->orderBy('name')
-        ->get();
-}
+    {
+        return SalesRepresentative::query()
+            ->where("is_active", true)
+            ->orderBy("name")
+            ->get();
+    }
     #[Computed]
     public function inspectionTypes()
-{
-    return InspectionType::query()
-        ->where('is_active', true)
-        ->orderBy('name')
-        ->get();
-}
+    {
+        return InspectionType::query()
+            ->where("is_active", true)
+            ->orderBy("name")
+            ->get();
+    }
     protected function rules(): array
-           {
+    {
         return [
-            'inspection_type' => ['required'],
-            'vin' => ['required', 'string', 'min:17', 'max:17'],
-            'salesRepresentative' => ['required'],
-            ];
-           }
-     public function createInspection(): void
-            {
-                $this->validate();
-                $this->readyToCreate = true;
-            }
-
+            "inspection_type" => ["required"],
+            "vin" => ["required", "string", "min:17", "max:17"],
+            "salesRepresentative" => ["required"],
+        ];
+    }
+    public function createInspection(): void
+    {
+        $this->validate();
+        $this->readyToCreate = true;
+    }
 };
 ?>
 
@@ -55,7 +54,6 @@ new class extends Component {
                     {{ $inspectionType->name }}
                 </option>
             @endforeach
-
         </flux:select>
         <flux:card class="space-y-4">
             <div>
@@ -66,26 +64,24 @@ new class extends Component {
 
             <flux:button variant="primary"> Select Customer </flux:button>
         </flux:card>
-<flux:select
-    wire:model.live="salesRepresentative"
-    label="Sales Representative"
->
-    <option value="">Select sales representative</option>
+        <flux:select
+            wire:model.live="salesRepresentative"
+            label="Sales Representative"
+        >
+            <option value="">Select sales representative</option>
 
-    @foreach ($this->salesRepresentatives as $representative)
-        <option value="{{ $representative->id }}">
-            {{ $representative->name }}
-        </option>
-    @endforeach
-
-</flux:select>
+            @foreach ($this->salesRepresentatives as $representative)
+                <option value="{{ $representative->id }}">
+                    {{ $representative->name }}
+                </option>
+            @endforeach
+        </flux:select>
         <flux:input wire:model.live="vin" label="VIN" />
 
         <div class="flex justify-end">
-            <flux:button variant="primary" wire:click="createInspection" >
+            <flux:button variant="primary" wire:click="createInspection">
                 Create Inspection
             </flux:button>
-
         </div>
         @if ($readyToCreate)
             <flux:callout variant="success">
@@ -93,5 +89,4 @@ new class extends Component {
             </flux:callout>
         @endif
     </form>
-
 </section>
