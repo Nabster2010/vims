@@ -6,6 +6,7 @@ use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inspection extends Model
 {
@@ -72,4 +73,9 @@ class Inspection extends Model
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
+    public function importedVehicleRegistration(): HasOne
+{
+    return $this->hasOne(ImportedVehicleRegistration::class);
+}
+
 }
