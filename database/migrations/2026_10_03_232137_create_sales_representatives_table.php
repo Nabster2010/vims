@@ -9,27 +9,27 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-  public function up(): void
-{
-    Schema::create('sales_representatives', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('sales_representatives', function (Blueprint $table) {
 
-        $table->id();
+            $table->id();
 
-        $table->string('name');
+            $table->string('name');
 
-        $table->string('company_name')->nullable();
+            $table->string('company_name')->nullable();
 
-        $table->string('mobile', 20)->nullable();
+            $table->string('mobile', 20)->nullable();
 
-        $table->string('email')->nullable();
+            $table->string('email')->nullable();
 
-        $table->text('notes')->nullable();
+            $table->text('notes')->nullable();
 
-        $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
 
-        $table->timestamps();
-    });
-}
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

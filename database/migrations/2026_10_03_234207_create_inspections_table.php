@@ -11,69 +11,69 @@ return new class extends Migration
      */
     public function up(): void
     {
-   Schema::create('inspections', function (Blueprint $table) {
+        Schema::create('inspections', function (Blueprint $table) {
 
-    $table->id();
+            $table->id();
 
-    $table->uuid('uuid')->unique();
+            $table->uuid('uuid')->unique();
 
-    $table->string('inspection_no',30)->unique();
+            $table->string('inspection_no', 30)->unique();
 
-    $table->foreignId('branch_id')
-        ->constrained()
-        ->restrictOnDelete();
+            $table->foreignId('branch_id')
+                ->constrained()
+                ->restrictOnDelete();
 
-    $table->foreignId('inspection_type_id')
-        ->constrained()
-        ->restrictOnDelete();
+            $table->foreignId('inspection_type_id')
+                ->constrained()
+                ->restrictOnDelete();
 
-    $table->foreignId('customer_id')
-        ->constrained()
-        ->restrictOnDelete();
+            $table->foreignId('customer_id')
+                ->constrained()
+                ->restrictOnDelete();
 
-    $table->foreignId('sales_representative_id')
-        ->constrained()
-        ->restrictOnDelete();
+            $table->foreignId('sales_representative_id')
+                ->constrained()
+                ->restrictOnDelete();
 
-    $table->string('vin', 17)->unique();
+            $table->string('vin', 17)->unique();
 
-    $table->string('status');
+            $table->string('status');
 
-    $table->string('final_result')->nullable();
+            $table->string('final_result')->nullable();
 
-    $table->foreignId('created_by')
-        ->constrained('users')
-        ->restrictOnDelete();
+            $table->foreignId('created_by')
+                ->constrained('users')
+                ->restrictOnDelete();
 
-    $table->foreignId('inspector_id')
-        ->nullable()
-        ->constrained('users')
-        ->restrictOnDelete();
+            $table->foreignId('inspector_id')
+                ->nullable()
+                ->constrained('users')
+                ->restrictOnDelete();
 
-    $table->foreignId('approved_by')
-        ->nullable()
-        ->constrained('users')
-        ->restrictOnDelete();
+            $table->foreignId('approved_by')
+                ->nullable()
+                ->constrained('users')
+                ->restrictOnDelete();
 
-    $table->timestamp('registered_at');
+            $table->timestamp('registered_at');
 
-    $table->timestamp('inspection_started_at')->nullable();
+            $table->timestamp('inspection_started_at')->nullable();
 
-    $table->timestamp('inspection_completed_at')->nullable();
+            $table->timestamp('inspection_completed_at')->nullable();
 
-    $table->timestamp('approved_at')->nullable();
+            $table->timestamp('approved_at')->nullable();
 
-    $table->unsignedTinyInteger('reinspection_count')->default(0);
+            $table->unsignedTinyInteger('reinspection_count')->default(0);
 
-    $table->boolean('is_locked')->default(false);
+            $table->boolean('is_locked')->default(false);
 
-    $table->text('remarks')->nullable();
+            $table->text('remarks')->nullable();
 
-    $table->timestamps();
+            $table->timestamps();
 
-    $table->index('status');
-    $table->index('registered_at');
-});
+            $table->index('status');
+            $table->index('registered_at');
+        });
     }
 
     /**

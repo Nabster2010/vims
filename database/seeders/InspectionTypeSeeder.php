@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\InspectionType;
 use Illuminate\Database\Seeder;
 
@@ -11,7 +12,7 @@ class InspectionTypeSeeder extends Seeder
      */
     public function run(): void
     {
-         $types = [
+        $types = [
 
             [
 

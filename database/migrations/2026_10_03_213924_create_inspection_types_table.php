@@ -9,25 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-  public function up(): void
-{
-    Schema::create('inspection_types', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('inspection_types', function (Blueprint $table) {
 
-        $table->id();
+            $table->id();
 
-        $table->string('code', 10)->unique();
+            $table->string('code', 10)->unique();
 
-        $table->string('name');
+            $table->string('name');
 
-        $table->string('prefix', 10);
+            $table->string('prefix', 10);
 
-        $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
 
-        $table->text('description')->nullable();
+            $table->text('description')->nullable();
 
-        $table->timestamps();
-    });
-}
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\CustomerType;
-use App\Models\Inspection;
 use App\Enums\IdentityType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,15 +21,17 @@ class Customer extends Model
         'notes',
         'is_active',
     ];
+
     protected function casts(): array
-{
-    return [
-        'customer_type' => CustomerType::class,
-        'identity_type' => IdentityType::class,
-        'is_active' => 'boolean',
-    ];
-}
-    public function inspections() : HasMany
+    {
+        return [
+            'customer_type' => CustomerType::class,
+            'identity_type' => IdentityType::class,
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function inspections(): HasMany
     {
         return $this->hasMany(Inspection::class);
     }

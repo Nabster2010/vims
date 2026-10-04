@@ -9,35 +9,35 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
- public function up(): void
-{
-    Schema::create('customers', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('customers', function (Blueprint $table) {
 
-        $table->id();
+            $table->id();
 
-        $table->string('customer_type', 20);
+            $table->string('customer_type', 20);
 
-        $table->string('identity_type', 30);
+            $table->string('identity_type', 30);
 
-        $table->string('name');
+            $table->string('name');
 
-        $table->string('identity_number')->unique();
+            $table->string('identity_number')->unique();
 
-        $table->string('vat_number')->nullable();
+            $table->string('vat_number')->nullable();
 
-        $table->string('mobile', 20);
+            $table->string('mobile', 20);
 
-        $table->string('email')->nullable();
+            $table->string('email')->nullable();
 
-        $table->text('address')->nullable();
+            $table->text('address')->nullable();
 
-        $table->text('notes')->nullable();
+            $table->text('notes')->nullable();
 
-        $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
 
-        $table->timestamps();
-    });
-}
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
