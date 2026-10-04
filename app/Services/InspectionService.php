@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Branch;
 use App\Models\Inspection;
 use App\Models\InspectionType;
+use App\Enums\InspectionStatus;
 use Illuminate\Support\Str;
 
 class InspectionService
@@ -15,8 +16,10 @@ class InspectionService
 
     public function create(array $data): Inspection
     {
-        $inspectionNo = $this->numberGenerator->generate();
-        $data['uuid'] = Str::uuid();
+        $data['inspection_no'] = $this->numberGenerator->generate();
+        $data['uuid'] = (string) Str::uuid();
+        $data['status'] = InspectionStatus::Registered;
+        $data['registered_at'] = now();
         return Inspection::create($data);
     }
     // private function generateInspectionNumber(
