@@ -11,11 +11,16 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Inspection extends Model
 {
     protected $fillable = [
+        'uuid',
+        'inspection_no',
         'branch_id',
         'inspection_type_id',
         'customer_id',
         'sales_representative_id',
         'vin',
+        'status',
+        'created_by',
+        'registered_at',
         'remarks',
     ];
 
@@ -74,8 +79,7 @@ class Inspection extends Model
         return $this->belongsTo(User::class, 'approved_by');
     }
     public function importedVehicleRegistration(): HasOne
-{
-    return $this->hasOne(ImportedVehicleRegistration::class);
-}
-
+    {
+        return $this->hasOne(ImportedVehicleRegistration::class);
+    }
 }
