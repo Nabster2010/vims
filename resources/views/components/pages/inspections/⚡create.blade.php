@@ -1,12 +1,23 @@
 <?php
 
 use Livewire\Component;
+use App\Models\SalesRepresentative;
+use  Livewire\Attributes\Computed;
 
 new class extends Component {
     public string $vin = '';
     public string $inspection_type = '';
     public string $salesRepresentative = '';
     public bool $readyToCreate = false;
+
+    #[Computed]
+    public function salesRepresentatives()
+{
+    return SalesRepresentative::query()
+        ->where('is_active', true)
+        ->orderBy('name')
+        ->get();
+}
     protected function rules(): array
            {
         return [
@@ -52,20 +63,19 @@ new class extends Component {
 
             <flux:button variant="primary"> Select Customer </flux:button>
         </flux:card>
-        <flux:select
+<flux:select
     wire:model.live="salesRepresentative"
     label="Sales Representative"
 >
     <option value="">Select sales representative</option>
 
-    <option value="1">Ahmed Trading</option>
-
-    <option value="2">Al Rajhi</option>
-
-    <option value="3">XYZ Motors</option>
+    @foreach ($this->salesRepresentatives as $representative)
+        <option value="{{ $representative->id }}">
+            {{ $representative->name }}
+        </option>
+    @endforeach
 
 </flux:select>
-
         <flux:input wire:model.live="vin" label="VIN" />
 
         <div class="flex justify-end">
