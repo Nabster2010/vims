@@ -2,10 +2,15 @@
 
 use Livewire\Component;
 
-new class extends Component
-{
+new class extends Component {
     public string $vin = '';
     public string $inspection_type = '';
+
+public bool $readyToCreate = false;
+    public function createInspection(): void
+    {
+        $this->readyToCreate = true;
+    }
 };
 ?>
 
@@ -40,11 +45,17 @@ new class extends Component
 
         <flux:input wire:model.live="vin" label="VIN" />
 
-          <div class="flex justify-end">
-        <flux:button variant="primary" type="button">
-            Create Inspection
-        </flux:button>
-    </div>
+        <div class="flex justify-end">
+            <flux:button variant="primary" wire:click="createInspection" >
+                Create Inspection
+            </flux:button>
+
+        </div>
+        @if ($readyToCreate)
+            <flux:callout variant="success">
+                Ready for database integration.
+            </flux:callout>
+        @endif
     </form>
 
 </section>
