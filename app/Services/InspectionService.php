@@ -16,8 +16,8 @@ class InspectionService
 
     public function create(array $data): Inspection
     {
-        $data['inspection_no'] = $this->numberGenerator->generate();
         $data['uuid'] = (string) Str::uuid();
+        $data['inspection_no'] = $this->numberGenerator->generate();
         $data['status'] = InspectionStatus::Registered;
         $data['registered_at'] = now();
         return Inspection::create($data);
