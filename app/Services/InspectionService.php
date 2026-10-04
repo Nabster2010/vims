@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Inspection;
+use App\Models\Branch;
+use App\Models\InspectionType;
 use Illuminate\Support\Str;
 
 class InspectionService
@@ -12,7 +13,8 @@ class InspectionService
         $data['uuid'] = Str::uuid();
         return Inspection::create($data);
     }
-    private function generateInspectionNumber(): string
+    private function generateInspectionNumber(Branch $branch,InspectionType $inspectionType
+    ): string
     {
 
 
