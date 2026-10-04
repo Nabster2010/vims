@@ -35,6 +35,25 @@
         Motorcycle
     </option>
 </flux:select>
+<flux:card class="space-y-4">
+
+    <div>
+        <flux:heading>
+            Customer
+        </flux:heading>
+
+        <flux:text>
+            No customer selected.
+        </flux:text>
+    </div>
+
+    <flux:button variant="primary">
+
+        Select Customer
+
+    </flux:button>
+
+</flux:card>
 
         <flux:input
             wire:model.live="vin"
