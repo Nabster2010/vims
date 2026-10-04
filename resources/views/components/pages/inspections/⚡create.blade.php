@@ -5,12 +5,14 @@ use Livewire\Component;
 new class extends Component {
     public string $vin = '';
     public string $inspection_type = '';
+    public string $salesRepresentative = '';
     public bool $readyToCreate = false;
     protected function rules(): array
            {
         return [
             'inspection_type' => ['required'],
             'vin' => ['required', 'string', 'min:17', 'max:17'],
+            'salesRepresentative' => ['required'],
             ];
            }
      public function createInspection(): void
@@ -50,6 +52,19 @@ new class extends Component {
 
             <flux:button variant="primary"> Select Customer </flux:button>
         </flux:card>
+        <flux:select
+    wire:model.live="salesRepresentative"
+    label="Sales Representative"
+>
+    <option value="">Select sales representative</option>
+
+    <option value="1">Ahmed Trading</option>
+
+    <option value="2">Al Rajhi</option>
+
+    <option value="3">XYZ Motors</option>
+
+</flux:select>
 
         <flux:input wire:model.live="vin" label="VIN" />
 
