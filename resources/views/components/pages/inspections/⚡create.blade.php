@@ -5,12 +5,20 @@ use Livewire\Component;
 new class extends Component {
     public string $vin = '';
     public string $inspection_type = '';
+    public bool $readyToCreate = false;
+    protected function rules(): array
+           {
+        return [
+            'inspection_type' => ['required'],
+            'vin' => ['required', 'string', 'min:17', 'max:17'],
+            ];
+           }
+     public function createInspection(): void
+            {
+                $this->validate();
+                $this->readyToCreate = true;
+            }
 
-public bool $readyToCreate = false;
-    public function createInspection(): void
-    {
-        $this->readyToCreate = true;
-    }
 };
 ?>
 
