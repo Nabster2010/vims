@@ -9,6 +9,7 @@ class InspectionForm extends Form
 {
 
     public ?int $customer_id = null;
+    #[validate]
     public ?int $sales_representative_id = null;
     #[validate]
     public ?int $inspection_type_id = null;
@@ -20,7 +21,7 @@ class InspectionForm extends Form
         return [
             'inspection_type_id' => ['required'],
             // 'customer_id' => ['required', 'exists:customers,id'],
-            // 'sales_representative_id' => ['required', 'exists:sales_representatives,id'],
+            'sales_representative_id' => ['required'],
             'vin' => ['required', 'string', 'size:17'],
         ];
     }

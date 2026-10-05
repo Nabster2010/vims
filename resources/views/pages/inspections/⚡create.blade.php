@@ -59,7 +59,7 @@ new #[Title("Create Inspection")] class extends Component {
             "branch_id" => Auth::user()->branch_id,
             "inspection_type_id" => $this->form->inspection_type_id,
             "customer_id" => $this->customer_id,
-            "sales_representative_id" => $this->sales_representative_id,
+            "sales_representative_id" => $this->form->sales_representative_id,
             "vin" => $this->form->vin,
             "created_by" => Auth::id(),
         ]);
@@ -132,7 +132,7 @@ new #[Title("Create Inspection")] class extends Component {
                 :href="
                     route('customers.search', [
         'inspection_type_id' => $this->inspection_type_id,
-        'sales_representative_id' => $this->sales_representative_id,
+        'sales_representative_id' => $this->form->sales_representative_id,
         'vin' => $this->form->vin,
     ])
                 "
@@ -146,7 +146,7 @@ new #[Title("Create Inspection")] class extends Component {
             </flux:button>
         </flux:card>
         <flux:select
-            wire:model.live="sales_representative_id"
+            wire:model.live="form.sales_representative_id"
             label="Sales Representative"
         >
             <option value="">Select sales representative</option>
