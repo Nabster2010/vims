@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Enums\InspectionStatus;
 use App\Models\Branch;
 use App\Models\Inspection;
 use App\Models\InspectionType;
-use App\Enums\InspectionStatus;
 use Illuminate\Support\Str;
 
 class InspectionService
@@ -16,25 +16,12 @@ class InspectionService
 
     public function create(array $data): Inspection
     {
+        $branch = Branch::findOrFail($data['branch_id']);
+        $inspectionType = InspectionType::findOrFail($data['inspection_type_id']);
         $data['uuid'] = (string) Str::uuid();
-        $data['inspection_no'] = $this->numberGenerator->generate();
+        $data['inspection_no'] = $this->numberGenerator->generate($branch, $inspectionType);
         $data['status'] = InspectionStatus::Registered;
         $data['registered_at'] = now();
         return Inspection::create($data);
     }
-    // private function generateInspectionNumber(
-    //     Branch $branch,
-    //     InspectionType $inspectionType
-    // ): string {
-    //     $branch->increment('last_inspection_sequence');
-
-    //     $sequence = str_pad(
-    //         $branch->last_inspection_sequence,
-    //         6,
-    //         '0',
-    //         STR_PAD_LEFT
-    //     );
-
-    //     return "{$branch->code}-{$inspectionType->code}-{$sequence}";
-    // }
 }
