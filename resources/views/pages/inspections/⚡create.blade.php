@@ -18,8 +18,20 @@ new #[Title("Create Inspection")] class extends Component {
     public ?int $customer_id = null;
     #[Url]
     public ?int $sales_representative_id = null;
+    #[Url]
+    public string $vin = "";
 
     public bool $readyToCreate = false;
+
+    public function mount(): void
+    {
+        $this->form->fill([
+            "customer_id" => $this->customer_id,
+            "inspection_type_id" => $this->inspection_type_id,
+            "sales_representative_id" => $this->sales_representative_id,
+            "vin" => $this->vin,
+        ]);
+    }
 
     #[Computed]
     public function salesRepresentatives()
@@ -40,29 +52,22 @@ new #[Title("Create Inspection")] class extends Component {
     #[Computed]
     public function selectedCustomer(): ?Customer
     {
-        if (!$this->customer_id) {
+        if (!$this->form->customer_id) {
             return null;
         }
-        return Customer::query()->find($this->customer_id);
+
+        return Customer::find($this->form->customer_id);
     }
-    protected function rules(): array
-    {
-        return [
-            "inspection_type_id" => ["required"],
-            "sales_representative_id" => ["required"],
-        ];
-    }
+
     public function createInspection(InspectionService $inspectionService): void
     {
-        $this->validate();
-        $inspection = $inspectionService->create([
+        $this->form->validate();
+        $data = [
+            ...$this->form->all(),
             "branch_id" => Auth::user()->branch_id,
-            "inspection_type_id" => $this->form->inspection_type_id,
-            "customer_id" => $this->customer_id,
-            "sales_representative_id" => $this->form->sales_representative_id,
-            "vin" => $this->form->vin,
             "created_by" => Auth::id(),
-        ]);
+        ];
+        $inspectionService->create($data);
     }
 };
 ?>
@@ -131,7 +136,7 @@ new #[Title("Create Inspection")] class extends Component {
                 variant="primary"
                 :href="
                     route('customers.search', [
-        'inspection_type_id' => $this->inspection_type_id,
+        'inspection_type_id' => $this->form->inspection_type_id,
         'sales_representative_id' => $this->form->sales_representative_id,
         'vin' => $this->form->vin,
     ])
