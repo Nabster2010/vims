@@ -8,16 +8,17 @@ use App\Services\InspectionService;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
+use App\Livewire\Forms\InspectionForm;
 
 new #[Title("Create Inspection")] class extends Component {
+    public InspectionForm $form;
     #[Url]
     public ?int $inspection_type_id = null;
     #[Url]
     public ?int $customer_id = null;
     #[Url]
     public ?int $sales_representative_id = null;
-    #[Url]
-    public string $vin = "";
+
     public bool $readyToCreate = false;
 
     #[Computed]
@@ -48,7 +49,6 @@ new #[Title("Create Inspection")] class extends Component {
     {
         return [
             "inspection_type_id" => ["required"],
-            "vin" => ["required", "string", "size:17"],
             "sales_representative_id" => ["required"],
         ];
     }
@@ -57,10 +57,10 @@ new #[Title("Create Inspection")] class extends Component {
         $this->validate();
         $inspection = $inspectionService->create([
             "branch_id" => Auth::user()->branch_id,
-            "inspection_type_id" => $this->inspection_type_id,
+            "inspection_type_id" => $this->form->inspection_type_id,
             "customer_id" => $this->customer_id,
             "sales_representative_id" => $this->sales_representative_id,
-            "vin" => $this->vin,
+            "vin" => $this->form->vin,
             "created_by" => Auth::id(),
         ]);
     }
@@ -72,7 +72,7 @@ new #[Title("Create Inspection")] class extends Component {
 
     <form class="mt-6 space-y-6" wire:submit="createInspection">
         <flux:select
-            wire:model.live="inspection_type_id"
+            wire:model.live="form.inspection_type_id"
             label="Inspection Type"
         >
             <option value="">Select inspection type</option>
@@ -133,7 +133,7 @@ new #[Title("Create Inspection")] class extends Component {
                     route('customers.search', [
         'inspection_type_id' => $this->inspection_type_id,
         'sales_representative_id' => $this->sales_representative_id,
-        'vin' => $this->vin,
+        'vin' => $this->form->vin,
     ])
                 "
                 wire:navigate
@@ -157,7 +157,7 @@ new #[Title("Create Inspection")] class extends Component {
                 </option>
             @endforeach
         </flux:select>
-        <flux:input wire:model.live="vin" label="VIN" />
+        <flux:input wire:model.live="form.vin" label="VIN" />
 
         <div class="flex justify-end">
             <flux:button variant="primary" type="submit">
