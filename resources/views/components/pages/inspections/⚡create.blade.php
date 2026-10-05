@@ -3,12 +3,14 @@
 use Livewire\Component;
 use App\Models\SalesRepresentative;
 use App\Models\InspectionType;
+use App\Services\InspectionService;
 use Livewire\Attributes\Computed;
 
 new class extends Component {
     public string $vin = "";
     public string $inspection_type = "";
     public string $salesRepresentative = "";
+    public string $customerId = "";
     public bool $readyToCreate = false;
 
     #[Computed]
@@ -35,10 +37,17 @@ new class extends Component {
             "salesRepresentative" => ["required"],
         ];
     }
-    public function createInspection(): void
+    public function createInspection(InspectionService $inspectionService): void
     {
         $this->validate();
-        $this->readyToCreate = true;
+        $inspection = $inspectionService->create([
+            "branch_id" => Auth::user()->branch_id,
+            "inspection_type_id" => $this->inspection_type,
+            "customer_id" => 1, // Placeholder for customer selection
+            "sales_representative_id" => $this->salesRepresentative,
+            "vin" => $this->vin,
+            "created_by" => Auth::id(),
+        ]);
     }
 };
 ?>
