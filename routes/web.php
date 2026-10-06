@@ -13,8 +13,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     )->name('inspections.create');
 
 
-    Route::livewire('/customers/search', 'pages::customers.search')
+    Route::livewire('customers/search', 'pages::customers.search')
         ->name('customers.search');
+    Route::livewire('customers/create', 'pages::customers.create')
+        ->name('customers.create');
 });
 
 

@@ -16,6 +16,8 @@ new #[Title("Search Customer")] class extends Component {
     public ?int $sales_representative_id = null;
     #[Url]
     public string $vin = "";
+    #[Url]
+    public ?string $return_to = null;
 
     #[Computed]
     public function customers()
@@ -54,7 +56,24 @@ new #[Title("Search Customer")] class extends Component {
 
 <section class="w-full">
     <div class="space-y-6">
-        <flux:heading size="xl"> Search Customer </flux:heading>
+        <div class="flex items-center justify-between">
+            <flux:heading size="xl"> Search Customer </flux:heading>
+
+            <flux:button
+                variant="primary"
+                :href="
+                    route('customers.create', [
+        'return_to' => 'inspections.create',
+        'inspection_type_id' => $this->inspection_type_id,
+        'sales_representative_id' => $this->sales_representative_id,
+        'vin' => $this->vin,
+    ])
+                "
+                wire:navigate
+            >
+                Create Customer
+            </flux:button>
+        </div>
 
         <flux:input
             wire:model.live.debounce.300ms="search"

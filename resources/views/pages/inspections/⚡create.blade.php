@@ -21,8 +21,6 @@ new #[Title("Create Inspection")] class extends Component {
     #[Url]
     public string $vin = "";
 
-    public bool $readyToCreate = false;
-
     public function mount(): void
     {
         $this->form->fill([
@@ -149,6 +147,7 @@ new #[Title("Create Inspection")] class extends Component {
                         : "Select Customer"
                 }}
             </flux:button>
+            <flux:error name="form.customer_id" />
         </flux:card>
         <flux:select
             wire:model.live="form.sales_representative_id"
@@ -169,10 +168,5 @@ new #[Title("Create Inspection")] class extends Component {
                 Create Inspection
             </flux:button>
         </div>
-        @if ($readyToCreate)
-            <flux:callout variant="success">
-                Ready for database integration.
-            </flux:callout>
-        @endif
     </form>
 </section>
