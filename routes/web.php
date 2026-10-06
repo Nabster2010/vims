@@ -17,6 +17,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('customers.search');
     Route::livewire('customers/create', 'pages::customers.create')
         ->name('customers.create');
+    Route::livewire('customers', 'pages::customers.index')
+        ->name('customers.index');
+    Route::livewire('customers/{customer}/edit', 'pages::customers.edit')
+        ->name('customers.edit');
 });
 
 

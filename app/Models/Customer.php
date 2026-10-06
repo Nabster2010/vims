@@ -35,4 +35,17 @@ class Customer extends Model
     {
         return $this->hasMany(Inspection::class);
     }
+
+    public function scopeSearch($query, ?string $search)
+    {
+        if (blank($search)) {
+            return $query;
+        }
+
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('identity_number', 'like', "%{$search}%")
+                ->orWhere('mobile', 'like', "%{$search}%");
+        });
+    }
 }
