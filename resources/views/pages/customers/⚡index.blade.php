@@ -39,64 +39,84 @@ new #[Title("Customers")] class extends Component {
     <!-- Total Count -->
 
     <div class="mt-4 flex items-center justify-between">
-        <flux:text>
+        <flux:text class="text-zinc-500">
             Showing {{ $this->customers->total() }} customers
         </flux:text>
     </div>
+    @if ($this->customers->count())
+        <!-- Table -->
+        <flux:table>
+            <flux:table.columns>
+                <flux:table.column>Name</flux:table.column>
 
-    <!-- Table -->
-    <flux:table>
-        <flux:table.columns>
-            <flux:table.column>Name</flux:table.column>
+                <flux:table.column>Identity</flux:table.column>
 
-            <flux:table.column>Identity</flux:table.column>
+                <flux:table.column>Mobile</flux:table.column>
 
-            <flux:table.column>Mobile</flux:table.column>
+                <flux:table.column>Type</flux:table.column>
 
-            <flux:table.column>Type</flux:table.column>
+                <flux:table.column>Actions</flux:table.column>
+            </flux:table.columns>
 
-            <flux:table.column>Actions</flux:table.column>
-        </flux:table.columns>
+            <flux:table.rows>
+                @foreach ($this->customers as $customer)
+                    <flux:table.row>
+                        <flux:table.cell>
+                            {{ $customer->name }}
+                        </flux:table.cell>
 
-        <flux:table.rows>
-            @foreach ($this->customers as $customer)
-                <flux:table.row>
-                    <flux:table.cell> {{ $customer->name }} </flux:table.cell>
+                        <flux:table.cell>
+                            {{ $customer->identity_number }}
+                        </flux:table.cell>
 
-                    <flux:table.cell>
-                        {{ $customer->identity_number }}
-                    </flux:table.cell>
+                        <flux:table.cell>
+                            {{ $customer->mobile }}
+                        </flux:table.cell>
 
-                    <flux:table.cell> {{ $customer->mobile }} </flux:table.cell>
+                        <flux:table.cell>
+                            {{
+                                ucfirst(
+                                    $customer->customer_type->value,
+                                )
+                            }}
+                        </flux:table.cell>
 
-                    <flux:table.cell>
-                        {{
-                            ucfirst(
-                                $customer->customer_type->value,
-                            )
-                        }}
-                    </flux:table.cell>
+                        <flux:table.cell>
+                            <div class="flex gap-2">
+                                <flux:button
+                                    size="sm"
+                                    variant="primary"
+                                    :href="route('customers.edit', $customer)"
+                                    wire:navigate
+                                >
+                                    Edit
+                                </flux:button>
 
-                    <flux:table.cell>
-                        <div class="flex gap-2">
-                            <flux:button
-                                size="sm"
-                                variant="primary"
-                                :href="route('customers.edit', $customer)"
-                                wire:navigate
-                            >
-                                Edit
-                            </flux:button>
+                                <flux:button size="sm" variant="danger">
+                                    Delete
+                                </flux:button>
+                            </div>
+                        </flux:table.cell>
+                    </flux:table.row>
 
-                            <flux:button size="sm" variant="danger">
-                                Delete
-                            </flux:button>
-                        </div>
-                    </flux:table.cell>
-                </flux:table.row>
+                @endforeach
+            </flux:table.rows>
+        </flux:table>
 
-            @endforeach
-        </flux:table.rows>
-    </flux:table>
+    @else
+        <flux:card class="py-12">
+            <div class="space-y-4 text-center">
+                <flux:heading> No customers found </flux:heading>
+
+                <flux:text class="text-zinc-500">
+                    Try changing your search or create a new customer.
+                </flux:text>
+
+                <flux:button :href="route('customers.create')" wire:navigate>
+                    Create Customer
+                </flux:button>
+            </div>
+        </flux:card>
+    @endif
     {{ $this->customers->links() }}
 </section>
