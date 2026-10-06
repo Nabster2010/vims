@@ -36,6 +36,13 @@ new #[Title("Customers")] class extends Component {
             placeholder="Search customers..."
         />
     </div>
+    <!-- Total Count -->
+
+    <div class="mt-4 flex items-center justify-between">
+        <flux:text>
+            Showing {{ $this->customers->total() }} customers
+        </flux:text>
+    </div>
 
     <!-- Table -->
     <flux:table>
