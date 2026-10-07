@@ -17,21 +17,21 @@ new #[Title("Customers")] class extends Component {
     #[Url]
     public string $direction = "asc";
 
-    public ?Customer $customerToDeleteId = null;
+    public ?int $customerToDeleteId = null;
     public bool $showDeleteConfirmation = false;
-    /*
-    this is the regular way.
-    public function confirmDelete(int $customerId): void
-    {
-        $this->customerToDelete = Customer::find($customerId);
-        $this->showDeleteConfirmation = true;
-    }
-    */
+
     // using route model binding to automatically inject the customer model instance into this method
     public function confirmDelete(Customer $customer): void
     {
         $this->customerToDeleteId = $customer->id;
         $this->showDeleteConfirmation = true;
+    }
+
+    public function deleteCustomer(): void
+    {
+        Customer::findOrFail($this->customerToDeleteId)->delete();
+        $this->showDeleteConfirmation = false;
+        $this->customerToDeleteId = null;
     }
 
     #[Computed]
@@ -232,4 +232,28 @@ new #[Title("Customers")] class extends Component {
         </flux:card>
     @endif
     {{ $this->customers->links() }}
+    <flux:modal wire:model="showDeleteConfirmation">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg"> Delete Customer </flux:heading>
+
+                <flux:text class="mt-2">
+                    Are you sure you want to delete this customer?
+                </flux:text>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <flux:button
+                    variant="ghost"
+                    wire:click="$set('showDeleteConfirmation', false)"
+                >
+                    Cancel
+                </flux:button>
+
+                <flux:button variant="danger" wire:click="deleteCustomer">
+                    Delete
+                </flux:button>
+            </div>
+        </div>
+    </flux:modal>
 </section>
