@@ -11,6 +11,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'inspections/create',
         'pages::inspections.create'
     )->name('inspections.create');
+    Route::livewire('inspections/{inspection}/registration', 'pages::imported-vehicle-registrations.create')
+        ->name('imported-vehicle-registration.create');
 
 
     Route::livewire('customers/search', 'pages::customers.search')

@@ -13,7 +13,7 @@ class ImportedVehicleRegistration extends Model
         'request_date',
         'custom_declaration_no',
         'custom_declaration_date',
-        'custom_port',
+        'custom_port_id',
         'payment_type',
     ];
 
@@ -28,5 +28,11 @@ class ImportedVehicleRegistration extends Model
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
+    }
+    public function customPort(): BelongsTo
+
+    {
+
+        return $this->belongsTo(CustomPort::class);
     }
 }

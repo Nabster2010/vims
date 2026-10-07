@@ -26,8 +26,9 @@ return new class extends Migration
 
             $table->date('custom_declaration_date');
 
-            $table->string('custom_port');
-
+            $table->foreignId('custom_port_id')
+                ->constrained()
+                ->restrictOnDelete();
             $table->string('payment_type');
 
             $table->timestamps();
