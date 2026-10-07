@@ -44,6 +44,7 @@ class Customer extends Model
             return $query;
         }
 
+
         return $query->where(function ($query) use ($search) {
             $query->where('name', 'like', "%{$search}%")
                 ->orWhere('identity_number', 'like', "%{$search}%")

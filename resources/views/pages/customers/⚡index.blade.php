@@ -16,6 +16,8 @@ new #[Title("Customers")] class extends Component {
     public string $sort = "name";
     #[Url]
     public string $direction = "asc";
+    #[Url]
+    public string $status = "active";
 
     public ?int $customerToDeleteId = null;
     public bool $showDeleteConfirmation = false;
@@ -38,11 +40,21 @@ new #[Title("Customers")] class extends Component {
     public function customers()
     {
         //this is "Local Query Scope " search() defined in the Customer model
-        return Customer::search($this->search)
-            ->orderBy($this->sort, $this->direction)
-            ->paginate(10);
+        $query = Customer::search($this->search);
+        if ($this->status === "archived") {
+            $query->onlyTrashed();
+        }
+        if ($this->status === "all") {
+            $query->withTrashed();
+        }
+
+        return $query->orderBy($this->sort, $this->direction)->paginate(10);
     }
     public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+    public function updateStatus(): void
     {
         $this->resetPage();
     }
@@ -73,12 +85,22 @@ new #[Title("Customers")] class extends Component {
         </flux:button>
     </div>
 
-    <div class="mt-6">
-        <flux:input
-            wire:model.live.debounce.300ms="search"
-            placeholder="Search customers..."
-        />
+    <div class="mt-6 flex items-end gap-4">
+        <div class="flex-1">
+            <flux:input
+                wire:model.live.debounce.300ms="search"
+                placeholder="Search customers..."
+            />
+        </div>
+        <div class="w-40">
+            <flux:select wire:model.live="status">
+                <option value=" active">Active</option>
+                <option value="archived">Archived</option>
+                <option value="all">All</option>
+            </flux:select>
+        </div>
     </div>
+
     <!-- Total Count -->
 
     <div class="mt-4 flex items-center justify-between">
@@ -86,6 +108,7 @@ new #[Title("Customers")] class extends Component {
             Showing {{ $this->customers->total() }} customers
         </flux:text>
     </div>
+
     @if ($this->customers->count())
         <!-- Table -->
         <flux:table>
