@@ -17,7 +17,7 @@ new #[Title("Customers")] class extends Component {
     #[Url]
     public string $direction = "asc";
 
-    public ?Customer $customerToDelete = null;
+    public ?Customer $customerToDeleteId = null;
     public bool $showDeleteConfirmation = false;
     /*
     this is the regular way.
@@ -30,9 +30,8 @@ new #[Title("Customers")] class extends Component {
     // using route model binding to automatically inject the customer model instance into this method
     public function confirmDelete(Customer $customer): void
     {
-        $this->customerToDelete = $customer;
+        $this->customerToDeleteId = $customer->id;
         $this->showDeleteConfirmation = true;
-        dd($this->customerToDelete->name);
     }
 
     #[Computed]
