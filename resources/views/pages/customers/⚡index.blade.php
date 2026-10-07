@@ -4,15 +4,59 @@ use App\Models\Customer;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\Attributes\Url;
+use Livewire\WithPagination;
 
 new #[Title("Customers")] class extends Component {
+    use WithPagination;
+
+    #[Url]
     public string $search = "";
+    #[Url]
+    public string $sort = "name";
+    #[Url]
+    public string $direction = "asc";
+
+    public ?Customer $customerToDelete = null;
+    public bool $showDeleteConfirmation = false;
+    /*
+    this is the regular way.
+    public function confirmDelete(int $customerId): void
+    {
+        $this->customerToDelete = Customer::find($customerId);
+        $this->showDeleteConfirmation = true;
+    }
+    */
+    // using route model binding to automatically inject the customer model instance into this method
+    public function confirmDelete(Customer $customer): void
+    {
+        $this->customerToDelete = $customer;
+        $this->showDeleteConfirmation = true;
+        dd($this->customerToDelete->name);
+    }
 
     #[Computed]
     public function customers()
     {
         //this is "Local Query Scope " search() defined in the Customer model
-        return Customer::search($this->search)->orderBy("name")->paginate(10);
+        return Customer::search($this->search)
+            ->orderBy($this->sort, $this->direction)
+            ->paginate(10);
+    }
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function sortBy(string $column): void
+    {
+        if ($this->sort === $column) {
+            $this->direction = $this->direction === "asc" ? "desc" : "asc";
+        } else {
+            $this->sort = $column;
+            $this->direction = "asc";
+        }
+        $this->resetPage();
     }
 };
 ?>
@@ -47,14 +91,79 @@ new #[Title("Customers")] class extends Component {
         <!-- Table -->
         <flux:table>
             <flux:table.columns>
-                <flux:table.column>Name</flux:table.column>
+                <flux:table.column
+                    class="cursor-pointer select-none"
+                    wire:click="sortBy('name')"
+                >
+                    <div class="flex items-center gap-2">
+                        <span>Name</span>
 
-                <flux:table.column>Identity</flux:table.column>
+                        @if ($sort === "name")
+                            <span>
+                                {{
+                                    $direction === "asc"
+                                        ? "↑"
+                                        : "↓"
+                                }}
+                            </span>
+                        @endif
+                    </div>
+                </flux:table.column>
 
-                <flux:table.column>Mobile</flux:table.column>
+                <flux:table.column
+                    class="cursor-pointer select-none"
+                    wire:click="sortBy('identity_number')"
+                >
+                    <div class="flex items-center gap-2">
+                        <span>Identity</span>
 
-                <flux:table.column>Type</flux:table.column>
+                        @if ($sort === "identity_number")
+                            <span>
+                                {{
+                                    $direction === "asc"
+                                        ? "↑"
+                                        : "↓"
+                                }}
+                            </span>
+                        @endif
+                    </div>
+                </flux:table.column>
+                <flux:table.column
+                    class="cursor-pointer select-none"
+                    wire:click="sortBy('mobile')"
+                >
+                    <div class="flex items-center gap-2">
+                        <span>Mobile</span>
 
+                        @if ($sort === "mobile")
+                            <span>
+                                {{
+                                    $direction === "asc"
+                                        ? "↑"
+                                        : "↓"
+                                }}
+                            </span>
+                        @endif
+                    </div>
+                </flux:table.column>
+                <flux:table.column
+                    class="cursor-pointer select-none"
+                    wire:click="sortBy('customer_type')"
+                >
+                    <div class="flex items-center gap-2">
+                        <span>Type</span>
+
+                        @if ($sort === "customer_type")
+                            <span>
+                                {{
+                                    $direction === "asc"
+                                        ? "↑"
+                                        : "↓"
+                                }}
+                            </span>
+                        @endif
+                    </div>
+                </flux:table.column>
                 <flux:table.column>Actions</flux:table.column>
             </flux:table.columns>
 
@@ -92,7 +201,12 @@ new #[Title("Customers")] class extends Component {
                                     Edit
                                 </flux:button>
 
-                                <flux:button size="sm" variant="danger">
+                                <flux:button
+                                    size="sm"
+                                    variant="danger"
+                                    wire:click="confirmDelete({{ $customer->id }})"
+                                    icon="trash"
+                                >
                                     Delete
                                 </flux:button>
                             </div>
