@@ -7,17 +7,17 @@ use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 
-new #[Title("Customers")] class extends Component {
+new #[Title('Customers')] class extends Component {
     use WithPagination;
 
     #[Url]
-    public string $search = "";
+    public string $search = '';
     #[Url]
-    public string $sort = "name";
+    public string $sort = 'name';
     #[Url]
-    public string $direction = "asc";
+    public string $direction = 'asc';
     #[Url]
-    public string $status = "active";
+    public string $status = 'active';
 
     public ?int $customerToDeleteId = null;
     public bool $showDeleteConfirmation = false;
@@ -41,10 +41,10 @@ new #[Title("Customers")] class extends Component {
     {
         //this is "Local Query Scope " search() defined in the Customer model
         $query = Customer::search($this->search);
-        if ($this->status === "archived") {
+        if ($this->status === 'archived') {
             $query->onlyTrashed();
         }
-        if ($this->status === "all") {
+        if ($this->status === 'all') {
             $query->withTrashed();
         }
 
@@ -62,10 +62,10 @@ new #[Title("Customers")] class extends Component {
     public function sortBy(string $column): void
     {
         if ($this->sort === $column) {
-            $this->direction = $this->direction === "asc" ? "desc" : "asc";
+            $this->direction = $this->direction === 'asc' ? 'desc' : 'asc';
         } else {
             $this->sort = $column;
-            $this->direction = "asc";
+            $this->direction = 'asc';
         }
         $this->resetPage();
     }
@@ -76,21 +76,14 @@ new #[Title("Customers")] class extends Component {
     <div class="flex items-center justify-between">
         <flux:heading size="xl"> Customers </flux:heading>
 
-        <flux:button
-            variant="primary"
-            :href="route('customers.create')"
-            wire:navigate
-        >
+        <flux:button variant="primary" :href="route('customers.create')" wire:navigate>
             Create Customer
         </flux:button>
     </div>
 
     <div class="mt-6 flex items-end gap-4">
         <div class="flex-1">
-            <flux:input
-                wire:model.live.debounce.300ms="search"
-                placeholder="Search customers..."
-            />
+            <flux:input wire:model.live.debounce.300ms="search" placeholder="Search customers..." />
         </div>
         <div class="w-40">
             <flux:select wire:model.live="status">
@@ -113,75 +106,47 @@ new #[Title("Customers")] class extends Component {
         <!-- Table -->
         <flux:table>
             <flux:table.columns>
-                <flux:table.column
-                    class="cursor-pointer select-none"
-                    wire:click="sortBy('name')"
-                >
+                <flux:table.column class="cursor-pointer select-none" wire:click="sortBy('name')">
                     <div class="flex items-center gap-2">
                         <span>Name</span>
 
-                        @if ($sort === "name")
+                        @if ($sort === 'name')
                             <span>
-                                {{
-                                    $direction === "asc"
-                                        ? "↑"
-                                        : "↓"
-                                }}
+                                {{ $direction === 'asc' ? '↑' : '↓' }}
                             </span>
                         @endif
                     </div>
                 </flux:table.column>
 
-                <flux:table.column
-                    class="cursor-pointer select-none"
-                    wire:click="sortBy('identity_number')"
-                >
+                <flux:table.column class="cursor-pointer select-none" wire:click="sortBy('identity_number')">
                     <div class="flex items-center gap-2">
                         <span>Identity</span>
 
-                        @if ($sort === "identity_number")
+                        @if ($sort === 'identity_number')
                             <span>
-                                {{
-                                    $direction === "asc"
-                                        ? "↑"
-                                        : "↓"
-                                }}
+                                {{ $direction === 'asc' ? '↑' : '↓' }}
                             </span>
                         @endif
                     </div>
                 </flux:table.column>
-                <flux:table.column
-                    class="cursor-pointer select-none"
-                    wire:click="sortBy('mobile')"
-                >
+                <flux:table.column class="cursor-pointer select-none" wire:click="sortBy('mobile')">
                     <div class="flex items-center gap-2">
                         <span>Mobile</span>
 
-                        @if ($sort === "mobile")
+                        @if ($sort === 'mobile')
                             <span>
-                                {{
-                                    $direction === "asc"
-                                        ? "↑"
-                                        : "↓"
-                                }}
+                                {{ $direction === 'asc' ? '↑' : '↓' }}
                             </span>
                         @endif
                     </div>
                 </flux:table.column>
-                <flux:table.column
-                    class="cursor-pointer select-none"
-                    wire:click="sortBy('customer_type')"
-                >
+                <flux:table.column class="cursor-pointer select-none" wire:click="sortBy('customer_type')">
                     <div class="flex items-center gap-2">
                         <span>Type</span>
 
-                        @if ($sort === "customer_type")
+                        @if ($sort === 'customer_type')
                             <span>
-                                {{
-                                    $direction === "asc"
-                                        ? "↑"
-                                        : "↓"
-                                }}
+                                {{ $direction === 'asc' ? '↑' : '↓' }}
                             </span>
                         @endif
                     </div>
@@ -205,42 +170,28 @@ new #[Title("Customers")] class extends Component {
                         </flux:table.cell>
 
                         <flux:table.cell>
-                            {{
-                                ucfirst(
-                                    $customer->customer_type->value,
-                                )
-                            }}
+                            {{ ucfirst($customer->customer_type->value) }}
                         </flux:table.cell>
 
                         <flux:table.cell>
                             <div class="flex gap-2">
-                                <flux:button
-                                    size="sm"
-                                    variant="primary"
-                                    :href="route('customers.edit', $customer)"
-                                    wire:navigate
-                                >
+                                <flux:button size="sm" variant="primary" :href="route('customers.edit', $customer)"
+                                    wire:navigate>
                                     Edit
                                 </flux:button>
 
-                                <flux:button
-                                    size="sm"
-                                    variant="danger"
-                                    wire:click="confirmDelete({{ $customer->id }})"
-                                    icon="trash"
-                                >
+                                <flux:button size="sm" variant="danger"
+                                    wire:click="confirmDelete({{ $customer->id }})" icon="trash">
                                     Delete
                                 </flux:button>
                             </div>
                         </flux:table.cell>
                     </flux:table.row>
-
                 @endforeach
             </flux:table.rows>
         </flux:table>
-
     @else
-        <flux:card class="py-12">
+        <flux:card class="py-12 mt-4">
             <div class="space-y-4 text-center">
                 <flux:heading> No customers found </flux:heading>
 
@@ -266,10 +217,7 @@ new #[Title("Customers")] class extends Component {
             </div>
 
             <div class="flex justify-end gap-2">
-                <flux:button
-                    variant="ghost"
-                    wire:click="$set('showDeleteConfirmation', false)"
-                >
+                <flux:button variant="ghost" wire:click="$set('showDeleteConfirmation', false)">
                     Cancel
                 </flux:button>
 

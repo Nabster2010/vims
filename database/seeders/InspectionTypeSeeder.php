@@ -19,7 +19,7 @@ class InspectionTypeSeeder extends Seeder
                 'code' => 'IMP',
 
                 'name' => 'Imported Vehicle Inspection',
-
+                'name_ar' => 'سيارات مستوردة',
                 'prefix' => 'IMP',
 
             ],
@@ -29,6 +29,7 @@ class InspectionTypeSeeder extends Seeder
                 'code' => 'SBG',
 
                 'name' => 'Saber - Gasoline & Diesel Vehicle Inspection',
+                'name_ar' => 'سابر بنزين وديزل',
 
                 'prefix' => 'SBG',
 
@@ -39,6 +40,7 @@ class InspectionTypeSeeder extends Seeder
                 'code' => 'SBE',
 
                 'name' => 'Saber - EV / HEV Vehicle Inspection',
+                'name_ar' => 'سابر كهربائية',
 
                 'prefix' => 'SBE',
 
@@ -49,7 +51,7 @@ class InspectionTypeSeeder extends Seeder
                 'code' => 'MDL',
 
                 'name' => 'Modified Vehicle Inspection (< 3500 kg)',
-
+                'name_ar' => 'سيارات معدلة اقل من 3500',
                 'prefix' => 'MDL',
 
             ],
@@ -59,6 +61,7 @@ class InspectionTypeSeeder extends Seeder
                 'code' => 'MDH',
 
                 'name' => 'Modified Vehicle Inspection (> 3500 kg)',
+                'name_ar' => 'سيارات معدلة اكبر من 3500',
 
                 'prefix' => 'MDH',
 
@@ -69,7 +72,7 @@ class InspectionTypeSeeder extends Seeder
                 'code' => 'MTC',
 
                 'name' => 'Motorcycle Inspection',
-
+                'name_ar' => 'دراجات نارية',
                 'prefix' => 'MTC',
 
             ],
@@ -78,7 +81,6 @@ class InspectionTypeSeeder extends Seeder
         foreach ($types as $type) {
 
             InspectionType::create($type);
-
         }
     }
 }

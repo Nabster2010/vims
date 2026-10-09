@@ -37,6 +37,43 @@ return new class extends Migration
 
             $table->string('vin', 17)->unique();
 
+            /*
+|--------------------------------------------------------------------------
+| Inspection Type Specific Fields
+|--------------------------------------------------------------------------
+            */
+            $table->string('request_no')->nullable();
+
+            $table->date('request_date')->nullable();
+
+            $table->string('custom_declaration_no')->nullable();
+
+            $table->date('custom_declaration_date')->nullable();
+
+            $table->foreignId('custom_port_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+
+            $table->string('payment_type')->nullable(); // Enum later
+
+            $table->decimal('payment_amount', 10, 2)->nullable();
+
+            $table->foreignId('import_country_id')
+                ->nullable()
+                ->constrained('countries')
+                ->nullOnDelete();
+
+            $table->string('plate_no')->nullable();
+
+            $table->string('modification_center')->nullable();
+
+            $table->string('current_type')->nullable();
+
+            $table->string('target_type')->nullable();
+
+            $table->string('owner_id', 20)->nullable();
+
             $table->string('status');
 
             $table->string('final_result')->nullable();

@@ -18,13 +18,10 @@ return new class extends Migration
             $table->string('code', 10)->unique();
 
             $table->string('name');
-
+            $table->string('name_ar');
             $table->string('prefix', 10);
-
             $table->boolean('is_active')->default(true);
-
             $table->text('description')->nullable();
-
             $table->timestamps();
         });
     }

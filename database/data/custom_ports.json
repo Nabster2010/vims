@@ -1,0 +1,284 @@
+[
+    {
+        "name": "Al Batha",
+        "name_ar": "منفذ البطحاء",
+        "code": "31",
+        "is_active": true
+    },
+    {
+        "name": "Al Haditha",
+        "name_ar": "منفذ الحديثة",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Al Khadra",
+        "name_ar": "منفذ الخضراء",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Al Khafji",
+        "name_ar": "منفذ الخفجي",
+        "code": "44",
+        "is_active": true
+    },
+    {
+        "name": "Al Durra",
+        "name_ar": "منفذ الدرة",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Empty Quarter",
+        "name_ar": "منفذ الربع الخالي",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Al Tuwal",
+        "name_ar": "منفذ الطوال",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Al Wadi'ah",
+        "name_ar": "منفذ الوديعة",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Jadidat Arar",
+        "name_ar": "منفذ جديدة عرعر",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "King Fahd Causeway",
+        "name_ar": "منفذ جسر الملك فهد",
+        "code": "83",
+        "is_active": true
+    },
+    {
+        "name": "Halat Ammar",
+        "name_ar": "منفذ حالة عمار",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Salwa",
+        "name_ar": "منفذ سلوى",
+        "code": "41",
+        "is_active": true
+    },
+    {
+        "name": "Alab",
+        "name_ar": "منفذ علب",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Ar Ruqi",
+        "name_ar": "منفذ الرقعي",
+        "code": "35",
+        "is_active": true
+    },
+    {
+        "name": "Turaif",
+        "name_ar": "منفذ طريف",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Riyadh Dry Port",
+        "name_ar": "ميناء الرياض الجاف",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Abha International Airport",
+        "name_ar": "مطار أبها",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Al Ahsa International Airport",
+        "name_ar": "مطار الأحساء",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Prince Sultan Bin Abdulaziz Airport",
+        "name_ar": "مطار الأمير سلطان بن عبدالعزيز",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Prince Abdulmohsen Bin Abdulaziz Airport",
+        "name_ar": "مطار الأمير عبدالمحسن بن عبدالعزيز",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Prince Mohammad Bin Abdulaziz International Airport",
+        "name_ar": "مطار الأمير محمد بن عبدالعزيز",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Prince Nayef Bin Abdulaziz International Airport",
+        "name_ar": "مطار الأمير نايف بن عبدالعزيز",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Al Jouf Airport",
+        "name_ar": "مطار الجوف",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Taif International Airport",
+        "name_ar": "مطار الطائف",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Al Qaisumah Airport",
+        "name_ar": "مطار القيصومة",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "King Khalid International Airport",
+        "name_ar": "مطار الملك خالد الدولي",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "King Abdulaziz International Airport",
+        "name_ar": "مطار الملك عبدالعزيز الدولي",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "King Fahd International Airport",
+        "name_ar": "مطار الملك فهد الدولي",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Jazan Airport",
+        "name_ar": "مطار جازان",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Hail International Airport",
+        "name_ar": "مطار حائل",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Sharurah Airport",
+        "name_ar": "مطار شرورة",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Turaif Airport",
+        "name_ar": "مطار طريف",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Najran Airport",
+        "name_ar": "مطار نجران",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "NEOM Bay Airport",
+        "name_ar": "مطار نيوم",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Jubail Commercial Port",
+        "name_ar": "ميناء الجبيل التجاري",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Khafji Port",
+        "name_ar": "ميناء الخفجي البحري",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "King Abdulaziz Port",
+        "name_ar": "ميناء الملك عبدالعزيز",
+        "code": "30",
+        "is_active": true
+    },
+    {
+        "name": "King Abdullah Port",
+        "name_ar": "ميناء الملك عبدالله",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Petro Rabigh Port",
+        "name_ar": "ميناء بترو رابغ",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Baish Port",
+        "name_ar": "ميناء بيش",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Jazan Port",
+        "name_ar": "ميناء جازان",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Jeddah Islamic Port",
+        "name_ar": "ميناء جدة الإسلامي",
+        "code": "10",
+        "is_active": true
+    },
+    {
+        "name": "Ras Al Khair Port",
+        "name_ar": "ميناء رأس الخير",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Ras Tanura Port",
+        "name_ar": "ميناء رأس تنورة",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Duba Port",
+        "name_ar": "ميناء ضباء",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Farasan Port",
+        "name_ar": "ميناء فرسان",
+        "code": "00",
+        "is_active": true
+    },
+    {
+        "name": "Yanbu Commercial Port",
+        "name_ar": "ميناء ينبع التجاري",
+        "code": "00",
+        "is_active": true
+    }
+]

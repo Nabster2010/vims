@@ -10,6 +10,7 @@ class Branch extends Model
     protected $fillable = [
         'uuid',
         'name',
+        'name_ar',
         'code',
         'address',
         'manager_id',

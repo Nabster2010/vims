@@ -4,16 +4,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::livewire(
         'inspections/create',
         'pages::inspections.create'
     )->name('inspections.create');
-    Route::livewire('inspections/{inspection}/registration', 'pages::imported-vehicle-registrations.create')
-        ->name('imported-vehicle-registration.create');
+    Route::livewire(
+        'inspections',
+        'pages::inspections.index'
+    )->name('inspections.index');
 
+    Route::livewire(
+        'inspections/{inspection}',
+        'pages::inspections.show'
+    )->name('inspections.show');
 
     Route::livewire('customers/search', 'pages::customers.search')
         ->name('customers.search');
@@ -24,8 +29,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('customers/{customer}/edit', 'pages::customers.edit')
         ->name('customers.edit');
 });
-
-
-
 
 require __DIR__ . '/settings.php';

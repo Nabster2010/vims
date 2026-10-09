@@ -3,6 +3,8 @@
 use Livewire\Component;
 use App\Models\SalesRepresentative;
 use App\Models\Customer;
+use App\Models\Country;
+use App\Models\CustomPort;
 use App\Models\InspectionType;
 use App\Services\InspectionService;
 use Livewire\Attributes\Computed;
@@ -20,6 +22,10 @@ new #[Title("Create Inspection")] class extends Component {
     public ?int $sales_representative_id = null;
     #[Url]
     public string $vin = "";
+    #[Url]
+    public ?string $payment_type = "Card";
+    #[Url]
+    public ?float $payment_amount = 345.0;
 
     public function mount(): void
     {
@@ -28,6 +34,29 @@ new #[Title("Create Inspection")] class extends Component {
             "inspection_type_id" => $this->inspection_type_id,
             "sales_representative_id" => $this->sales_representative_id,
             "vin" => $this->vin,
+            "payment_type" => $this->payment_type,
+            "payment_amount" => $this->payment_amount,
+        ]);
+    }
+
+    public function updated(string $property): void
+    {
+        if ($property !== "form.inspection_type_id") {
+            return;
+        }
+
+        $this->form->fill([
+            "request_no" => null,
+            "request_date" => null,
+            "custom_declaration_no" => null,
+            "custom_declaration_date" => null,
+            "custom_port_id" => null,
+            "import_country_id" => null,
+            "plate_no" => null,
+            "modification_center" => null,
+            "current_type" => null,
+            "target_type" => null,
+            "owner_id" => null,
         ]);
     }
 
@@ -48,6 +77,23 @@ new #[Title("Create Inspection")] class extends Component {
             ->get();
     }
     #[Computed]
+    public function countries()
+    {
+        return Country::query()
+            ->where("is_active", true)
+            ->orderBy("name")
+            ->get();
+    }
+
+    #[Computed]
+    public function customPorts()
+    {
+        return CustomPort::query()
+            ->where("is_active", true)
+            ->orderBy("name")
+            ->get();
+    }
+    #[Computed]
     public function selectedCustomer(): ?Customer
     {
         if (!$this->form->customer_id) {
@@ -56,7 +102,13 @@ new #[Title("Create Inspection")] class extends Component {
 
         return Customer::find($this->form->customer_id);
     }
-
+    #[Computed]
+    public function inspectionTypeCode(): ?string
+    {
+        return InspectionType::query()
+            ->whereKey($this->form->inspection_type_id)
+            ->value("code");
+    }
     public function createInspection(InspectionService $inspectionService): void
     {
         $this->form->validate();
@@ -74,94 +126,19 @@ new #[Title("Create Inspection")] class extends Component {
     <flux:heading size="xl"> Create Inspection </flux:heading>
 
     <form class="mt-6 space-y-6" wire:submit="createInspection">
-        <flux:select
-            wire:model.live="form.inspection_type_id"
-            label="Inspection Type"
-        >
-            <option value="">Select inspection type</option>
-            @foreach ($this->inspectionTypes as $inspectionType)
-                <option value="{{ $inspectionType->id }}">
-                    {{ $inspectionType->name }}
-                </option>
-            @endforeach
-        </flux:select>
-        <flux:card class="space-y-4">
-            <div>
-                <flux:heading> Customer </flux:heading>
+        <x-inspection.create.common-information />
 
-                @if ($this->selectedCustomer)
-                    <div class="space-y-1">
-                        <flux:heading class="size-sm">
-                            Selected Customer
-                        </flux:heading>
-                        <flux:heading>
-                            {{
-                                $this->selectedCustomer
-                                    ->name
-                            }}
-                        </flux:heading>
+        @if ($this->inspectionTypeCode === "IMP")
+            <x-inspection.create.imported-vehicle />
+        @endif
 
-                        <flux:text>
-                            {{
-                                $this->selectedCustomer
-                                    ->mobile
-                            }}
-                        </flux:text>
+        @if (in_array($this->inspectionTypeCode, [ "SBG", "SBE", "MTC" ]))
+            <x-inspection.create.saber-cars-information />
+        @endif
 
-                        <flux:text>
-                            {{
-                                $this->selectedCustomer
-                                    ->id_number
-                            }}
-                        </flux:text>
-                        <flux:text class="text-zinc-500">
-                            Customer ID: {{
-                                $this->selectedCustomer
-                                    ->id
-                            }}
-                        </flux:text>
-                    </div>
-
-                @else
-                    <flux:text class="text-zinc-500">
-                        No customer selected. Please select a customer.
-                    </flux:text>
-
-                @endif
-            </div>
-
-            <flux:button
-                variant="primary"
-                :href="
-                    route('customers.search', [
-        'inspection_type_id' => $this->form->inspection_type_id,
-        'sales_representative_id' => $this->form->sales_representative_id,
-        'vin' => $this->form->vin,
-    ])
-                "
-                wire:navigate
-            >
-                {{
-                    $this->selectedCustomer
-                        ? "Change Customer"
-                        : "Select Customer"
-                }}
-            </flux:button>
-            <flux:error name="form.customer_id" />
-        </flux:card>
-        <flux:select
-            wire:model.live="form.sales_representative_id"
-            label="Sales Representative"
-        >
-            <option value="">Select sales representative</option>
-
-            @foreach ($this->salesRepresentatives as $representative)
-                <option value="{{ $representative->id }}">
-                    {{ $representative->name }}
-                </option>
-            @endforeach
-        </flux:select>
-        <flux:input wire:model.live="form.vin" label="VIN" />
+        @if (in_array($this->inspectionTypeCode, ["MDL", "MDH"]))
+            <x-inspection.create.modified-vehicle />
+        @endif
 
         <div class="flex justify-end">
             <flux:button variant="primary" type="submit">

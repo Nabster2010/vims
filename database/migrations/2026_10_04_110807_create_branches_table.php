@@ -18,6 +18,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
 
             $table->string('name');
+            $table->string('name_ar');
 
             $table->string('code', 10)->unique();
 
