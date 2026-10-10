@@ -179,7 +179,8 @@ new #[Title('Inspections')] class extends Component {
                                     :href="route('inspections.show', $inspection)" wire:navigate>
                                     View
                                 </flux:button>
-                                <flux:button size="sm" variant="outline">
+                                <flux:button size="sm" variant="outline"
+                                    :href="route('inspections.edit', $inspection)" wire:navigate>
                                     Edit
                                 </flux:button>
 

@@ -14,11 +14,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'inspections',
         'pages::inspections.index'
     )->name('inspections.index');
+    Route::livewire(
+        'inspections/{inspection}/edit',
+        'pages::inspections.edit'
+    )->name('inspections.edit');
 
     Route::livewire(
         'inspections/{inspection}',
         'pages::inspections.show'
     )->name('inspections.show');
+
 
     Route::livewire('customers/search', 'pages::customers.search')
         ->name('customers.search');

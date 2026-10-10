@@ -38,7 +38,7 @@ new #[Title('Inspection Details')] class extends Component {
                 Print
             </flux:button>
 
-            <flux:button variant="primary">
+            <flux:button variant="primary" :href="route('inspections.edit', $inspection)" wire:navigate>
                 Edit
             </flux:button>
 

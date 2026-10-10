@@ -129,15 +129,15 @@ new #[Title("Create Inspection")] class extends Component {
         <x-inspection.create.common-information />
 
         @if ($this->inspectionTypeCode === "IMP")
-            <x-inspection.create.imported-vehicle />
+        <x-inspection.create.imported-vehicle />
         @endif
 
         @if (in_array($this->inspectionTypeCode, [ "SBG", "SBE", "MTC" ]))
-            <x-inspection.create.saber-cars-information />
+        <x-inspection.create.saber-cars-information />
         @endif
 
         @if (in_array($this->inspectionTypeCode, ["MDL", "MDH"]))
-            <x-inspection.create.modified-vehicle />
+        <x-inspection.create.modified-vehicle />
         @endif
 
         <div class="flex justify-end">

@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\InspectionType;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -33,6 +34,8 @@ class InspectionForm extends Form
 
     #[Validate]
     public ?float $payment_amount = null;
+
+    public ?int $inspectionId = null;
 
     /*
 
@@ -86,7 +89,12 @@ class InspectionForm extends Form
             'inspection_type_id' => ['required', 'exists:inspection_types,id'],
             'customer_id' => ['required', 'exists:customers,id'],
             'sales_representative_id' => ['required', 'exists:sales_representatives,id'],
-            'vin' => ['required', 'string', 'size:17', 'unique:inspections,vin'],
+            'vin' => [
+                'required',
+                'string',
+                'size:17',
+                Rule::unique('inspections', 'vin')->ignore($this->inspectionId),
+            ],
             'payment_type' => ['required'],
             'payment_amount' => ['required', 'numeric', 'min:0'],
 

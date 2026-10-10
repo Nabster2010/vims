@@ -24,4 +24,10 @@ class InspectionService
         $data['registered_at'] = now();
         return Inspection::create($data);
     }
+
+    public function update(Inspection $inspection, array $data): Inspection
+    {
+        $inspection->update($data);
+        return $inspection->fresh();
+    }
 }
