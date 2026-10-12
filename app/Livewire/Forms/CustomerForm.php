@@ -10,48 +10,52 @@ use Livewire\Form;
 
 class CustomerForm extends Form
 {
-    #[Validate]
+
+    #[Validate('required')]
     public CustomerType $customer_type = CustomerType::INDIVIDUAL;
 
-    #[Validate]
+
+    #[Validate('required')]
     public IdentityType $identity_type = IdentityType::NationalID;
 
-    #[Validate]
+
+    #[Validate('required|string|max:255')]
     public string $name = '';
 
-    #[Validate]
+
+    #[Validate('required|string|max:255')]
     public string $identity_number = '';
 
-    #[Validate]
+    #[Validate('required|string|max:255')]
     public ?string $vat_number = null;
 
-    #[Validate]
+    #[Validate('required|string|max:30')]
     public string $mobile = '';
 
-    #[Validate]
+    #[Validate('nullable|email')]
     public ?string $email = null;
 
-    #[Validate]
+    #[Validate('nullable|string')]
     public ?string $address = null;
 
-    #[Validate]
+    #[Validate('nullable|string')]
     public ?string $notes = null;
 
 
-    protected function rules(): array
-    {
-        return [
-            'customer_type'   => ['required'],
-            'identity_type'   => ['required'],
-            'name'            => ['required', 'string', 'max:255'],
-            'identity_number' => ['required', 'string', 'max:255'],
-            'vat_number'      => ['nullable', 'string', 'max:255'],
-            'mobile'          => ['required', 'string', 'max:30'],
-            'email'           => ['nullable', 'email'],
-            'address'         => ['nullable', 'string'],
-            'notes'           => ['nullable', 'string'],
-        ];
-    }
+    // protected function rules(): array
+    // {
+    //     return [
+    //         'customer_type'   => ['required'],
+    //         'identity_type'   => ['required'],
+    //         'name'            => ['required', 'string', 'max:255'],
+    //         'identity_number' => ['required', 'string', 'max:255'],
+    //         'vat_number'      => ['nullable', 'string', 'max:255'],
+    //         'mobile'          => ['required', 'string', 'max:30'],
+    //         'email'           => ['nullable', 'email'],
+    //         'address'         => ['nullable', 'string'],
+    //         'notes'           => ['nullable', 'string'],
+    //     ];
+    // }
 
     public function setCustomer(Customer $customer): void
     {

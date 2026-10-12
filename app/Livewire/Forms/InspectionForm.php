@@ -4,35 +4,27 @@ namespace App\Livewire\Forms;
 
 use App\Models\InspectionType;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class InspectionForm extends Form
 {
     /*
-
     |--------------------------------------------------------------------------
     | Common Information
     |--------------------------------------------------------------------------
 
     */
 
-    #[Validate]
     public ?int $inspection_type_id = null;
 
-    #[Validate]
     public ?int $customer_id = null;
 
-    #[Validate]
     public ?int $sales_representative_id = null;
 
-    #[Validate]
     public string $vin = '';
 
-    #[Validate]
     public ?string $payment_type = null;
 
-    #[Validate]
     public ?float $payment_amount = null;
 
     public ?int $inspectionId = null;
@@ -123,6 +115,8 @@ class InspectionForm extends Form
             case 'SBG':
             case 'SBE':
             case 'MTC':
+            case 'SBP':
+            case 'SBH':
 
                 $rules += [
                     'request_no' => ['required', 'string'],

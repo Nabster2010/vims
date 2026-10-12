@@ -7,6 +7,7 @@ use App\Enums\InspectionStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inspection extends Model
 {
@@ -118,6 +119,10 @@ class Inspection extends Model
     public function approvedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+    public function vehicleInformation(): HasOne
+    {
+        return $this->hasOne(VehicleInformation::class);
     }
 
     public function scopeSearch(Builder $query, ?string $search): Builder

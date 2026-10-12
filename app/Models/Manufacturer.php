@@ -28,6 +28,10 @@ class Manufacturer extends Model
     {
         return $this->hasMany(ModelType::class);
     }
+    public function vehicleInformation(): HasMany
+    {
+        return $this->hasMany(VehicleInformation::class);
+    }
 
     public function scopeActive(Builder $query): Builder
     {

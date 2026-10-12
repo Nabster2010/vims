@@ -23,6 +23,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'inspections/{inspection}',
         'pages::inspections.show'
     )->name('inspections.show');
+    Route::livewire(
+        'inspections/{inspection}/vehicle-information',
+        'pages::inspections.vehicle-information.edit'
+    )->name('inspections.vehicle-information.edit');
 
 
     Route::livewire('customers/search', 'pages::customers.search')

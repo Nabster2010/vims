@@ -47,30 +47,30 @@ new #[Title('Edit Inspection')] class extends Component {
 
     public function updated(string $property): void
     {
-        if ($property !== "form.inspection_type_id") {
+        if ($property !== 'form.inspection_type_id') {
             return;
         }
 
         $this->form->fill([
-            "request_no" => null,
-            "request_date" => null,
-            "custom_declaration_no" => null,
-            "custom_declaration_date" => null,
-            "custom_port_id" => null,
-            "import_country_id" => null,
-            "plate_no" => null,
-            "modification_center" => null,
-            "current_type" => null,
-            "target_type" => null,
-            "owner_id" => null,
+            'request_no' => null,
+            'request_date' => null,
+            'custom_declaration_no' => null,
+            'custom_declaration_date' => null,
+            'custom_port_id' => null,
+            'import_country_id' => null,
+            'plate_no' => null,
+            'modification_center' => null,
+            'current_type' => null,
+            'target_type' => null,
+            'owner_id' => null,
         ]);
     }
 
     public function updateInspection(InspectionService $inspectionService): void
     {
         $this->form->validate();
-        $inspectionService->update($this->inspection, $this->form->all(),);
-        session()->flash("success", "Inspection Updated Successfully");
+        $inspectionService->update($this->inspection, $this->form->all());
+        session()->flash('success', 'Inspection Updated Successfully');
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
 
@@ -86,42 +86,28 @@ new #[Title('Edit Inspection')] class extends Component {
     #[Computed]
     public function salesRepresentatives()
     {
-        return SalesRepresentative::query()
-            ->where("is_active", true)
-            ->orderBy("name")
-            ->get();
+        return SalesRepresentative::query()->where('is_active', true)->orderBy('name')->get();
     }
     #[Computed]
     public function inspectionTypes()
     {
-        return InspectionType::query()
-            ->where("is_active", true)
-            ->orderBy("name")
-            ->get();
+        return InspectionType::query()->where('is_active', true)->orderBy('name')->get();
     }
     #[Computed]
     public function countries()
     {
-        return Country::query()
-            ->where("is_active", true)
-            ->orderBy("name")
-            ->get();
+        return Country::query()->where('is_active', true)->orderBy('name')->get();
     }
 
     #[Computed]
     public function customPorts()
     {
-        return CustomPort::query()
-            ->where("is_active", true)
-            ->orderBy("name")
-            ->get();
+        return CustomPort::query()->where('is_active', true)->orderBy('name')->get();
     }
     #[Computed]
     public function inspectionTypeCode(): ?string
     {
-        return InspectionType::query()
-            ->whereKey($this->form->inspection_type_id)
-            ->value("code");
+        return InspectionType::query()->whereKey($this->form->inspection_type_id)->value('code');
     }
 };
 
@@ -134,15 +120,15 @@ new #[Title('Edit Inspection')] class extends Component {
         <x-inspection.create.common-information />
 
         @if ($this->inspectionTypeCode === 'IMP')
-        <x-inspection.create.imported-vehicle />
+            <x-inspection.create.imported-vehicle />
         @endif
 
-        @if (in_array($this->inspectionTypeCode, ['SBG', 'SBE', 'MTC']))
-        <x-inspection.create.saber-cars-information />
+        @if (in_array($this->inspectionTypeCode, ['SBG', 'SBE', 'SBP', 'SBH', 'MTC']))
+            <x-inspection.create.saber-cars-information />
         @endif
 
         @if (in_array($this->inspectionTypeCode, ['MDL', 'MDH']))
-        <x-inspection.create.modified-vehicle />
+            <x-inspection.create.modified-vehicle />
         @endif
 
         <div class="flex justify-end">

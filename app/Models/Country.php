@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
@@ -13,4 +14,28 @@ class Country extends Model
         'iso3',
         'is_active',
     ];
+
+    public function productionVehicles(): HasMany
+    {
+        return $this->hasMany(
+            VehicleInformation::class,
+            'production_country_id'
+        );
+    }
+
+    public function originVehicles(): HasMany
+    {
+        return $this->hasMany(
+            VehicleInformation::class,
+            'origin_country_id'
+        );
+    }
+
+    public function shipmentVehicles(): HasMany
+    {
+        return $this->hasMany(
+            VehicleInformation::class,
+            'shipment_country_id'
+        );
+    }
 }
