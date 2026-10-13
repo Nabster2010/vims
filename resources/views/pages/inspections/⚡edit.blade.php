@@ -20,58 +20,25 @@ new #[Title('Edit Inspection')] class extends Component {
     public function mount(Inspection $inspection): void
     {
         $this->inspection = $inspection;
-        $this->form->fill([
-            'inspection_type_id' => $inspection->inspection_type_id,
-            'customer_id' => $inspection->customer_id,
-            'sales_representative_id' => $inspection->sales_representative_id,
-            'vin' => $inspection->vin,
-            'payment_type' => $inspection->payment_type,
-            'payment_amount' => $inspection->payment_amount,
-
-            'request_no' => $inspection->request_no,
-            'request_date' => $inspection->request_date,
-            'custom_declaration_no' => $inspection->custom_declaration_no,
-            'custom_declaration_date' => $inspection->custom_declaration_date,
-            'custom_port_id' => $inspection->custom_port_id,
-
-            'import_country_id' => $inspection->import_country_id,
-
-            'plate_no' => $inspection->plate_no,
-            'modification_center' => $inspection->modification_center,
-            'current_type' => $inspection->current_type,
-            'target_type' => $inspection->target_type,
-            'owner_id' => $inspection->owner_id,
-        ]);
-        $this->form->inspection_id = $inspection->id;
+        $this->form->fillFromModel($inspection);
     }
 
     public function updated(string $property): void
     {
-        if ($property !== 'form.inspection_type_id') {
-            return;
+        if ($property === 'form.inspection_type_id') {
+            $this->form->resetTypeFields();
         }
-
-        $this->form->fill([
-            'request_no' => null,
-            'request_date' => null,
-            'custom_declaration_no' => null,
-            'custom_declaration_date' => null,
-            'custom_port_id' => null,
-            'import_country_id' => null,
-            'plate_no' => null,
-            'modification_center' => null,
-            'current_type' => null,
-            'target_type' => null,
-            'owner_id' => null,
-        ]);
     }
 
     public function updateInspection(InspectionService $inspectionService): void
     {
         $this->form->validate();
-        $inspectionService->update($this->inspection, $this->form->all());
-        session()->flash('success', 'Inspection Updated Successfully');
-        $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
+
+        $inspectionService->update($this->inspection, $this->form->data());
+
+        session()->flash('success', 'Inspection updated successfully.');
+
+        $this->redirectRoute('inspections.index', navigate: true);
     }
 
     #[Computed]

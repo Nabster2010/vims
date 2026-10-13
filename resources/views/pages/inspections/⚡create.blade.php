@@ -100,6 +100,7 @@ new #[Title('Create Inspection')] class extends Component {
         $this->form->validate();
         $data = [...$this->form->all(), 'branch_id' => Auth::user()->branch_id, 'created_by' => Auth::id()];
         $inspectionService->create($data);
+        $this->redirect(route('inspections.index'), navigate: true);
     }
 };
 ?>

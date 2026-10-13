@@ -3,13 +3,19 @@
 use App\Models\Inspection;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\Attributes\Computed;
 
 new #[Title('Inspection Details')] class extends Component {
     public Inspection $inspection;
 
     public function mount(Inspection $inspection): void
     {
-        $this->inspection = $inspection->load(['customer', 'inspectionType', 'branch', 'salesRepresentative', 'createdBy', 'customPort', 'importCountry']);
+        $this->inspection = $inspection->loadMissing(['customer', 'inspectionType', 'branch', 'salesRepresentative', 'createdBy', 'customPort', 'importCountry']);
+    }
+    #[Computed]
+    public function inspectionTypeCode(): string
+    {
+        return $this->inspection->inspectionType->code;
     }
 };
 
@@ -50,15 +56,15 @@ new #[Title('Inspection Details')] class extends Component {
 
     </div>
     <x-inspection.show.common-information :inspection="$inspection" />
-    @if ($inspection->inspectionType->code === 'IMP')
+    @if ($this->inspectionTypeCode === 'IMP')
         <x-inspection.show.imported-vehicle-information :inspection="$inspection" />
     @endif
 
-    @if (in_array($inspection->inspectionType->code, ['SBG', 'SBE', 'MTC']))
+    @if (in_array($this->inspectionTypeCode, ['SBG', 'SBE', 'MTC']))
         <x-inspection.show.saber-information :inspection="$inspection" />
     @endif
 
-    @if (in_array($inspection->inspectionType->code, ['MDL', 'MDH']))
+    @if (in_array($this->inspectionTypeCode, ['MDL', 'MDH']))
         <x-inspection.show.modified-vehicle-information :inspection="$inspection" />
     @endif
 

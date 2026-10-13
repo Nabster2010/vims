@@ -43,19 +43,11 @@ new #[Title('Inspections')] class extends Component {
     {
         return InspectionType::query()->where('is_active', true)->orderBy('name')->get();
     }
-
-    public function updatedSearch(): void
+    public function updated(string $property): void
     {
-        $this->resetPage();
-    }
-
-    public function updatedStatus(): void
-    {
-        $this->resetPage();
-    }
-    public function updatedInspectionTypeId(): void
-    {
-        $this->resetPage();
+        if (in_array($property, ['search', 'status', 'inspectionTypeId'])) {
+            $this->resetPage();
+        }
     }
 
     public function sortBy(string $column): void
@@ -72,7 +64,7 @@ new #[Title('Inspections')] class extends Component {
 
 ?>
 
-<section class="w-full">
+<x-ui.page>
     <x-inspection.index.toolbar />
     <x-inspection.index.filters />
     @if ($this->inspections->count())
@@ -194,9 +186,12 @@ new #[Title('Inspections')] class extends Component {
             </flux:table.rows>
 
         </flux:table>
-        {{ $this->inspections->links() }}
+
+        <div class="mt-6">
+            {{ $this->inspections->links() }}
+        </div>
     @else
         <x-inspection.index.empty-state />
     @endif
     <x-inspection.index.delete-modal />
-</section>
+</x-ui.page>
