@@ -42,7 +42,7 @@ new #[Title('Edit Inspection')] class extends Component {
             'target_type' => $inspection->target_type,
             'owner_id' => $inspection->owner_id,
         ]);
-        $this->form->inspectionId = $inspection->id;
+        $this->form->inspection_id = $inspection->id;
     }
 
     public function updated(string $property): void

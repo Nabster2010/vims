@@ -104,7 +104,7 @@ new #[Title('Create Inspection')] class extends Component {
 };
 ?>
 
-<section class="w-full">
+<x-ui.page>
     <flux:heading size="xl"> Create Inspection </flux:heading>
 
     <form class="mt-6 space-y-6" wire:submit="createInspection">
@@ -128,4 +128,4 @@ new #[Title('Create Inspection')] class extends Component {
             </flux:button>
         </div>
     </form>
-</section>
+</x-ui.page>

@@ -13,11 +13,13 @@ new #[Title('Customers')] class extends Component {
     #[Url]
     public string $search = '';
     #[Url]
+    public string $status = 'active';
+    #[Url]
     public string $sort = 'name';
     #[Url]
     public string $direction = 'asc';
     #[Url]
-    public string $status = 'active';
+    protected int $perPage = 10;
 
     public ?int $customerToDeleteId = null;
     public bool $showDeleteConfirmation = false;
@@ -31,7 +33,9 @@ new #[Title('Customers')] class extends Component {
 
     public function deleteCustomer(): void
     {
-        Customer::findOrFail($this->customerToDeleteId)->delete();
+        if ($this->customerToDeleteId) {
+            Customer::findOrFail($this->customerToDeleteId)->delete();
+        }
         $this->showDeleteConfirmation = false;
         $this->customerToDeleteId = null;
     }
@@ -39,22 +43,21 @@ new #[Title('Customers')] class extends Component {
     #[Computed]
     public function customers()
     {
-        //this is "Local Query Scope " search() defined in the Customer model
         $query = Customer::search($this->search);
-        if ($this->status === 'archived') {
-            $query->onlyTrashed();
-        }
-        if ($this->status === 'all') {
-            $query->withTrashed();
-        }
 
-        return $query->orderBy($this->sort, $this->direction)->paginate(10);
+        match ($this->status) {
+            'archived' => $query->onlyTrashed(),
+            'all' => $query->withTrashed(),
+            default => null,
+        };
+
+        return $query->orderBy($this->sort, $this->direction)->paginate($this->perPage);
     }
     public function updatedSearch(): void
     {
         $this->resetPage();
     }
-    public function updateStatus(): void
+    public function updatedStatus(): void
     {
         $this->resetPage();
     }
@@ -70,14 +73,16 @@ new #[Title('Customers')] class extends Component {
         $this->resetPage();
     }
 };
+
 ?>
 
-<section class="w-full">
+<x-ui.page>
+
     <div class="flex items-center justify-between">
         <flux:heading size="xl"> Customers </flux:heading>
 
-        <flux:button variant="primary" :href="route('customers.create')" wire:navigate>
-            Create Customer
+        <flux:button variant="primary" icon="plus" :href="route('customers.create')" wire:navigate>
+            New Customer
         </flux:button>
     </div>
 
@@ -87,7 +92,7 @@ new #[Title('Customers')] class extends Component {
         </div>
         <div class="w-40">
             <flux:select wire:model.live="status">
-                <option value=" active">Active</option>
+                <option value="active">Active</option>
                 <option value="archived">Archived</option>
                 <option value="all">All</option>
             </flux:select>
@@ -95,12 +100,9 @@ new #[Title('Customers')] class extends Component {
     </div>
 
     <!-- Total Count -->
-
-    <div class="mt-4 flex items-center justify-between">
-        <flux:text class="text-zinc-500">
-            Showing {{ $this->customers->total() }} customers
-        </flux:text>
-    </div>
+    <flux:text class="text-zinc-500">
+        Showing {{ $this->customers->total() }} customers
+    </flux:text>
 
     @if ($this->customers->count())
         <!-- Table -->
@@ -174,7 +176,7 @@ new #[Title('Customers')] class extends Component {
                         </flux:table.cell>
 
                         <flux:table.cell>
-                            <div class="flex gap-2">
+                            <div class="flex items-center gap-2">
                                 <flux:button size="sm" variant="primary" :href="route('customers.edit', $customer)"
                                     wire:navigate>
                                     Edit
@@ -191,21 +193,15 @@ new #[Title('Customers')] class extends Component {
             </flux:table.rows>
         </flux:table>
     @else
-        <flux:card class="py-12 mt-4">
-            <div class="space-y-4 text-center">
-                <flux:heading> No customers found </flux:heading>
-
-                <flux:text class="text-zinc-500">
-                    Try changing your search or create a new customer.
-                </flux:text>
-
-                <flux:button :href="route('customers.create')" wire:navigate>
-                    Create Customer
-                </flux:button>
-            </div>
-        </flux:card>
+        <x-ui.empty-state title="No customers found" description="Try changing your search or create a new customer.">
+            <flux:button :href="route('customers.create')" wire:navigate>
+                New Customer
+            </flux:button>
+        </x-ui.empty-state>
     @endif
-    {{ $this->customers->links() }}
+    <div class="mt-6">
+        {{ $this->customers->links() }}
+    </div>
     <flux:modal wire:model="showDeleteConfirmation">
         <div class="space-y-6">
             <div>
@@ -216,7 +212,7 @@ new #[Title('Customers')] class extends Component {
                 </flux:text>
             </div>
 
-            <div class="flex justify-end gap-2">
+            <x-ui.form-actions>
                 <flux:button variant="ghost" wire:click="$set('showDeleteConfirmation', false)">
                     Cancel
                 </flux:button>
@@ -224,7 +220,7 @@ new #[Title('Customers')] class extends Component {
                 <flux:button variant="danger" wire:click="deleteCustomer">
                     Delete
                 </flux:button>
-            </div>
+            </x-ui.form-actions>
         </div>
     </flux:modal>
-</section>
+</x-ui.page>

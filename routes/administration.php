@@ -1,0 +1,3 @@
+<?php
+
+// Administration routes

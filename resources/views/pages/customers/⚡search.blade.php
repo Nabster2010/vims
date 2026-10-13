@@ -6,16 +6,16 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 
-new #[Title("Search Customer")] class extends Component {
-    public string $search = "";
-    public ?customer $selectedCustomer = null;
+new #[Title('Search Customer')] class extends Component {
+    public string $search = '';
+    public ?Customer $selectedCustomer = null;
     public bool $showResults = false;
     #[Url]
     public ?int $inspection_type_id = null;
     #[Url]
     public ?int $sales_representative_id = null;
     #[Url]
-    public string $vin = "";
+    public string $vin = '';
     #[Url]
     public ?string $return_to = null;
 
@@ -26,26 +26,23 @@ new #[Title("Search Customer")] class extends Component {
             return collect();
         }
 
-        return Customer::query()
-            ->where(function ($query) {
-                $query
-                    ->where("name", "like", "%{$this->search}%")
-                    ->orWhere("mobile", "like", "%{$this->search}%")
-                    ->orWhere("id_number", "like", "%{$this->search}%");
-            })
-            ->orderBy("name")
+        return Customer::search($this->search)
+
+            ->orderBy('name')
+
             ->limit(10)
+
             ->get();
     }
     public function selectCustomer(Customer $customer)
     {
         return $this->redirectRoute(
-            "inspections.create",
+            'inspections.create',
             [
-                "customer_id" => $customer->id,
-                "inspection_type_id" => $this->inspection_type_id,
-                "sales_representative_id" => $this->sales_representative_id,
-                "vin" => $this->vin,
+                'customer_id' => $customer->id,
+                'inspection_type_id' => $this->inspection_type_id,
+                'sales_representative_id' => $this->sales_representative_id,
+                'vin' => $this->vin,
             ],
             navigate: true,
         );
@@ -59,33 +56,25 @@ new #[Title("Search Customer")] class extends Component {
         <div class="flex items-center justify-between">
             <flux:heading size="xl"> Search Customer </flux:heading>
 
-            <flux:button
-                variant="primary"
+            <flux:button variant="primary"
                 :href="
-                    route('customers.create', [
-        'return_to' => 'inspections.create',
-        'inspection_type_id' => $this->inspection_type_id,
-        'sales_representative_id' => $this->sales_representative_id,
-        'vin' => $this->vin,
-    ])
-                "
-                wire:navigate
-            >
+                                                route('customers.create', [
+                                                    'return_to' => 'inspections.create',
+                                                    'inspection_type_id' => $this->inspection_type_id,
+                                                    'sales_representative_id' => $this->sales_representative_id,
+                                                    'vin' => $this->vin,
+                                                ])
+                                                "
+                wire:navigate>
                 Create Customer
             </flux:button>
         </div>
 
-        <flux:input
-            wire:model.live.debounce.300ms="search"
-            label="Search"
-            placeholder="Name, Mobile or ID Number"
-        />
+        <flux:input wire:model.live.debounce.300ms="search" label="Search" placeholder="Name, Mobile or ID Number" />
         @if ($this->customers->isNotEmpty())
             <flux:card class="mt-6">
                 @foreach ($this->customers as $customer)
-                    <div
-                        class="flex items-center justify-between border-b py-3 last:border-0"
-                    >
+                    <div class="flex items-center justify-between border-b py-3 last:border-0">
                         <div>
                             <div class="font-medium">{{ $customer->name }}</div>
 
@@ -94,15 +83,10 @@ new #[Title("Search Customer")] class extends Component {
                             </div>
                         </div>
 
-                        <flux:button
-                            variant="primary"
-                            size="sm"
-                            wire:click="selectCustomer({{ $customer->id }})"
-                        >
+                        <flux:button variant="primary" size="sm" wire:click="selectCustomer({{ $customer->id }})">
                             Select
                         </flux:button>
                     </div>
-
                 @endforeach
             </flux:card>
 

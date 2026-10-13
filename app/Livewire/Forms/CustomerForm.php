@@ -26,38 +26,26 @@ class CustomerForm extends Form
     #[Validate('required|string|max:255')]
     public string $identity_number = '';
 
-    #[Validate('required|string|max:255')]
+    #[Validate('nullable|string|max:255')]
     public ?string $vat_number = null;
 
-    #[Validate('required|string|max:30')]
+    #[Validate('nullable|string|max:30')]
     public string $mobile = '';
 
-    #[Validate('nullable|email')]
+    #[Validate('nullable|email|max:255')]
     public ?string $email = null;
 
-    #[Validate('nullable|string')]
+    #[Validate('nullable|string|max:1000')]
     public ?string $address = null;
 
-    #[Validate('nullable|string')]
+    #[Validate('nullable|string|max:1000')]
     public ?string $notes = null;
 
 
-    // protected function rules(): array
-    // {
-    //     return [
-    //         'customer_type'   => ['required'],
-    //         'identity_type'   => ['required'],
-    //         'name'            => ['required', 'string', 'max:255'],
-    //         'identity_number' => ['required', 'string', 'max:255'],
-    //         'vat_number'      => ['nullable', 'string', 'max:255'],
-    //         'mobile'          => ['required', 'string', 'max:30'],
-    //         'email'           => ['nullable', 'email'],
-    //         'address'         => ['nullable', 'string'],
-    //         'notes'           => ['nullable', 'string'],
-    //     ];
-    // }
-
-    public function setCustomer(Customer $customer): void
+    /**
+     * Populate the form from an existing customer.
+     */
+    public function fillFromModel(Customer $customer): void
     {
         $this->fill([
             'customer_type' => $customer->customer_type,
@@ -70,9 +58,5 @@ class CustomerForm extends Form
             'address' => $customer->address,
             'notes' => $customer->notes,
         ]);
-    }
-    public function data(): array
-    {
-        return $this->all();
     }
 }

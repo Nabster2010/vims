@@ -27,7 +27,7 @@ class InspectionForm extends Form
 
     public ?float $payment_amount = null;
 
-    public ?int $inspectionId = null;
+    public ?int $inspection_id = null;
 
     /*
 
@@ -85,7 +85,7 @@ class InspectionForm extends Form
                 'required',
                 'string',
                 'size:17',
-                Rule::unique('inspections', 'vin')->ignore($this->inspectionId),
+                Rule::unique('inspections', 'vin')->ignore($this->inspection_id),
             ],
             'payment_type' => ['required'],
             'payment_amount' => ['required', 'numeric', 'min:0'],

@@ -7,8 +7,7 @@ use App\Models\Customer;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title("Edit Customer")] class extends Component {
-    //route model binding will automatically inject the customer model instance into this component
+new #[Title('Edit Customer')] class extends Component {
     public Customer $customer;
 
     public CustomerForm $form;
@@ -17,15 +16,14 @@ new #[Title("Edit Customer")] class extends Component {
     {
         $this->customer = $customer;
 
-        $this->form->setCustomer($customer);
+        $this->form->fillFromModel($customer);
     }
 
-    public function save(): void
+    public function save()
     {
         $data = $this->form->validate();
-        // Update the customer with the validated data and redirect to the customers index page
         $this->customer->update($data);
-        $this->redirectRoute("customers.index", navigate: true);
+        return $this->redirectRoute('customers.index', navigate: true);
     }
 };
 ?>
@@ -36,47 +34,30 @@ new #[Title("Edit Customer")] class extends Component {
     <form class="mt-6 space-y-6" wire:submit="save">
         <flux:card class="space-y-6">
             <flux:heading> Customer Information </flux:heading>
-            <flux:select
-                wire:model.live="form.customer_type"
-                label="Customer Type"
-            >
+            <flux:select wire:model.live="form.customer_type" label="Customer Type">
                 @foreach (CustomerType::cases() as $type)
                     <option value="{{ $type->value }}">
                         {{ $type->name }}
                     </option>
                 @endforeach
             </flux:select>
-            <flux:select
-                wire:model.live="form.identity_type"
-                label="Identity Type"
-            >
+            <flux:select wire:model.live="form.identity_type" label="Identity Type">
                 @foreach (IdentityType::cases() as $type)
                     <option value="{{ $type->value }}">
                         {{ $type->name }}
                     </option>
                 @endforeach
             </flux:select>
-            <flux:input
-                wire:model.live="form.identity_number"
-                label="Identity Number"
-            />
+            <flux:input wire:model.live="form.identity_number" label="Identity Number" />
             <flux:input wire:model.live="form.name" label="CustomerName" />
         </flux:card>
         <flux:card class="space-y-6">
             <flux:heading> Contact Information </flux:heading>
 
             <flux:input wire:model.live="form.mobile" label="Mobile" />
-            <flux:input
-                wire:model.live="form.email"
-                type="email"
-                label="Email"
-            />
+            <flux:input wire:model.live="form.email" type="email" label="Email" />
 
-            <flux:textarea
-                wire:model.live="form.address"
-                label="Address"
-                rows="3"
-            />
+            <flux:textarea wire:model.live="form.address" label="Address" rows="3" />
         </flux:card>
         <flux:card class="space-y-6">
             <flux:heading> Business Information </flux:heading>
@@ -86,18 +67,10 @@ new #[Title("Edit Customer")] class extends Component {
         <flux:card class="space-y-6">
             <flux:heading> Additional Information </flux:heading>
 
-            <flux:textarea
-                wire:model.live="form.notes"
-                label="Notes"
-                rows="4"
-            />
+            <flux:textarea wire:model.live="form.notes" label="Notes" rows="4" />
         </flux:card>
         <div class="flex justify-end gap-3">
-            <flux:button
-                variant="ghost"
-                :href="route('customers.index')"
-                wire:navigate
-            >
+            <flux:button variant="ghost" :href="route('customers.index')" wire:navigate>
                 Cancel
             </flux:button>
 

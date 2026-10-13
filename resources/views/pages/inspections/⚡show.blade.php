@@ -62,4 +62,12 @@ new #[Title('Inspection Details')] class extends Component {
         <x-inspection.show.modified-vehicle-information :inspection="$inspection" />
     @endif
 
+    {{-- section for inspections links --}}
+    <flux:card class=" space-y-6">
+        {{-- link to inspections/{id}/vehicle-information --}}
+        <flux:button variant="primary" :href="route('inspections.vehicle-information.edit', $inspection)" wire:navigate>
+            Vehicle Information
+        </flux:button>
+    </flux:card>
+
 </section>
