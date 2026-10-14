@@ -77,8 +77,13 @@ new #[Title('Inspection Details')] class extends Component {
         <flux:button variant="primary" :href="route('inspections.emission-inspection.edit', $inspection)" wire:navigate>
             Emission Inspection
         </flux:button>
-        <flux:button variant="primary" :href="route('inspections.head-light.edit', $inspection)" wire:navigate>
+        <flux:button variant="primary" :href="route('inspections.head-light-inspection.edit', $inspection)"
+            wire:navigate>
             Head Light Inspection
+        </flux:button>
+        <flux:button variant="primary" :href="route('inspections.side-slip-inspection.edit', $inspection)"
+            wire:navigate>
+            Side Slip Inspection
         </flux:button>
     </flux:card>
 

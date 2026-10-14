@@ -8,6 +8,7 @@ use App\Models\Inspection;
 use App\Services\HeadlightInspectionCalculator;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
+use Illuminate\Support\Facades\Auth;
 
 class HeadLightInspectionForm extends Form
 {
@@ -70,8 +71,8 @@ class HeadLightInspectionForm extends Form
             );
         $data = $this->data();
         $data['result'] = $result;
-        $data['inspected_by'] = auth()->id();
-        $inspection->headlightInspection()->updateOrCreate(
+        $data['inspected_by'] = Auth::id();
+        $inspection->headLightInspection()->updateOrCreate(
             [],
             $data,
         );

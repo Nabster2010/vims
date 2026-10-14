@@ -27,7 +27,11 @@ Route::prefix('inspections')
             'pages::inspections.emission-inspection.edit'
         )->name('emission-inspection.edit');
         Route::livewire(
-            '/{inspection}/head-light',
-            'pages::inspections.head-light.edit'
-        )->name('head-light.edit');
+            '/{inspection}/head-light-inspection',
+            'pages::inspections.head-light-inspection.edit'
+        )->name('head-light-inspection.edit');
+        Route::livewire(
+            '/{inspection}/side-slip-inspection',
+            'pages::inspections.side-slip-inspection.edit'
+        )->name('side-slip-inspection.edit');
     });

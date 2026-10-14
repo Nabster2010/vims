@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Livewire\Forms;
+
+
+use App\Enums\InspectionResult;
+use App\Models\Inspection;
+use App\Services\SideSlipInspectionCalculator;
+use Illuminate\Validation\Rules\Enum;
+use Livewire\Form;
+use Illuminate\Support\Facades\Auth;
+
+class SideSlipInspectionForm extends Form
+{
+
+    public ?float $value = null;
+
+    public ?InspectionResult $result = null;
+
+    public ?string $remarks = null;
+
+    /**
+     * Load inspection data
+     */
+    public function fillFromInspection(Inspection $inspection): void
+    {
+        $sideSlip = $inspection->sideSlipInspection;
+        if (! $sideSlip) {
+            return;
+        }
+        $this->fill(
+            [
+                'value' => $sideSlip->value,
+                'result' => $sideSlip->result,
+                'remarks' => $sideSlip->remarks,
+            ]
+        );
+    }
+
+
+    public function rules(): array
+    {
+        return [
+            'value' => ['required', 'numeric'],
+            'result' => ['nullable', new Enum(InspectionResult::class)],
+            'remarks' => ['nullable', 'string'],
+        ];
+    }
+
+    public function data(): array
+    {
+        return [
+            'value' => $this->value,
+            'result' => $this->result,
+            'remarks' => $this->remarks,
+        ];
+    }
+
+    public function save(Inspection $inspection): void
+    {
+        $this->validate();
+        $result =
+            app(SideSlipInspectionCalculator::class)
+            ->calculate(
+                $this->data(),
+            );
+        $data = $this->data();
+        $data['result'] = $result;
+        $data['inspected_by'] = Auth::id();
+        $inspection->sideSlipInspection()->updateOrCreate(
+            [],
+            $data,
+        );
+    }
+}

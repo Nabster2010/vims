@@ -11,7 +11,7 @@ class HeadLightInspectionCalculator
     ): ?InspectionResult {
 
 
-        $limits = config("test-limits.headlight");
+        $limits = config("test-limits.headLight");
 
         foreach ($limits as $field => $limit) {
 

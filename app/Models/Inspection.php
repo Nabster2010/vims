@@ -180,6 +180,10 @@ class Inspection extends Model
     {
         return $this->hasOne(HeadLightInspection::class);
     }
+    public function sideSlipInspection(): HasOne
+    {
+        return $this->hasOne(SideSlipInspection::class);
+    }
 
     public function scopeSearch(Builder $query, ?string $search): Builder
     {

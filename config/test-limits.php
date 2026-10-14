@@ -31,7 +31,7 @@ return [
             ]
         ],
     ],
-    'headlight' => [
+    'headLight' => [
         'left' => [
             'min' => 0,
             'max' => 250,
@@ -44,7 +44,7 @@ return [
         ]
 
     ],
-    'side_slip' => [
+    'sideSlip' => [
         'value' => [
             'min' => 0,
             'max' => 7,

@@ -13,6 +13,7 @@ use App\Enums\MotorcycleUse;
 use App\Enums\VehicleCondition;
 use App\Models\Inspection;
 use App\Models\VehicleInformation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
 
@@ -186,8 +187,8 @@ class VehicleInformationForm extends Form
                 $rules += [
                     'body_type' => ['required', new Enum(BodyType::class)],
                     'vehicle_condition' => ['required', new Enum(VehicleCondition::class)],
-                    'number_of_cylinders' => ['required', 'integer'],
-                    'engine_displacement' => ['required', 'integer'],
+                    'number_of_cylinders' => ['nullable', 'integer'],
+                    'engine_displacement' => ['nullable', 'integer'],
                     'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
                     'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
                 ];
@@ -430,7 +431,7 @@ class VehicleInformationForm extends Form
             array_merge(
                 $this->all(),
                 [
-                    'inspected_by' => auth()->id(),
+                    'inspected_by' => Auth::id(),
                 ]
             )
 

@@ -60,13 +60,14 @@ new class extends Component {
 
             </flux:card>
         @endif
-        @if ($this->calculatedResult)
-            <flux:badge icon="{{ $this->calculatedResult->icon() }}" color="{{ $this->calculatedResult->color() }}">
-                {{ $this->calculatedResult->label() }}
-            </flux:badge>
-        @endif
+
 
         @if ($this->inspection->vehicleInformation)
+            @if ($this->calculatedResult)
+                <flux:badge icon="{{ $this->calculatedResult->icon() }}" color="{{ $this->calculatedResult->color() }}">
+                    {{ $this->calculatedResult->label() }}
+                </flux:badge>
+            @endif
             <flux:textarea wire:model.live="form.remarks" label="Remarks" />
         @endif
         <div class="flex justify-end">
