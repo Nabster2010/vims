@@ -143,7 +143,7 @@ class VehicleInformationForm extends Form
     /**
      * Load inspection data
      */
-    public function load(Inspection $inspection): void
+    public function fillFromInspection(Inspection $inspection): void
     {
         //load relations
         $inspection->loadMissing('inspectionType', 'vehicleInformation');
@@ -152,17 +152,17 @@ class VehicleInformationForm extends Form
         if (! $vehicle) {
             return;
         }
-        $vehicle = $inspection->vehicleInformation;
 
         foreach ($vehicle->getAttributes() as $attribute => $value) {
             $this->{$attribute} = $vehicle->{$attribute};
-
-            if ($attribute === 'inspection_date') {
-                $this->inspection_date = $vehicle->inspection_date?->format('Y-m-d');
-            }
         }
+        $this->inspection_date = $vehicle->inspection_date?->format('Y-m-d');
     }
 
+    public function data(): array
+    {
+        return $this->all();
+    }
     /**
      * Validation Rules
      */
@@ -173,6 +173,7 @@ class VehicleInformationForm extends Form
             'manufacturer_id' => ['required', 'exists:manufacturers,id'],
             'model_type_id' => ['required', 'exists:model_types,id'],
             'model_year' => ['required', 'integer'],
+            'color_id' => ['required', 'exists:colors,id'],
             'fuel_type' => ['required', new Enum(FuelType::class)],
             'gearbox_type' => ['required', new Enum(GearboxType::class)],
             'origin_country_id' => ['required', 'exists:countries,id'],
@@ -183,7 +184,6 @@ class VehicleInformationForm extends Form
         switch ($this->inspectionTypeCode) {
             case 'IMP':
                 $rules += [
-                    'color_id' => ['required', 'exists:colors,id'],
                     'body_type' => ['required', new Enum(BodyType::class)],
                     'vehicle_condition' => ['required', new Enum(VehicleCondition::class)],
                     'number_of_cylinders' => ['required', 'integer'],
@@ -352,7 +352,7 @@ class VehicleInformationForm extends Form
                 break;
             case 'MTC':
                 $rules += [
-                    'motorcycle_use' => ['required', MotorcycleUse::class],
+                    'motorcycle_use' => ['required', new Enum(MotorcycleUse::class)],
                     'maximum_speed' => ['required', 'integer'],
                     'model_division' => ['nullable', 'string', 'max:255'],
                     'manufacturing_year' => ['required', 'integer'],
@@ -385,7 +385,6 @@ class VehicleInformationForm extends Form
                     'number_of_cylinders' => ['required', 'integer', 'min:1'],
                     'engine_displacement' => ['required', 'integer', 'min:1'],
                     'body_type' => ['required', new Enum(BodyType::class)],
-                    'color_id' => ['required', 'exists:colors,id'],
                     'gross_weight' => ['required', 'integer', 'min:1'],
                     'width' => ['required', 'integer', 'min:1'],
                     'height' => ['required', 'integer', 'min:1'],
@@ -404,7 +403,6 @@ class VehicleInformationForm extends Form
                     'number_of_cylinders' => ['required', 'integer', 'min:1'],
                     'engine_displacement' => ['required', 'integer', 'min:1'],
                     'body_type' => ['required', new Enum(BodyType::class)],
-                    'color_id' => ['required', 'exists:colors,id'],
                     'gross_weight' => ['required', 'integer', 'min:1'],
                     'width' => ['required', 'integer', 'min:1'],
                     'height' => ['required', 'integer', 'min:1'],
@@ -423,11 +421,23 @@ class VehicleInformationForm extends Form
      */
     public function save(Inspection $inspection): VehicleInformation
     {
+
         $this->inspectionTypeCode = $inspection->inspectionType->code;
         $this->validate();
-        return $inspection->vehicleInformation()->updateOrCreate(
+        $old_fuel_type = $inspection->vehicleInformation?->fuel_type;
+        $vehicle = $inspection->vehicleInformation()->updateOrCreate(
             [],
-            $this->all(),
+            array_merge(
+                $this->all(),
+                [
+                    'inspected_by' => auth()->id(),
+                ]
+            )
+
         );
+        if ($old_fuel_type !== $this->fuel_type) {
+            $inspection->resetEmissionInspection();
+        }
+        return $vehicle;
     }
 }

@@ -2,24 +2,14 @@
     <flux:heading size="lg">Imported Vehicle</flux:heading>
 
     <div class="grid gap-4 md:grid-cols-2">
-        <flux:input wire:model.live="form.request_no" label="Request No" />
+        <flux:input wire:model.live.debounce.500ms="form.request_no" label="Request No" />
 
-        <flux:input
-            wire:model.live="form.request_date"
-            type="date"
-            label="Request Date"
-        />
+        <flux:input wire:model.live.debounce.500ms="form.request_date" type="date" label="Request Date" />
 
-        <flux:input
-            wire:model.live="form.custom_declaration_no"
-            label="Custom Declaration No"
-        />
+        <flux:input wire:model.live.debounce.500ms="form.custom_declaration_no" label="Custom Declaration No" />
 
-        <flux:input
-            wire:model.live="form.custom_declaration_date"
-            type="date"
-            label="Custom Declaration Date"
-        />
+        <flux:input wire:model.live.debounce.500ms="form.custom_declaration_date" type="date"
+            label="Custom Declaration Date" />
 
         <flux:select wire:model.live="form.custom_port_id" label="Custom Port">
             <option value="">Select Custom Port</option>

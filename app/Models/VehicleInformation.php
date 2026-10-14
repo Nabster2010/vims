@@ -77,6 +77,7 @@ class VehicleInformation extends Model
         'vehicle_age_compliance',
         'is_vehicle_rare',
         'remarks',
+        'inspected_by',
     ];
 
     protected function casts(): array
@@ -132,5 +133,11 @@ class VehicleInformation extends Model
     public function shipmentCountry(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'shipment_country_id');
+    }
+    public function inspector(): BelongsTo
+
+    {
+
+        return $this->belongsTo(User::class, 'inspected_by');
     }
 }

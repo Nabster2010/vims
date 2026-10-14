@@ -22,61 +22,69 @@ new class extends Component {
 
     public function mount(Inspection $inspection): void
     {
-        $this->inspection = $inspection;
-        $this->form->load($inspection);
+        $this->inspection = $inspection->loadMissing('inspectionType');
+
+        $this->form->fillFromInspection($inspection);
     }
     #[Computed]
-    public function getManufacturersProperty()
+    public function manufacturers()
     {
         return Manufacturer::active()->orderBy('name')->get();
     }
 
     #[Computed]
-    public function getModelTypesProperty()
+    public function modelTypes()
     {
         return ModelType::active()->when($this->form->manufacturer_id, fn($query) => $query->where('manufacturer_id', $this->form->manufacturer_id))->orderBy('name')->get();
     }
 
     #[Computed]
-    public function getColorsProperty()
+    public function colors()
     {
         return Color::active()->orderBy('name')->get();
     }
     #[Computed]
-    public function getCountriesProperty()
+    public function countries()
     {
         return Country::orderBy('name')->get();
     }
-    public function getFuelTypesProperty(): array
+    #[Computed]
+    public function fuelTypes()
     {
         return FuelType::cases();
     }
 
-    public function getGearboxTypesProperty(): array
+    #[Computed]
+    public function gearboxTypes()
     {
         return GearboxType::cases();
     }
 
-    public function getDriveLinesProperty(): array
+    #[Computed]
+    public function driveLines(): array
     {
         return DriveLine::cases();
     }
 
-    public function getBodyTypesProperty(): array
+    #[Computed]
+    public function bodyTypes(): array
     {
         return BodyType::cases();
     }
-    public function getMotorcycleUsesProperty(): array
+    #[Computed]
+    public function motorcycleUses(): array
     {
         return MotorcycleUse::cases();
     }
 
-    public function getAirIntakesProperty(): array
+    #[Computed]
+    public function airIntakes(): array
     {
         return AirIntake::cases();
     }
 
-    public function getVehicleConditionsProperty(): array
+    #[Computed]
+    public function vehicleConditions(): array
     {
         return VehicleCondition::cases();
     }
@@ -91,11 +99,12 @@ new class extends Component {
         $this->form->save($this->inspection);
 
         session()->flash('success', 'Vehicle information saved successfully.');
+        $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
 };
 ?>
 <section class="w-full">
-    <flux:heading size="xl"> Inspection {{ $this->inspection->id }} vehicle information </flux:heading>
+    <flux:heading size="xl"> Inspection {{ $this->inspection->inspection_no }} vehicle information </flux:heading>
     <form class="mt-6 space-y-6" wire:submit="save">
         <x-inspection.vehicle-information.common-vehicle-information />
         @if ($this->inspection->inspectionType->code === 'IMP')

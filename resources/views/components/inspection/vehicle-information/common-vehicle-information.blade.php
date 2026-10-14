@@ -2,7 +2,7 @@
     <flux:heading size="xl">
         Common Vehicle Information
     </flux:heading>
-    <flux:input wire:model.live="form.inspection_date" label="Inspection Date" type="date" />
+    <flux:input wire:model.blur="form.inspection_date" label="Inspection Date" type="date" />
     <flux:select wire:model.live="form.manufacturer_id" label="Manufacturer">
         <option value="">Select Manufacturer</option>
         @foreach ($this->manufacturers as $manufacturer)
@@ -19,7 +19,15 @@
             </option>
         @endforeach
     </flux:select>
-    <flux:input wire:model.live="form.model_year" type="number" label="Model Year" />
+    <flux:select wire:model.live="form.color_id" label="Color">
+        <option value="">Select Color</option>
+        @foreach ($this->colors as $color)
+            <option value="{{ $color->id }}">
+                {{ $color->name }}
+            </option>
+        @endforeach
+    </flux:select>
+    <flux:input wire:model.live="form.model_year" type="text" label="Model Year" />
     <flux:select wire:model.live="form.fuel_type" label="Fuel Type">
         <option value="">Select Fuel Type</option>
         @foreach ($this->fuelTypes as $fuelType)
@@ -47,7 +55,7 @@
         @endforeach
     </flux:select>
 
-    <flux:input wire:model.live="form.mileage" label="Mileage" />
-    <flux:input wire:model.live="form.number_of_seats" type="number" label="Number Of Seats" />
+    <flux:input wire:model.blur="form.mileage" type="text" label="Mileage" />
+    <flux:input wire:model.blur="form.number_of_seats" type="text" label="Number Of Seats" />
 
 </flux:card>

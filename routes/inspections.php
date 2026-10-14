@@ -22,4 +22,12 @@ Route::prefix('inspections')
             '/{inspection}/vehicle-information',
             'pages::inspections.vehicle-information.edit'
         )->name('vehicle-information.edit');
+        Route::livewire(
+            '/{inspection}/emission-inspection',
+            'pages::inspections.emission-inspection.edit'
+        )->name('emission-inspection.edit');
+        Route::livewire(
+            '/{inspection}/head-light',
+            'pages::inspections.head-light.edit'
+        )->name('head-light.edit');
     });

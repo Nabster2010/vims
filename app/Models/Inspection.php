@@ -51,6 +51,54 @@ class Inspection extends Model
         'remarks',
     ];
 
+    //reset vehicle information for a specific inspection when update inspection type keep common fields
+    public function resetVehicleInformation(): void
+    {
+        $vehicle = $this->vehicleInformation;
+
+        if (! $vehicle) {
+            return;
+        }
+        $keep = [
+            'inspection_date',
+            'manufacturer_id',
+            'model_type_id',
+            'model_year',
+            'fuel_type',
+            'gearbox_type',
+            'origin_country_id',
+            'number_of_seats',
+            'mileage',
+            'remarks',
+        ];
+        $data = [];
+        foreach ($vehicle->getFillable() as $field) {
+            if (! in_array($field, $keep)) {
+                $data[$field] = null;
+            }
+        }
+        $vehicle->update($data);
+    }
+    public function resetEmissionInspection(): void
+    {
+        $this->emissionInspection()->delete();
+    }
+
+
+
+    protected static function booted(): void
+    {
+        static::updated(function (Inspection $inspection) {
+
+            if (
+                $inspection->getOriginal('inspection_type_id') !==
+                $inspection->inspection_type_id
+            ) {
+                $inspection->resetVehicleInformation();
+            }
+        });
+    }
+
     protected function casts(): array
     {
         return [
@@ -123,6 +171,14 @@ class Inspection extends Model
     public function vehicleInformation(): HasOne
     {
         return $this->hasOne(VehicleInformation::class);
+    }
+    public function emissionInspection(): HasOne
+    {
+        return $this->hasOne(EmissionInspection::class);
+    }
+    public function headLightInspection(): HasOne
+    {
+        return $this->hasOne(HeadLightInspection::class);
     }
 
     public function scopeSearch(Builder $query, ?string $search): Builder

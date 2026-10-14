@@ -4,15 +4,6 @@
         Imported Vehicle
     </flux:heading>
 
-    <flux:select wire:model.live="form.color_id" label="Color">
-        <option value="">Select Color</option>
-        @foreach ($this->colors as $color)
-            <option value="{{ $color->id }}">
-                {{ $color->name }}
-            </option>
-        @endforeach
-    </flux:select>
-
     <flux:select wire:model.live="form.body_type" label="Body Type">
         <option value="">Select Body Type</option>
 
@@ -33,8 +24,8 @@
             </option>
         @endforeach
     </flux:select>
-    <flux:input wire:model.live="form.number_of_cylinders" type="number" label="Number Of Cylinders" />
-    <flux:input wire:model.live="form.engine_displacement" type="number" label="Engine Displacement" />
+    <flux:input wire:model.blur="form.number_of_cylinders" type="text" label="Number Of Cylinders" />
+    <flux:input wire:model.blur="form.engine_displacement" type="text" label="Engine Displacement" />
     <flux:select wire:model.live="form.energy_efficiency_compliance" label="Energy Efficiency Compliance">
         <option value="">Select</option>
 

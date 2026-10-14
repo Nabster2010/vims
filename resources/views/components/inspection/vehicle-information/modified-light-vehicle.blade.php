@@ -10,8 +10,8 @@
 
 
         <flux:input wire:model.live="form.engine_no" label="Engine No" />
-        <flux:input wire:model.live="form.number_of_cylinders" type="number" label="Number Of Cylinders" />
-        <flux:input wire:model.live="form.engine_displacement" type="number" label="Engine Displacement" />
+        <flux:input wire:model.live="form.number_of_cylinders" type="text" label="Number Of Cylinders" />
+        <flux:input wire:model.live="form.engine_displacement" type="text" label="Engine Displacement" />
         <flux:select wire:model.live="form.body_type" label="Body Type">
             <option value="">Select Body Type</option>
 
@@ -21,18 +21,10 @@
                 </option>
             @endforeach
         </flux:select>
-        <flux:select wire:model.live="form.color_id" label="Color">
-            <option value="">Select Color</option>
-            @foreach ($this->colors as $color)
-                <option value="{{ $color->id }}">
-                    {{ $color->name }}
-                </option>
-            @endforeach
-        </flux:select>
-        <flux:input wire:model.live="form.gross_weight" type="number" label="Gross Weight" />
-        <flux:input wire:model.live="form.width" type="number" label="Width" />
-        <flux:input wire:model.live="form.height" type="number" label="Height" />
-        <flux:input wire:model.live="form.length" type="number" label="Length" />
+        <flux:input wire:model.blur="form.gross_weight" type="text" label="Gross Weight" />
+        <flux:input wire:model.blur="form.width" type="text" label="Width" />
+        <flux:input wire:model.blur="form.height" type="text" label="Height" />
+        <flux:input wire:model.blur="form.length" type="text" label="Length" />
 
     </div>
 

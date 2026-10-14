@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Livewire\Forms;
+
+
+use App\Enums\InspectionResult;
+use App\Models\Inspection;
+use App\Services\HeadlightInspectionCalculator;
+use Illuminate\Validation\Rules\Enum;
+use Livewire\Form;
+
+class HeadLightInspectionForm extends Form
+{
+
+    public ?float $left = null;
+
+    public ?float $right = null;
+
+    public ?InspectionResult $result = null;
+
+    public ?string $remarks = null;
+
+    /**
+     * Load inspection data
+     */
+    public function fillFromInspection(Inspection $inspection): void
+    {
+        $headlight = $inspection->headlightInspection;
+        if (! $headlight) {
+            return;
+        }
+        $this->fill(
+            [
+                'left' => $headlight->left,
+                'right' => $headlight->right,
+                'result' => $headlight->result,
+                'remarks' => $headlight->remarks,
+            ]
+        );
+    }
+
+
+    public function rules(): array
+    {
+        return [
+            'left' => ['required', 'numeric'],
+            'right' => ['required', 'numeric'],
+            'result' => ['nullable', new Enum(InspectionResult::class)],
+            'remarks' => ['nullable', 'string'],
+        ];
+    }
+
+    public function data(): array
+    {
+        return [
+            'left' => $this->left,
+            'right' => $this->right,
+            'result' => $this->result,
+            'remarks' => $this->remarks,
+        ];
+    }
+
+    public function save(Inspection $inspection): void
+    {
+        $this->validate();
+        $result =
+            app(HeadlightInspectionCalculator::class)
+            ->calculate(
+                $this->data(),
+            );
+        $data = $this->data();
+        $data['result'] = $result;
+        $data['inspected_by'] = auth()->id();
+        $inspection->headlightInspection()->updateOrCreate(
+            [],
+            $data,
+        );
+    }
+}

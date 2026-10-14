@@ -6,8 +6,8 @@
 
           <flux:input wire:model.live="form.model_division" label="Model Division" />
 
-          <flux:input wire:model.live="form.manufacturing_year" type="number" label="Manufacturing Year" />
-          <flux:input wire:model.live="form.number_of_doors" type="number" label="Number Of Doors" />
+          <flux:input wire:model.live="form.manufacturing_year" type="text" label="Manufacturing Year" />
+          <flux:input wire:model.live="form.number_of_doors" type="text" label="Number Of Doors" />
           <flux:select wire:model.live="form.shipment_country_id" label="Shipment Country">
               <option value="">Select Country</option>
 
@@ -59,24 +59,24 @@
 
           <flux:input wire:model.live="form.engine_power" label="Engine Power" />
           <flux:input wire:model.live="form.number_of_cylinders" label="Number Of Cylinders" />
-          <flux:input wire:model.live="form.number_of_axles" type="number" label="Number Of Axles" />
-          <flux:input wire:model.live="form.front_axle_weight" type="number" label="Front Axle Weight" />
-          <flux:input wire:model.live="form.rear_axle_weight" type="number" label="Rear Axle Weight" />
-          <flux:input wire:model.live="form.front_track_width" type="number" label="Front Track Width" />
-          <flux:input wire:model.live="form.rear_track_width" type="number" label="Rear Track Width" />
+          <flux:input wire:model.live="form.number_of_axles" type="text" label="Number Of Axles" />
+          <flux:input wire:model.live="form.front_axle_weight" type="text" label="Front Axle Weight" />
+          <flux:input wire:model.live="form.rear_axle_weight" type="text" label="Rear Axle Weight" />
+          <flux:input wire:model.live="form.front_track_width" type="text" label="Front Track Width" />
+          <flux:input wire:model.live="form.rear_track_width" type="text" label="Rear Track Width" />
 
-          <flux:input wire:model.live="form.gross_weight" type="number" label="Gross Weight" />
-          <flux:input wire:model.live="form.curb_weight" type="number" label="Curb Weight" />
-          <flux:input wire:model.live="form.load_weight" type="number" label="Load Weight" />
+          <flux:input wire:model.live="form.gross_weight" type="text" label="Gross Weight" />
+          <flux:input wire:model.live="form.curb_weight" type="text" label="Curb Weight" />
+          <flux:input wire:model.live="form.load_weight" type="text" label="Load Weight" />
 
 
-          <flux:input wire:model.live="form.wheelbase" type="number" label="Wheelbase" />
+          <flux:input wire:model.live="form.wheelbase" type="text" label="Wheelbase" />
 
-          <flux:input wire:model.live="form.width" type="number" label="Width" />
+          <flux:input wire:model.live="form.width" type="text" label="Width" />
 
-          <flux:input wire:model.live="form.height" type="number" label="Height" />
+          <flux:input wire:model.live="form.height" type="text" label="Height" />
 
-          <flux:input wire:model.live="form.length" type="number" label="Length" />
+          <flux:input wire:model.live="form.length" type="text" label="Length" />
 
           <flux:input wire:model.live="form.service_brake" label="Service Brake" />
           <flux:input wire:model.live="form.emergency_brake" label="Emergency Brake" />
@@ -89,17 +89,17 @@
 
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
-              <flux:input wire:model.live="form.electric_motor_power" type="number" label="Electric Motor Power" />
+              <flux:input wire:model.live="form.electric_motor_power" type="text" label="Electric Motor Power" />
 
               <flux:input wire:model.live="form.battery_type" label="Battery Type" />
 
-              <flux:input wire:model.live="form.battery_capacity" type="number" label="Battery Capacity" />
+              <flux:input wire:model.live="form.battery_capacity" type="text" label="Battery Capacity" />
 
-              <flux:input wire:model.live="form.battery_voltage" type="number" label="Battery Voltage" />
+              <flux:input wire:model.live="form.battery_voltage" type="text" label="Battery Voltage" />
 
-              <flux:input wire:model.live="form.battery_charge_time" type="number" label="Battery Charge Time" />
+              <flux:input wire:model.live="form.battery_charge_time" type="text" label="Battery Charge Time" />
 
-              <flux:input wire:model.live="form.electric_consumption" type="number" label="Electric Consumption" />
+              <flux:input wire:model.live="form.electric_consumption" type="text" label="Electric Consumption" />
 
           </div>
 
@@ -109,7 +109,7 @@
           </flux:heading>
 
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-
+              <flux:input wire:model.live="form.fuel_economy" type="text" label="Fuel Economy" />
               <flux:select wire:model.live="form.energy_efficiency_compliance" label="Energy Efficiency Compliance">
                   <option value="">Select</option>
 

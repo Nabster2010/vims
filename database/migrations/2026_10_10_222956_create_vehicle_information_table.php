@@ -142,7 +142,10 @@ return new class extends Migration
             $table->string('vehicle_age_compliance')->nullable();
             $table->string('is_vehicle_rare')->nullable();
             $table->text('remarks')->nullable();
-
+            $table->foreignId('inspected_by')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
             $table->timestamps();
         });
     }

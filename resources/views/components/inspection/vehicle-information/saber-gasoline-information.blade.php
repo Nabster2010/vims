@@ -4,9 +4,9 @@
           </flux:heading>
 
 
-          <flux:input wire:model.live="form.manufacturing_year" type="number" label="Manufacturing Year" />
-          <flux:input wire:model.live="form.number_of_seats" type="number" label="Number Of Seats" />
-          <flux:input wire:model.live="form.number_of_doors" type="number" label="Number Of Doors" />
+          <flux:input wire:model.live="form.manufacturing_year" type="text" label="Manufacturing Year" />
+          <flux:input wire:model.live="form.number_of_seats" type="text" label="Number Of Seats" />
+          <flux:input wire:model.live="form.number_of_doors" type="text" label="Number Of Doors" />
           <flux:select wire:model.live="form.shipment_country_id" label="Shipment Country">
               <option value="">Select Country</option>
 
@@ -55,27 +55,28 @@
                   </option>
               @endforeach
           </flux:select>
-          <flux:input wire:model.live="form.engine_displacement" label="Engine Displacement" />
-          <flux:input wire:model.live="form.engine_power" label="Engine Power" />
-          <flux:input wire:model.live="form.number_of_cylinders" label="Number Of Cylinders" />
-          <flux:input wire:model.live="form.number_of_axles" type="number" label="Number Of Axles" />
-          <flux:input wire:model.live="form.front_axle_weight" type="number" label="Front Axle Weight" />
-          <flux:input wire:model.live="form.rear_axle_weight" type="number" label="Rear Axle Weight" />
-          <flux:input wire:model.live="form.front_track_width" type="number" label="Front Track Width" />
-          <flux:input wire:model.live="form.rear_track_width" type="number" label="Rear Track Width" />
-          <flux:input wire:model.live="form.gross_weight" type="number" label="Gross Weight" />
-          <flux:input wire:model.live="form.curb_weight" type="number" label="Curb Weight" />
-          <flux:input wire:model.live="form.load_weight" type="number" label="Load Weight" />
-          <flux:input wire:model.live="form.wheelbase" type="number" label="Wheelbase" />
-          <flux:input wire:model.live="form.width" type="number" label="Width" />
-          <flux:input wire:model.live="form.height" type="number" label="Height" />
-          <flux:input wire:model.live="form.length" type="number" label="Length" />
-          <flux:input wire:model.live="form.service_brake" label="Service Brake" />
-          <flux:input wire:model.live="form.emergency_brake" label="Emergency Brake" />
+          <flux:input wire:model.blur="form.engine_displacement" label="Engine Displacement" />
+          <flux:input wire:model.blur="form.engine_power" label="Engine Power" />
+          <flux:input wire:model.blur="form.number_of_cylinders" label="Number Of Cylinders" />
+          <flux:input wire:model.blur="form.number_of_axles" type="text" label="Number Of Axles" />
+          <flux:input wire:model.blur="form.front_axle_weight" type="text" label="Front Axle Weight" />
+          <flux:input wire:model.blur="form.rear_axle_weight" type="text" label="Rear Axle Weight" />
+          <flux:input wire:model.blur="form.front_track_width" type="text" label="Front Track Width" />
+          <flux:input wire:model.blur="form.rear_track_width" type="text" label="Rear Track Width" />
+          <flux:input wire:model.blur="form.gross_weight" type="text" label="Gross Weight" />
+          <flux:input wire:model.blur="form.curb_weight" type="text" label="Curb Weight" />
+          <flux:input wire:model.blur="form.load_weight" type="text" label="Load Weight" />
+          <flux:input wire:model.blur="form.wheelbase" type="text" label="Wheelbase" />
+          <flux:input wire:model.blur="form.width" type="text" label="Width" />
+          <flux:input wire:model.blur="form.height" type="text" label="Height" />
+          <flux:input wire:model.blur="form.length" type="text" label="Length" />
+          <flux:input wire:model.blur="form.service_brake" label="Service Brake" />
+          <flux:input wire:model.blur="form.emergency_brake" label="Emergency Brake" />
           <flux:heading size="lg">
               Compliance
           </flux:heading>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <flux:input wire:model.blur="form.fuel_economy" type="text" label="Fuel Economy" />
               <flux:select wire:model.live="form.energy_efficiency_compliance" label="Energy Efficiency Compliance">
                   <option value="">Select</option>
 
