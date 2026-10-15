@@ -184,6 +184,10 @@ class Inspection extends Model
     {
         return $this->hasOne(SideSlipInspection::class);
     }
+    public function suspensionInspection(): HasOne
+    {
+        return $this->hasOne(SuspensionInspection::class);
+    }
 
     public function scopeSearch(Builder $query, ?string $search): Builder
     {

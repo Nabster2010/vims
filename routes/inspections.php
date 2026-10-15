@@ -34,4 +34,8 @@ Route::prefix('inspections')
             '/{inspection}/side-slip-inspection',
             'pages::inspections.side-slip-inspection.edit'
         )->name('side-slip-inspection.edit');
+        Route::livewire(
+            '/{inspection}/suspension-inspection',
+            'pages::inspections.suspension-inspection.edit'
+        )->name('suspension-inspection.edit');
     });
