@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountrySeeder::class,
             InspectionTypeSeeder::class,
+            VisualItemSeeder::class,
+            SalesRepresentativeSeeder::class,
+            CustomerSeeder::class,
         ]);
     }
 }

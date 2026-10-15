@@ -42,4 +42,8 @@ Route::prefix('inspections')
             '/{inspection}/brake-inspection',
             'pages::inspections.brake-inspection.edit'
         )->name('brake-inspection.edit');
+        Route::livewire(
+            '/{inspection}/visual-inspection',
+            'pages::inspections.visual-inspection.edit'
+        )->name('visual-inspection.edit');
     });

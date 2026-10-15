@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inspection extends Model
@@ -51,7 +51,7 @@ class Inspection extends Model
         'remarks',
     ];
 
-    //reset vehicle information for a specific inspection when update inspection type keep common fields
+    // reset vehicle information for a specific inspection when update inspection type keep common fields
     public function resetVehicleInformation(): void
     {
         $vehicle = $this->vehicleInformation;
@@ -79,12 +79,11 @@ class Inspection extends Model
         }
         $vehicle->update($data);
     }
+
     public function resetEmissionInspection(): void
     {
         $this->emissionInspection()->delete();
     }
-
-
 
     protected static function booted(): void
     {
@@ -168,29 +167,40 @@ class Inspection extends Model
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
+
     public function vehicleInformation(): HasOne
     {
         return $this->hasOne(VehicleInformation::class);
     }
+
     public function emissionInspection(): HasOne
     {
         return $this->hasOne(EmissionInspection::class);
     }
+
     public function headLightInspection(): HasOne
     {
         return $this->hasOne(HeadLightInspection::class);
     }
+
     public function sideSlipInspection(): HasOne
     {
         return $this->hasOne(SideSlipInspection::class);
     }
+
     public function suspensionInspection(): HasOne
     {
         return $this->hasOne(SuspensionInspection::class);
     }
+
     public function brakeInspection(): HasOne
     {
         return $this->hasOne(BrakeInspection::class);
+    }
+
+    public function visualInspection(): HasOne
+    {
+        return $this->hasOne(VisualInspection::class);
     }
 
     public function scopeSearch(Builder $query, ?string $search): Builder
@@ -211,18 +221,22 @@ class Inspection extends Model
                 });
         });
     }
+
     public function scopeFilterStatus(Builder $query, ?string $status): Builder
     {
         if (blank($status)) {
             return $query;
         }
+
         return $query->where('status', InspectionStatus::from($status));
     }
+
     public function scopeFilterInspectionTypeId(Builder $query, ?int $inspectionTypeId): Builder
     {
         if (blank($inspectionTypeId)) {
             return $query;
         }
+
         return $query->where('inspection_type_id', $inspectionTypeId);
     }
 }
