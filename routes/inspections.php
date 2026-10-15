@@ -38,4 +38,8 @@ Route::prefix('inspections')
             '/{inspection}/suspension-inspection',
             'pages::inspections.suspension-inspection.edit'
         )->name('suspension-inspection.edit');
+        Route::livewire(
+            '/{inspection}/brake-inspection',
+            'pages::inspections.brake-inspection.edit'
+        )->name('brake-inspection.edit');
     });

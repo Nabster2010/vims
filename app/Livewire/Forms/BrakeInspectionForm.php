@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Livewire\Forms;
+
+
+use App\Enums\InspectionResult;
+use App\Models\Inspection;
+use App\Services\BrakeInspectionCalculator;
+use Illuminate\Validation\Rules\Enum;
+use Livewire\Form;
+use Illuminate\Support\Facades\Auth;
+
+class BrakeInspectionForm extends Form
+{
+
+    public ?float $front = null;
+    public ?float $rear = null;
+    public ?float $parking = null;
+
+    public ?InspectionResult $result = null;
+
+    public ?string $remarks = null;
+
+    /**
+     * Load inspection data
+     */
+    public function fillFromInspection(Inspection $inspection): void
+    {
+        $brake = $inspection->brakeInspection;
+        if (! $brake) {
+            return;
+        }
+        $this->fill(
+            [
+                'front' => $brake->front,
+                'rear' => $brake->rear,
+                'parking' => $brake->parking,
+                'result' => $brake->result,
+                'remarks' => $brake->remarks,
+            ]
+        );
+    }
+
+
+    public function rules(): array
+    {
+        return [
+            'front' => ['required', 'numeric'],
+            'rear' => ['required', 'numeric'],
+            'parking' => ['required', 'numeric'],
+            'result' => ['nullable', new Enum(InspectionResult::class)],
+            'remarks' => ['nullable', 'string'],
+        ];
+    }
+
+    public function data(): array
+    {
+        return [
+            'front' => $this->front,
+            'rear' => $this->rear,
+            'parking' => $this->parking,
+            'result' => $this->result,
+            'remarks' => $this->remarks,
+        ];
+    }
+
+    public function save(Inspection $inspection): void
+    {
+        $this->validate();
+        $result =
+            app(BrakeInspectionCalculator::class)
+            ->calculate(
+                $this->data(),
+            );
+        $data = $this->data();
+        $data['result'] = $result;
+        $data['inspected_by'] = Auth::id();
+        $inspection->brakeInspection()->updateOrCreate(
+            [],
+            $data,
+        );
+    }
+}

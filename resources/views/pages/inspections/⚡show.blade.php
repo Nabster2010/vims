@@ -89,6 +89,9 @@ new #[Title('Inspection Details')] class extends Component {
             wire:navigate>
             Suspension Inspection
         </flux:button>
+        <flux:button variant="primary" :href="route('inspections.brake-inspection.edit', $inspection)" wire:navigate>
+            Brake Inspection
+        </flux:button>
     </flux:card>
 
 </section>

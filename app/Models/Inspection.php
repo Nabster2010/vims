@@ -188,6 +188,10 @@ class Inspection extends Model
     {
         return $this->hasOne(SuspensionInspection::class);
     }
+    public function brakeInspection(): HasOne
+    {
+        return $this->hasOne(BrakeInspection::class);
+    }
 
     public function scopeSearch(Builder $query, ?string $search): Builder
     {
