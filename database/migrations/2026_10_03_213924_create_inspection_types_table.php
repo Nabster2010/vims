@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('inspection_types', function (Blueprint $table) {
 
             $table->id();
-
             $table->string('code', 10)->unique();
-
             $table->string('name');
             $table->string('name_ar');
             $table->string('prefix', 10);

@@ -48,7 +48,12 @@ return [
                 [
                     'label' => 'Branches',
                     'icon' => 'building-office',
-                    'route' => 'branches.index',
+                    'route' => 'administration.branches.index',
+                ],
+                [
+                    'label' => 'Inspection Types',
+                    'icon' => 'clipboard-document-list',
+                    'route' => 'administration.inspection-types.index',
                 ],
 
             ],

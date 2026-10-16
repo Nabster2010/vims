@@ -7,6 +7,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class InspectionType extends Model
 {
+    protected $fillable = [
+        'code',
+        'name',
+        'name_ar',
+        'prefix',
+        'is_active',
+        'description',
+    ];
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
     public function visualItems(): BelongsToMany
     {
         return $this->belongsToMany(
