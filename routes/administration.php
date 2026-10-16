@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('administration')->name('administration.')->group(function () {
 
     Route::livewire(
+
+        // inspection-types
         '/inspection-types',
         'pages::administration.inspection-types.index'
     )->name('inspection-types.index');
@@ -22,4 +24,30 @@ Route::prefix('administration')->name('administration.')->group(function () {
         '/inspection-types/{inspectionType}/visual-items',
         'pages::administration.inspection-types.visual-items'
     )->name('inspection-types.visual-items');
+
+    // branches-----------------
+
+    Route::livewire(
+
+        '/branches',
+
+        'pages::administration.branches.index'
+
+    )->name('branches.index');
+
+    Route::livewire(
+
+        '/branches/create',
+
+        'pages::administration.branches.create'
+
+    )->name('branches.create');
+
+    Route::livewire(
+
+        '/branches/{branch}/edit',
+
+        'pages::administration.branches.edit'
+
+    )->name('branches.edit');
 });

@@ -22,7 +22,6 @@ class InspectionTypeForm extends Form
     public bool $is_active = true;
 
 
-
     public function rules(): array
     {
         return [
@@ -45,7 +44,6 @@ class InspectionTypeForm extends Form
             'description' => $inspectionType->description,
             'is_active' => $inspectionType->is_active,
         ]);
-
         $this->id = $inspectionType->id;
     }
 
