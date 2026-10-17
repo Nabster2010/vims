@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('administration')->name('administration.')->group(function () {
@@ -89,4 +90,23 @@ Route::prefix('administration')->name('administration.')->group(function () {
         '/colors/{color}/edit',
         'pages::administration.colors.edit'
     )->name('colors.edit');
+
+
+    // -----SalesRepresentative---------
+
+
+    Route::livewire(
+        '/sales-representatives',
+        'pages::administration.sales-representatives.index'
+    )->name('sales-representatives.index');
+
+    Route::livewire(
+        '/sales-representatives/create',
+        'pages::administration.sales-representatives.create'
+    )->name('sales-representatives.create');
+
+    Route::livewire(
+        '/sales-representatives/{salesRepresentative}/edit',
+        'pages::administration.sales-representatives.edit'
+    )->name('sales-representatives.edit');
 });

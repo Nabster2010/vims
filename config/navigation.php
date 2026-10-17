@@ -65,6 +65,11 @@ return [
                     'icon' => 'swatch',
                     'route' => 'administration.colors.index',
                 ],
+                [
+                    'label' => 'Sales Representatives',
+                    'icon' => 'user-group',
+                    'route' => 'administration.sales-representatives.index',
+                ],
 
             ],
         ],

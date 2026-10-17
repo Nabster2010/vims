@@ -3,12 +3,34 @@
 use App\Models\Color;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
+use Livewire\WithPagination;
 
 new class extends Component {
+    use WithPagination;
+    public string $search = '';
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
     #[Computed]
     public function colors()
     {
-        return Color::query()->orderBy('name')->get();
+        return Color::query()
+
+            ->when(
+                $this->search,
+
+                fn($query) => $query->where(function ($query) {
+                    $query
+
+                        ->where('name', 'like', "%{$this->search}%")
+
+                        ->orWhere('name_ar', 'like', "%{$this->search}%");
+                }),
+            )
+            ->orderBy('name')
+            ->paginate(10);
     }
 };
 
@@ -37,7 +59,11 @@ new class extends Component {
         </flux:button>
 
     </div>
+    <div class="mt-6">
 
+        <flux:input wire:model.live.debounce.300ms="search" placeholder="Search colors..." />
+
+    </div>
     <flux:card class="mt-6">
 
         <flux:table>
@@ -126,7 +152,9 @@ new class extends Component {
             </flux:table.rows>
 
         </flux:table>
-
+        <div class="mt-6">
+            {{ $this->colors->links() }}
+        </div>
     </flux:card>
 
 </x-ui.page>
