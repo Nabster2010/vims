@@ -70,4 +70,23 @@ Route::prefix('administration')->name('administration.')->group(function () {
         '/categories/{category}/edit',
         'pages::administration.categories.edit'
     )->name('categories.edit');
+
+
+
+    // --------colors--------
+
+    Route::livewire(
+        '/colors',
+        'pages::administration.colors.index'
+    )->name('colors.index');
+
+    Route::livewire(
+        '/colors/create',
+        'pages::administration.colors.create'
+    )->name('colors.create');
+
+    Route::livewire(
+        '/colors/{color}/edit',
+        'pages::administration.colors.edit'
+    )->name('colors.edit');
 });

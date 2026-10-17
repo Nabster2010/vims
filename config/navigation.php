@@ -57,8 +57,13 @@ return [
                 ],
                 [
                     'label' => 'Categories',
-                    'icon' => 'clipboard-document-list',
+                    'icon' => 'folder',
                     'route' => 'administration.categories.index',
+                ],
+                [
+                    'label' => 'Colors',
+                    'icon' => 'swatch',
+                    'route' => 'administration.colors.index',
                 ],
 
             ],
