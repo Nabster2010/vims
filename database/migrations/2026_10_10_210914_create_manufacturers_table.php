@@ -13,14 +13,10 @@ return new class extends Migration
     {
         Schema::create('manufacturers', function (Blueprint $table) {
             $table->id();
-
             $table->uuid('uuid')->unique();
-
             $table->string('name')->unique();
             $table->string('name_ar')->unique();
-
             $table->boolean('is_active')->default(true);
-
             $table->timestamps();
         });
     }

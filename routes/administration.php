@@ -109,4 +109,76 @@ Route::prefix('administration')->name('administration.')->group(function () {
         '/sales-representatives/{salesRepresentative}/edit',
         'pages::administration.sales-representatives.edit'
     )->name('sales-representatives.edit');
+
+
+
+    // --------countries ------------
+
+    Route::livewire(
+        '/countries',
+        'pages::administration.countries.index'
+    )->name('countries.index');
+
+    Route::livewire(
+        '/countries/create',
+        'pages::administration.countries.create'
+    )->name('countries.create');
+
+    Route::livewire(
+        '/countries/{country}/edit',
+        'pages::administration.countries.edit'
+    )->name('countries.edit');
+
+
+
+    // -------manufacturers--------
+    Route::livewire(
+        '/manufacturers',
+        'pages::administration.manufacturers.index'
+    )->name('manufacturers.index');
+
+    Route::livewire(
+        '/manufacturers/create',
+        'pages::administration.manufacturers.create'
+    )->name('manufacturers.create');
+
+    Route::livewire(
+        '/manufacturers/{manufacturer}/edit',
+        'pages::administration.manufacturers.edit'
+    )->name('manufacturers.edit');
+
+
+    // --------modelTypes---------
+    Route::livewire(
+        '/model-types',
+        'pages::administration.model-types.index'
+    )->name('model-types.index');
+
+    Route::livewire(
+        '/model-types/create',
+        'pages::administration.model-types.create'
+    )->name('model-types.create');
+
+    Route::livewire(
+        '/model-types/{modelType}/edit',
+        'pages::administration.model-types.edit'
+    )->name('model-types.edit');
+
+
+    // ---------Custom Ports --------
+
+    Route::livewire(
+        '/custom-ports',
+        'pages::administration.custom-ports.index'
+    )->name('custom-ports.index');
+
+    Route::livewire(
+        '/custom-ports/create',
+        'pages::administration.custom-ports.create'
+    )->name('custom-ports.create');
+
+    Route::livewire(
+        '/custom-ports/{customPort}/edit',
+        'pages::administration.custom-ports.edit'
+    )->name('custom-ports.edit');
 });

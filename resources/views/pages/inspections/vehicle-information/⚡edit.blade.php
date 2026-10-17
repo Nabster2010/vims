@@ -48,7 +48,7 @@ new class extends Component {
     #[Computed]
     public function countries()
     {
-        return Country::orderBy('name')->get();
+        return Country::active()->orderBy('name')->get();
     }
     #[Computed]
     public function fuelTypes()

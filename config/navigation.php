@@ -70,10 +70,29 @@ return [
                     'icon' => 'user-group',
                     'route' => 'administration.sales-representatives.index',
                 ],
+                [
+                    'label' => 'Countries',
+                    'icon' => 'map-pin',
+                    'route' => 'administration.countries.index',
+                ],
+                [
+                    'label' => 'Manufacturers',
+                    'icon' => 'building-office',
+                    'route' => 'administration.manufacturers.index',
+                ],
+                [
+                    'label' => 'Model Types',
+                    'icon' => 'rectangle-group',
+                    'route' => 'administration.model-types.index',
+                ],
+                [
+                    'label' => 'Custom Ports',
+                    'icon' => 'building-storefront',
+                    'route' => 'administration.custom-ports.index',
+                ],
 
             ],
         ],
-
         [
             'heading' => 'Reports',
 

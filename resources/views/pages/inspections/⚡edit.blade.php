@@ -53,28 +53,28 @@ new #[Title('Edit Inspection')] class extends Component {
     #[Computed]
     public function salesRepresentatives()
     {
-        return SalesRepresentative::query()->where('is_active', true)->orderBy('name')->get();
+        return SalesRepresentative::active()->orderBy('name')->get();
     }
     #[Computed]
     public function inspectionTypes()
     {
-        return InspectionType::query()->where('is_active', true)->orderBy('name')->get();
+        return InspectionType::active()->orderBy('name')->get();
     }
     #[Computed]
     public function countries()
     {
-        return Country::query()->where('is_active', true)->orderBy('name')->get();
+        return Country::active()->orderBy('name')->get();
     }
 
     #[Computed]
     public function customPorts()
     {
-        return CustomPort::query()->where('is_active', true)->orderBy('name')->get();
+        return CustomPort::active()->orderBy('name')->get();
     }
     #[Computed]
     public function inspectionTypeCode(): ?string
     {
-        return InspectionType::query()->whereKey($this->form->inspection_type_id)->value('code');
+        return InspectionType::active()->whereKey($this->form->inspection_type_id)->value('code');
     }
 };
 

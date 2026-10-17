@@ -51,6 +51,8 @@ class Inspection extends Model
         'remarks',
     ];
 
+
+
     // reset vehicle information for a specific inspection when update inspection type keep common fields
     public function resetVehicleInformation(): void
     {

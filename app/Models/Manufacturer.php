@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Manufacturer extends Model
 {
@@ -17,6 +17,7 @@ class Manufacturer extends Model
         'name',
         'name_ar',
         'is_active',
+        'country_id',
     ];
     protected function casts(): array
     {
@@ -33,6 +34,10 @@ class Manufacturer extends Model
         return $this->hasMany(VehicleInformation::class);
     }
 
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
