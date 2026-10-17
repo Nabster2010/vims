@@ -26,4 +26,10 @@ class Category extends Model
     {
         return $query->where('is_active', true);
     }
+
+
+    public function vehicleInformations(): HasMany
+    {
+        return $this->hasMany(VehicleInformation::class);
+    }
 }

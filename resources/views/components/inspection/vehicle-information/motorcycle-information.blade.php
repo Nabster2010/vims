@@ -17,18 +17,19 @@
             @endforeach
 
         </flux:select>
+        <flux:select wire:model.live="form.motorcycle_category" label="Motorcycle Category">
+            <option value="">Select Motorcycle Category</option>
+            @foreach ($this->motorcycleCategories as $category)
+                <option value="{{ $category->value }}">
+                    {{ $category->value }}
+                </option>
+            @endforeach
+        </flux:select>
 
         <flux:input wire:model.blur="form.maximum_speed" type="text" label="Maximum Speed" />
 
         <flux:input wire:model.blur="form.model_division" label="Model Division" />
-        <flux:select wire:model.live="form.fuel_type" label="Fuel Type">
-            <option value="">Select Fuel Type</option>
-            @foreach ($this->fuelTypes as $fuelType)
-                <option value="{{ $fuelType->value }}">
-                    {{ $fuelType->value }}
-                </option>
-            @endforeach
-        </flux:select>
+
 
         <flux:input wire:model.blur="form.manufacturing_year" type="text" label="Manufacturing Year" />
         <flux:input wire:model.blur="form.manufacturing_month" type="text" label="Manufacturing Month" />

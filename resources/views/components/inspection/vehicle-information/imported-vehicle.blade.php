@@ -4,12 +4,12 @@
         Imported Vehicle
     </flux:heading>
 
-    <flux:select wire:model.live="form.body_type" label="Body Type">
+    <flux:select wire:model.live="form.category_id" label="Category">
         <option value="">Select Body Type</option>
 
-        @foreach ($this->bodyTypes as $bodyType)
-            <option value="{{ $bodyType->value }}">
-                {{ $bodyType->value }}
+        @foreach ($this->categories as $category)
+            <option value="{{ $category->id }}">
+                {{ $category->name }}
             </option>
         @endforeach
     </flux:select>

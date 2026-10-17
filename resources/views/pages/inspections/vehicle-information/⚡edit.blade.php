@@ -6,6 +6,7 @@ use App\Models\Manufacturer;
 use App\Models\ModelType;
 use App\Models\Color;
 use App\Models\Country;
+use App\Models\Category;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Enums\FuelType;
@@ -14,6 +15,7 @@ use App\Enums\DriveLine;
 use App\Enums\BodyType;
 use App\Enums\AirIntake;
 use App\Enums\VehicleCondition;
+use App\Enums\MotorcycleCategory;
 use App\Enums\MotorcycleUse;
 
 new class extends Component {
@@ -53,6 +55,11 @@ new class extends Component {
     {
         return FuelType::cases();
     }
+    #[Computed]
+    public function motorcycleCategories()
+    {
+        return MotorcycleCategory::cases();
+    }
 
     #[Computed]
     public function gearboxTypes()
@@ -67,9 +74,9 @@ new class extends Component {
     }
 
     #[Computed]
-    public function bodyTypes(): array
+    public function Categories()
     {
-        return BodyType::cases();
+        return Category::active()->orderBy('name')->get();
     }
     #[Computed]
     public function motorcycleUses(): array

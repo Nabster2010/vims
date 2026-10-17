@@ -65,8 +65,10 @@ return new class extends Migration
 
             $table->string('drive_line')->nullable();
 
-            $table->string('body_type')->nullable();
-
+            $table->foreignId('category_id')
+                ->nullable()
+                ->constrained()
+                ->restrictOnDelete();
             $table->string('air_intake')->nullable();
 
             $table->string('vehicle_condition')->nullable();

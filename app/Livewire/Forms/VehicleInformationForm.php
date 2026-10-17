@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Enums\AirIntake;
-use App\Enums\BodyType;
 use App\Enums\ComplianceStatus;
 use App\Enums\DriveLine;
 use App\Enums\FuelType;
@@ -58,7 +57,7 @@ class VehicleInformationForm extends Form
 
     public ?DriveLine $drive_line = null;
 
-    public ?BodyType $body_type = null;
+    public ?int $category_id = null;
 
     public ?AirIntake $air_intake = null;
 
@@ -185,7 +184,7 @@ class VehicleInformationForm extends Form
         switch ($this->inspectionTypeCode) {
             case 'IMP':
                 $rules += [
-                    'body_type' => ['required', new Enum(BodyType::class)],
+                    'category_id' => ['required', 'exists:categories,id'],
                     'vehicle_condition' => ['required', new Enum(VehicleCondition::class)],
                     'number_of_cylinders' => ['nullable', 'integer'],
                     'engine_displacement' => ['nullable', 'integer'],
@@ -198,7 +197,7 @@ class VehicleInformationForm extends Form
                 $rules += [
                     'model_division' => ['required', 'string'],
                     'manufacturing_year' => ['required', 'integer'],
-                    'body_type' => ['required', new Enum(BodyType::class)],
+                    'category_id' => ['required', 'exists:categories,id'],
                     'air_intake' => ['required', new Enum(AirIntake::class)],
                     'drive_line' => ['required', new Enum(DriveLine::class)],
                     'shipment_country_id' => ['required', 'exists:countries,id'],
@@ -237,7 +236,7 @@ class VehicleInformationForm extends Form
                     'mileage' => ['required', 'integer'],
                     'shipment_country_id' => ['required', 'exists:countries,id'],
                     'production_country_id' => ['required', 'exists:countries,id'],
-                    'body_type' => ['required', new Enum(BodyType::class)],
+                    'category_id' => ['required', 'exists:categories,id'],
                     'air_intake' => ['required', new Enum(AirIntake::class)],
                     'drive_line' => ['required', new Enum(DriveLine::class)],
                     'number_of_axles' => ['required', 'integer'],
@@ -279,7 +278,7 @@ class VehicleInformationForm extends Form
                     'mileage' => ['required', 'integer'],
                     'shipment_country_id' => ['required', 'exists:countries,id'],
                     'production_country_id' => ['required', 'exists:countries,id'],
-                    'body_type' => ['required', new Enum(BodyType::class)],
+                    'category_id' => ['required', 'exists:categories,id'],
                     'air_intake' => ['required', new Enum(AirIntake::class)],
                     'drive_line' => ['required', new Enum(DriveLine::class)],
                     'engine_displacement' => ['required', 'integer'],
@@ -323,7 +322,7 @@ class VehicleInformationForm extends Form
                     'mileage' => ['required', 'integer'],
                     'shipment_country_id' => ['required', 'exists:countries,id'],
                     'production_country_id' => ['required', 'exists:countries,id'],
-                    'body_type' => ['required', new Enum(BodyType::class)],
+                    'category_id' => ['required', 'exists:categories,id'],
                     'air_intake' => ['required', new Enum(AirIntake::class)],
                     'drive_line' => ['required', new Enum(DriveLine::class)],
                     'engine_displacement' => ['required', 'integer'],
@@ -354,6 +353,7 @@ class VehicleInformationForm extends Form
             case 'MTC':
                 $rules += [
                     'motorcycle_use' => ['required', new Enum(MotorcycleUse::class)],
+                    'motorcycle_category' => ['required', new Enum(MotorcycleCategory::class)],
                     'maximum_speed' => ['required', 'integer'],
                     'model_division' => ['nullable', 'string', 'max:255'],
                     'manufacturing_year' => ['required', 'integer'],
@@ -385,7 +385,7 @@ class VehicleInformationForm extends Form
                     'engine_no' => ['required', 'string'],
                     'number_of_cylinders' => ['required', 'integer', 'min:1'],
                     'engine_displacement' => ['required', 'integer', 'min:1'],
-                    'body_type' => ['required', new Enum(BodyType::class)],
+                    'category_id' => ['required', 'exists:categories,id'],
                     'gross_weight' => ['required', 'integer', 'min:1'],
                     'width' => ['required', 'integer', 'min:1'],
                     'height' => ['required', 'integer', 'min:1'],
@@ -403,7 +403,7 @@ class VehicleInformationForm extends Form
                     'engine_no' => ['required', 'string', 'max:100'],
                     'number_of_cylinders' => ['required', 'integer', 'min:1'],
                     'engine_displacement' => ['required', 'integer', 'min:1'],
-                    'body_type' => ['required', new Enum(BodyType::class)],
+                    'category_id' => ['required', 'exists:categories,id'],
                     'gross_weight' => ['required', 'integer', 'min:1'],
                     'width' => ['required', 'integer', 'min:1'],
                     'height' => ['required', 'integer', 'min:1'],

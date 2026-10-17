@@ -50,4 +50,24 @@ Route::prefix('administration')->name('administration.')->group(function () {
         'pages::administration.branches.edit'
 
     )->name('branches.edit');
+
+
+
+    // category--------
+
+
+    Route::livewire(
+        '/categories',
+        'pages::administration.categories.index'
+    )->name('categories.index');
+
+    Route::livewire(
+        '/categories/create',
+        'pages::administration.categories.create'
+    )->name('categories.create');
+
+    Route::livewire(
+        '/categories/{category}/edit',
+        'pages::administration.categories.edit'
+    )->name('categories.edit');
 });

@@ -55,6 +55,11 @@ return [
                     'icon' => 'clipboard-document-list',
                     'route' => 'administration.inspection-types.index',
                 ],
+                [
+                    'label' => 'Categories',
+                    'icon' => 'clipboard-document-list',
+                    'route' => 'administration.categories.index',
+                ],
 
             ],
         ],

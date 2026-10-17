@@ -35,7 +35,7 @@ class VehicleInformation extends Model
         'fuel_type',
         'gearbox_type',
         'drive_line',
-        'body_type',
+        'category_id',
         'air_intake',
         'vehicle_condition',
         'service_brake',
@@ -139,5 +139,10 @@ class VehicleInformation extends Model
     {
 
         return $this->belongsTo(User::class, 'inspected_by');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }
