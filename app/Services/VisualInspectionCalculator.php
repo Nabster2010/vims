@@ -3,37 +3,55 @@
 namespace App\Services;
 
 use App\Enums\InspectionResult;
+use App\Models\VisualItem;
 
 class VisualInspectionCalculator
 {
-    public function calculate(
-        array $items,
-    ): ?InspectionResult {
-
+    public function calculate(array $items): array
+    {
         if (empty($items)) {
-            return null;
+            return [
+                'result' => null,
+                'failedItems' => [],
+            ];
         }
 
+        $failedItems = [];
         $hasValues = false;
 
-        foreach ($items as $item) {
+        foreach ($items as $visualItemId => $item) {
+
             $result = $item['result'] ?? null;
 
-            if ($result === null || $result === '') {
+            if (blank($result)) {
                 continue;
             }
 
             $hasValues = true;
 
-            if ($result === InspectionResult::Fail->value || $result === InspectionResult::Fail) {
-                return InspectionResult::Fail;
+            if (
+                $result === InspectionResult::Fail->value ||
+                $result === InspectionResult::Fail
+            ) {
+
+                $visualItem = VisualItem::find($visualItemId);
+
+                $failedItems[] = [
+                    'id' => $visualItemId,
+                    'name' => $visualItem?->name,
+                    'name_ar' => $visualItem?->name_ar,
+                ];
             }
         }
 
-        if (! $hasValues) {
-            return null;
-        }
+        return [
+            'result' => ! $hasValues
+                ? null
+                : (empty($failedItems)
+                    ? InspectionResult::Pass
+                    : InspectionResult::Fail),
 
-        return InspectionResult::Pass;
+            'failedItems' => $failedItems,
+        ];
     }
 }

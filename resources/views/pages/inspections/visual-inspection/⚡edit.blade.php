@@ -30,7 +30,7 @@ new class extends Component {
     }
 
     #[Computed]
-    public function calculatedResult(): ?InspectionResult
+    public function calculatedResult(): ?array
     {
         return app(VisualInspectionCalculator::class)->calculate($this->form->items);
     }
@@ -105,8 +105,9 @@ new class extends Component {
 
         @if ($this->inspection->vehicleInformation)
             @if ($this->calculatedResult)
-                <flux:badge icon="{{ $this->calculatedResult->icon() }}" color="{{ $this->calculatedResult->color() }}">
-                    {{ $this->calculatedResult->label() }}
+                <flux:badge icon="{{ $this->calculatedResult['result']->icon() }}"
+                    color="{{ $this->calculatedResult['result']->color() }}">
+                    {{ $this->calculatedResult['result']->label() }}
                 </flux:badge>
             @endif
             <flux:textarea wire:model="form.remarks" label="General Remarks" />

@@ -19,7 +19,7 @@ new class extends Component {
     }
 
     #[Computed]
-    public function calculatedResult(): ?InspectionResult
+    public function calculatedResult(): ?array
     {
         return app(SuspensionInspectionCalculator::class)->calculate($this->form->data());
     }
@@ -54,9 +54,11 @@ new class extends Component {
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
                     <flux:input wire:model.live.debounce.500ms="form.front_left" type="text" label="Front Left (%)" />
-                    <flux:input wire:model.live.debounce.500ms="form.front_right" type="text" label="Front Right (%)" />
+                    <flux:input wire:model.live.debounce.500ms="form.front_right" type="text"
+                        label="Front Right (%)" />
                     <flux:input wire:model.live.debounce.500ms="form.rear_left" type="text" label="Rear Left (%)" />
-                    <flux:input wire:model.live.debounce.500ms="form.rear_right" type="text" label="Rear Right (%)" />
+                    <flux:input wire:model.live.debounce.500ms="form.rear_right" type="text"
+                        label="Rear Right (%)" />
                 </div>
 
             </flux:card>
@@ -65,8 +67,9 @@ new class extends Component {
 
         @if ($this->inspection->vehicleInformation)
             @if ($this->calculatedResult)
-                <flux:badge icon="{{ $this->calculatedResult->icon() }}" color="{{ $this->calculatedResult->color() }}">
-                    {{ $this->calculatedResult->label() }}
+                <flux:badge icon="{{ $this->calculatedResult['result']->icon() }}"
+                    color="{{ $this->calculatedResult['result']->color() }}">
+                    {{ $this->calculatedResult['result']->label() }}
                 </flux:badge>
             @endif
             <flux:textarea wire:model.live="form.remarks" label="Remarks" />

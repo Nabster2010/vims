@@ -26,10 +26,13 @@ new class extends Component {
     }
 
     #[Computed]
-    public function calculatedResult(): ?InspectionResult
+    public function calculatedResult(): ?array
     {
         if (!$this->fuelType) {
-            return null;
+            return [
+                'result' => null,
+                'failedItems' => [],
+            ];
         }
 
         return app(EmissionInspectionCalculator::class)->calculate($this->fuelType, $this->form->data());
@@ -73,9 +76,10 @@ new class extends Component {
                 @break
             @endswitch
         @endif
-        @if ($this->calculatedResult)
-            <flux:badge icon="{{ $this->calculatedResult->icon() }}" color="{{ $this->calculatedResult->color() }}">
-                {{ $this->calculatedResult->label() }}
+        @if ($this->calculatedResult && $this->calculatedResult['result'])
+            <flux:badge icon="{{ $this->calculatedResult['result']->icon() }}"
+                color="{{ $this->calculatedResult['result']->color() }}">
+                {{ $this->calculatedResult['result']->label() }}
             </flux:badge>
         @endif
 
@@ -91,4 +95,6 @@ new class extends Component {
 
     </form>
     </section>
+
+
 </x-ui.page>

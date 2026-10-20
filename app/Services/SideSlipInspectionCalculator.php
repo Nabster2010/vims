@@ -8,8 +8,8 @@ class SideSlipInspectionCalculator
 {
     public function calculate(
         array $values,
-    ): ?InspectionResult {
-
+    ): array {
+        $failedItems = [];
 
         $limits = config("test-limits.sideSlip");
 
@@ -18,16 +18,21 @@ class SideSlipInspectionCalculator
             $value = $values[$field] ?? null;
 
             // Ignore empty fields while user is typing
-            if ($value === null || $value === '') {
+            if (blank($value)) {
                 continue;
             }
 
             if (! $this->passes($value, $limit)) {
-                return InspectionResult::Fail;
+                $failedItems[] = $limit['label'];
             }
         }
 
-        return InspectionResult::Pass;
+        return [
+            'result' => empty($failedItems)
+                ? InspectionResult::Pass
+                : InspectionResult::Fail,
+            'failedItems' => $failedItems,
+        ];
     }
 
     protected function passes(float|int $value, array $limit): bool

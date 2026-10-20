@@ -99,7 +99,7 @@ class VisualInspectionForm extends Form
             $visualInspection = $inspection->visualInspection()->updateOrCreate(
                 [],
                 [
-                    'result' => $result,
+                    'result' => $result['result'],
                     'inspected_by' => Auth::id(),
                     'remarks' => $this->remarks,
                 ]

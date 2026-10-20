@@ -4,13 +4,16 @@ use App\Models\Inspection;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
+use App\Services\Inspection\InspectionModuleStatusService;
 
 new #[Title('Inspection Details')] class extends Component {
     public Inspection $inspection;
+    public array $moduleStatuses = [];
 
     public function mount(Inspection $inspection): void
     {
         $this->inspection = $inspection->loadMissing(['customer', 'inspectionType', 'branch', 'salesRepresentative', 'createdBy', 'customPort', 'importCountry']);
+        $this->moduleStatuses = InspectionModuleStatusService::getStatuses($this->inspection);
     }
     #[Computed]
     public function inspectionTypeCode(): string
@@ -69,34 +72,20 @@ new #[Title('Inspection Details')] class extends Component {
     @endif
 
     {{-- section for inspections links --}}
-    <flux:card class=" space-y-6">
-        {{-- link to inspections/{id}/vehicle-information --}}
-        <flux:button variant="primary" :href="route('inspections.vehicle-information.edit', $inspection)" wire:navigate>
-            Vehicle Information
-        </flux:button>
-        <flux:button variant="primary" :href="route('inspections.emission-inspection.edit', $inspection)" wire:navigate>
-            Emission Inspection
-        </flux:button>
-        <flux:button variant="primary" :href="route('inspections.head-light-inspection.edit', $inspection)"
-            wire:navigate>
-            Head Light Inspection
-        </flux:button>
-        <flux:button variant="primary" :href="route('inspections.side-slip-inspection.edit', $inspection)"
-            wire:navigate>
-            Side Slip Inspection
-        </flux:button>
-        <flux:button variant="primary" :href="route('inspections.suspension-inspection.edit', $inspection)"
-            wire:navigate>
-            Suspension Inspection
-        </flux:button>
-        <flux:button variant="primary" :href="route('inspections.brake-inspection.edit', $inspection)" wire:navigate>
-            Brake Inspection
-        </flux:button>
-        <flux:button variant="primary" :href="route('inspections.visual-inspection.edit', $inspection)" wire:navigate>
-            Visual Inspection
-        </flux:button>
 
 
+
+
+    <flux:card>
+        <div class="space-y-6 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            <x-inspection.module-link :module="App\Enums\InspectionModule::VehicleInformation" :href="route('inspections.vehicle-information.edit', $inspection)" :moduleStatuses="$moduleStatuses" />
+            <x-inspection.module-link :module="App\Enums\InspectionModule::EmissionInspection" :href="route('inspections.emission-inspection.edit', $inspection)" :moduleStatuses="$moduleStatuses" />
+            <x-inspection.module-link :module="App\Enums\InspectionModule::HeadLightInspection" :href="route('inspections.head-light-inspection.edit', $inspection)" :moduleStatuses="$moduleStatuses" />
+            <x-inspection.module-link :module="App\Enums\InspectionModule::SideSlipInspection" :href="route('inspections.side-slip-inspection.edit', $inspection)" :moduleStatuses="$moduleStatuses" />
+            <x-inspection.module-link :module="App\Enums\InspectionModule::SuspensionInspection" :href="route('inspections.suspension-inspection.edit', $inspection)" :moduleStatuses="$moduleStatuses" />
+            <x-inspection.module-link :module="App\Enums\InspectionModule::BrakeInspection" :href="route('inspections.brake-inspection.edit', $inspection)" :moduleStatuses="$moduleStatuses" />
+            <x-inspection.module-link :module="App\Enums\InspectionModule::VisualInspection" :href="route('inspections.visual-inspection.edit', $inspection)" :moduleStatuses="$moduleStatuses" />
+        </div>
     </flux:card>
 
 </section>

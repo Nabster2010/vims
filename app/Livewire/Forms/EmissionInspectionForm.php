@@ -110,9 +110,11 @@ class EmissionInspectionForm extends Form
                 $this->fuel_type,
                 $this->data(),
             );
-        $data = $this->data();
-        $data['result'] = $result;
-        $data['inspected_by'] = Auth::id();
+        $data = [
+            ...$this->data(),
+            'result' => $result['result'],
+            'inspected_by' => Auth::id(),
+        ];
         $inspection->emissionInspection()->updateOrCreate(
             [],
             $data,

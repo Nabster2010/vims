@@ -19,7 +19,7 @@ new class extends Component {
     }
 
     #[Computed]
-    public function calculatedResult(): ?InspectionResult
+    public function calculatedResult(): ?array
     {
         return app(SideSlipInspectionCalculator::class)->calculate($this->form->data());
     }
@@ -62,8 +62,9 @@ new class extends Component {
 
         @if ($this->inspection->vehicleInformation)
             @if ($this->calculatedResult)
-                <flux:badge icon="{{ $this->calculatedResult->icon() }}" color="{{ $this->calculatedResult->color() }}">
-                    {{ $this->calculatedResult->label() }}
+                <flux:badge icon="{{ $this->calculatedResult['result']->icon() }}"
+                    color="{{ $this->calculatedResult['result']->color() }}">
+                    {{ $this->calculatedResult['result']->label() }}
                 </flux:badge>
             @endif
             <flux:textarea wire:model.live="form.remarks" label="Remarks" />

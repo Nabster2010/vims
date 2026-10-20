@@ -76,9 +76,11 @@ class SuspensionInspectionForm extends Form
             ->calculate(
                 $this->data(),
             );
-        $data = $this->data();
-        $data['result'] = $result;
-        $data['inspected_by'] = Auth::id();
+        $data = [
+            ...$this->data(),
+            'result' => $result['result'],
+            'inspected_by' => Auth::id(),
+        ];
         $inspection->suspensionInspection()->updateOrCreate(
             [],
             $data,

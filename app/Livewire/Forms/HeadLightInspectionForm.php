@@ -69,9 +69,11 @@ class HeadLightInspectionForm extends Form
             ->calculate(
                 $this->data(),
             );
-        $data = $this->data();
-        $data['result'] = $result;
-        $data['inspected_by'] = Auth::id();
+        $data = [
+            ...$this->data(),
+            'inspected_by' => Auth::id(),
+            'result' => $result['result'],
+        ];
         $inspection->headLightInspection()->updateOrCreate(
             [],
             $data,

@@ -16,9 +16,7 @@ class BrakeInspectionForm extends Form
     public ?float $front = null;
     public ?float $rear = null;
     public ?float $parking = null;
-
     public ?InspectionResult $result = null;
-
     public ?string $remarks = null;
 
     /**
@@ -72,9 +70,12 @@ class BrakeInspectionForm extends Form
             ->calculate(
                 $this->data(),
             );
-        $data = $this->data();
-        $data['result'] = $result;
-        $data['inspected_by'] = Auth::id();
+        $data = [
+            ...$this->data(),
+            'result' => $result['result'],
+            'inspected_by' => Auth::id(),
+        ];
+
         $inspection->brakeInspection()->updateOrCreate(
             [],
             $data,

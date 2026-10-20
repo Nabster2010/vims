@@ -10,16 +10,24 @@ class EmissionInspectionCalculator
     public function calculate(
         FuelType $fuelType,
         array $values,
-    ): ?InspectionResult {
+    ): ?array {
 
+        $failedItems = [];
+        // TODO fix this one to return array like other calculators
         if ($fuelType === FuelType::Ev) {
-            return null;
+            return [
+                'result' => null,
+                'failedItems' => []
+            ];
         }
 
         $limits = config("test-limits.emission.{$fuelType->value}");
 
         if (! $limits) {
-            return null;
+            return [
+                'result' => null,
+                'failedItems' => []
+            ];
         }
 
         foreach ($limits as $field => $limit) {
@@ -27,16 +35,22 @@ class EmissionInspectionCalculator
             $value = $values[$field] ?? null;
 
             // Ignore empty fields while user is typing
-            if ($value === null || $value === '') {
+            if (blank($value)) {
                 continue;
             }
 
             if (! $this->passes($value, $limit)) {
-                return InspectionResult::Fail;
+
+                $failedItems[] = $limit['label'];
             }
         }
 
-        return InspectionResult::Pass;
+        return [
+            'result' => empty($failedItems)
+                ? InspectionResult::Pass
+                : InspectionResult::Fail,
+            'failedItems' => $failedItems,
+        ];
     }
 
     protected function passes(float|int $value, array $limit): bool

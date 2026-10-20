@@ -64,9 +64,11 @@ class SideSlipInspectionForm extends Form
             ->calculate(
                 $this->data(),
             );
-        $data = $this->data();
-        $data['result'] = $result;
-        $data['inspected_by'] = Auth::id();
+        $data = [
+            ...$this->data(),
+            'result' => $result['result'],
+            'inspected_by' => Auth::id(),
+        ];
         $inspection->sideSlipInspection()->updateOrCreate(
             [],
             $data,

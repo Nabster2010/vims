@@ -10,24 +10,54 @@ return [
             'hc' => [
                 'min' => 0,
                 'max' => 1200,
-                'unit' => "ppm"
+                'unit' => "ppm",
+                'label' => "Emission Hydrocarbons"
             ],
             'co' => [
                 'min' => 0,
                 'max' => 3.5,
-                'unit' => "%"
+                'unit' => "%",
+                'label' => "Emission Carbon Monoxide"
             ],
-            // 'lambda' => [
-            //     'min' => 0.97,
-            //     'max' => 1.03,
-            // ],
+
+        ],
+        FuelType::Hybrid->value => [
+            'hc' => [
+                'min' => 0,
+                'max' => 1200,
+                'unit' => "ppm",
+                'label' => "Emission Hydrocarbons"
+            ],
+            'co' => [
+                'min' => 0,
+                'max' => 3.5,
+                'unit' => "%",
+                'label' => "Emission Carbon Monoxide"
+            ],
+
+        ],
+        FuelType::Phev->value => [
+            'hc' => [
+                'min' => 0,
+                'max' => 1200,
+                'unit' => "ppm",
+                'label' => "Emission Hydrocarbons"
+            ],
+            'co' => [
+                'min' => 0,
+                'max' => 3.5,
+                'unit' => "%",
+                'label' => "Emission Carbon Monoxide"
+            ],
+
         ],
 
         FuelType::Diesel->value => [
             'opacity' => [
                 'min' => 0,
                 'max' => 40,
-                'unit' => "%"
+                'unit' => "%",
+                'label' => "Diesel Opacity"
             ]
         ],
     ],
@@ -35,12 +65,14 @@ return [
         'left' => [
             'min' => 0,
             'max' => 250,
-            'unit' => "cd"
+            'unit' => "cd",
+            'label' => "Head Light Left"
         ],
         'right' => [
             'min' => 0,
             'max' => 250,
-            'unit' => "cd"
+            'unit' => "cd",
+            'label' => "Head Light Right"
         ]
 
     ],
@@ -48,7 +80,8 @@ return [
         'value' => [
             'min' => 0,
             'max' => 7,
-            'unit' => "m/km"
+            'unit' => "m/km",
+            'label' => "Side Slip"
         ]
     ],
 
@@ -56,22 +89,26 @@ return [
         'front_left' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%"
+            'unit' => "%",
+            'label' => "Suspension Front Left"
         ],
         'front_right' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%"
+            'unit' => "%",
+            'label' => "Suspension Front Right"
         ],
         'rear_left' => [
             'min' => 20,
             'max' => 100,
-            'unit' => "%"
+            'unit' => "%",
+            'label' => "Suspension Rear Left"
         ],
         'rear_right' => [
             'min' => 20,
             'max' => 100,
-            'unit' => "%"
+            'unit' => "%",
+            'label' => "Suspension Rear Right"
         ]
     ],
 
@@ -79,17 +116,20 @@ return [
         'front' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%"
+            'unit' => "%",
+            'label' => "Brake Front"
         ],
         'rear' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%"
+            'unit' => "%",
+            'label' => "Brake Rear"
         ],
         'parking' => [
             'min' => 20,
             'max' => 100,
-            'unit' => "%"
+            'unit' => "%",
+            'label' => "Brake Parking"
         ]
     ],
 
