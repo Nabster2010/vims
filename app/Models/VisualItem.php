@@ -10,8 +10,10 @@ class VisualItem extends Model
 {
     protected $fillable = [
         'name',
+        'name_ar',
         'code',
         'category',
+        'category_ar',
         'sort_order',
         'is_active',
     ];

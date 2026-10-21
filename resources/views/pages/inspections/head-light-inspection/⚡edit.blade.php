@@ -63,12 +63,7 @@ new class extends Component {
 
 
         @if ($this->inspection->vehicleInformation)
-            @if ($this->calculatedResult)
-                <flux:badge icon="{{ $this->calculatedResult['result']->icon() }}"
-                    color="{{ $this->calculatedResult['result']->color() }}">
-                    {{ $this->calculatedResult['result']->label() }}
-                </flux:badge>
-            @endif
+            <x-inspection.result-summary :result="$this->calculatedResult['result']" :failed-items="$this->calculatedResult['failedItems']" />
             <flux:textarea wire:model.live="form.remarks" label="Remarks" />
         @endif
         <div class="flex justify-end">

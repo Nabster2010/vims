@@ -36,11 +36,12 @@ class VisualInspectionCalculator
 
                 $visualItem = VisualItem::find($visualItemId);
 
-                $failedItems[] = [
-                    'id' => $visualItemId,
-                    'name' => $visualItem?->name,
-                    'name_ar' => $visualItem?->name_ar,
-                ];
+                $failedItems[] = $visualItem?->name;
+                // [
+                //     'id' => $visualItemId,
+                //     'name' => $visualItem?->name,
+                //      'name_ar' => $visualItem?->name_ar,
+                // ];
             }
         }
 

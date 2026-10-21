@@ -104,13 +104,8 @@ new class extends Component {
 
 
         @if ($this->inspection->vehicleInformation)
-            @if ($this->calculatedResult)
-                <flux:badge icon="{{ $this->calculatedResult['result']->icon() }}"
-                    color="{{ $this->calculatedResult['result']->color() }}">
-                    {{ $this->calculatedResult['result']->label() }}
-                </flux:badge>
-            @endif
-            <flux:textarea wire:model="form.remarks" label="General Remarks" />
+            <x-inspection.result-summary :result="$this->calculatedResult['result']" :failed-items="$this->calculatedResult['failedItems']" />
+            <flux:textarea wire:model.live="form.remarks" label="Remarks" />
         @endif
         <div class="flex justify-end">
             <flux:button variant="primary" type="submit" :disabled="$this->inspection->vehicleInformation === null">
@@ -120,4 +115,8 @@ new class extends Component {
 
     </form>
     </section>
+
+
+
+    {{-- <pre>{{ var_dump($this->calculatedResult['failedItems']) }}</pre> --}}
 </x-ui.page>

@@ -72,6 +72,24 @@ Route::prefix('administration')->name('administration.')->group(function () {
         'pages::administration.categories.edit'
     )->name('categories.edit');
 
+    // VisualItems--------
+
+
+    Route::livewire(
+        '/visual-items',
+        'pages::administration.visual-items.index'
+    )->name('visual-items.index');
+
+    Route::livewire(
+        '/visual-items/create',
+        'pages::administration.visual-items.create'
+    )->name('visual-items.create');
+
+    Route::livewire(
+        '/visual-items/{visualItem}/edit',
+        'pages::administration.visual-items.edit'
+    )->name('visual-items.edit');
+
 
 
     // --------colors--------

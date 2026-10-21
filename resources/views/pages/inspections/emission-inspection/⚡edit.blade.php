@@ -76,12 +76,7 @@ new class extends Component {
                 @break
             @endswitch
         @endif
-        @if ($this->calculatedResult && $this->calculatedResult['result'])
-            <flux:badge icon="{{ $this->calculatedResult['result']->icon() }}"
-                color="{{ $this->calculatedResult['result']->color() }}">
-                {{ $this->calculatedResult['result']->label() }}
-            </flux:badge>
-        @endif
+        <x-inspection.result-summary :result="$this->calculatedResult['result']" :failed-items="$this->calculatedResult['failedItems']" />
 
         @if ($this->inspection->vehicleInformation && $this->inspection->vehicleInformation->fuel_type !== FuelType::Ev)
             <flux:textarea wire:model.live="form.remarks" label="Remarks" />

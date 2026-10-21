@@ -61,6 +61,11 @@ return [
                     'route' => 'administration.categories.index',
                 ],
                 [
+                    'label' => 'Visual Items',
+                    'icon' => 'eye',
+                    'route' => 'administration.visual-items.index',
+                ],
+                [
                     'label' => 'Colors',
                     'icon' => 'swatch',
                     'route' => 'administration.colors.index',
