@@ -26,188 +26,26 @@ class InspectionFinalResultService
             'visualInspection.visualItemResults',
         ]);
 
-        $requiredModules = $this->requiredModules($inspection);
+        $requiredModules = app(
+            InspectionRequiredModulesService::class
+        )->modules($inspection);
 
         $failedModules = [];
         $failedItems = [];
 
         foreach ($requiredModules as $module) {
 
-            switch ($module) {
+            $result = $this->calculateModule(
+                $inspection,
+                $module,
+            );
 
-                /*
-                |--------------------------------------------------------------------------
-                | Brake Inspection
-                |--------------------------------------------------------------------------
-                */
-
-                case InspectionModule::BrakeInspection:
-
-                    if (! $inspection->brakeInspection) {
-                        break;
-                    }
-
-                    $result = app(BrakeInspectionCalculator::class)->calculate([
-                        'front' => $inspection->brakeInspection->front,
-                        'rear' => $inspection->brakeInspection->rear,
-                        'parking' => $inspection->brakeInspection->parking,
-                    ]);
-
-                    $this->collectFailures(
-                        $module,
-                        $result,
-                        $failedModules,
-                        $failedItems,
-                    );
-
-                    break;
-
-                /*
-                |--------------------------------------------------------------------------
-                | Emission Inspection
-                |--------------------------------------------------------------------------
-                */
-
-                case InspectionModule::EmissionInspection:
-
-                    if (
-                        ! $inspection->vehicleInformation ||
-                        ! $inspection->emissionInspection
-                    ) {
-                        break;
-                    }
-
-                    $result = app(EmissionInspectionCalculator::class)->calculate(
-                        $inspection->vehicleInformation->fuel_type,
-                        [
-                            'hc' => $inspection->emissionInspection->hc,
-                            'co' => $inspection->emissionInspection->co,
-                            'lambda' => $inspection->emissionInspection->lambda,
-                            'opacity' => $inspection->emissionInspection->opacity,
-                        ]
-                    );
-
-                    $this->collectFailures(
-                        $module,
-                        $result,
-                        $failedModules,
-                        $failedItems,
-                    );
-
-                    break;
-
-                /*
-                |--------------------------------------------------------------------------
-                | Head Light Inspection
-                |--------------------------------------------------------------------------
-                */
-
-                case InspectionModule::HeadLightInspection:
-
-                    if (! $inspection->headLightInspection) {
-                        break;
-                    }
-
-                    $result = app(HeadLightInspectionCalculator::class)->calculate([
-                        'left' => $inspection->headLightInspection->left,
-                        'right' => $inspection->headLightInspection->right,
-                    ]);
-
-                    $this->collectFailures(
-                        $module,
-                        $result,
-                        $failedModules,
-                        $failedItems,
-                    );
-
-                    break;
-
-                /*
-                |--------------------------------------------------------------------------
-                | Side Slip Inspection
-                |--------------------------------------------------------------------------
-                */
-
-                case InspectionModule::SideSlipInspection:
-
-                    if (! $inspection->sideSlipInspection) {
-                        break;
-                    }
-
-                    $result = app(SideSlipInspectionCalculator::class)->calculate([
-                        'value' => $inspection->sideSlipInspection->value,
-                    ]);
-
-                    $this->collectFailures(
-                        $module,
-                        $result,
-                        $failedModules,
-                        $failedItems,
-                    );
-
-                    break;
-
-                /*
-                |--------------------------------------------------------------------------
-                | Suspension Inspection
-                |--------------------------------------------------------------------------
-                */
-
-                case InspectionModule::SuspensionInspection:
-
-                    if (! $inspection->suspensionInspection) {
-                        break;
-                    }
-
-                    $result = app(SuspensionInspectionCalculator::class)->calculate([
-                        'front_left' => $inspection->suspensionInspection->front_left,
-                        'front_right' => $inspection->suspensionInspection->front_right,
-                        'rear_left' => $inspection->suspensionInspection->rear_left,
-                        'rear_right' => $inspection->suspensionInspection->rear_right,
-                    ]);
-
-                    $this->collectFailures(
-                        $module,
-                        $result,
-                        $failedModules,
-                        $failedItems,
-                    );
-
-                    break;
-
-                /*
-                |--------------------------------------------------------------------------
-                | Visual Inspection
-                |--------------------------------------------------------------------------
-                */
-
-                case InspectionModule::VisualInspection:
-
-                    if (! $inspection->visualInspection) {
-                        break;
-                    }
-
-                    $items = [];
-
-                    foreach ($inspection->visualInspection->visualItemResults as $item) {
-
-                        $items[$item->visual_item_id] = [
-                            'result' => $item->result,
-                        ];
-                    }
-
-                    $result = app(VisualInspectionCalculator::class)
-                        ->calculate($items);
-
-                    $this->collectFailures(
-                        $module,
-                        $result,
-                        $failedModules,
-                        $failedItems,
-                    );
-
-                    break;
-            }
+            $this->collectFailures(
+                $module,
+                $result,
+                $failedModules,
+                $failedItems,
+            );
         }
 
         return [
@@ -221,12 +59,156 @@ class InspectionFinalResultService
         ];
     }
 
-    private function requiredModules(Inspection $inspection): array
-    {
-        return config(
-            "inspection-modules.{$inspection->inspectionType->code}",
-            [],
-        );
+    public function calculateModule(
+        Inspection $inspection,
+        InspectionModule $module,
+    ): array {
+
+        switch ($module) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Brake Inspection
+            |--------------------------------------------------------------------------
+            */
+
+            case InspectionModule::BrakeInspection:
+
+                if (! $inspection->brakeInspection) {
+                    return [
+                        'result' => InspectionResult::Pending,
+                        'failedItems' => [],
+                    ];
+                }
+
+                return app(BrakeInspectionCalculator::class)->calculate([
+                    'front' => $inspection->brakeInspection->front,
+                    'rear' => $inspection->brakeInspection->rear,
+                    'parking' => $inspection->brakeInspection->parking,
+                ]);
+
+                /*
+            |--------------------------------------------------------------------------
+            | Emission Inspection
+            |--------------------------------------------------------------------------
+            */
+
+            case InspectionModule::EmissionInspection:
+
+                if (
+                    ! $inspection->vehicleInformation ||
+                    ! $inspection->emissionInspection
+                ) {
+                    return [
+                        'result' => InspectionResult::Pending,
+                        'failedItems' => [],
+                    ];
+                }
+
+                return app(EmissionInspectionCalculator::class)->calculate(
+                    $inspection->vehicleInformation->fuel_type,
+                    [
+                        'hc' => $inspection->emissionInspection->hc,
+                        'co' => $inspection->emissionInspection->co,
+                        'lambda' => $inspection->emissionInspection->lambda,
+                        'opacity' => $inspection->emissionInspection->opacity,
+                    ]
+                );
+
+                /*
+            |--------------------------------------------------------------------------
+            | Head Light Inspection
+            |--------------------------------------------------------------------------
+            */
+
+            case InspectionModule::HeadLightInspection:
+
+                if (! $inspection->headLightInspection) {
+                    return [
+                        'result' => InspectionResult::Pending,
+                        'failedItems' => [],
+                    ];
+                }
+
+                return app(HeadLightInspectionCalculator::class)->calculate([
+                    'left' => $inspection->headLightInspection->left,
+                    'right' => $inspection->headLightInspection->right,
+                ]);
+
+                /*
+            |--------------------------------------------------------------------------
+            | Side Slip Inspection
+            |--------------------------------------------------------------------------
+            */
+
+            case InspectionModule::SideSlipInspection:
+
+                if (! $inspection->sideSlipInspection) {
+                    return [
+                        'result' => InspectionResult::Pending,
+                        'failedItems' => [],
+                    ];
+                }
+
+                return app(SideSlipInspectionCalculator::class)->calculate([
+                    'value' => $inspection->sideSlipInspection->value,
+                ]);
+
+                /*
+            |--------------------------------------------------------------------------
+            | Suspension Inspection
+            |--------------------------------------------------------------------------
+            */
+
+            case InspectionModule::SuspensionInspection:
+
+                if (! $inspection->suspensionInspection) {
+                    return [
+                        'result' => InspectionResult::Pending,
+                        'failedItems' => [],
+                    ];
+                }
+
+                return app(SuspensionInspectionCalculator::class)->calculate([
+                    'front_left' => $inspection->suspensionInspection->front_left,
+                    'front_right' => $inspection->suspensionInspection->front_right,
+                    'rear_left' => $inspection->suspensionInspection->rear_left,
+                    'rear_right' => $inspection->suspensionInspection->rear_right,
+                ]);
+
+                /*
+            |--------------------------------------------------------------------------
+            | Visual Inspection
+            |--------------------------------------------------------------------------
+            */
+
+            case InspectionModule::VisualInspection:
+
+                if (! $inspection->visualInspection) {
+                    return [
+                        'result' => InspectionResult::Pending,
+                        'failedItems' => [],
+                    ];
+                }
+
+                $items = [];
+
+                foreach ($inspection->visualInspection->visualItemResults as $item) {
+
+                    $items[$item->visual_item_id] = [
+                        'result' => $item->result,
+                    ];
+                }
+
+                return app(VisualInspectionCalculator::class)
+                    ->calculate($items);
+            default:
+
+                return [
+                    'result' => InspectionResult::Pending,
+                    'failedItems' => [],
+                ];
+        }
     }
 
     private function collectFailures(

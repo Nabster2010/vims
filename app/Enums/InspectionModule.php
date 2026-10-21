@@ -4,30 +4,104 @@ namespace App\Enums;
 
 enum InspectionModule: string
 {
-    case VehicleInformation = 'vehicle_information';
+    case VehicleInformation = 'vehicle-information';
 
-    case VisualInspection = 'visual_inspection';
+    case EmissionInspection = 'emission-inspection';
 
-    case EmissionInspection = 'emission_inspection';
+    case HeadLightInspection = 'head-light-inspection';
 
-    case HeadLightInspection = 'head_light_inspection';
+    case SideSlipInspection = 'side-slip-inspection';
 
-    case SideSlipInspection = 'side_slip_inspection';
+    case SuspensionInspection = 'suspension-inspection';
 
-    case SuspensionInspection = 'suspension_inspection';
+    case BrakeInspection = 'brake-inspection';
 
-    case BrakeInspection = 'brake_inspection';
+    case VisualInspection = 'visual-inspection';
 
     public function label(): string
     {
         return match ($this) {
+
             self::VehicleInformation => 'Vehicle Information',
-            self::VisualInspection => 'Visual Inspection',
+
             self::EmissionInspection => 'Emission Inspection',
+
             self::HeadLightInspection => 'Head Light Inspection',
+
             self::SideSlipInspection => 'Side Slip Inspection',
+
             self::SuspensionInspection => 'Suspension Inspection',
+
             self::BrakeInspection => 'Brake Inspection',
+
+            self::VisualInspection => 'Visual Inspection',
+        };
+    }
+
+    public function relation(): string
+    {
+        return match ($this) {
+
+            self::VehicleInformation => 'vehicleInformation',
+
+            self::EmissionInspection => 'emissionInspection',
+
+            self::HeadLightInspection => 'headLightInspection',
+
+            self::SideSlipInspection => 'sideSlipInspection',
+
+            self::SuspensionInspection => 'suspensionInspection',
+
+            self::BrakeInspection => 'brakeInspection',
+
+            self::VisualInspection => 'visualInspection',
+        };
+    }
+
+    public function route(): string
+    {
+        return match ($this) {
+
+            self::VehicleInformation =>
+            'inspections.vehicle-information.edit',
+
+            self::EmissionInspection =>
+            'inspections.emission-inspection.edit',
+
+            self::HeadLightInspection =>
+            'inspections.head-light-inspection.edit',
+
+            self::SideSlipInspection =>
+            'inspections.side-slip-inspection.edit',
+
+            self::SuspensionInspection =>
+            'inspections.suspension-inspection.edit',
+
+            self::BrakeInspection =>
+            'inspections.brake-inspection.edit',
+
+            self::VisualInspection =>
+            'inspections.visual-inspection.edit',
+        };
+    }
+
+    public function icon(): string
+    {
+        return match ($this) {
+
+            self::VehicleInformation => 'truck',
+
+            self::EmissionInspection => 'cloud',
+
+            self::HeadLightInspection => 'light-bulb',
+
+            self::SideSlipInspection => 'arrows-right-left',
+
+            self::SuspensionInspection => 'adjustments-horizontal',
+
+            self::BrakeInspection => 'stop-circle',
+
+            self::VisualInspection => 'eye',
         };
     }
 }

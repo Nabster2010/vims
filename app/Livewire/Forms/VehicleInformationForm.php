@@ -12,6 +12,7 @@ use App\Enums\MotorcycleUse;
 use App\Enums\VehicleCondition;
 use App\Models\Inspection;
 use App\Models\VehicleInformation;
+use App\Services\Inspection\InspectionWorkflowService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
@@ -436,9 +437,13 @@ class VehicleInformationForm extends Form
             )
 
         );
+
         if ($old_fuel_type !== $this->fuel_type) {
             $inspection->resetEmissionInspection();
         }
+        app(InspectionWorkflowService::class)
+            ->sync($inspection);
+
         return $vehicle;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Models\VisualItem;
+use App\Services\Inspection\InspectionWorkflowService;
 use App\Services\VisualInspectionCalculator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -121,5 +122,7 @@ class VisualInspectionForm extends Form
                 );
             }
         });
+        app(InspectionWorkflowService::class)
+            ->sync($inspection);
     }
 }

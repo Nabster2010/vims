@@ -22,6 +22,7 @@ class Inspection extends Model
         'customer_id',
         'sales_representative_id',
 
+
         // common
         'vin',
         'payment_type',
@@ -46,6 +47,7 @@ class Inspection extends Model
 
         // Workflow
         'status',
+        'final_result',
         'created_by',
         'registered_at',
         'remarks',
@@ -85,6 +87,8 @@ class Inspection extends Model
     public function resetEmissionInspection(): void
     {
         $this->emissionInspection()->delete();
+        $this->final_result = null;
+        $this->save();
     }
 
     protected static function booted(): void

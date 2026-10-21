@@ -6,6 +6,7 @@ namespace App\Livewire\Forms;
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Services\BrakeInspectionCalculator;
+use App\Services\Inspection\InspectionWorkflowService;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
 use Illuminate\Support\Facades\Auth;
@@ -80,5 +81,7 @@ class BrakeInspectionForm extends Form
             [],
             $data,
         );
+        app(InspectionWorkflowService::class)
+            ->sync($inspection);
     }
 }

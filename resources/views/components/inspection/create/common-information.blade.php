@@ -41,14 +41,14 @@
 
         <flux:button variant="primary"
             :href="
-                            route('customers.search', [
-                    'inspection_type_id' => $this->form->inspection_type_id,
-                    'sales_representative_id' => $this->form->sales_representative_id,
-                    'vin' => $this->form->vin,
-                    'payment_type' => $this->form->payment_type,
-                    'payment_amount' => $this->form->payment_amount,
-                ])
-                        "
+                                                                route('customers.search', [
+                                                        'inspection_type_id' => $this->form->inspection_type_id,
+                                                        'sales_representative_id' => $this->form->sales_representative_id,
+                                                        'vin' => $this->form->vin,
+                                                        'payment_type' => $this->form->payment_type,
+                                                        'payment_amount' => $this->form->payment_amount,
+                                                    ])
+                                                            "
             wire:navigate>
             {{ $this->selectedCustomer ? 'Change Customer' : 'Select Customer' }}
         </flux:button>
@@ -64,7 +64,7 @@
         @endforeach
     </flux:select>
 
-    <flux:input wire:model.live.debounce.500ms="form.vin" label="VIN" />
+    <flux:input wire:model.blur="form.vin" label="VIN" />
 
     <flux:select wire:model.live="form.payment_type" label="Payment Type">
         <option value="">Select Payment Type</option>
@@ -76,5 +76,5 @@
         @endforeach
     </flux:select>
 
-    <flux:input wire:model="form.payment_amount" label="Payment Amount" type="number" step="0.01" />
+    <flux:input wire:model.blur="form.payment_amount" label="Payment Amount" type="text" />
 </flux:card>

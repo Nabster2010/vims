@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
+use App\Services\Inspection\InspectionWorkflowService;
 use App\Services\SideSlipInspectionCalculator;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
@@ -73,5 +74,7 @@ class SideSlipInspectionForm extends Form
             [],
             $data,
         );
+        app(InspectionWorkflowService::class)
+            ->sync($inspection);
     }
 }

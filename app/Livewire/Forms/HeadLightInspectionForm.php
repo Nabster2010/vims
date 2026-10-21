@@ -6,6 +6,7 @@ namespace App\Livewire\Forms;
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Services\HeadlightInspectionCalculator;
+use App\Services\Inspection\InspectionWorkflowService;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
 use Illuminate\Support\Facades\Auth;
@@ -78,5 +79,7 @@ class HeadLightInspectionForm extends Form
             [],
             $data,
         );
+        app(InspectionWorkflowService::class)
+            ->sync($inspection);
     }
 }

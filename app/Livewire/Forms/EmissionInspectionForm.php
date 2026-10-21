@@ -6,6 +6,7 @@ use App\Enums\FuelType;
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Services\EmissionInspectionCalculator;
+use App\Services\Inspection\InspectionWorkflowService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
@@ -119,5 +120,7 @@ class EmissionInspectionForm extends Form
             [],
             $data,
         );
+        app(InspectionWorkflowService::class)
+            ->sync($inspection);
     }
 }

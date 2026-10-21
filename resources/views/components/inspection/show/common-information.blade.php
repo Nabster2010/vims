@@ -12,6 +12,18 @@
                 {{ $inspection->status->label() }}
             </flux:badge>
         </div>
+        <div>
+            <flux:text class="text-zinc-500">Final Result</flux:text>
+            @if ($inspection->final_result)
+                <flux:badge size="lg" :color="$inspection->final_result->color()">
+                    {{ $inspection->final_result->label() }}
+                </flux:badge>
+            @else
+                <flux:badge size="sm" color="gray">
+                    Pending
+                </flux:badge>
+            @endif
+        </div>
         <x-ui.display-field label="Customer" :value="$inspection->customer->name" />
         <x-ui.display-field label="VIN" :value="$inspection->vin" />
         <x-ui.display-field label="Branch" :value="$inspection->branch->name" />
