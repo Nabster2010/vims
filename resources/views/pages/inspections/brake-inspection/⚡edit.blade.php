@@ -7,6 +7,7 @@ use Livewire\Attributes\Computed;
 use App\Enums\InspectionResult;
 use App\Livewire\Forms\BrakeInspectionForm;
 use App\Services\BrakeInspectionCalculator;
+use App\Services\Inspection\InspectionLockService;
 
 new class extends Component {
     public Inspection $inspection;
@@ -25,6 +26,7 @@ new class extends Component {
     }
     public function save(): void
     {
+        app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
 
         session()->flash('success', 'Brake inspection saved successfully.');
@@ -67,7 +69,8 @@ new class extends Component {
             <flux:textarea wire:model.live="form.remarks" label="Remarks" />
         @endif
         <div class="flex justify-end">
-            <flux:button variant="primary" type="submit" :disabled="$this->inspection->vehicleInformation === null">
+            <flux:button variant="primary" type="submit"
+                :disabled="$this->inspection->vehicleInformation === null || $this->inspection->is_locked">
                 Save Brake Inspection
             </flux:button>
         </div>

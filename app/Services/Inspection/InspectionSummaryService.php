@@ -17,7 +17,6 @@ class InspectionSummaryService
             'inspection' => $inspection,
             'steps' => $this->stepper->steps($inspection),
             'result' => $this->finalResult->calculate($inspection),
-
         ];
     }
 }

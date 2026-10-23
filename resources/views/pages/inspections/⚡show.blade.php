@@ -7,27 +7,27 @@ use App\Services\Inspection\InspectionModuleStatusService;
 use App\Services\Inspection\InspectionFinalResultService;
 use App\Services\Inspection\InspectionStepperService;
 use App\Services\Inspection\InspectionSummaryService;
+use App\Services\Inspection\InspectionApprovalService;
+use App\Services\Inspection\InspectionReinspectionService;
+use App\Services\Inspection\InspectionLockService;
 
 new #[Title('Inspection Summary')] class extends Component {
     public Inspection $inspection;
-    private InspectionSummaryService $summaryService;
 
     public function mount(Inspection $inspection): void
     {
         $this->inspection = $inspection;
-        $this->summaryService = app(InspectionSummaryService::class);
     }
 
     #[Computed]
     public function summary(): array
     {
-        return $this->summaryService->summary($this->inspection);
+        return app(InspectionSummaryService::class)->summary($this->inspection->refresh());
     }
     #[Computed]
     public function moduleResults(): array
     {
         $results = [];
-
         foreach ($this->summary['steps'] as $step) {
             if (!$step['module']) {
                 continue;
@@ -37,6 +37,25 @@ new #[Title('Inspection Summary')] class extends Component {
         }
 
         return $results;
+    }
+
+    public function approve(): void
+    {
+        app(InspectionApprovalService::class)->approve($this->inspection, auth()->user());
+
+        $this->inspection = $this->inspection->refresh();
+    }
+    public function unlock(): void
+    {
+        app(InspectionLockService::class)->unlock($this->inspection);
+
+        $this->inspection = $this->inspection->refresh();
+    }
+    public function reinspect(): void
+    {
+        app(InspectionReinspectionService::class)->create($this->inspection);
+
+        $this->inspection = $this->inspection->fresh();
     }
 };
 ?>
@@ -56,7 +75,7 @@ new #[Title('Inspection Summary')] class extends Component {
                 </flux:text>
 
                 <flux:text>
-                    {{ $this->summary['inspection']->inspection_no }}
+                    {{ $this->summary['inspection']->report_no }}
                 </flux:text>
             </div>
 
@@ -138,6 +157,25 @@ new #[Title('Inspection Summary')] class extends Component {
                 </flux:badge>
 
             </div>
+            <div>
+
+                <flux:text size="sm" class="text-zinc-500">
+                    Lock Status
+                </flux:text>
+
+                <div class="flex items-center gap-2">
+
+                    <flux:icon :name="$this->summary['inspection']->is_locked ? 'lock-closed' : 'lock-open'" />
+
+                    <flux:badge :color="$this->summary['inspection']->is_locked ? 'red' : 'green'">
+
+                        {{ $this->summary['inspection']->is_locked ? 'Locked' : 'Unlocked' }}
+
+                    </flux:badge>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -193,15 +231,7 @@ new #[Title('Inspection Summary')] class extends Component {
                                 {{ ucfirst($step['status']) }}
 
                             </flux:badge>
-                            @if ($step['module'] && $step['module'] !== \App\Enums\InspectionModule::VehicleInformation)
-                                @php
-                                    $result = $this->moduleResults[$step['module']->value];
-                                @endphp
 
-                                <flux:badge :color="$result->color()">
-                                    {{ $result->label() }}
-                                </flux:badge>
-                            @endif
 
                             <flux:icon name="chevron-right" class="text-zinc-400" />
 
@@ -213,6 +243,37 @@ new #[Title('Inspection Summary')] class extends Component {
             @endforeach
 
         </div>
+
+    </flux:card>
+    <flux:card class="space-y-4">
+
+        <flux:heading size="lg">
+            Failed Modules
+        </flux:heading>
+
+        @forelse($this->summary['result']['failedModules'] as $module)
+            <div class="flex items-center justify-between rounded-lg border p-3">
+
+                <div class="flex items-center gap-2">
+
+                    <flux:icon :name="$module->icon()" />
+
+                    <span>{{ $module->label() }}</span>
+
+                </div>
+
+                <flux:badge color="red">
+                    Failed
+                </flux:badge>
+
+            </div>
+
+        @empty
+
+            <div class="text-green-600">
+                All inspection modules passed.
+            </div>
+        @endforelse
 
     </flux:card>
     <flux:card class="space-y-6">
@@ -254,50 +315,26 @@ new #[Title('Inspection Summary')] class extends Component {
         @endforelse
 
     </flux:card>
-    <flux:card class="space-y-4">
 
-        <flux:heading size="lg">
-            Failed Modules
-        </flux:heading>
-
-        @forelse($this->summary['result']['failedModules'] as $module)
-            <div class="flex items-center justify-between rounded-lg border p-3">
-
-                <div class="flex items-center gap-2">
-
-                    <flux:icon :name="$module->icon()" />
-
-                    <span>{{ $module->label() }}</span>
-
-                </div>
-
-                <flux:badge color="red">
-                    Failed
-                </flux:badge>
-
-            </div>
-
-        @empty
-
-            <div class="text-green-600">
-                All inspection modules passed.
-            </div>
-        @endforelse
-
-    </flux:card>
     <flux:card>
 
         <div class="flex flex-wrap gap-3">
 
-            <flux:button variant="primary">
+            @if ($this->inspection->status === \App\Enums\InspectionStatus::PendingApproval)
+                <flux:button variant="primary" wire:click="approve">
+                    Approve
+                </flux:button>
+            @endif
 
-                Approve
+            <flux:button variant="danger" wire:click="reinspect" :disabled="$this->inspection->is_locked === false">
+
+                Reinspection
 
             </flux:button>
 
-            <flux:button variant="danger">
+            <flux:button variant="danger" wire:click="unlock" :disabled="$this->inspection->is_locked === false">
 
-                Reinspection
+                Unlock
 
             </flux:button>
 

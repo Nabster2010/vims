@@ -17,6 +17,7 @@ use App\Enums\AirIntake;
 use App\Enums\VehicleCondition;
 use App\Enums\MotorcycleCategory;
 use App\Enums\MotorcycleUse;
+use App\Services\Inspection\InspectionLockService;
 
 new class extends Component {
     public Inspection $inspection;
@@ -103,8 +104,8 @@ new class extends Component {
 
     public function save(): void
     {
+        app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
-
         session()->flash('success', 'Vehicle information saved successfully.');
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
@@ -146,7 +147,7 @@ new class extends Component {
         <flux:textarea wire:model.live="form.remarks" label="Remarks" />
 
         <div class="flex justify-end">
-            <flux:button variant="primary" type="submit">
+            <flux:button variant="primary" type="submit" :disabled="$this->inspection->is_locked">
                 Save Vehicle Information </flux:button>
         </div>
     </form>

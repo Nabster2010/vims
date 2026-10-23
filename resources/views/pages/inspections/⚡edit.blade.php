@@ -8,6 +8,7 @@ use App\Models\Inspection;
 use App\Models\InspectionType;
 use App\Models\SalesRepresentative;
 use App\Services\InspectionService;
+use App\Services\Inspection\InspectionLockService;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -32,6 +33,7 @@ new #[Title('Edit Inspection')] class extends Component {
 
     public function updateInspection(InspectionService $inspectionService): void
     {
+        app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->validate();
 
         $inspectionService->update($this->inspection, $this->form->data());
@@ -99,7 +101,8 @@ new #[Title('Edit Inspection')] class extends Component {
         @endif
 
         <div class="flex justify-end">
-            <flux:button variant="primary" type="submit">
+
+            <flux:button variant="primary" type="submit" :disabled="$this->inspection->is_locked">
                 Save Inspection
             </flux:button>
         </div>

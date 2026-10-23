@@ -2,7 +2,6 @@
 
 namespace App\Services\Inspection;
 
-use App\Enums\InspectionModule;
 use App\Enums\InspectionStatus;
 use App\Models\Inspection;
 
@@ -25,6 +24,7 @@ class InspectionWorkflowService
             'brakeInspection',
             'visualInspection',
         ]);
+        // dd($this->requiredModules->modules($inspection));
 
         if (! $this->allRequiredModulesCompleted($inspection)) {
             $this->markInProgress($inspection);

@@ -50,10 +50,31 @@ class Inspection extends Model
         'final_result',
         'created_by',
         'registered_at',
+        'approved_by',
+        'approved_at',
+        'is_locked',
+        'reinspection_count',
         'remarks',
     ];
 
 
+    //report number accessor - call it by $inspection->report_no
+    protected $appends = [
+        'report_no',
+    ];
+
+    public function getReportNoAttribute(): string
+    {
+        if ($this->reinspection_count === 0) {
+            return $this->inspection_no;
+        }
+
+        return sprintf(
+            '%s-R%d',
+            $this->inspection_no,
+            $this->reinspection_count,
+        );
+    }
 
     // reset vehicle information for a specific inspection when update inspection type keep common fields
     public function resetVehicleInformation(): void
@@ -87,8 +108,9 @@ class Inspection extends Model
     public function resetEmissionInspection(): void
     {
         $this->emissionInspection()->delete();
-        $this->final_result = null;
-        $this->save();
+        $this->update([
+            'final_result' => null,
+        ]);
     }
 
     protected static function booted(): void

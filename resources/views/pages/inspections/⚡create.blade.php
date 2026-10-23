@@ -126,6 +126,10 @@ new #[Title('Create Inspection')] class extends Component {
         @endif
 
         <div class="flex justify-end">
+
+
+
+
             <flux:button variant="primary" type="submit">
                 Create Inspection
             </flux:button>

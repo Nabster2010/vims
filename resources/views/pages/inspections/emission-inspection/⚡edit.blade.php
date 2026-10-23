@@ -7,6 +7,7 @@ use App\Enums\FuelType;
 use Livewire\Attributes\Computed;
 use App\Enums\InspectionResult;
 use App\Services\EmissionInspectionCalculator;
+use App\Services\Inspection\InspectionLockService;
 
 new class extends Component {
     public Inspection $inspection;
@@ -39,6 +40,7 @@ new class extends Component {
     }
     public function save(): void
     {
+        app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
 
         session()->flash('success', 'Emission inspection saved successfully.');
@@ -83,7 +85,7 @@ new class extends Component {
         @endif
         <div class="flex justify-end">
             <flux:button variant="primary" type="submit"
-                :disabled="$this->fuelType === FuelType::Ev || $this->inspection->vehicleInformation === null">
+                :disabled="$this->fuelType === FuelType::Ev || $this->inspection->vehicleInformation === null || $this->inspection->is_locked">
                 Save Emission Inspection
             </flux:button>
         </div>
