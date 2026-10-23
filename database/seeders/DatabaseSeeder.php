@@ -29,5 +29,8 @@ class DatabaseSeeder extends Seeder
             SalesRepresentativeSeeder::class,
             CustomerSeeder::class,
         ]);
+        $this->call([
+            SuperAdminSeeder::class,
+        ]);
     }
 }
