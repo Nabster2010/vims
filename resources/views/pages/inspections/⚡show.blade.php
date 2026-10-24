@@ -69,10 +69,12 @@ new #[Title('Inspection Summary')] class extends BasePage {
             <flux:heading size="lg">
                 Inspection Information
             </flux:heading>
-            <flux:button variant="primary" :href="route('inspections.edit', $this->inspection)" icon="pencil"
-                icon-variant="outline">
-                Edit
-            </flux:button>
+            @can('update', $this->inspection)
+                <flux:button variant="primary" :href="route('inspections.edit', $this->inspection)" icon="pencil"
+                    icon-variant="outline">
+                    Edit
+                </flux:button>
+            @endcan
         </div>
 
         <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
