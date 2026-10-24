@@ -99,6 +99,19 @@ return [
             ],
         ],
         [
+            'heading' => 'Users',
+
+            'items' => [
+
+                [
+                    'label' => 'Users',
+                    'icon' => 'user',
+                    'route' => 'users.index',
+                ],
+
+            ],
+        ],
+        [
             'heading' => 'Reports',
 
             'items' => [
