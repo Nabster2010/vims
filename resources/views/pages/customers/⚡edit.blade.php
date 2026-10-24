@@ -5,15 +5,18 @@ use App\Enums\CustomerType;
 use App\Enums\IdentityType;
 use App\Models\Customer;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new #[Title('Edit Customer')] class extends Component {
+new #[Title('Edit Customer')] class extends BasePage {
     public Customer $customer;
 
     public CustomerForm $form;
 
     public function mount(Customer $customer): void
     {
+        $this->authorize('update', $customer);
+
         $this->customer = $customer;
 
         $this->form->fillFromModel($customer);
@@ -23,6 +26,8 @@ new #[Title('Edit Customer')] class extends Component {
     {
         $data = $this->form->validate();
         $this->customer->update($data);
+        ToastService::success('Customer updated successfully.');
+
         return $this->redirectRoute('customers.index', navigate: true);
     }
 };

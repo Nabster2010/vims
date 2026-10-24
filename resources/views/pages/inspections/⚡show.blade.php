@@ -1,7 +1,6 @@
 <?php
 use App\Models\Inspection;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Services\Inspection\InspectionModuleStatusService;
 use App\Services\Inspection\InspectionFinalResultService;
@@ -10,12 +9,14 @@ use App\Services\Inspection\InspectionSummaryService;
 use App\Services\Inspection\InspectionApprovalService;
 use App\Services\Inspection\InspectionReinspectionService;
 use App\Services\Inspection\InspectionLockService;
+use App\Livewire\Pages\BasePage;
 
-new #[Title('Inspection Summary')] class extends Component {
+new #[Title('Inspection Summary')] class extends BasePage {
     public Inspection $inspection;
 
     public function mount(Inspection $inspection): void
     {
+        $this->authorize('view', $inspection);
         $this->inspection = $inspection;
     }
 
@@ -63,9 +64,16 @@ new #[Title('Inspection Summary')] class extends Component {
 
     <flux:card class="space-y-6">
 
-        <flux:heading size="lg">
-            Inspection Information
-        </flux:heading>
+        <div class="flex items-center justify-between">
+
+            <flux:heading size="lg">
+                Inspection Information
+            </flux:heading>
+            <flux:button variant="primary" :href="route('inspections.edit', $this->inspection)" icon="pencil"
+                icon-variant="outline">
+                Edit
+            </flux:button>
+        </div>
 
         <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
 
@@ -180,71 +188,73 @@ new #[Title('Inspection Summary')] class extends Component {
         </div>
 
     </flux:card>
-    <flux:card class="space-y-6">
+    @can('performInspection', $this->inspection)
+        <flux:card class="space-y-6">
 
-        <flux:heading size="lg">
-            Inspection Modules
-        </flux:heading>
+            <flux:heading size="lg">
+                Inspection Modules
+            </flux:heading>
 
-        <div class="space-y-3">
+            <div class="space-y-3">
 
-            @foreach ($this->summary['steps'] as $step)
-                @php
+                @foreach ($this->summary['steps'] as $step)
+                    @php
 
-                    $color = match ($step['status']) {
-                        'completed' => 'green',
-                        'current' => 'blue',
-                        default => 'zinc',
-                    };
+                        $color = match ($step['status']) {
+                            'completed' => 'green',
+                            'current' => 'blue',
+                            default => 'zinc',
+                        };
 
-                @endphp
+                    @endphp
 
-                <a href="{{ $step['route'] }}"
-                    class="block rounded-xl border border-zinc-200 p-4 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900">
+                    <a href="{{ $step['route'] }}"
+                        class="block rounded-xl border border-zinc-200 p-4 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900">
 
-                    <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between">
 
-                        <div class="space-y-1">
+                            <div class="space-y-1">
 
-                            @if ($step['module'])
-                                <div class="flex items-center gap-2">
+                                @if ($step['module'])
+                                    <div class="flex items-center gap-2">
 
-                                    <flux:icon :name="$step['module']->icon()" />
+                                        <flux:icon :name="$step['module']->icon()" />
 
+                                        <span class="font-medium">
+                                            {{ $step['module']->label() }}
+                                        </span>
+
+                                    </div>
+                                @else
                                     <span class="font-medium">
-                                        {{ $step['module']->label() }}
+                                        {{ $step['label'] }}
                                     </span>
+                                @endif
 
-                                </div>
-                            @else
-                                <span class="font-medium">
-                                    {{ $step['label'] }}
-                                </span>
-                            @endif
+                            </div>
 
-                        </div>
+                            <div class="flex items-center gap-2">
 
-                        <div class="flex items-center gap-2">
+                                <flux:badge :color="$color">
 
-                            <flux:badge :color="$color">
+                                    {{ ucfirst($step['status']) }}
 
-                                {{ ucfirst($step['status']) }}
-
-                            </flux:badge>
+                                </flux:badge>
 
 
-                            <flux:icon name="chevron-right" class="text-zinc-400" />
+                                <flux:icon name="chevron-right" class="text-zinc-400" />
+
+                            </div>
 
                         </div>
 
-                    </div>
+                    </a>
+                @endforeach
 
-                </a>
-            @endforeach
+            </div>
 
-        </div>
-
-    </flux:card>
+        </flux:card>
+    @endcan
     <flux:card class="space-y-4">
 
         <flux:heading size="lg">
@@ -270,9 +280,17 @@ new #[Title('Inspection Summary')] class extends Component {
 
         @empty
 
-            <div class="text-green-600">
-                All inspection modules passed.
-            </div>
+
+
+            @if ($this->summary['result']['isCompleted'])
+                <div class="text-green-600">
+                    All inspection modules passed.
+                </div>
+            @else
+                <div class="text-zinc-500">
+                    Inspection is not completed yet.
+                </div>
+            @endif
         @endforelse
 
     </flux:card>
@@ -315,36 +333,37 @@ new #[Title('Inspection Summary')] class extends Component {
         @endforelse
 
     </flux:card>
+    @canany(['approve', 'unlock', 'reinspect'], $this->inspection)
+        <flux:card>
 
-    <flux:card>
+            <div class="flex flex-wrap gap-3">
 
-        <div class="flex flex-wrap gap-3">
+                @if ($this->inspection->status === \App\Enums\InspectionStatus::PendingApproval)
+                    <flux:button variant="primary" wire:click="approve">
+                        Approve
+                    </flux:button>
+                @endif
 
-            @if ($this->inspection->status === \App\Enums\InspectionStatus::PendingApproval)
-                <flux:button variant="primary" wire:click="approve">
-                    Approve
+                <flux:button variant="danger" wire:click="reinspect" :disabled="$this->inspection->is_locked === false">
+
+                    Reinspection
+
                 </flux:button>
-            @endif
 
-            <flux:button variant="danger" wire:click="reinspect" :disabled="$this->inspection->is_locked === false">
+                <flux:button variant="danger" wire:click="unlock" :disabled="$this->inspection->is_locked === false">
 
-                Reinspection
+                    Unlock
 
-            </flux:button>
+                </flux:button>
 
-            <flux:button variant="danger" wire:click="unlock" :disabled="$this->inspection->is_locked === false">
+                <flux:button variant="ghost">
 
-                Unlock
+                    Print Report
 
-            </flux:button>
+                </flux:button>
 
-            <flux:button variant="ghost">
+            </div>
 
-                Print Report
-
-            </flux:button>
-
-        </div>
-
-    </flux:card>
+        </flux:card>
+    @endcanany
 </x-ui.page>

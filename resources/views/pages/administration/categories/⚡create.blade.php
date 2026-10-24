@@ -1,16 +1,23 @@
 <?php
 
 use App\Livewire\Forms\CategoryForm;
-use Livewire\Component;
+use App\Models\Category;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public CategoryForm $form;
+
+    public function mount(): void
+    {
+        $this->authorize('create', Category::class);
+    }
 
     public function save(): void
     {
         $category = $this->form->create();
 
-        session()->flash('success', 'Category created successfully.');
+        ToastService::success('Category created successfully.');
 
         $this->redirectRoute('administration.categories.index', navigate: true);
     }

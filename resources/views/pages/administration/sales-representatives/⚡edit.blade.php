@@ -2,15 +2,18 @@
 
 use App\Livewire\Forms\SalesRepresentativeForm;
 use App\Models\SalesRepresentative;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public SalesRepresentative $salesRepresentative;
 
     public SalesRepresentativeForm $form;
 
     public function mount(SalesRepresentative $salesRepresentative): void
     {
+        $this->authorize('update', $salesRepresentative);
+
         $this->salesRepresentative = $salesRepresentative;
 
         $this->form->fillFromSalesRepresentative($salesRepresentative);
@@ -20,7 +23,7 @@ new class extends Component {
     {
         $this->form->save($this->salesRepresentative);
 
-        session()->flash('success', 'Sales representative updated successfully.');
+        ToastService::success('Sales representative updated successfully.');
 
         $this->redirectRoute('administration.sales-representatives.index', navigate: true);
     }

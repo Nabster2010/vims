@@ -4,10 +4,16 @@ use App\Models\Color;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\WithPagination;
+use App\Livewire\Pages\BasePage;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
     public string $search = '';
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Color::class);
+    }
 
     public function updatingSearch(): void
     {
@@ -51,12 +57,13 @@ new class extends Component {
             </flux:subheading>
 
         </div>
+        @can('create', Color::class)
+            <flux:button variant="primary" :href="route('administration.colors.create')" wire:navigate>
 
-        <flux:button variant="primary" :href="route('administration.colors.create')" wire:navigate>
+                New Color
 
-            New Color
-
-        </flux:button>
+            </flux:button>
+        @endcan
 
     </div>
     <div class="mt-6">
@@ -121,12 +128,14 @@ new class extends Component {
 
                         <flux:table.cell class="text-right">
 
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.colors.edit', $color)" wire:navigate>
+                            @can('update', $color)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.colors.edit', $color)" wire:navigate>
 
-                                Edit
+                                    Edit
 
-                            </flux:button>
+                                </flux:button>
+                            @endcan
 
                         </flux:table.cell>
 

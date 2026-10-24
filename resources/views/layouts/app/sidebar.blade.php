@@ -20,7 +20,15 @@
                 <flux:sidebar.group :heading="$group['heading']">
 
                     @foreach ($group['items'] as $item)
-                        @if (Route::has($item['route']))
+                        @php
+                            $authorized = true;
+
+                            if (isset($item['can'])) {
+                                [$ability, $arguments] = $item['can'];
+                                $authorized = auth()->user()->can($ability, $arguments);
+                            }
+                        @endphp
+                        @if ($authorized && Route::has($item['route']))
                             <flux:sidebar.item :icon="$item['icon']" :href="route($item['route'])"
                                 :current="request()->routeIs(...(array) ($item['active'] ?? $item['route']))"
                                 wire:navigate>

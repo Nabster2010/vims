@@ -2,13 +2,18 @@
 
 use App\Models\CustomPort;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
 use Livewire\WithPagination;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
 
     public string $search = '';
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', CustomPort::class);
+    }
 
     public function updatingSearch(): void
     {
@@ -58,11 +63,13 @@ new class extends Component {
 
         </div>
 
-        <flux:button variant="primary" :href="route('administration.custom-ports.create')" wire:navigate>
+        @can('create', CustomPort::class)
+            <flux:button variant="primary" :href="route('administration.custom-ports.create')" wire:navigate>
 
-            New Custom Port
+                New Custom Port
 
-        </flux:button>
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -142,13 +149,14 @@ new class extends Component {
                         </flux:table.cell>
 
                         <flux:table.cell class="text-right">
+                            @can('update', $customPort)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.custom-ports.edit', $customPort)" wire:navigate>
 
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.custom-ports.edit', $customPort)" wire:navigate>
+                                    Edit
 
-                                Edit
-
-                            </flux:button>
+                                </flux:button>
+                            @endcan
 
                         </flux:table.cell>
 

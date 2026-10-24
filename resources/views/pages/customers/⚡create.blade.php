@@ -5,11 +5,14 @@ use Livewire\Attributes\Title;
 use App\Enums\CustomerType;
 use App\Models\Customer;
 use App\Enums\IdentityType;
-use Livewire\Component;
 use Livewire\Attributes\Url;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new #[Title('Create Customer')] class extends Component {
+new #[Title('Create Customer')] class extends BasePage {
     public CustomerForm $form;
+    #[Url]
+    public ?int $inspection_id = null;
     #[Url]
     public ?string $return_to = null;
     #[Url]
@@ -18,26 +21,65 @@ new #[Title('Create Customer')] class extends Component {
     public ?int $sales_representative_id = null;
     #[Url]
     public ?string $vin = null;
+    #[Url]
+    public ?string $request_date = null;
+    #[Url]
+    public ?string $custom_declaration_date = null;
+    #[Url]
+    public ?string $request_no = null;
+    #[Url]
+    public ?string $custom_declaration_no = null;
+    #[Url]
+    public ?int $custom_port_id = null;
+    #[Url]
+    public ?int $import_country_id = null;
+    #[Url]
+    public ?string $plate_no = null;
+    #[Url]
+    public ?string $modification_center = null;
+    #[Url]
+    public ?string $current_type = null;
+    #[Url]
+    public ?string $target_type = null;
+    #[Url]
+    public ?int $owner_id = null;
+
+    public function mount(): void
+    {
+        $this->authorize('create', Customer::class);
+    }
 
     public function save()
     {
         $data = $this->form->validate();
         $customer = Customer::create($data);
+        ToastService::success('Customer created successfully.');
+
+        $parameters = [
+            'customer_id' => $customer->id,
+            'inspection_type_id' => $this->inspection_type_id,
+            'sales_representative_id' => $this->sales_representative_id,
+            'vin' => $this->vin,
+            'request_date' => $this->request_date,
+            'custom_declaration_date' => $this->custom_declaration_date,
+            'request_no' => $this->request_no,
+            'custom_declaration_no' => $this->custom_declaration_no,
+            'custom_port_id' => $this->custom_port_id,
+            'import_country_id' => $this->import_country_id,
+            'plate_no' => $this->plate_no,
+            'modification_center' => $this->modification_center,
+            'current_type' => $this->current_type,
+            'target_type' => $this->target_type,
+            'owner_id' => $this->owner_id,
+        ];
+
         if ($this->return_to === 'inspections.create') {
-            //if return_to is null redirect to customers.index else redirect to inspections.create
-            if ($this->return_to === null) {
-                return $this->redirectRoute('customers.index', navigate: true);
-            }
-            return $this->redirectRoute(
-                'inspections.create',
-                [
-                    'customer_id' => $customer->id,
-                    'inspection_type_id' => $this->inspection_type_id,
-                    'sales_representative_id' => $this->sales_representative_id,
-                    'vin' => $this->vin,
-                ],
-                navigate: true,
-            );
+            return $this->redirectRoute('inspections.create', $parameters, navigate: true);
+        }
+
+        if ($this->return_to === 'inspections.edit') {
+            $parameters['inspection'] = $this->inspection_id;
+            return $this->redirectRoute('inspections.edit', $parameters, navigate: true);
         }
 
         return $this->redirectRoute('customers.index', navigate: true);

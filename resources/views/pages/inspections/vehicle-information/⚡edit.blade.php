@@ -7,7 +7,6 @@ use App\Models\ModelType;
 use App\Models\Color;
 use App\Models\Country;
 use App\Models\Category;
-use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Enums\FuelType;
 use App\Enums\GearboxType;
@@ -18,16 +17,22 @@ use App\Enums\VehicleCondition;
 use App\Enums\MotorcycleCategory;
 use App\Enums\MotorcycleUse;
 use App\Services\Inspection\InspectionLockService;
+use App\Livewire\Pages\BasePage;
+use App\Services\Inspection\VinDecoderService;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public Inspection $inspection;
     public VehicleInformationForm $form;
 
     public function mount(Inspection $inspection): void
     {
+        $this->authorize('performInspection', $inspection);
         $this->inspection = $inspection->loadMissing('inspectionType');
-
         $this->form->fillFromInspection($inspection);
+        if (!$this->form->model_year) {
+            $this->form->model_year = app(VinDecoderService::class)->modelYear($inspection->vin);
+        }
     }
     #[Computed]
     public function manufacturers()
@@ -106,7 +111,7 @@ new class extends Component {
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
-        session()->flash('success', 'Vehicle information saved successfully.');
+        ToastService::success('Vehicle information saved successfully.');
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
 };

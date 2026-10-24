@@ -1,14 +1,19 @@
 <?php
 
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use App\Models\VisualItem;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
 
     public string $search = '';
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', VisualItem::class);
+    }
 
     #[Computed]
     public function visualItems()
@@ -53,12 +58,13 @@ new class extends Component {
             </flux:subheading>
 
         </div>
+        @can('create', VisualItem::class)
+            <flux:button variant="primary" :href="route('administration.visual-items.create')" wire:navigate>
 
-        <flux:button variant="primary" :href="route('administration.visual-items.create')" wire:navigate>
+                New Visual Item
 
-            New Visual Item
-
-        </flux:button>
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -113,13 +119,12 @@ new class extends Component {
 
                         <flux:table.cell class="text-right">
 
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.visual-items.edit', $visualItem)" wire:navigate>
-
-                                Edit
-
-                            </flux:button>
-
+                            @can('update', $visualItem)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.visual-items.edit', $visualItem)" wire:navigate>
+                                    Edit
+                                </flux:button>
+                            @endcan
                         </flux:table.cell>
 
                     </flux:table.row>

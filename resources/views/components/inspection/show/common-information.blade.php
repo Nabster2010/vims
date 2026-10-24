@@ -28,8 +28,11 @@
         <x-ui.display-field label="VIN" :value="$inspection->vin" />
         <x-ui.display-field label="Branch" :value="$inspection->branch->name" />
         <x-ui.display-field label="Inspection Type" :value="$inspection->inspectionType->name" />
+        <x-ui.display-field label="Sales Representative" :value="$inspection->salesRepresentative?->name ?? '-'" />
         <x-ui.display-field label="Payment Type" :value="$inspection->payment_type" />
         <x-ui.display-field label="Payment amount" :value="number_format($inspection->payment_amount, 2)" />
+        <x-ui.display-field label="Request Date" :value="$inspection->request_date?->format('Y-m-d') ?? '-'" />
+        <x-ui.display-field label="Custom Declaration Date" :value="$inspection->custom_declaration_date?->format('Y-m-d') ?? '-'" />
         <x-ui.display-field label="Registered At" :value="$inspection->registered_at->format('Y-m-d H:i')" />
     </div>
 

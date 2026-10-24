@@ -12,6 +12,7 @@ class EmissionInspectionCalculator
         array $values,
     ): ?array {
 
+        $hasInput = false;
         $failedItems = [];
         // TODO fix this one to return array like other calculators
         if ($fuelType === FuelType::Ev) {
@@ -39,10 +40,19 @@ class EmissionInspectionCalculator
                 continue;
             }
 
+            $hasInput = true;
+
             if (! $this->passes($value, $limit)) {
 
                 $failedItems[] = $limit['label'];
             }
+        }
+
+        if (! $hasInput) {
+            return [
+                'result' => InspectionResult::Pending,
+                'failedItems' => [],
+            ];
         }
 
         return [

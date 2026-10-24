@@ -66,10 +66,9 @@ class InspectionFinalResultService
 
         return [
             'result' => $finalResult,
-
             'failedModules' => $failedModules,
-
             'failedItems' => $failedItems,
+            'isCompleted' => ! $hasPendingModules,
         ];
     }
 

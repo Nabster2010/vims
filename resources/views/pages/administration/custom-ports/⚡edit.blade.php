@@ -2,15 +2,18 @@
 
 use App\Livewire\Forms\CustomPortForm;
 use App\Models\CustomPort;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public CustomPort $customPort;
 
     public CustomPortForm $form;
 
     public function mount(CustomPort $customPort): void
     {
+        $this->authorize('update', $customPort);
+
         $this->customPort = $customPort;
 
         $this->form->fillFromCustomPort($customPort);
@@ -20,7 +23,7 @@ new class extends Component {
     {
         $this->form->save($this->customPort);
 
-        session()->flash('success', 'Custom port updated successfully.');
+        ToastService::success('Custom port updated successfully.');
 
         $this->redirectRoute('administration.custom-ports.index', navigate: true);
     }

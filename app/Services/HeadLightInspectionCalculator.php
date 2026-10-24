@@ -10,6 +10,7 @@ class HeadLightInspectionCalculator
         array $values,
     ): array {
 
+        $hasInput = false;
         $failedItems = [];
 
         $limits = config("test-limits.headLight");
@@ -23,10 +24,19 @@ class HeadLightInspectionCalculator
                 continue;
             }
 
+            $hasInput = true;
+
             if (! $this->passes($value, $limit)) {
 
                 $failedItems[] = $limit['label'];
             }
+        }
+
+        if (! $hasInput) {
+            return [
+                'result' => InspectionResult::Pending,
+                'failedItems' => [],
+            ];
         }
 
         return [

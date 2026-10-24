@@ -5,14 +5,17 @@ use App\Models\Manufacturer;
 use Livewire\Component;
 use App\Models\Country;
 use Livewire\Attributes\Computed;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public Manufacturer $manufacturer;
 
     public ManufacturerForm $form;
 
     public function mount(Manufacturer $manufacturer): void
     {
+        $this->authorize('update', Manufacturer::class);
         $this->manufacturer = $manufacturer;
 
         $this->form->fillFromManufacturer($manufacturer);
@@ -28,7 +31,7 @@ new class extends Component {
     {
         $this->form->save($this->manufacturer);
 
-        session()->flash('success', 'Manufacturer updated successfully.');
+        ToastService::success('Manufacturer updated successfully.');
 
         $this->redirectRoute('administration.manufacturers.index', navigate: true);
     }

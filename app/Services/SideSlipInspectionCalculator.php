@@ -9,6 +9,8 @@ class SideSlipInspectionCalculator
     public function calculate(
         array $values,
     ): array {
+
+        $hasInput = false;
         $failedItems = [];
 
         $limits = config("test-limits.sideSlip");
@@ -22,9 +24,18 @@ class SideSlipInspectionCalculator
                 continue;
             }
 
+            $hasInput = true;
+
             if (! $this->passes($value, $limit)) {
                 $failedItems[] = $limit['label'];
             }
+        }
+
+        if (! $hasInput) {
+            return [
+                'result' => InspectionResult::Pending,
+                'failedItems' => [],
+            ];
         }
 
         return [

@@ -1,14 +1,14 @@
 <?php
 
-use Livewire\Component;
 use App\Models\Inspection;
 use App\Models\InspectionType;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Computed;
 use Livewire\WithPagination;
+use App\Livewire\Pages\BasePage;
 
-new #[Title('Inspections')] class extends Component {
+new #[Title('Inspections')] class extends BasePage {
     use WithPagination;
     #[Url]
     public string $search = '';
@@ -24,6 +24,11 @@ new #[Title('Inspections')] class extends Component {
 
     #[Url]
     public ?int $inspectionTypeId = null;
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Inspection::class);
+    }
 
     #[Computed]
     public function inspections()
@@ -171,10 +176,12 @@ new #[Title('Inspections')] class extends Component {
                                     :href="route('inspections.show', $inspection)" wire:navigate>
                                     View
                                 </flux:button>
-                                <flux:button size="sm" variant="outline"
-                                    :href="route('inspections.edit', $inspection)" wire:navigate>
-                                    Edit
-                                </flux:button>
+                                @can('update', $inspection)
+                                    <flux:button size="sm" variant="outline"
+                                        :href="route('inspections.edit', $inspection)" wire:navigate>
+                                        Edit
+                                    </flux:button>
+                                @endcan
 
                             </div>
 

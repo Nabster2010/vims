@@ -6,8 +6,9 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+use App\Livewire\Pages\BasePage;
 
-new #[Title('Customers')] class extends Component {
+new #[Title('Customers')] class extends BasePage {
     use WithPagination;
 
     #[Url]
@@ -20,6 +21,11 @@ new #[Title('Customers')] class extends Component {
     public string $direction = 'asc';
     #[Url]
     protected int $perPage = 10;
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Customer::class);
+    }
 
     public ?int $customerToDeleteId = null;
     public bool $showDeleteConfirmation = false;
@@ -80,10 +86,11 @@ new #[Title('Customers')] class extends Component {
 
     <div class="flex items-center justify-between">
         <flux:heading size="xl"> Customers </flux:heading>
-
-        <flux:button variant="primary" icon="plus" :href="route('customers.create')" wire:navigate>
-            New Customer
-        </flux:button>
+        @can('create', Customer::class)
+            <flux:button variant="primary" icon="plus" :href="route('customers.create')" wire:navigate>
+                New Customer
+            </flux:button>
+        @endcan
     </div>
 
     <div class="mt-6 flex items-end gap-4">
@@ -177,15 +184,19 @@ new #[Title('Customers')] class extends Component {
 
                         <flux:table.cell>
                             <div class="flex items-center gap-2">
-                                <flux:button size="sm" variant="primary" :href="route('customers.edit', $customer)"
-                                    wire:navigate>
-                                    Edit
-                                </flux:button>
+                                @can('update', $customer)
+                                    <flux:button size="sm" variant="primary" :href="route('customers.edit', $customer)"
+                                        wire:navigate>
+                                        Edit
+                                    </flux:button>
+                                @endcan
 
-                                <flux:button size="sm" variant="danger"
-                                    wire:click="confirmDelete({{ $customer->id }})" icon="trash">
-                                    Delete
-                                </flux:button>
+                                @can('delete', $customer)
+                                    <flux:button size="sm" variant="danger"
+                                        wire:click="confirmDelete({{ $customer->id }})" icon="trash">
+                                        Delete
+                                    </flux:button>
+                                @endcan
                             </div>
                         </flux:table.cell>
                     </flux:table.row>
@@ -194,9 +205,11 @@ new #[Title('Customers')] class extends Component {
         </flux:table>
     @else
         <x-ui.empty-state title="No customers found" description="Try changing your search or create a new customer.">
-            <flux:button :href="route('customers.create')" wire:navigate>
-                New Customer
-            </flux:button>
+            @can('create', Customer::class)
+                <flux:button :href="route('customers.create')" wire:navigate>
+                    New Customer
+                </flux:button>
+            @endcan
         </x-ui.empty-state>
     @endif
     <div class="mt-6">
@@ -216,10 +229,11 @@ new #[Title('Customers')] class extends Component {
                 <flux:button variant="ghost" wire:click="$set('showDeleteConfirmation', false)">
                     Cancel
                 </flux:button>
-
-                <flux:button variant="danger" wire:click="deleteCustomer">
-                    Delete
-                </flux:button>
+                @can('delete', $this->customerToDeleteId)
+                    <flux:button variant="danger" wire:click="deleteCustomer">
+                        Delete
+                    </flux:button>
+                @endcan
             </x-ui.form-actions>
         </div>
     </flux:modal>

@@ -1,15 +1,19 @@
 <?php
 
 use App\Livewire\Forms\SalesRepresentativeForm;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Models\SalesRepresentative;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public SalesRepresentativeForm $form;
 
     public function save(): void
     {
+        $this->authorize('create', SalesRepresentative::class);
+
         $this->form->create();
-        session()->flash('success', 'Sales representative created successfully.');
+        ToastService::success('Sales representative created successfully.');
         $this->redirectRoute('administration.sales-representatives.index', navigate: true);
     }
 };

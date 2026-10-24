@@ -2,18 +2,20 @@
 
 use App\Models\InspectionType;
 use App\Models\VisualItem;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 use Livewire\Attributes\Computed;
 use App\Livewire\Forms\InspectionTypeVisualInspectionForm;
 use Illuminate\Database\Eloquent\Collection;
 
-new class extends Component {
+new class extends BasePage {
     public InspectionType $inspectionType;
     public Collection $visualItems;
     public InspectionTypeVisualInspectionForm $form;
 
     public function mount(InspectionType $inspectionType): void
     {
+        $this->authorize('update', $inspectionType);
         $this->inspectionType = $inspectionType->load('visualItems');
         $this->visualItems = VisualItem::query()->where('is_active', true)->orderBy('category')->orderBy('sort_order')->get();
         $this->form->fillFromInspectionType($inspectionType, $this->visualItems);
@@ -45,7 +47,7 @@ new class extends Component {
     {
         $this->form->save($this->inspectionType);
 
-        session()->flash('success', 'Visual inspection items updated successfully.');
+        ToastService::success('Visual inspection items updated successfully.');
         $this->redirectRoute('administration.inspection-types.index', navigate: true);
     }
 };

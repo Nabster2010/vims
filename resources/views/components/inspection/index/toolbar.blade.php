@@ -6,8 +6,9 @@
             Manage vehicle inspections.
         </flux:text>
     </div>
-
-    <flux:button variant="primary" :href="route('inspections.create')" wire:navigate>
-        New Inspection
-    </flux:button>
+    @can('create', \App\Models\Inspection::class)
+        <flux:button variant="primary" :href="route('inspections.create')" wire:navigate>
+            New Inspection
+        </flux:button>
+    @endcan
 </div>

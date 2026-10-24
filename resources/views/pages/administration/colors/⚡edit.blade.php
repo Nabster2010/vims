@@ -2,15 +2,18 @@
 
 use App\Livewire\Forms\ColorForm;
 use App\Models\Color;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public Color $color;
 
     public ColorForm $form;
 
     public function mount(Color $color): void
     {
+        $this->authorize('update', $color);
+
         $this->color = $color;
 
         $this->form->fillFromColor($this->color);
@@ -20,7 +23,7 @@ new class extends Component {
     {
         $this->form->save($this->color);
 
-        session()->flash('success', 'Color updated successfully.');
+        ToastService::success('Color updated successfully.');
 
         $this->redirectRoute('administration.colors.index', navigate: true);
     }

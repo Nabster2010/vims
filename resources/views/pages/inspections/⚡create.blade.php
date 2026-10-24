@@ -1,6 +1,5 @@
 <?php
 
-use Livewire\Component;
 use App\Models\SalesRepresentative;
 use App\Models\Customer;
 use App\Models\Country;
@@ -11,8 +10,11 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use App\Livewire\Forms\InspectionForm;
+use App\Livewire\Pages\BasePage;
+use App\Models\Inspection;
+use App\Services\ToastService;
 
-new #[Title('Create Inspection')] class extends Component {
+new #[Title('Create Inspection')] class extends BasePage {
     public InspectionForm $form;
     #[Url]
     public ?int $inspection_type_id = null;
@@ -26,9 +28,32 @@ new #[Title('Create Inspection')] class extends Component {
     public ?string $payment_type = 'Card';
     #[Url]
     public ?float $payment_amount = 345.0;
+    #[Url]
+    public ?string $request_date = null;
+    #[Url]
+    public ?string $request_no = null;
+    #[Url]
+    public ?string $custom_declaration_date = null;
+    #[Url]
+    public ?string $custom_declaration_no = null;
+    #[Url]
+    public ?int $custom_port_id = null;
+    #[Url]
+    public ?int $import_country_id = null;
+    #[Url]
+    public ?string $plate_no = null;
+    #[Url]
+    public ?string $modification_center = null;
+    #[Url]
+    public ?string $current_type = null;
+    #[Url]
+    public ?string $target_type = null;
+    #[Url]
+    public ?int $owner_id = null;
 
     public function mount(): void
     {
+        $this->authorize('create', Inspection::class);
         $this->form->fill([
             'customer_id' => $this->customer_id,
             'inspection_type_id' => $this->inspection_type_id,
@@ -36,6 +61,17 @@ new #[Title('Create Inspection')] class extends Component {
             'vin' => $this->vin,
             'payment_type' => $this->payment_type,
             'payment_amount' => $this->payment_amount,
+            'request_date' => $this->request_date,
+            'request_no' => $this->request_no,
+            'custom_declaration_date' => $this->custom_declaration_date,
+            'custom_declaration_no' => $this->custom_declaration_no,
+            'custom_port_id' => $this->custom_port_id,
+            'import_country_id' => $this->import_country_id,
+            'plate_no' => $this->plate_no,
+            'modification_center' => $this->modification_center,
+            'current_type' => $this->current_type,
+            'target_type' => $this->target_type,
+            'owner_id' => $this->owner_id,
         ]);
     }
 
@@ -47,9 +83,9 @@ new #[Title('Create Inspection')] class extends Component {
 
         $this->form->fill([
             'request_no' => null,
-            'request_date' => null,
+            'request_date' => today()->toDateString(),
             'custom_declaration_no' => null,
-            'custom_declaration_date' => null,
+            'custom_declaration_date' => today()->toDateString(),
             'custom_port_id' => null,
             'import_country_id' => null,
             'plate_no' => null,
@@ -94,15 +130,15 @@ new #[Title('Create Inspection')] class extends Component {
     public function inspectionTypeCode(): ?string
     {
         return InspectionType::active()->whereKey($this->form->inspection_type_id)->value('code');
-
-        // return InspectionType::query()->whereKey($this->form->inspection_type_id)->value('code');
     }
     public function createInspection(InspectionService $inspectionService): void
     {
         $this->form->validate();
-        $data = [...$this->form->all(), 'branch_id' => Auth::user()->branch_id, 'created_by' => Auth::id()];
+        $user = Auth::user();
+        $data = [...$this->form->all(), 'branch_id' => $user->branch_id, 'created_by' => $user->id];
         $inspectionService->create($data);
-        $this->redirect(route('inspections.index'), navigate: true);
+        ToastService::success('Inspection created successfully.');
+        $this->redirectRoute('inspections.index', navigate: true);
     }
 };
 ?>

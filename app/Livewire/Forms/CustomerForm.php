@@ -29,7 +29,7 @@ class CustomerForm extends Form
     #[Validate('nullable|string|max:255')]
     public ?string $vat_number = null;
 
-    #[Validate('nullable|string|max:30')]
+    #[Validate('required|string|max:30')]
     public string $mobile = '';
 
     #[Validate('nullable|email|max:255')]

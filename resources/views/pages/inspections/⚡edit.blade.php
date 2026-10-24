@@ -11,19 +11,21 @@ use App\Services\InspectionService;
 use App\Services\Inspection\InspectionLockService;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new #[Title('Edit Inspection')] class extends Component {
+new #[Title('Edit Inspection')] class extends BasePage {
     public Inspection $inspection;
-
     public InspectionForm $form;
 
     public function mount(Inspection $inspection): void
     {
+        $this->authorize('update', $inspection);
         $this->inspection = $inspection;
         $this->form->fillFromModel($inspection);
     }
 
+    //reset type fields when inspection type is changed
     public function updated(string $property): void
     {
         if ($property === 'form.inspection_type_id') {
@@ -34,11 +36,12 @@ new #[Title('Edit Inspection')] class extends Component {
     public function updateInspection(InspectionService $inspectionService): void
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
+
         $this->form->validate();
 
         $inspectionService->update($this->inspection, $this->form->data());
 
-        session()->flash('success', 'Inspection updated successfully.');
+        ToastService::success('Inspection updated successfully.');
 
         $this->redirectRoute('inspections.index', navigate: true);
     }
@@ -49,7 +52,6 @@ new #[Title('Edit Inspection')] class extends Component {
         if (!$this->form->customer_id) {
             return null;
         }
-
         return Customer::find($this->form->customer_id);
     }
     #[Computed]

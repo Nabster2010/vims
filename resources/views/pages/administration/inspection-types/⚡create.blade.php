@@ -1,16 +1,23 @@
 <?php
 
-use Livewire\Component;
 use App\Livewire\Forms\InspectionTypeForm;
+use App\Models\InspectionType;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public InspectionTypeForm $form;
+
+    public function mount(): void
+    {
+        $this->authorize('create', InspectionType::class);
+    }
 
     public function save(): void
     {
         $this->form->save();
 
-        session()->flash('success', 'Inspection type created successfully.');
+        ToastService::success('Inspection type created successfully.');
 
         $this->redirectRoute('administration.inspection-types.index', navigate: true);
     }

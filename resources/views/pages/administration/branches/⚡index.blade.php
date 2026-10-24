@@ -1,10 +1,14 @@
 <?php
 
 use App\Models\Branch;
-use Livewire\Component;
 use Livewire\Attributes\Computed;
+use App\Livewire\Pages\BasePage;
 
-new class extends Component {
+new class extends BasePage {
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Branch::class);
+    }
     #[Computed]
     public function branches()
     {
@@ -30,11 +34,11 @@ new class extends Component {
 
         </div>
 
-        <flux:button variant="primary" :href="route('administration.branches.create')" wire:navigate>
-
-            New Branch
-
-        </flux:button>
+        @can('create', Branch::class)
+            <flux:button variant="primary" :href="route('administration.branches.create')" wire:navigate>
+                New Branch
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -107,12 +111,12 @@ new class extends Component {
 
                         <flux:table.cell class="text-right">
 
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.branches.edit', $branch)" wire:navigate>
-
-                                Edit
-
-                            </flux:button>
+                            @can('update', $branch)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.branches.edit', $branch)" wire:navigate>
+                                    Edit
+                                </flux:button>
+                            @endcan
 
                         </flux:table.cell>
 

@@ -1,6 +1,4 @@
 <?php
-
-use Livewire\Component;
 use App\Models\Inspection;
 use App\Models\VisualItem;
 use App\Enums\InspectionResult;
@@ -8,13 +6,16 @@ use App\Livewire\Forms\VisualInspectionForm;
 use App\Services\VisualInspectionCalculator;
 use Livewire\Attributes\Computed;
 use App\Services\Inspection\InspectionLockService;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public Inspection $inspection;
     public VisualInspectionForm $form;
 
     public function mount(Inspection $inspection): void
     {
+        $this->authorize('performInspection', $inspection);
         $this->inspection = $inspection->loadMissing('visualInspection', 'vehicleInformation');
         $this->form->fillFromInspection($this->inspection);
     }
@@ -41,7 +42,7 @@ new class extends Component {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
 
-        session()->flash('success', 'Visual inspection saved successfully.');
+        ToastService::success('Visual inspection saved successfully.');
 
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }

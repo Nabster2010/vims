@@ -5,16 +5,22 @@ use App\Enums\UserStatus;
 use App\Livewire\Forms\UserForm;
 use App\Models\Branch;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Models\User;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public UserForm $form;
 
+    public function mount(): void
+    {
+        $this->authorize('create', User::class);
+    }
     public function save(): void
     {
         $user = $this->form->create();
 
-        session()->flash('success', 'User created successfully.');
+        ToastService::success('User created successfully.');
 
         $this->redirectRoute('users.index', navigate: true);
     }

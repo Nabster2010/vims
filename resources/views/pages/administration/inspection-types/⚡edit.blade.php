@@ -1,15 +1,17 @@
 <?php
 
-use Livewire\Component;
-use App\Models\InspectionType;
 use App\Livewire\Forms\InspectionTypeForm;
+use App\Models\InspectionType;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public InspectionType $inspectionType;
     public InspectionTypeForm $form;
 
     public function mount(InspectionType $inspectionType): void
     {
+        $this->authorize('update', $inspectionType);
         $this->inspectionType = $inspectionType;
         $this->form->fillFromModel($inspectionType);
     }
@@ -18,7 +20,7 @@ new class extends Component {
     {
         $this->form->save();
 
-        session()->flash('success', 'Inspection type updated successfully.');
+        ToastService::success('Inspection type updated successfully.');
 
         $this->redirectRoute('administration.inspection-types.index', navigate: true);
     }

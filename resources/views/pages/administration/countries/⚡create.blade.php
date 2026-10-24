@@ -1,16 +1,23 @@
 <?php
 
 use App\Livewire\Forms\CountryForm;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Models\Country;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public CountryForm $form;
+
+    public function mount(): void
+    {
+        $this->authorize('create', Country::class);
+    }
 
     public function save(): void
     {
         $this->form->create();
 
-        session()->flash('success', 'Country created successfully.');
+        ToastService::success('Country created successfully.');
 
         $this->redirectRoute('administration.countries.index', navigate: true);
     }

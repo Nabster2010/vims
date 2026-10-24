@@ -1,18 +1,25 @@
 <?php
 
-use Livewire\Component;
 use App\Livewire\Forms\BranchForm;
+use App\Models\Branch;
 use App\Models\User;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 use Livewire\Attributes\Computed;
 
-new class extends Component {
+new class extends BasePage {
     public BranchForm $form;
+
+    public function mount(): void
+    {
+        $this->authorize('create', Branch::class);
+    }
 
     public function save(): void
     {
         $branch = $this->form->create();
 
-        session()->flash('success', 'Branch created successfully.');
+        ToastService::success('Branch created successfully.');
 
         $this->redirectRoute('administration.branches.edit', $branch, navigate: true);
     }

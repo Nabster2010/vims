@@ -4,11 +4,17 @@ use App\Models\Manufacturer;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Livewire\Pages\BasePage;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
 
     public string $search = '';
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Manufacturer::class);
+    }
 
     public function updatingSearch(): void
     {
@@ -55,12 +61,13 @@ new class extends Component {
             </flux:subheading>
 
         </div>
+        @can('create', Manufacturer::class)
+            <flux:button variant="primary" :href="route('administration.manufacturers.create')" wire:navigate>
 
-        <flux:button variant="primary" :href="route('administration.manufacturers.create')" wire:navigate>
+                New Manufacturer
 
-            New Manufacturer
-
-        </flux:button>
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -139,12 +146,14 @@ new class extends Component {
 
                         <flux:table.cell class="text-right">
 
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.manufacturers.edit', $manufacturer)" wire:navigate>
+                            @can('update', $manufacturer)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.manufacturers.edit', $manufacturer)" wire:navigate>
 
-                                Edit
+                                    Edit
 
-                            </flux:button>
+                                </flux:button>
+                            @endcan
 
                         </flux:table.cell>
 

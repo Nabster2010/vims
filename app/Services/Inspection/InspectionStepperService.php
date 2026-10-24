@@ -32,15 +32,15 @@ class InspectionStepperService
         |--------------------------------------------------------------------------
         */
 
-        $steps[] = [
-            'module' => null,
-            'label' => 'Registration',
-            'route' => route('inspections.edit', $inspection),
-            'status' => $this->stepStatus(
-                request()->routeIs('inspections.edit'),
-                true,
-            ),
-        ];
+        // $steps[] = [
+        //     'module' => null,
+        //     'label' => 'Registration',
+        //     'route' => route('inspections.edit', $inspection),
+        //     'status' => $this->stepStatus(
+        //         request()->routeIs('inspections.edit'),
+        //         true,
+        //     ),
+        // ];
 
         /*
         |--------------------------------------------------------------------------
@@ -66,22 +66,22 @@ class InspectionStepperService
         |--------------------------------------------------------------------------
         */
 
-        $steps[] = [
-            'module' => null,
-            'label' => 'Summary',
-            'route' => route('inspections.show', $inspection),
-            'status' => $this->stepStatus(
-                request()->routeIs('inspections.show'),
-                in_array(
-                    $inspection->status,
-                    [
-                        InspectionStatus::PendingApproval,
-                        InspectionStatus::Approved,
-                    ],
-                    true,
-                ),
-            ),
-        ];
+        // $steps[] = [
+        //     'module' => null,
+        //     'label' => 'Summary',
+        //     'route' => route('inspections.show', $inspection),
+        //     'status' => $this->stepStatus(
+        //         request()->routeIs('inspections.show'),
+        //         in_array(
+        //             $inspection->status,
+        //             [
+        //                 InspectionStatus::PendingApproval,
+        //                 InspectionStatus::Approved,
+        //             ],
+        //             true,
+        //         ),
+        //     ),
+        // ];
 
         return $steps;
     }

@@ -1,16 +1,20 @@
 <?php
 
 use App\Livewire\Forms\ColorForm;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Models\Color;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public ColorForm $form;
 
     public function save(): void
     {
+        $this->authorize('create', Color::class);
+
         $color = $this->form->create();
 
-        session()->flash('success', 'Color created successfully.');
+        ToastService::success('Color created successfully.');
 
         $this->redirectRoute('administration.colors.index', navigate: true);
     }

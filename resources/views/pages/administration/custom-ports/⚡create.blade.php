@@ -1,16 +1,20 @@
 <?php
 
 use App\Livewire\Forms\CustomPortForm;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Models\CustomPort;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public CustomPortForm $form;
 
     public function save(): void
     {
+        $this->authorize('create', CustomPort::class);
+
         $this->form->create();
 
-        session()->flash('success', 'Custom port created successfully.');
+        ToastService::success('Custom port created successfully.');
 
         $this->redirectRoute('administration.custom-ports.index', navigate: true);
     }

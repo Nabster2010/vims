@@ -1,16 +1,23 @@
 <?php
 
 use App\Livewire\Forms\VisualItemForm;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Models\VisualItem;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public VisualItemForm $form;
+
+    public function mount(): void
+    {
+        $this->authorize('create', VisualItem::class);
+    }
 
     public function save(): void
     {
         $this->form->create();
 
-        session()->flash('success', 'Visual item created successfully.');
+        ToastService::success('Visual item created successfully.');
 
         $this->redirectRoute('administration.visual-items.index', navigate: true);
     }

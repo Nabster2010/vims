@@ -10,7 +10,7 @@ class BrakeInspectionCalculator
         array $values,
     ): array {
 
-
+        $hasInput = false;
         $limits = config("test-limits.brake");
         $failedItems = [];
 
@@ -23,10 +23,19 @@ class BrakeInspectionCalculator
                 continue;
             }
 
+            $hasInput = true;
+
 
             if (! $this->passes($value, $limit)) {
                 $failedItems[] = $limit['label'];
             }
+        }
+
+        if (! $hasInput) {
+            return [
+                'result' => InspectionResult::Pending,
+                'failedItems' => [],
+            ];
         }
 
         return [

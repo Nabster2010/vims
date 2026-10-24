@@ -1,17 +1,20 @@
 <?php
 
-use Livewire\Component;
 use App\Livewire\Forms\BranchForm;
 use App\Models\Branch;
 use App\Models\User;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 use Livewire\Attributes\Computed;
 
-new class extends Component {
+new class extends BasePage {
     public Branch $branch;
     public BranchForm $form;
 
     public function mount(Branch $branch): void
     {
+        $this->authorize('update', $branch);
+
         $this->branch = $branch;
         $this->form->fillFromBranch($branch);
     }
@@ -25,7 +28,7 @@ new class extends Component {
     {
         $this->form->save($this->branch);
 
-        session()->flash('success', 'Branch updated successfully.');
+        ToastService::success('Branch updated successfully.');
 
         $this->redirectRoute('administration.branches.index', navigate: true);
     }

@@ -4,9 +4,17 @@ use App\Livewire\Forms\ManufacturerForm;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Models\Country;
+use App\Livewire\Pages\BasePage;
+use App\Models\Manufacturer;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public ManufacturerForm $form;
+
+    public function mount(): void
+    {
+        $this->authorize('create', Manufacturer::class);
+    }
 
     #[Computed]
     public function countries()
@@ -17,7 +25,7 @@ new class extends Component {
     {
         $this->form->create();
 
-        session()->flash('success', 'Manufacturer created successfully.');
+        ToastService::success('Manufacturer created successfully.');
 
         $this->redirectRoute('administration.manufacturers.index', navigate: true);
     }

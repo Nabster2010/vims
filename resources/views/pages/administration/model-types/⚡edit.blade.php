@@ -4,15 +4,18 @@ use App\Livewire\Forms\ModelTypeForm;
 use App\Models\Manufacturer;
 use App\Models\ModelType;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public ModelType $modelType;
 
     public ModelTypeForm $form;
 
     public function mount(ModelType $modelType): void
     {
+        $this->authorize('update', $modelType);
+
         $this->modelType = $modelType;
 
         $this->form->fillFromModelType($modelType);
@@ -28,7 +31,7 @@ new class extends Component {
     {
         $this->form->save($this->modelType);
 
-        session()->flash('success', 'Model type updated successfully.');
+        ToastService::success('Model type updated successfully.');
 
         $this->redirectRoute('administration.model-types.index', navigate: true);
     }

@@ -2,17 +2,18 @@
 
 use App\Livewire\Forms\CountryForm;
 use App\Models\Country;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public Country $country;
 
     public CountryForm $form;
 
     public function mount(Country $country): void
     {
+        $this->authorize('update', $country);
         $this->country = $country;
-
         $this->form->fillFromCountry($country);
     }
 
@@ -20,7 +21,7 @@ new class extends Component {
     {
         $this->form->save($this->country);
 
-        session()->flash('success', 'Country updated successfully.');
+        ToastService::success('Country updated successfully.');
 
         $this->redirectRoute('administration.countries.index', navigate: true);
     }

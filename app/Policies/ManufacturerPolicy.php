@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Policies;
+
+use App\Enums\UserRole;
+use App\Models\Manufacturer;
+use App\Models\User;
+
+class ManufacturerPolicy
+{
+    public function before(User $user): ?bool
+    {
+        return $user->role === UserRole::SuperAdmin
+            ? true
+            : null;
+    }
+
+    public function viewAny(User $user): bool
+    {
+        return in_array($user->role, [
+            UserRole::BranchManager,
+            UserRole::Receptionist,
+            UserRole::Inspector,
+        ]);
+    }
+
+    public function view(User $user, Manufacturer $manufacturer): bool
+    {
+        return false;
+    }
+
+    public function create(User $user): bool
+    {
+        return in_array($user->role, [
+            UserRole::BranchManager,
+        ]);
+    }
+
+    public function update(User $user, Manufacturer $manufacturer): bool
+    {
+        return in_array($user->role, [
+            UserRole::BranchManager,
+        ]);
+    }
+
+    public function delete(User $user, Manufacturer $manufacturer): bool
+    {
+        return false;
+    }
+
+    public function restore(User $user, Manufacturer $manufacturer): bool
+    {
+        return false;
+    }
+
+    public function forceDelete(User $user, Manufacturer $manufacturer): bool
+    {
+        return false;
+    }
+}

@@ -38,17 +38,26 @@
                 </flux:text>
             @endif
         </div>
-
         <flux:button variant="primary"
-            :href="
-                                                                route('customers.search', [
-                                                        'inspection_type_id' => $this->form->inspection_type_id,
-                                                        'sales_representative_id' => $this->form->sales_representative_id,
-                                                        'vin' => $this->form->vin,
-                                                        'payment_type' => $this->form->payment_type,
-                                                        'payment_amount' => $this->form->payment_amount,
-                                                    ])
-                                                            "
+            :href="route('customers.search', [
+                            'inspection_id' => isset($this->inspection->id) ? $this->inspection->id : null,
+                            'inspection_type_id' => $this->form->inspection_type_id ?? null,
+                            'sales_representative_id' => $this->form->sales_representative_id ?? null,
+                            'vin' => $this->form->vin ?? null,
+                            'payment_type' => $this->form->payment_type ?? null,
+                            'payment_amount' => $this->form->payment_amount ?? null,
+                            'request_date' => $this->form->request_date ?? null,
+                            'custom_declaration_date' => $this->form->custom_declaration_date ?? null,
+                            'request_no' => $this->form->request_no ?? null,
+                            'custom_declaration_no' => $this->form->custom_declaration_no ?? null,
+                            'custom_port_id' => $this->form->custom_port_id ?? null,
+                            'import_country_id' => $this->form->import_country_id ?? null,
+                            'plate_no' => $this->form->plate_no ?? null,
+                            'modification_center' => $this->form->modification_center ?? null,
+                            'current_type' => $this->form->current_type ?? null,
+                            'target_type' => $this->form->target_type ?? null,
+                            'owner_id' => $this->form->owner_id ?? null,
+                            'return_to' => isset($this->inspection->id) ? 'inspections.edit' : 'inspections.create'])"
             wire:navigate>
             {{ $this->selectedCustomer ? 'Change Customer' : 'Select Customer' }}
         </flux:button>
@@ -56,7 +65,6 @@
     </flux:card>
     <flux:select wire:model.live="form.sales_representative_id" label="Sales Representative">
         <option value="">Select sales representative</option>
-
         @foreach ($this->salesRepresentatives as $representative)
             <option value="{{ $representative->id }}">
                 {{ $representative->name }}
@@ -68,7 +76,6 @@
 
     <flux:select wire:model.live="form.payment_type" label="Payment Type">
         <option value="">Select Payment Type</option>
-
         @foreach (\App\Enums\PaymentType::cases() as $paymentType)
             <option value="{{ $paymentType->value }}">
                 {{ str($paymentType->name)->headline() }}

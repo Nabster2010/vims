@@ -4,14 +4,14 @@ use Livewire\Component;
 use App\Models\InspectionType;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
+use App\Livewire\Pages\BasePage;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
 
-    public function delete(InspectionType $inspectionType): void
+    public function mount(): void
     {
-        $inspectionType->delete();
-        session()->flash('success', 'Inspection type deleted successfully.');
+        $this->authorize('viewAny', InspectionType::class);
     }
 
     #[Computed]
@@ -36,9 +36,11 @@ new class extends Component {
             Inspection Types
         </flux:heading>
 
-        <flux:button :href="route('administration.inspection-types.create')" wire:navigate variant="primary">
-            New Inspection Type
-        </flux:button>
+        @can('create', InspectionType::class)
+            <flux:button :href="route('administration.inspection-types.create')" wire:navigate variant="primary">
+                New Inspection Type
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -89,15 +91,16 @@ new class extends Component {
                     </flux:table.cell>
 
                     <flux:table.cell align="end">
-
-                        <flux:button size="sm" variant="ghost"
-                            :href="route(
-                                'administration.inspection-types.edit',
-                                $inspectionType
-                            )"
-                            wire:navigate>
-                            Edit
-                        </flux:button>
+                        @can('update', $inspectionType)
+                            <flux:button size="sm" variant="ghost"
+                                :href="route(
+                                    'administration.inspection-types.edit',
+                                    $inspectionType
+                                )"
+                                wire:navigate>
+                                Edit
+                            </flux:button>
+                        @endcan
 
                     </flux:table.cell>
 

@@ -1,10 +1,14 @@
 <?php
 
 use App\Models\Category;
-use Livewire\Component;
 use Livewire\Attributes\Computed;
+use App\Livewire\Pages\BasePage;
 
-new class extends Component {
+new class extends BasePage {
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Category::class);
+    }
     #[Computed]
     public function categories()
     {
@@ -30,11 +34,13 @@ new class extends Component {
 
         </div>
 
-        <flux:button variant="primary" :href="route('administration.categories.create')" wire:navigate>
+        @can('create', Category::class)
+            <flux:button variant="primary" :href="route('administration.categories.create')" wire:navigate>
 
-            New Category
+                New Category
 
-        </flux:button>
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -94,13 +100,12 @@ new class extends Component {
                         </flux:table.cell>
 
                         <flux:table.cell class="text-right">
-
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.categories.edit', $category)" wire:navigate>
-
-                                Edit
-
-                            </flux:button>
+                            @can('update', $category)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.categories.edit', $category)" wire:navigate>
+                                    Edit
+                                </flux:button>
+                            @endcan
 
                         </flux:table.cell>
 

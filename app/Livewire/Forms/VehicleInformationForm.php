@@ -26,8 +26,6 @@ class VehicleInformationForm extends Form
      */
     protected ?string $inspectionTypeCode = null;
 
-
-
     public ?string $inspection_date = null;
 
     public ?int $manufacturer_id = null;
@@ -151,6 +149,8 @@ class VehicleInformationForm extends Form
         $this->inspectionTypeCode = $inspection->inspectionType->code;
         $vehicle = $inspection->vehicleInformation;
         if (! $vehicle) {
+            $this->inspection_date = today()->toDateString();
+            $this->vehicle_condition = VehicleCondition::Used;
             return;
         }
 

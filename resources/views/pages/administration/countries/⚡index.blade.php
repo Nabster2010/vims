@@ -1,14 +1,19 @@
 <?php
 
 use App\Models\Country;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
 
     public string $search = '';
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Country::class);
+    }
 
     public function updatingSearch(): void
     {
@@ -59,12 +64,13 @@ new class extends Component {
             </flux:subheading>
 
         </div>
+        @can('create', Country::class)
+            <flux:button variant="primary" :href="route('administration.countries.create')" wire:navigate>
 
-        <flux:button variant="primary" :href="route('administration.countries.create')" wire:navigate>
+                New Country
 
-            New Country
-
-        </flux:button>
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -154,13 +160,12 @@ new class extends Component {
                         </flux:table.cell>
 
                         <flux:table.cell class="text-right">
-
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.countries.edit', $country)" wire:navigate>
-
-                                Edit
-
-                            </flux:button>
+                            @can('update', $country)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.countries.edit', $country)" wire:navigate>
+                                    Edit
+                                </flux:button>
+                            @endcan
 
                         </flux:table.cell>
 

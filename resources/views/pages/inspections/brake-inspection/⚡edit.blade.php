@@ -1,6 +1,5 @@
 <?php
 
-use Livewire\Component;
 use App\Models\Inspection;
 use App\Enums\FuelType;
 use Livewire\Attributes\Computed;
@@ -8,13 +7,16 @@ use App\Enums\InspectionResult;
 use App\Livewire\Forms\BrakeInspectionForm;
 use App\Services\BrakeInspectionCalculator;
 use App\Services\Inspection\InspectionLockService;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public Inspection $inspection;
     public BrakeInspectionForm $form;
 
     public function mount(Inspection $inspection): void
     {
+        $this->authorize('performInspection', $inspection);
         $this->inspection = $inspection->loadMissing('brakeInspection', 'vehicleInformation');
         $this->form->fillFromInspection($this->inspection);
     }
@@ -28,8 +30,7 @@ new class extends Component {
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
-
-        session()->flash('success', 'Brake inspection saved successfully.');
+        ToastService::success('Brake inspection saved successfully.');
 
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }

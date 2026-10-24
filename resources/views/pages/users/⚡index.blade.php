@@ -1,14 +1,18 @@
 <?php
 
 use App\Models\User;
-use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
+use App\Livewire\Pages\BasePage;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
 
     public string $search = '';
+    public function mount(): void
+    {
+        $this->authorize('viewAny', User::class);
+    }
 
     public function updatingSearch(): void
     {
@@ -52,9 +56,11 @@ new class extends Component {
 
         </div>
 
-        <flux:button variant="primary" :href="route('users.create')" wire:navigate>
-            New User
-        </flux:button>
+        @can('create', User::class)
+            <flux:button variant="primary" :href="route('users.create')" wire:navigate>
+                New User
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -151,10 +157,12 @@ new class extends Component {
 
                         <flux:table.cell class="text-right">
 
-                            <flux:button size="sm" variant="ghost" :href="route('users.edit', $user)"
-                                wire:navigate>
-                                Edit
-                            </flux:button>
+                            @can('update', $user)
+                                <flux:button size="sm" variant="ghost" :href="route('users.edit', $user)"
+                                    wire:navigate>
+                                    Edit
+                                </flux:button>
+                            @endcan
 
                         </flux:table.cell>
 

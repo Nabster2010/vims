@@ -2,15 +2,18 @@
 
 use App\Livewire\Forms\VisualItemForm;
 use App\Models\VisualItem;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public VisualItem $visualItem;
 
     public VisualItemForm $form;
 
     public function mount(VisualItem $visualItem): void
     {
+        $this->authorize('update', $visualItem);
+
         $this->visualItem = $visualItem;
 
         $this->form->fillFromVisualItem($this->visualItem);
@@ -20,7 +23,7 @@ new class extends Component {
     {
         $this->form->save($this->visualItem);
 
-        session()->flash('success', 'Visual item updated successfully.');
+        ToastService::success('Visual item updated successfully.');
 
         $this->redirectRoute('administration.visual-items.index', navigate: true);
     }

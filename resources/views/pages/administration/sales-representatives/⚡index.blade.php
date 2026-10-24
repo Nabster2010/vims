@@ -1,14 +1,19 @@
 <?php
 
 use App\Models\SalesRepresentative;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
 use Livewire\Attributes\Computed;
 use Livewire\WithPagination;
 
-new class extends Component {
+new class extends BasePage {
     use WithPagination;
 
     public string $search = '';
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', SalesRepresentative::class);
+    }
 
     public function updatingSearch(): void
     {
@@ -52,12 +57,13 @@ new class extends Component {
             </flux:subheading>
 
         </div>
+        @can('create', SalesRepresentative::class)
+            <flux:button variant="primary" :href="route('administration.sales-representatives.create')" wire:navigate>
 
-        <flux:button variant="primary" :href="route('administration.sales-representatives.create')" wire:navigate>
+                New Sales Representative
 
-            New Sales Representative
-
-        </flux:button>
+            </flux:button>
+        @endcan
 
     </div>
 
@@ -146,15 +152,15 @@ new class extends Component {
                         </flux:table.cell>
 
                         <flux:table.cell class="text-right">
+                            @can('update', $salesRepresentative)
+                                <flux:button size="sm" variant="ghost"
+                                    :href="route('administration.sales-representatives.edit', $salesRepresentative)"
+                                    wire:navigate>
 
-                            <flux:button size="sm" variant="ghost"
-                                :href="route('administration.sales-representatives.edit', $salesRepresentative)"
-                                wire:navigate>
+                                    Edit
 
-                                Edit
-
-                            </flux:button>
-
+                                </flux:button>
+                            @endcan
                         </flux:table.cell>
 
                     </flux:table.row>

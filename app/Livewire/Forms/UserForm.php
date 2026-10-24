@@ -2,30 +2,30 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\User;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
-use Livewire\Form;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
+use Livewire\Form;
 
 class UserForm extends Form
 {
-    public $branch_id;
+    public ?int $branch_id;
 
-    public $name;
+    public string $name;
 
-    public $employee_no;
+    public string $employee_no;
 
-    public $email;
+    public string $email;
 
-    public $password;
+    public ?string $password;
 
-    public $role;
+    public UserRole $role;
 
-    public $status;
+    public UserStatus $status;
 
-    public $force_password_change = true;
+    public bool $force_password_change = true;
 
     public function fillFromUser(User $user): void
     {
@@ -134,6 +134,7 @@ class UserForm extends Form
         $user->update(
             $this->data()
         );
+        $this->password = '';
     }
 
     public function create(): User
@@ -142,8 +143,11 @@ class UserForm extends Form
             $this->rules()
         );
 
-        return User::create(
+        $user = User::create(
             $this->data()
         );
+        $this->password = '';
+
+        return $user;
     }
 }

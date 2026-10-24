@@ -23,12 +23,14 @@ class InspectionLockService
     public function unlock(Inspection $inspection): void
     {
         $inspection->update([
-            'status' => InspectionStatus::Registered,
-            'final_result' => InspectionResult::Pending,
+            'status' => InspectionStatus::PendingApproval,
+            // 'final_result' => InspectionResult::Pending,
             'approved_by' => null,
             'approved_at' => null,
             'is_locked' => false,
         ]);
+        // Refresh the model to get the updated values
+
     }
 
     public function ensureUnlocked(Inspection $inspection): void

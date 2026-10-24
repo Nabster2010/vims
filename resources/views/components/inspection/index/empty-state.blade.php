@@ -6,8 +6,10 @@
             Try changing your search or create a new Inspection.
         </flux:text>
 
-        <flux:button :href="route('inspections.create')" wire:navigate>
-            Create Inspection
-        </flux:button>
+        @can('create', \App\Models\Inspection::class)
+            <flux:button :href="route('inspections.create')" wire:navigate>
+                Create Inspection
+            </flux:button>
+        @endcan
     </div>
 </flux:card>

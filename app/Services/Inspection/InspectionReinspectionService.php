@@ -27,7 +27,7 @@ class InspectionReinspectionService
             $inspection->update([
                 'reinspection_count' => $inspection->reinspection_count + 1,
 
-                'status' => InspectionStatus::Registered,
+                'status' => InspectionStatus::Reinspection,
 
                 'final_result' => null,
 

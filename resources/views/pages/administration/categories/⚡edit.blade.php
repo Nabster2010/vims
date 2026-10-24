@@ -2,15 +2,18 @@
 
 use App\Livewire\Forms\CategoryForm;
 use App\Models\Category;
-use Livewire\Component;
+use App\Livewire\Pages\BasePage;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public Category $category;
 
     public CategoryForm $form;
 
     public function mount(Category $category): void
     {
+        $this->authorize('update', $category);
+
         $this->category = $category;
 
         $this->form->fillFromCategory($this->category);
@@ -20,7 +23,7 @@ new class extends Component {
     {
         $this->form->save($this->category);
 
-        session()->flash('success', 'Category updated successfully.');
+        ToastService::success('Category updated successfully.');
 
         $this->redirectRoute('administration.categories.index', navigate: true);
     }

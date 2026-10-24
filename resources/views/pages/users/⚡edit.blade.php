@@ -3,29 +3,31 @@
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
 use App\Livewire\Forms\UserForm;
+use App\Livewire\Pages\BasePage;
 use App\Models\Branch;
 use App\Models\User;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
+use App\Services\ToastService;
 
-new class extends Component {
+new class extends BasePage {
     public User $user;
 
     public UserForm $form;
 
     public function mount(User $user): void
     {
+        $this->authorize('update', $user);
+
         $this->user = $user;
 
-        $this->form->fillFromUser($this->user);
+        $this->form->fillFromUser($user);
     }
 
     public function save(): void
     {
         $this->form->save($this->user);
 
-        session()->flash('success', 'User updated successfully.');
-
+        ToastService::success('User updated successfully.');
         $this->redirectRoute('users.index', navigate: true);
     }
 
@@ -62,6 +64,7 @@ new class extends Component {
 
     <form wire:submit="save" class="mt-6 space-y-6">
 
+        {{-- User Information --}}
         <flux:card class="space-y-6">
 
             <flux:heading size="lg">
@@ -76,9 +79,6 @@ new class extends Component {
 
                 <flux:input wire:model="form.email" type="email" label="Email" required />
 
-                <flux:input wire:model="form.password" type="password" label="New Password"
-                    placeholder="Leave blank to keep current password" />
-
                 <flux:select wire:model="form.branch_id" label="Branch">
 
                     <option value="">
@@ -92,6 +92,45 @@ new class extends Component {
                     @endforeach
 
                 </flux:select>
+
+            </div>
+
+        </flux:card>
+
+        {{-- Authentication --}}
+        <flux:card class="space-y-6">
+
+            <flux:heading size="lg">
+                Authentication
+            </flux:heading>
+
+            <flux:subheading>
+                Leave the password blank to keep the current password.
+            </flux:subheading>
+
+            <div class="grid grid-cols-2 gap-6">
+
+                <flux:input wire:model="form.password" type="password" label="Password" />
+
+                <div class="flex items-end">
+
+                    <flux:checkbox wire:model="form.force_password_change"
+                        label="Force password change at next login" />
+
+                </div>
+
+            </div>
+
+        </flux:card>
+
+        {{-- Administration --}}
+        <flux:card class="space-y-6">
+
+            <flux:heading size="lg">
+                Administration
+            </flux:heading>
+
+            <div class="grid grid-cols-2 gap-6">
 
                 <flux:select wire:model="form.role" label="Role">
 
@@ -112,12 +151,6 @@ new class extends Component {
                     @endforeach
 
                 </flux:select>
-
-                <div class="flex items-end">
-
-                    <flux:checkbox wire:model="form.force_password_change" label="Force password change" />
-
-                </div>
 
             </div>
 
