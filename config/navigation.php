@@ -232,7 +232,7 @@ return [
                 [
                     'label' => 'Reports',
                     'icon' => 'chart-bar',
-                    'route' => 'reports.index',
+                    'route' => 'reports.show',
                     'active' => ['reports.*'],
                 ],
 

@@ -89,6 +89,7 @@ new #[Title('Create Customer')] class extends BasePage {
 ?>
 
 <x-ui.page>
+
     <flux:heading size="xl"> Create Customer </flux:heading>
 
     <form class="space-y-6" wire:submit="save">
