@@ -39,6 +39,10 @@ class Branch extends Model
         return $this->hasMany(Inspection::class);
     }
 
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
     public function users(): HasMany
     {
         return $this->hasMany(User::class);

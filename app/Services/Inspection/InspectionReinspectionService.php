@@ -12,6 +12,7 @@ class InspectionReinspectionService
     {
         DB::transaction(function () use ($inspection) {
 
+            $inspection->vehicleInformation()->delete();
             $inspection->emissionInspection()->delete();
 
             $inspection->headLightInspection()->delete();

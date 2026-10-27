@@ -1,7 +1,3 @@
-{{-- ========================================= --}}
-{{-- Remarks --}}
-{{-- ========================================= --}}
-
 <div class="mt-8">
 
     <div class="h-48 border border-gray-300 p-6">
@@ -12,7 +8,7 @@
         </div>
 
         <div class="mt-4 whitespace-pre-line text-lg">
-            {{ 'remarks here' }}
+            {{ $inspection['vehicleInformation']->remarks }}
         </div>
 
     </div>

@@ -1,4 +1,8 @@
-@props(['inspection', 'report'])
+<?php
+$branch = $inspection->branch->name;
+
+?>
+@props(['inspection'])
 
 
 <header class="border-b-1 border-black pb-4">
@@ -23,18 +27,18 @@
             <div class="mt-2 space-y-2 text-xl">
 
                 <div>
-                    <span>TD000001</span>
+                    <span>{{ $inspection->report_no }}</span>
                     <span>:</span>
                     <span>رقم التقرير</span>
                 </div>
 
                 <div>
                     التاريخ:
-                    <span>{{ '15/12/2020' }}</span>
+                    <span>{{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }}</span>
 
                     <span class="mx-4">الموافق:</span>
 
-                    <span>{{ '15/12/2020' }}</span>
+                    <span> {{ app(\App\Services\DateService::class)->hijri($inspection->created_at) }} </span>
                 </div>
 
             </div>
@@ -53,7 +57,7 @@
             </div>
 
             <div class="text-xl">
-                Inspection Center - DAMMAM
+                Inspection Center - {{ $branch }}
             </div>
 
         </div>

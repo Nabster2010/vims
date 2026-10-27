@@ -13,6 +13,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use App\Livewire\Pages\BasePage;
 use App\Services\ToastService;
+use App\Services\Inspection\InspectionResetService;
 
 new #[Title('Edit Inspection')] class extends BasePage {
     public Inspection $inspection;
@@ -38,6 +39,10 @@ new #[Title('Edit Inspection')] class extends BasePage {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
 
         $this->form->validate();
+        $old_inspection_type = $this->inspection->inspection_type_id;
+        if ($old_inspection_type !== $this->form->inspection_type_id) {
+            app(InspectionResetService::class)->reset($this->inspection);
+        }
 
         $inspectionService->update($this->inspection, $this->form->data());
 

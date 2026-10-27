@@ -2,14 +2,15 @@
 
 namespace App\Services\Reports;
 
+use App\Models\Branch;
 use App\Models\Inspection;
 
 class ImportedVehicleReportService
 {
-    public function build(Inspection $inspection): array
+    public function build(Inspection $inspection): Inspection
     {
-        $inspection->loadMissing([
-            'branch',
+        $inspection =  $inspection->loadMissing([
+            'branch.manager',
             'customer',
             'inspectionType',
             'vehicleInformation',
@@ -21,15 +22,8 @@ class ImportedVehicleReportService
             'emissionInspection',
         ]);
 
-        return [
-            'customer' => $inspection->customer,
-            'vehicle' => $inspection->vehicleInformation,
-            'visual' => $inspection->visualInspection,
-            'brake' => $inspection->brakeInspection,
-            'headlight' => $inspection->headLightInspection,
-            'sideslip' => $inspection->sideSlipInspection,
-            'suspension' => $inspection->suspensionInspection,
-            'emission' => $inspection->emissionInspection,
-        ];
+
+
+        return $inspection;
     }
 }
