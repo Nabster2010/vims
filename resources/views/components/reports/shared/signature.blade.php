@@ -1,7 +1,5 @@
 @props([
     'inspection',
-    'inspector' => 'Bernardino Tolentino',
-    'manager' => 'عبدالحكيم البريه',
 
     'inspectorSignature' => asset('images/reports/signatures/inspector.png'),
     'managerSignature' => asset('images/reports/signatures/manager.png'),

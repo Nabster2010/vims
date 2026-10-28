@@ -253,6 +253,29 @@ new #[Title('Inspection Summary')] class extends BasePage {
                     </a>
                 @endforeach
 
+                <a href="{{ route('inspections.photos.edit', $inspection) }}"
+                    class="block rounded-xl border border-zinc-200 p-4 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900">
+
+                    <div class="flex items-center justify-between">
+
+                        <div class="space-y-1">
+
+                            <span class="font-medium">
+                                Photos
+                            </span>
+
+                        </div>
+
+                        <div class="flex items-center gap-2">
+
+                            <flux:icon name="chevron-right" class="text-zinc-400" />
+
+                        </div>
+
+                    </div>
+
+                </a>
+
             </div>
 
         </flux:card>

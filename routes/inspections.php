@@ -46,4 +46,8 @@ Route::prefix('inspections')
             '/{inspection}/visual-inspection',
             'pages::inspections.visual-inspection.edit'
         )->name('visual-inspection.edit');
+        Route::livewire(
+            '/{inspection}/photos',
+            'pages::inspections.photos.edit'
+        )->name('photos.edit');
     });

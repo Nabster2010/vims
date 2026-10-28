@@ -1,3 +1,41 @@
+<?php
+$branch = $inspection->branch->code;
+$address = [];
+switch ($branch) {
+    case 'DMM':
+        $address = [
+            'ar' => 'الخالدية الجنوبية، الدمام، السعودية',
+            'en' => 'Al Khalidiyah, Dammam, KSA',
+            'phone' => '0577929189',
+            'email' => 'info@tahaqoq.com',
+            'version' => '1.4.7 - 01/07/2023',
+        ];
+        break;
+    case 'JED':
+        $address = [
+            'ar' => 'المنتزهات، جدة، السعودية',
+            'en' => 'Al-Muntazahat, Jeddah, KSA',
+            'phone' => '000000000',
+            'email' => 'info@tahaqoq.com',
+            'version' => '1.4.7 - 01/07/2023',
+        ];
+
+    default:
+        $address = [
+            'ar' => 'الخالدية الجنوبية، الدمام، السعودية',
+            'en' => 'Al Khalidiyah, Dammam, KSA',
+            'phone' => '0577929189',
+            'email' => 'info@tahaqoq.com',
+            'version' => '1.4.7 - 01/07/2023',
+        ];
+        break;
+}
+
+?>
+
+
+@props(['inspection', 'page'])
+
 <footer class="mt-10 border-t-1 border-black pt-4">
     <div class="grid grid-cols-[1fr_220px_1fr] items-end">
 
@@ -9,19 +47,19 @@
             </div>
 
             <div>
-                Address: Al Khalidiyah, Dammam, KSA
+                Address: {{ $address['en'] }}
             </div>
 
             <div>
-                Phone: 0577929189
+                Phone: {{ $address['phone'] }}
             </div>
 
             <div>
-                Email: info@tahaqoq.com
+                Email: {{ $address['email'] }}
             </div>
 
             <div class="mt-2 text-base">
-                Version 1.4.7 - 01/07/2023
+                Version {{ $address['version'] }}
             </div>
 
         </div>
@@ -32,7 +70,7 @@
             <img src="{{ asset('tahaqoq-logo.png') }}" class="h-24 object-contain" alt="TAHAQOQ">
 
             <div class="mt-2 text-lg font-semibold">
-                Page 1 of 3
+                {{ $page }}
             </div>
 
         </div>
@@ -45,15 +83,22 @@
             </div>
 
             <div>
-                العنوان: الخالدية الجنوبية، الدمام، السعودية
+                <span>العنوان</span>
+                <span>:</span>
+                <span>{{ $address['ar'] }}</span>
+
             </div>
 
             <div>
-                الهاتف: 0577929189
+                <span>الهاتف</span>
+                <span>:</span>
+                <span>{{ $address['phone'] }}</span>
             </div>
 
             <div>
-                الإيميل: info@tahaqoq.com
+                <span>{{ $address['email'] }}</span>
+                <span>:</span>
+                <span>الإيميل</span>
             </div>
 
         </div>

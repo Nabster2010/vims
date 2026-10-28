@@ -12,6 +12,7 @@ class ImportedVehicleReportService
         $inspection =  $inspection->loadMissing([
             'branch.manager',
             'customer',
+            'customPort',
             'inspectionType',
             'vehicleInformation',
             'visualInspection.visualItemResults',

@@ -9,7 +9,7 @@
 
     <x-reports.IMP.visual-inspection-table :inspection="$inspection" />
 
-    <x-reports.shared.footer :inspection="$inspection" />
+    <x-reports.shared.footer :inspection="$inspection" :page="'Page 2 of 3'" />
 
 
 

@@ -8,7 +8,7 @@
     < <x-reports.IMP.technical-inspection-table :inspection="$inspection" />
 
 
-    <x-reports.shared.footer :inspection="$inspection" />
+    <x-reports.shared.footer :inspection="$inspection" :page="'Page 3 of 3'" />
 
 
 

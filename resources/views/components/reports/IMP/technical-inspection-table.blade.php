@@ -7,11 +7,11 @@ $technicalTests = [
         'name' => 'Exhaust Gas Test',
         'type' => 'gas',
         'result' => [
-            'CO' => '0.06%',
-            'HC' => '10 ppm',
-            'Diesel' => '20%',
+            'CO' => $inspection->emissionInspection->co,
+            'HC' => $inspection->emissionInspection->hc,
+            'Diesel' => $inspection->emissionInspection->diesel,
         ],
-        'status' => 'PASS',
+        'status' => $inspection->emissionInspection->result,
     ],
 
     [
@@ -124,15 +124,15 @@ $technicalTests = [
                         </div>
 
                         <div class="border p-2">
-                            0.06 %
+                            {{ $inspection->emissionInspection->co }}
                         </div>
 
                         <div class="border p-2">
-                            10 ppm
+                            {{ $inspection->emissionInspection->hc }}
                         </div>
 
                         <div class="border p-2">
-                            1.25 m⁻¹
+                            {{ $inspection->emissionInspection->opacity }} %
                         </div>
 
                     </div>
@@ -140,7 +140,7 @@ $technicalTests = [
                 </td>
 
                 <td class="border">
-                    اجتياز
+                    {{ $inspection->emissionInspection->result }}
                 </td>
 
             </tr>
@@ -175,11 +175,11 @@ $technicalTests = [
                         </div>
 
                         <div class="border p-2">
-                            108 cd
+                            {{ $inspection->headLightInspection->right }}
                         </div>
 
                         <div class="border p-2">
-                            114 cd
+                            {{ $inspection->headLightInspection->left }}
                         </div>
 
                     </div>
@@ -187,7 +187,7 @@ $technicalTests = [
                 </td>
 
                 <td class="border">
-                    اجتياز
+                    {{ $inspection->headLightInspection->result }}
                 </td>
 
             </tr>
@@ -195,7 +195,7 @@ $technicalTests = [
             {{-- Side Slip --}}
             <tr>
 
-                <td class="border">3</td>
+                <td class="border p-2 ">3</td>
 
                 <td class="border">
                     SASO 2864
@@ -214,7 +214,7 @@ $technicalTests = [
                 </td>
 
                 <td class="border">
-                    اجتياز
+                    {{ $inspection->sideSlipInspection->result }}
                 </td>
 
             </tr>
@@ -245,21 +245,20 @@ $technicalTests = [
                         <div class="border p-2 font-semibold">RR</div>
                         <div class="border p-2 font-semibold">RL</div>
 
-                        <div class="border p-2">65%</div>
-                        <div class="border p-2">64%</div>
-                        <div class="border p-2">62%</div>
-                        <div class="border p-2">61%</div>
+                        <div class="border p-2">{{ $inspection->suspensionInspection->front_right }}%</div>
+                        <div class="border p-2">{{ $inspection->suspensionInspection->front_left }}%</div>
+                        <div class="border p-2">{{ $inspection->suspensionInspection->rear_right }}%</div>
+                        <div class="border p-2">{{ $inspection->suspensionInspection->rear_left }}%</div>
 
                     </div>
 
                 </td>
 
                 <td class="border">
-                    اجتياز
+                    {{ $inspection->suspensionInspection->result }}
                 </td>
 
             </tr>
-
             {{-- Brake --}}
             <tr>
 
@@ -294,15 +293,15 @@ $technicalTests = [
                         </div>
 
                         <div class="border p-2">
-                            32 %
+                            {{ $inspection->brakeInspection->parking }}
                         </div>
 
                         <div class="border p-2">
-                            68 %
+                            {{ $inspection->brakeInspection->front }}
                         </div>
 
                         <div class="border p-2">
-                            64 %
+                            {{ $inspection->brakeInspection->rear }}
                         </div>
 
                     </div>
@@ -310,7 +309,7 @@ $technicalTests = [
                 </td>
 
                 <td class="border">
-                    اجتياز
+                    {{ $inspection->brakeInspection->result }}
                 </td>
 
             </tr>

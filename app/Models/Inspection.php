@@ -7,6 +7,7 @@ use App\Enums\InspectionStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inspection extends Model
@@ -229,6 +230,13 @@ class Inspection extends Model
     public function visualInspection(): HasOne
     {
         return $this->hasOne(VisualInspection::class);
+    }
+
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Photo::class)
+            ->orderBy('sort_order');
     }
 
     public function scopeSearch(Builder $query, ?string $search): Builder
