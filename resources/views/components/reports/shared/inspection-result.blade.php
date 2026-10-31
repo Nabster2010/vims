@@ -1,21 +1,28 @@
-<?php
-$result = $inspection->final_result;
+{{-- resources/views/components/reports/shared/inspection-result.blade.php --}}
 
-?>
+@php
+    $result = match ($inspection->final_result?->value ?? $inspection->final_result) {
+        'Pass' => 'مطابق',
+        'Fail' => 'غير مطابق',
+        default => $inspection->final_result,
+    };
+@endphp
+@props(['inspection'])
 
-<div class="mt-8 flex justify-center">
+<div class="inspection-result">
 
-    <table class="w-[380px] table-fixed border border-gray-300 border-collapse">
+    <table class="inspection-result-table">
 
         <tr>
 
-            <td class="border border-gray-300 py-3 text-center font-bold">
+            <td class="inspection-result-value">
                 {{ $result }}
             </td>
-            <th class="w-1/2 border border-gray-300 bg-gray-50 py-3 text-center font-bold">
-                <span>:</span>
-                <span>نتيجة الفحص </span>
-            </th>
+
+            <td class="inspection-result-title">
+                نتيجة الفحص
+            </td>
+
         </tr>
 
     </table>

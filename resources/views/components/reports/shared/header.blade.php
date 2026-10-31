@@ -1,66 +1,79 @@
-<?php
-$branch = $inspection->branch->name;
-
-?>
 @props(['inspection'])
 
+@php
+    $branch = $inspection->branch->name;
+@endphp
 
-<header class="border-b-1 border-black pb-4">
-    <div class="grid grid-cols-[250px_1fr_350px] items-center">
+<header class="report-header">
 
-        {{-- Logo --}}
-        <div class="flex justify-start">
-            <img src="{{ asset('tahaqoq-logo.png') }}" alt="TAHAQOQ" class="h-34 object-contain">
-        </div>
+    <table class="header-table">
 
-        {{-- Report Title --}}
-        <div class="text-center font-bold">
+        <tr>
 
-            <h1 class="text-2xl uppercase tracking-wide">
-                INSPECTION REPORT
-            </h1>
+            {{-- Logo --}}
+            <td class="header-logo">
 
-            <h2 class="mt-1 text-2xl">
-                تقرير الفحص
-            </h2>
+                <img src="{{ asset('tahaqoq-logo.png') }}" alt="TAHAQOQ">
 
-            <div class="mt-2 space-y-2 text-xl">
+            </td>
 
-                <div>
-                    <span>{{ $inspection->report_no }}</span>
+            {{-- Title --}}
+            <td class="header-title">
+
+                <div class="title-en">
+                    INSPECTION REPORT
+                </div>
+
+                <div class="title-ar">
+                    تقرير الفحص
+                </div>
+
+                <div class="report-number">
+                    <span>
+                        {{ $inspection->report_no }}
+                    </span>
                     <span>:</span>
-                    <span>رقم التقرير</span>
+
+                    <strong>رقم التقرير </strong>
+
+
                 </div>
 
-                <div>
-                    التاريخ:
-                    <span>{{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }}</span>
+                <div class="report-date">
 
-                    <span class="mx-4">الموافق:</span>
+                    <strong>التاريخ :</strong>
 
-                    <span> {{ app(\App\Services\DateService::class)->hijri($inspection->created_at) }} </span>
+                    {{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }}
+
+                    <span class="date-space"></span>
+
+                    <strong>الموافق:</strong>
+
+                    {{ app(\App\Services\DateService::class)->hijri($inspection->created_at) }}
+
                 </div>
 
-            </div>
+            </td>
 
-        </div>
+            {{-- Company --}}
+            <td class="header-company">
 
-        {{-- Inspection Center --}}
-        <div class="text-right leading-tight">
+                <div class="company-ar">
+                    شركة التحقق الدولية لفحص المركبات
+                </div>
 
-            <div class="text-2xl font-semibold">
-                مركز التحقق الدولية لفحص المركبات
-            </div>
+                <div class="company-en">
+                    TAHAQOQ International Vehicle
+                </div>
 
-            <div class="mt-3 text-xl">
-                TAHAQOQ International Vehicle
-            </div>
+                <div class="company-en">
+                    Inspection Center - {{ $branch }}
+                </div>
 
-            <div class="text-xl">
-                Inspection Center - {{ $branch }}
-            </div>
+            </td>
 
-        </div>
+        </tr>
 
-    </div>
+    </table>
+
 </header>

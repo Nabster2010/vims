@@ -106,6 +106,8 @@ class VehicleInformationForm extends Form
 
     public ?int $rear_axle_weight = null;
 
+    public ?int $other_axle_weight = null;
+
     public ?int $wheelbase = null;
 
     public ?int $width = null;
@@ -409,6 +411,29 @@ class VehicleInformationForm extends Form
                     'width' => ['required', 'integer', 'min:1'],
                     'height' => ['required', 'integer', 'min:1'],
                     'length' => ['required', 'integer', 'min:1'],
+
+                ];
+
+                break;
+            case 'TRL':
+
+                $rules = [
+                    'inspection_date' => ['required', 'date'],
+                    'manufacturer_id' => ['required', 'exists:manufacturers,id'],
+                    'model_type_id' => ['nullable', 'exists:model_types,id'],
+                    'model_division' => ['nullable', 'string', 'max:255'],
+                    'model_year' => ['required', 'integer'],
+                    'color_id' => ['required', 'exists:colors,id'],
+                    'origin_country_id' => ['required', 'exists:countries,id'],
+                    'gross_weight' => ['required', 'integer', 'min:1'],
+                    'width' => ['required', 'integer', 'min:1'],
+                    'height' => ['required', 'integer', 'min:1'],
+                    'length' => ['required', 'integer', 'min:1'],
+                    'number_of_axles' => ['required', 'integer', 'min:1'],
+                    'front_axle_weight' => ['required', 'integer', 'min:1'],
+                    'rear_axle_weight' => ['required', 'integer', 'min:1'],
+                    'other_axle_weight' => ['nullable', 'integer', 'min:1'],
+                    'remarks' => ['nullable', 'string'],
 
                 ];
 

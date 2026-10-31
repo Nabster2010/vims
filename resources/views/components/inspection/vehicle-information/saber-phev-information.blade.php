@@ -5,7 +5,6 @@
 
 
           <flux:input wire:model.live="form.model_division" label="Model Division" />
-
           <flux:input wire:model.live="form.manufacturing_year" type="text" label="Manufacturing Year" />
           <flux:input wire:model.live="form.number_of_doors" type="text" label="Number Of Doors" />
           <flux:select wire:model.live="form.shipment_country_id" label="Shipment Country">

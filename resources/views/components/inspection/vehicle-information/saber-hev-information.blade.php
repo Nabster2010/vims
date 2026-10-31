@@ -4,7 +4,7 @@
           </flux:heading>
 
 
-
+          <flux:input wire:model.live="form.model_division" type="text" label="Model Division" />
           <flux:input wire:model.live="form.manufacturing_year" type="text" label="Manufacturing Year" />
           <flux:input wire:model.live="form.number_of_doors" type="text" label="Number Of Doors" />
           <flux:input wire:model.live="form.mileage" label="Mileage" />

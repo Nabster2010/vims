@@ -1,107 +1,111 @@
-<?php
-$branch = $inspection->branch->code;
-$address = [];
-switch ($branch) {
-    case 'DMM':
-        $address = [
-            'ar' => 'الخالدية الجنوبية، الدمام، السعودية',
-            'en' => 'Al Khalidiyah, Dammam, KSA',
+@props(['inspection', 'page'])
+
+@php
+
+    $address = match ($inspection->branch->code) {
+        'DMM' => [
+            'ar' => 'الخالدية الجنوبية، الدمام، المملكة العربية السعودية',
+            'en' => 'Al Khalidiyah, Dammam, Saudi Arabia',
             'phone' => '0577929189',
             'email' => 'info@tahaqoq.com',
             'version' => '1.4.7 - 01/07/2023',
-        ];
-        break;
-    case 'JED':
-        $address = [
-            'ar' => 'المنتزهات، جدة، السعودية',
-            'en' => 'Al-Muntazahat, Jeddah, KSA',
+        ],
+
+        'JED' => [
+            'ar' => 'المنتزهات، جدة، المملكة العربية السعودية',
+            'en' => 'Al Muntazahat, Jeddah, Saudi Arabia',
             'phone' => '000000000',
             'email' => 'info@tahaqoq.com',
             'version' => '1.4.7 - 01/07/2023',
-        ];
+        ],
 
-    default:
-        $address = [
-            'ar' => 'الخالدية الجنوبية، الدمام، السعودية',
-            'en' => 'Al Khalidiyah, Dammam, KSA',
+        default => [
+            'ar' => 'الخالدية الجنوبية، الدمام، المملكة العربية السعودية',
+            'en' => 'Al Khalidiyah, Dammam, Saudi Arabia',
             'phone' => '0577929189',
             'email' => 'info@tahaqoq.com',
             'version' => '1.4.7 - 01/07/2023',
-        ];
-        break;
-}
+        ],
+    };
 
-?>
+@endphp
 
+<footer class="report-footer">
 
-@props(['inspection', 'page'])
+    <table class="footer-table">
 
-<footer class="mt-10 border-t-1 border-black pt-4">
-    <div class="grid grid-cols-[1fr_220px_1fr] items-end">
+        <tr>
 
-        {{-- English --}}
-        <div class="text-left text-lg leading-8">
+            <td class="footer-left">
 
-            <div class="font-semibold">
-                TAHAQOQ Vehicle Inspection Center
-            </div>
+                <div class="footer-title">
+                    TAHAQOQ Vehicle Inspection Center
+                </div>
 
-            <div>
-                Address: {{ $address['en'] }}
-            </div>
+                <div>
+                    {{ $address['en'] }}
+                </div>
 
-            <div>
-                Phone: {{ $address['phone'] }}
-            </div>
+                <div>
+                    Phone : {{ $address['phone'] }}
+                </div>
 
-            <div>
-                Email: {{ $address['email'] }}
-            </div>
+                <div>
+                    {{ $address['email'] }}
+                </div>
 
-            <div class="mt-2 text-base">
-                Version {{ $address['version'] }}
-            </div>
+                <div class="footer-version">
+                    Version {{ $address['version'] }}
+                </div>
 
-        </div>
+            </td>
 
-        {{-- Logo --}}
-        <div class="flex flex-col items-center justify-end">
+            <td class="footer-center">
 
-            <img src="{{ asset('tahaqoq-logo.png') }}" class="h-24 object-contain" alt="TAHAQOQ">
+                <img src="{{ asset('tahaqoq-logo.png') }}" alt="TAHAQOQ">
 
-            <div class="mt-2 text-lg font-semibold">
-                {{ $page }}
-            </div>
+                <div class="footer-page">
 
-        </div>
+                    {{ $page }}
 
-        {{-- Arabic --}}
-        <div class="text-right text-lg leading-8">
+                </div>
 
-            <div class="font-semibold">
-                مركز التحقق الدولية لفحص السيارات الدمام
-            </div>
+            </td>
 
-            <div>
-                <span>العنوان</span>
-                <span>:</span>
-                <span>{{ $address['ar'] }}</span>
+            <td class="footer-right">
 
-            </div>
+                <div class="footer-title">
 
-            <div>
-                <span>الهاتف</span>
-                <span>:</span>
-                <span>{{ $address['phone'] }}</span>
-            </div>
+                    شركة التحقق الدولية لفحص المركبات
 
-            <div>
-                <span>{{ $address['email'] }}</span>
-                <span>:</span>
-                <span>الإيميل</span>
-            </div>
+                </div>
 
-        </div>
+                <div>
 
-    </div>
+                    {{ $address['ar'] }}
+
+                </div>
+
+                <div>
+
+                    {{ $address['phone'] }}
+                    :
+                    الهاتف
+
+                </div>
+
+                <div>
+
+                    {{ $address['email'] }}
+                    :
+                    البريد الإلكتروني
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    </table>
+
 </footer>

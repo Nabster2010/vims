@@ -80,6 +80,7 @@ class InspectionForm extends Form
             case 'MTC':
             case 'SBP':
             case 'SBH':
+            case 'TRL':
 
                 $rules += [
                     'request_no' => ['required', 'string'],

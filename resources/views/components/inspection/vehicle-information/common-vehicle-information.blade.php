@@ -28,24 +28,30 @@
         @endforeach
     </flux:select>
     <flux:input wire:model.live="form.model_year" type="text" label="Model Year" />
-    <flux:select wire:model.live="form.fuel_type" label="Fuel Type">
-        <option value="">Select Fuel Type</option>
-        @foreach ($this->fuelTypes as $fuelType)
-            <option value="{{ $fuelType->value }}">
-                {{ $fuelType->value }}
-            </option>
-        @endforeach
-    </flux:select>
 
-    <flux:select wire:model.live="form.gearbox_type" label="Gearbox Type">
-        <option value="">Select Gearbox Type</option>
+    {{-- Fuel Type and Gearbox Type are not required for Trailers --}}
+    @if ($this->inspection->inspectionType->code !== 'TRL')
+        <flux:select wire:model.live="form.fuel_type" label="Fuel Type">
+            <option value="">Select Fuel Type</option>
+            @foreach ($this->fuelTypes as $fuelType)
+                <option value="{{ $fuelType->value }}">
+                    {{ $fuelType->value }}
+                </option>
+            @endforeach
+        </flux:select>
 
-        @foreach ($this->gearboxTypes as $gearboxType)
-            <option value="{{ $gearboxType->value }}">
-                {{ $gearboxType->value }}
-            </option>
-        @endforeach
-    </flux:select>
+        <flux:select wire:model.live="form.gearbox_type" label="Gearbox Type">
+            <option value="">Select Gearbox Type</option>
+
+            @foreach ($this->gearboxTypes as $gearboxType)
+                <option value="{{ $gearboxType->value }}">
+                    {{ $gearboxType->value }}
+                </option>
+            @endforeach
+        </flux:select>
+        <flux:input wire:model.blur="form.mileage" type="text" label="Mileage" />
+        <flux:input wire:model.blur="form.number_of_seats" type="text" label="Number Of Seats" />
+    @endif
     <flux:select wire:model.live="form.origin_country_id" label="Origin Country">
         <option value="">Select Country</option>
         @foreach ($this->countries as $country)
@@ -55,7 +61,5 @@
         @endforeach
     </flux:select>
 
-    <flux:input wire:model.blur="form.mileage" type="text" label="Mileage" />
-    <flux:input wire:model.blur="form.number_of_seats" type="text" label="Number Of Seats" />
 
 </flux:card>

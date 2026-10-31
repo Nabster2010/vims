@@ -1,15 +1,13 @@
 @props(['inspection'])
 
-<div class="page">
 
+<div class="report-page">
     <x-reports.shared.header :inspection="$inspection" />
+    <main class="report-content">
+
+        <x-reports.IMP.technical-inspection-table :inspection="$inspection" />
 
 
-    < <x-reports.IMP.technical-inspection-table :inspection="$inspection" />
-
-
-    <x-reports.shared.footer :inspection="$inspection" :page="'Page 3 of 3'" />
-
-
-
+    </main>
+    <x-reports.shared.footer :inspection="$inspection" :page="'Page 1 of 3'" />
 </div>

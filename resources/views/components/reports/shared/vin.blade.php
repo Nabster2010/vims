@@ -1,14 +1,25 @@
-<div class="mt-8">
-    <table class="w-full border border-gray-400 border-collapse">
+@props(['inspection'])
+
+<section class="report-vin">
+
+    <table class="vin-table">
+
         <tr>
-            <td class="border border-gray-400 px-4 py-3 text-center text-2xl tracking-wider">
+
+            <td class="vin-value">
+
                 {{ $inspection->vin }}
+
             </td>
-            <th class="w-40 border border-gray-400 bg-gray-50 px-4 py-3 text-right font-bold">
-                رقم الهيكل
+
+            <th class="vin-label">
+
+                رقم الهيكل (VIN)
+
             </th>
 
-
         </tr>
+
     </table>
-</div>
+
+</section>

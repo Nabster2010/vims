@@ -1,94 +1,86 @@
-{{-- ========================================= --}}
-{{-- Vehicle Information --}}
-{{-- ========================================= --}}
+{{-- resources/views/components/reports/IMP/vehicle-information.blade.php --}}
+@props(['inspection'])
 
-<div dir="rtl" class="mt-6 grid grid-cols-[2fr_1fr] gap-2">
+<section class="vehicle-information">
 
-    {{-- ================= Right Table ================= --}}
-    <table class="w-full table-fixed border border-gray-400 border-collapse text-sm">
+    <table class="info-table info-left">
+
         <tr>
-            <td class="w-40 border border-gray-400 px-3 py-2 font-semibold">مكان الفحص</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->branch->name_ar }}</td>
+            <td>{{ $inspection->vehicleInformation->number_of_seats }}</td>
+            <th>عدد الركاب</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">جهة طلب الفحص</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->customPort->name_ar }}</td>
+            <td>{{ $inspection->vehicleInformation->mileage }}</td>
+            <th>قراءة العداد</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">تاريخ الفحص</td>
-            <td class="border border-gray-400 px-3 py-2">
-                {{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }} </td>
+            <td>{{ $inspection->vehicleInformation->manufacturer->name }}</td>
+            <th>نوع المركبة</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">رقم بيان الاستيراد</td>
-            <td class="border border-gray-400 px-3 py-2">
-                {{ $inspection->custom_declaration_no }}</td>
+            <td>{{ $inspection->vehicleInformation->modelType->name }}</td>
+            <th>الطراز</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">تاريخ بيان الاستيراد</td>
-            <td class="border border-gray-400 px-3 py-2">
-                {{ app(\App\Services\DateService::class)->hijri($inspection->custom_declaration_date) }}</td>
+            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <th>الموديل</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">رقم الاحالة</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->request_no }}</td>
+            <td>{{ $inspection->vehicleInformation->color->name_ar }}</td>
+            <th>اللون</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">اسم المستورد</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->customer->name }}</td>
+            <td>{{ $inspection->vehicleInformation->originCountry->name_ar }}</td>
+            <th>بلد المنشأ</th>
         </tr>
 
     </table>
 
-    {{-- ================= Left Table ================= --}}
-
-
-    <table class="w-full table-fixed border border-gray-400 border-collapse text-sm">
-
-
+    <table class="info-table info-right">
 
         <tr>
-            <td class="w-40 border border-gray-400 px-3 py-2 font-semibold">عدد الركاب</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->vehicleInformation->number_of_seats }}</td>
+            <td>{{ $inspection->branch->name_ar }}</td>
+            <th>مكان الفحص</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">قراءة العداد</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->vehicleInformation->mileage }}</td>
+            <td>{{ $inspection->customPort->name_ar }}</td>
+            <th>جهة طلب الفحص</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold"> نوع المركبة</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->vehicleInformation->manufacturer->name }}</td>
+            <td>{{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }}</td>
+            <th>تاريخ الفحص</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">الطراز</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->vehicleInformation->modelType->name }}</td>
+            <td>{{ $inspection->custom_declaration_no }}</td>
+            <th>رقم بيان الاستيراد</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold"> الموديل</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->vehicleInformation->model_year }}</td>
+            <td>{{ app(\App\Services\DateService::class)->hijri($inspection->custom_declaration_date) }}</td>
+            <th>تاريخ بيان الاستيراد</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold"> اللون</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->vehicleInformation->color->name_ar }}</td>
+            <td>{{ $inspection->request_no }}</td>
+            <th>رقم الإحالة</th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold"> بلد المنشأ</td>
-            <td class="border border-gray-400 px-3 py-2">{{ $inspection->vehicleInformation->originCountry->name_ar }}
-            </td>
+            <td>{{ $inspection->customer->name }}</td>
+            <th>اسم المستورد</th>
         </tr>
 
     </table>
 
-</div>
+
+
+</section>

@@ -1,11 +1,62 @@
-@props(['inspection', 'report'])
+<?php
 
-<div class="page">
+$rows = [
+    [
+        'sn' => 1,
+        'item' => 'Engine',
+        'ref' => '1/3/4',
+        'modified' => '',
+        'check' => 'Check Document<br>Inspection Report',
+        'requirements' => ['Weights if changed', 'Dimensions if changed', 'Brakes if applicable', 'Suspension if applicable', 'Vehicle upgraded using approved parts'],
+        'result' => 'PASS',
+        'final' => 'PASS',
+    ],
 
-    <x-reports.shared.header :inspection="$inspection" :report="$report" />
-    <x-reports.MDL.details-table :inspection="$inspection" :report="$report" />
-    <x-reports.shared.footer :inspection="$inspection" :report="$report" :page="'Page 2 of 5'" />
+    [
+        'sn' => 2,
+        'item' => 'Transmission',
+        'ref' => '2/3/4',
+        'modified' => '',
+        'check' => 'Check Document<br>Inspection Report',
+        'requirements' => ['Gearbox', 'Automatic / Manual conversion allowed if safe'],
+        'result' => '--',
+        'final' => '--',
+    ],
+
+    [
+        'sn' => 3,
+        'item' => 'Exhaust System',
+        'ref' => 'A/3/3/4',
+        'modified' => '',
+        'check' => 'Visual Inspection',
+        'requirements' => ['Leak proof', 'Outlet direction', 'No passenger compartment intrusion'],
+        'result' => '--',
+        'final' => '--',
+    ],
+
+    [
+        'sn' => 4,
+        'item' => 'Fuel System',
+        'ref' => '4/3/4',
+        'modified' => '',
+        'check' => 'Visual Inspection',
+        'requirements' => ['Secure mounting', 'Leak proof', 'Away from hot surfaces', 'Tank not inside engine compartment'],
+        'result' => '--',
+        'final' => '--',
+    ],
+];
+?>
+
+@props(['inspection'])
 
 
+<div class="report-page">
+
+    <x-reports.shared.header :inspection="$inspection" />
+    <main class="report-content">
+        <x-reports.MDL.technical-requirements :inspection="$inspection" />
+        <x-reports.MDL.details-table :inspection="$inspection" :rows="$rows" />
+    </main>
+    <x-reports.shared.footer :inspection="$inspection" :page="'Page 2 of 5'" />
 
 </div>

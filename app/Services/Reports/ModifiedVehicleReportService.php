@@ -6,7 +6,7 @@ use App\Models\Inspection;
 
 class ModifiedVehicleReportService
 {
-    public function build(Inspection $inspection): array
+    public function build(Inspection $inspection): Inspection
     {
         $inspection->loadMissing([
             'branch',
@@ -19,17 +19,9 @@ class ModifiedVehicleReportService
             'sideSlipInspection',
             'suspensionInspection',
             'emissionInspection',
+            'photos',
         ]);
 
-        return [
-            'customer' => $inspection->customer,
-            'vehicle' => $inspection->vehicleInformation,
-            'visual' => $inspection->visualInspection,
-            'brake' => $inspection->brakeInspection,
-            'headlight' => $inspection->headLightInspection,
-            'sideslip' => $inspection->sideSlipInspection,
-            'suspension' => $inspection->suspensionInspection,
-            'emission' => $inspection->emissionInspection,
-        ];
+        return $inspection;
     }
 }

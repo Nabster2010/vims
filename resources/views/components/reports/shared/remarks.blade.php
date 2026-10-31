@@ -1,14 +1,17 @@
-<div class="mt-8">
+{{-- resources/views/components/reports/shared/remarks.blade.php --}}
 
-    <div class="h-48 border border-gray-300 p-6">
+@props(['inspection'])
 
-        <div class="text-right text-2xl font-bold">
-            <span>:</span>
-            <span>ملاحظات</span>
+<div class="remarks-section">
+
+    <div class="remarks-box">
+
+        <div class="remarks-title">
+            ملاحظات
         </div>
 
-        <div class="mt-4 whitespace-pre-line text-lg">
-            {{ $inspection['vehicleInformation']->remarks }}
+        <div class="remarks-content">
+            {{ $inspection->vehicleInformation->remarks ?? '—' }}
         </div>
 
     </div>

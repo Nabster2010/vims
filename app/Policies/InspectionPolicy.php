@@ -94,4 +94,23 @@ class InspectionPolicy
     {
         return false;
     }
+
+    public function viewReport(User $user, Inspection $inspection): bool
+    {
+        return in_array($user->role, [
+            UserRole::SuperAdmin,
+            UserRole::BranchManager,
+            UserRole::Inspector,
+            UserRole::Receptionist,
+        ]);
+    }
+    public function downloadReport(User $user, Inspection $inspection): bool
+    {
+        return in_array($user->role, [
+            UserRole::SuperAdmin,
+            UserRole::BranchManager,
+            UserRole::Inspector,
+            UserRole::Receptionist,
+        ]);
+    }
 }

@@ -1,65 +1,73 @@
+{{-- resources/views/components/reports/shared/signature.blade.php --}}
+
 @props([
     'inspection',
-
     'inspectorSignature' => asset('images/reports/signatures/inspector.png'),
     'managerSignature' => asset('images/reports/signatures/manager.png'),
     'stamp' => asset('images/reports/stamp.png'),
 ])
 
-<table class="mt-8 w-full table-fixed border border-black border-collapse text-center">
+<table class="signature-table">
 
-    <tr class="font-bold">
-        <td class="w-1/3 border border-black py-2">
+    <tr>
+
+        <td class="signature-header">
             المفتش
-            <br>
-            <span class="font-normal">Inspector</span>
+            <div class="signature-subtitle">
+                Inspector
+            </div>
         </td>
 
-        <td class="w-1/3 border border-black py-2">
+        <td class="signature-header">
             Stamp
         </td>
 
-        <td class="w-1/3 border border-black py-2">
+        <td class="signature-header">
             المدير الفني
-            <br>
-            <span class="font-normal">Technical Manager</span>
-        </td>
-    </tr>
-
-    <tr>
-        <td class="border border-black py-2 text-lg">
-            {{ $inspection->vehicleInformation->inspector->name }}
+            <div class="signature-subtitle">
+                Technical Manager
+            </div>
         </td>
 
-        <td class="border border-black"></td>
-
-        <td class="border border-black py-2 text-lg font-semibold">
-            {{ $inspection->branch->manager->name }}
-        </td>
     </tr>
 
     <tr>
 
-        <td class="h-40 border border-black align-middle">
+        <td class="signature-name">
+            {{ $inspection->vehicleInformation->inspector->name ?? '' }}
+        </td>
+
+        <td class="signature-name">
+        </td>
+
+        <td class="signature-name">
+            {{ $inspection->branch->manager->name ?? '' }}
+        </td>
+
+    </tr>
+
+    <tr>
+
+        <td class="signature-image-cell">
 
             @if ($inspectorSignature)
-                <img src="{{ $inspectorSignature }}" class="mx-auto max-h-28 object-contain" alt="">
+                <img src="{{ $inspectorSignature }}" class="signature-image" alt="Inspector Signature">
             @endif
 
         </td>
 
-        <td class="h-40 border border-black  align-middle">
+        <td class="signature-image-cell">
 
             @if ($stamp)
-                <img src="{{ $stamp }}" class="mx-auto max-h-28 object-contain" alt="">
+                <img src="{{ $stamp }}" class="signature-image" alt="Stamp">
             @endif
 
         </td>
 
-        <td class="h-40 border border-black align-middle">
+        <td class="signature-image-cell">
 
             @if ($managerSignature)
-                <img src="{{ $managerSignature }}" class="mx-auto max-h-28 object-contain" alt="">
+                <img src="{{ $managerSignature }}" class="signature-image" alt="Manager Signature">
             @endif
 
         </td>

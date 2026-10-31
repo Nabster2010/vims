@@ -1,48 +1,73 @@
-<h3 class="mb-3 text-center text-xl font-bold">
-    نتائج التفتيش
-</h3>
-<h3 class="mb-3 text-right text-lg underline font-bold">
+<div class="section-title">
     المتطلبات الأساسية للمركبات المعدلة
-</h3>
-
-<div dir="rtl" class="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] border border-black text-center">
-
-    {{-- الصف الأول --}}
-
-    <div class="row-span-2 flex items-center justify-center border border-black p-3">
-        تم تعديل المركبة لدى منشأة مسجلة
-    </div>
-
-    <div class="row-span-2 flex items-center justify-center border border-black p-2">
-        لا يوجد تقرير
-    </div>
-
-    <div class="border border-black p-2 font-bold">
-        اللون
-    </div>
-
-    <div class="border border-black p-2 font-bold">
-        الوزن
-    </div>
-
-    <div class="border border-black p-2 font-bold">
-        الأبعاد
-    </div>
-
-    {{-- الصف الثاني --}}
-
-
-
-    <div class="border border-black p-2">
-        أحمر
-    </div>
-
-    <div class="border border-black p-2">
-        حسب المصنع
-    </div>
-
-    <div class="border border-black p-2">
-        حسب المصنع
-    </div>
-
 </div>
+
+<table class="modified-basic-table">
+
+    <tr>
+
+        <th class="basic-head">
+            الوزن الكلي
+        </th>
+
+        <th class="basic-head">
+            الأبعاد
+        </th>
+        <td class="basic-head">
+            عدد المحاور
+        </td>
+
+        <td class="basic-head" colspan="3">
+            وزن المحاور
+        </td>
+
+
+
+    </tr>
+
+    <tr>
+
+        <td rowspan="2">
+            1
+        </td>
+
+        <td rowspan="2">
+            5
+        </td>
+        <td rowspan="2">
+            5
+        </td>
+        <td>
+            محور امامي </td>
+
+        <td>
+            محور خلفي </td>
+
+        <td>
+            اخري
+        </td>
+
+
+
+    </tr>
+    <tr>
+
+
+        <td>
+            حسب المصنع
+        </td>
+
+        <td>
+            حسب المصنع
+        </td>
+        <td>
+            حسب المصنع
+        </td>
+
+
+
+
+
+    </tr>
+
+</table>

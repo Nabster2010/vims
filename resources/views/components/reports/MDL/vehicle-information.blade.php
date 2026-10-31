@@ -1,83 +1,83 @@
-{{-- ========================================= --}}
-{{-- Vehicle Information --}}
-{{-- ========================================= --}}
+{{-- resources/views/components/reports/IMP/vehicle-information.blade.php --}}
+@props(['inspection'])
 
-<div dir="rtl" class="mt-6 grid grid-cols-2 gap-2">
+<section class="vehicle-information">
 
-    {{-- ================= Right Table ================= --}}
-    <table class="w-full table-fixed border border-gray-400 border-collapse text-sm">
+    <table class="info-table info-left">
+
         <tr>
-            <td class="w-40 border border-gray-400 px-3 py-2 font-semibold">مكان الفحص</td>
-            <td class="border border-gray-400 px-3 py-2">الدمام</td>
+            <td>{{ $inspection->branch->name_ar }}</td>
+            <th>رقم اللوحة </th>
+        </tr>
+        <tr>
+            <td>{{ '7777' }}</td>
+            <th>نوع المركبة</th>
+        </tr>
+        <tr>
+            <td>{{ '7777' }}</td>
+            <th> الطراز</th>
+        </tr>
+        <tr>
+            <td>{{ $inspection->vehicleInformation->mileage }}</td>
+            <th> سنة الموديل </th>
+        </tr>
+        <tr>
+            <td>{{ $inspection->vehicleInformation->mileage }}</td>
+            <th> اللون </th>
         </tr>
 
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">رقم الطلب</td>
-            <td class="border border-gray-400 px-3 py-2">IMP-000123</td>
+            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <th>الطراز القديم</th>
         </tr>
-
         <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">تاريخ الفحص</td>
-            <td class="border border-gray-400 px-3 py-2">26/10/2026</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">رقم البيان</td>
-            <td class="border border-gray-400 px-3 py-2">987654321</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">تاريخ البيان</td>
-            <td class="border border-gray-400 px-3 py-2">24/10/2026</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">المستورد</td>
-            <td class="border border-gray-400 px-3 py-2">ABC Trading Co.</td>
+            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <th>الطراز الجديد</th>
         </tr>
 
 
-    </table>
-
-    {{-- ================= Left Table ================= --}}
-
-
-    <table class="w-full table-fixed border border-gray-400 border-collapse text-sm">
-
-
-
-        <tr>
-            <td class="w-40 border border-gray-400 px-3 py-2 font-semibold">الصانع</td>
-            <td class="border border-gray-400 px-3 py-2">FORD</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">الطراز</td>
-            <td class="border border-gray-400 px-3 py-2">EXPLORER</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">سنة الصنع</td>
-            <td class="border border-gray-400 px-3 py-2">2024</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">اللون</td>
-            <td class="border border-gray-400 px-3 py-2">WHITE</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">نوع الوقود</td>
-            <td class="border border-gray-400 px-3 py-2">GASOLINE</td>
-        </tr>
-
-        <tr>
-            <td class="border border-gray-400 px-3 py-2 font-semibold">عدد المقاعد</td>
-            <td class="border border-gray-400 px-3 py-2">7</td>
-        </tr>
 
 
 
     </table>
 
-</div>
+    <table class="info-table info-right">
+
+
+        <tr>
+            <td>{{ $inspection->vehicleInformation->number_of_seats }}</td>
+            <th> اسم المالك</th>
+        </tr>
+
+        <tr>
+            <td>{{ $inspection->vehicleInformation->modelType->name }}</td>
+            <th>رقم الحاسب</th>
+        </tr>
+
+        <tr>
+            <td>{{ $inspection->custom_declaration_no }}</td>
+            <th>تاريخ الاحالة</th>
+        </tr>
+
+        <tr>
+            <td>{{ $inspection->custom_declaration_no }}</td>
+            <th>مصدر الاحالة</th>
+        </tr>
+        <tr>
+            <td>{{ $inspection->custom_declaration_no }}</td>
+            <th>التعديل بمنشأة مسجلة؟</th>
+        </tr>
+        <tr>
+            <td>{{ $inspection->custom_declaration_no }}</td>
+            <th>اسم مركز التعديل</th>
+        </tr>
+        <tr>
+            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <th>رقم تقرير المركز</th>
+        </tr>
+
+    </table>
+
+
+
+</section>

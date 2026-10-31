@@ -59,5 +59,11 @@ return [
         // InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
     ],
+    'TRL' => [
+        InspectionModule::VehicleInformation,
+        // InspectionModule::HeadLightInspection,
+        // InspectionModule::BrakeInspection,
+        InspectionModule::VisualInspection,
+    ],
 
 ];

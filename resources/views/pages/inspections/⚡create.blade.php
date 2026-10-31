@@ -160,6 +160,9 @@ new #[Title('Create Inspection')] class extends BasePage {
         @if (in_array($this->inspectionTypeCode, ['MDL', 'MDH']))
             <x-inspection.create.modified-vehicle />
         @endif
+        @if ($this->inspectionTypeCode === 'TRL')
+            <x-inspection.create.trailer />
+        @endif
 
         <div class="flex justify-end">
 

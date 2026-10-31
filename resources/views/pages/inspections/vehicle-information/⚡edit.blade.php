@@ -148,6 +148,9 @@ new class extends BasePage {
         @if ($this->inspection->inspectionType->code === 'MTC')
             <x-inspection.vehicle-information.motorcycle-information />
         @endif
+        @if ($this->inspection->inspectionType->code === 'TRL')
+            <x-inspection.vehicle-information.trailer-information />
+        @endif
 
         <flux:textarea wire:model.live="form.remarks" label="Remarks" />
 

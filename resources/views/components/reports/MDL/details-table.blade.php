@@ -1,191 +1,106 @@
-<div class="mt-6">
+            @props(['rows'])
 
-    <h2 class="mb-4 text-center text-2xl font-bold">
-        Technical Requirement for Modified Vehicle
-    </h2>
 
-    <table class="w-full table-fixed border border-black text-center text-sm">
 
-        <thead class="bg-gray-100">
+            <div class="section-title">
+                Technical Requirement for Modified Vehicle
+            </div>
 
-            <tr>
+            <table class="modified-english-table">
 
-                <th class="w-12 border p-2">
-                    S/N
-                </th>
+                <thead>
 
-                <th class="w-36 border p-2">
-                    Item
-                </th>
+                    <tr>
 
-                <th class="w-24 border p-2">
-                    Ref.
-                </th>
+                        <th class="en-no">
+                            S/N
+                        </th>
 
-                <th class="w-32 border p-2">
-                    Modified
-                    <br>
-                    Yes / No
-                </th>
+                        <th class="en-item">
+                            Item
+                        </th>
 
-                <th class="w-32 border p-2">
-                    How to Check
-                </th>
+                        <th class="en-ref">
+                            Ref.
+                        </th>
 
-                <th class="border p-2">
-                    Requirements
-                </th>
+                        <th class="en-modified">
+                            Modified
+                            <br>
+                            Yes / No
+                        </th>
 
-                <th class="w-32 border p-2">
-                    Result
-                </th>
+                        <th class="en-check">
+                            How to Check
+                        </th>
 
-                <th class="w-32 border p-2">
-                    Final Result
-                </th>
+                        <th class="en-requirements">
+                            Requirements
+                        </th>
 
-            </tr>
+                        <th class="en-result">
+                            Result
+                        </th>
 
-        </thead>
+                        <th class="en-final">
+                            Final
+                        </th>
 
-        <tbody>
+                    </tr>
 
-            @php
+                </thead>
 
-                $rows = [
-                    [
-                        'sn' => 1,
-                        'item' => 'Engine',
-                        'ref' => '1/3/4',
-                        'modified' => '',
-                        'check' => 'Check Document<br>Inspection Report',
-                        'requirements' => [
-                            'Weights if changed',
-                            'Dimensions if changed',
-                            'Brakes if applicable',
-                            'Suspension if applicable',
-                            'Vehicle upgraded using approved parts',
-                        ],
-                        'result' => 'PASS',
-                        'final' => 'PASS',
-                    ],
+                <tbody>
 
-                    [
-                        'sn' => 2,
-                        'item' => 'Transmission',
-                        'ref' => '2/3/4',
-                        'modified' => '',
-                        'check' => 'Check Document<br>Inspection Report',
-                        'requirements' => ['Gearbox', 'Automatic / Manual conversion allowed if safe'],
-                        'result' => '--',
-                        'final' => '--',
-                    ],
+                    @foreach ($rows as $row)
+                        <tr>
 
-                    [
-                        'sn' => 3,
-                        'item' => 'Exhaust System',
-                        'ref' => 'A/3/3/4',
-                        'modified' => '',
-                        'check' => 'Visual Inspection',
-                        'requirements' => ['Leak proof', 'Outlet direction', 'No passenger compartment intrusion'],
-                        'result' => '--',
-                        'final' => '--',
-                    ],
+                            <td>{{ $row['sn'] }}</td>
 
-                    [
-                        'sn' => 4,
-                        'item' => 'Fuel System',
-                        'ref' => '4/3/4',
-                        'modified' => '',
-                        'check' => 'Visual Inspection',
-                        'requirements' => [
-                            'Secure mounting',
-                            'Leak proof',
-                            'Away from hot surfaces',
-                            'Tank not inside engine compartment',
-                        ],
-                        'result' => '--',
-                        'final' => '--',
-                    ],
-                    [
-                        'sn' => 5,
-                        'item' => 'Fuel System',
-                        'ref' => '4/3/4',
-                        'modified' => '',
-                        'check' => 'Visual Inspection',
-                        'requirements' => [
-                            'Secure mounting',
-                            'Leak proof',
-                            'Away from hot surfaces',
-                            'Tank not inside engine compartment',
-                        ],
-                        'result' => '--',
-                        'final' => '--',
-                    ],
-                ];
+                            <td class="text-left">
+                                {{ $row['item'] }}
+                            </td>
 
-            @endphp
+                            <td>
+                                {{ $row['ref'] }}
+                            </td>
 
-            @foreach ($rows as $row)
-                <tr class="align-top">
+                            <td>
+                                {{ $row['modified'] }}
+                            </td>
 
-                    <td class="border p-2">
-                        {{ $row['sn'] }}
-                    </td>
+                            <td class="text-left">
+                                {!! $row['check'] !!}
+                            </td>
 
-                    <td class="border p-2 font-semibold">
-                        {{ $row['item'] }}
-                    </td>
+                            <td class="requirements-cell">
 
-                    <td class="border p-2">
-                        {{ $row['ref'] }}
-                    </td>
+                                <table class="requirements-table">
 
-                    <td class="border p-2">
-                        {{ $row['modified'] }}
-                    </td>
+                                    @foreach ($row['requirements'] as $requirement)
+                                        <tr>
+                                            <td>
+                                                {{ $requirement }}
+                                            </td>
 
-                    <td class="border p-2">
-                        {!! $row['check'] !!}
-                    </td>
+                                        </tr>
+                                    @endforeach
 
-                    <td class="border p-0">
+                                </table>
 
-                        <table class="w-full border-collapse">
+                            </td>
 
-                            @foreach ($row['requirements'] as $req)
-                                <tr>
+                            <td class="result-cell">
+                                {{ $row['result'] }}
+                            </td>
 
-                                    <td class="border-b p-2 text-left">
+                            <td class="result-cell">
+                                {{ $row['final'] }}
+                            </td>
 
-                                        {{ $req }}
+                        </tr>
+                    @endforeach
 
-                                    </td>
+                </tbody>
 
-                                </tr>
-                            @endforeach
-
-                        </table>
-
-                    </td>
-
-                    <td class="border p-2 font-semibold">
-
-                        {{ $row['result'] }}
-
-                    </td>
-
-                    <td class="border p-2 font-semibold">
-
-                        {{ $row['final'] }}
-
-                    </td>
-
-                </tr>
-            @endforeach
-
-        </tbody>
-
-    </table>
-
-</div>
+            </table>

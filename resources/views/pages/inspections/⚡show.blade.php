@@ -69,12 +69,22 @@ new #[Title('Inspection Summary')] class extends BasePage {
             <flux:heading size="lg">
                 Inspection Information
             </flux:heading>
-            @can('update', $this->inspection)
-                <flux:button variant="primary" :href="route('inspections.edit', $this->inspection)" icon="pencil"
-                    icon-variant="outline">
-                    Edit
-                </flux:button>
-            @endcan
+            <div class="flex items-center gap-2">
+                @can('viewReport', $this->inspection)
+                    <flux:button variant="outline" icon="eye" :href="route('reports.show', $inspection)">
+                        View Result
+                    </flux:button>
+                    <flux:button variant="outline" icon="document-text" :href="route('reports.pdf', $inspection)">
+                        Download Pdf
+                    </flux:button>
+                @endcan
+                @can('update', $this->inspection)
+                    <flux:button variant="primary" :href="route('inspections.edit', $this->inspection)" icon="pencil"
+                        icon-variant="outline">
+                        Edit
+                    </flux:button>
+                @endcan
+            </div>
         </div>
 
         <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -381,11 +391,6 @@ new #[Title('Inspection Summary')] class extends BasePage {
 
                 </flux:button>
 
-                <flux:button variant="ghost">
-
-                    Print Report
-
-                </flux:button>
 
             </div>
 

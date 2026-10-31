@@ -224,20 +224,20 @@ return [
         |--------------------------------------------------------------------------
         */
 
-        [
-            'heading' => 'Reports',
+        // [
+        //     'heading' => 'Reports',
 
-            'items' => [
+        //     'items' => [
 
-                [
-                    'label' => 'Reports',
-                    'icon' => 'chart-bar',
-                    'route' => 'reports.show',
-                    'active' => ['reports.*'],
-                ],
+        //         [
+        //             'label' => 'Reports',
+        //             'icon' => 'chart-bar',
+        //             'route' => 'reports.show',
+        //             'active' => ['reports.*'],
+        //         ],
 
-            ],
-        ],
+        //     ],
+        // ],
 
     ],
 

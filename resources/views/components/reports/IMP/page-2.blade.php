@@ -1,16 +1,12 @@
 @props(['inspection'])
 
-<div class="page">
 
+<div class="report-page">
     <x-reports.shared.header :inspection="$inspection" />
-    <h2 class="mb-4 border-b pb-2 text-center text-xl font-bold">
-        تقرير الفحص الظاهري / ملحق (2)
-    </h2>
+    <main class="report-content">
 
-    <x-reports.IMP.visual-inspection-table :inspection="$inspection" />
+        <x-reports.IMP.visual-inspection-table :inspection="$inspection" />
 
-    <x-reports.shared.footer :inspection="$inspection" :page="'Page 2 of 3'" />
-
-
-
+    </main>
+    <x-reports.shared.footer :inspection="$inspection" :page="'Page 1 of 3'" />
 </div>
