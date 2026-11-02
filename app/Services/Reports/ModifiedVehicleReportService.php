@@ -6,7 +6,7 @@ use App\Models\Inspection;
 
 class ModifiedVehicleReportService
 {
-    public function build(Inspection $inspection): Inspection
+    public function build(Inspection $inspection): array
     {
         $inspection->loadMissing([
             'branch',
@@ -22,6 +22,89 @@ class ModifiedVehicleReportService
             'photos',
         ]);
 
-        return $inspection;
+        $visualInspection = $inspection->visualInspection->visualItemResults;
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
+        $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_economy', 'other'];
+
+
+
+        $mdlBasicItems = $inspection->visualInspection
+            ->visualItemResults
+            ->load('visualItem')
+            ->where('visualItem.category', 'MDL-BASIC');
+
+        $reportData =  [
+            'report_title' => 'تقرير فحص مركبة معدلة أقل من 3500 كجم',
+            'report_no' => $inspection->reportNo,
+            'inspection_type_code' => $inspection->inspectionType->code,
+            'report_date_gregorian' => app(\App\Services\DateService::class)->gregorian($inspection->created_at),
+            'report_date_hijri' => app(\App\Services\DateService::class)->hijri($inspection->created_at),
+            'branch_code' => $inspection->branch->code,
+            'branch_name' => $inspection->branch->name,
+            'branch_name_ar' => $inspection->branch->name_ar,
+            'vin' => $inspection->vin,
+            'number_of_seats' => $inspection->vehicleInformation->number_of_seats,
+            'mileage' => $inspection->vehicleInformation->mileage,
+            'manufacturer' => $inspection->vehicleInformation->manufacturer->name,
+            'modelType' => $inspection->vehicleInformation->modelType->name,
+            'model_year' => $inspection->vehicleInformation->model_year,
+            'color' => $inspection->vehicleInformation->color->name_ar,
+            'plate_number' => $inspection->plate_no,
+            'old_model' => $inspection->current_type,
+            'new_model' => $inspection->target_type,
+            'customer' => $inspection->customer->name,
+            'owner_id' => $inspection->owner_id,
+            'request_date' => $inspection->request_date->format('Y-m-d'),
+            //to be added to database
+            'referral_source' => "---",
+            //to be added to database
+            'modified_at_registered_facility' => $inspection->modification_center ? 'نعم' : 'لا',
+            'center_name' => $inspection->modification_center ?? "--",
+            //to be added to database 
+            'center_report_number' => "--",
+            'originCountry' => $inspection->vehicleInformation->originCountry->name_ar,
+            'branch' => $inspection->branch->name_ar,
+            'created_at' => app(\App\Services\DateService::class)->gregorian($inspection->created_at),
+            'request_no' => $inspection->request_no,
+            'total_weight' => $inspection->vehicleInformation->gross_weight,
+            'width' => $inspection->vehicleInformation->width ?? '--',
+            'length' => $inspection->vehicleInformation->length ?? '--',
+            'height' => $inspection->vehicleInformation->height ?? '--',
+            'number_of_axles' => $inspection->vehicleInformation->number_of_axles,
+            'front_axle_weight' => $inspection->vehicleInformation->front_axle_weight ?? '--',
+            'rear_axle_weight' => $inspection->vehicleInformation->rear_axle_weight ?? '--',
+            'other_axle_weight' => $inspection->vehicleInformation->other_axle_weight ?? '--',
+            'photos' => $inspection->photos,
+            'remarks' => $inspection->vehicleInformation->remarks ?? '—',
+            'inspector_name' => $inspection->vehicleInformation->inspector->name ?? '',
+            'manager_name' => $inspection->branch->manager->name ?? '',
+            'emission_final_result' => $inspection->emissionInspection->result,
+            'headlight_final_result' => $inspection->headLightInspection->result,
+            'brake_final_result' => $inspection->brakeInspection->result,
+            'suspension_final_result' => $inspection->suspensionInspection->result,
+            'side_slip_final_result' => $inspection->sideSlipInspection->result,
+            'visual_final_result' => $inspection->visualInspection->result,
+            'emission_co' => $inspection->emissionInspection->co ?? '-',
+            'emission_hc' => $inspection->emissionInspection->hc ?? '-',
+            'emission_opacity' => $inspection->emissionInspection->opacity ?? '-',
+            'headlight_left' => $inspection->headLightInspection->left,
+            'headlight_right' => $inspection->headLightInspection->right,
+            'side_slip_value' => $inspection->sideSlipInspection->value,
+            'suspension_fr' => $inspection->suspensionInspection->front_right,
+            'suspension_fl' => $inspection->suspensionInspection->front_left,
+            'suspension_rr' => $inspection->suspensionInspection->rear_right,
+            'suspension_rl' => $inspection->suspensionInspection->rear_left,
+            'rear_brake' => $inspection->brakeInspection->rear,
+            'front_brake' => $inspection->brakeInspection->front,
+            'parking_brake' => $inspection->brakeInspection->parking,
+            'final_result' => ($inspection->final_result?->value ?? $inspection->final_result) == 'Pass' ? 'مطابق' : 'غير مطابق',
+            'inspection' => $inspection,
+            'visual_inspection_groups' => $visualInspectionGroups,
+            'left_categories' => $leftCategories,
+            'mdl_basic_items' => $mdlBasicItems,
+
+        ];
+
+        return $reportData;
     }
 }

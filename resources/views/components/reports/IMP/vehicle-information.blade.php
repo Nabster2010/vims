@@ -1,42 +1,44 @@
 {{-- resources/views/components/reports/IMP/vehicle-information.blade.php --}}
-@props(['inspection'])
+@props(['reportData'])
+
+
 
 <section class="vehicle-information">
 
     <table class="info-table info-left">
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->number_of_seats }}</td>
+            <td>{{ $reportData['number_of_seats'] }}</td>
             <th>عدد الركاب</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->mileage }}</td>
+            <td>{{ $reportData['mileage'] }}</td>
             <th>قراءة العداد</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->manufacturer->name }}</td>
+            <td>{{ $reportData['manufacturer'] }}</td>
             <th>نوع المركبة</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->modelType->name }}</td>
+            <td>{{ $reportData['modelType'] }}</td>
             <th>الطراز</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <td>{{ $reportData['model_year'] }}</td>
             <th>الموديل</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->color->name_ar }}</td>
+            <td>{{ $reportData['color'] }}</td>
             <th>اللون</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->originCountry->name_ar }}</td>
+            <td>{{ $reportData['originCountry'] }}</td>
             <th>بلد المنشأ</th>
         </tr>
 
@@ -45,37 +47,37 @@
     <table class="info-table info-right">
 
         <tr>
-            <td>{{ $inspection->branch->name_ar }}</td>
+            <td>{{ $reportData['branch'] }}</td>
             <th>مكان الفحص</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->customPort->name_ar }}</td>
+            <td>{{ $reportData['customPort'] }}</td>
             <th>جهة طلب الفحص</th>
         </tr>
 
         <tr>
-            <td>{{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }}</td>
+            <td>{{ $reportData['created_at'] }}</td>
             <th>تاريخ الفحص</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->custom_declaration_no }}</td>
+            <td>{{ $reportData['custom_declaration_no'] }}</td>
             <th>رقم بيان الاستيراد</th>
         </tr>
 
         <tr>
-            <td>{{ app(\App\Services\DateService::class)->hijri($inspection->custom_declaration_date) }}</td>
+            <td>{{ $reportData['custom_declaration_date'] }}</td>
             <th>تاريخ بيان الاستيراد</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->request_no }}</td>
+            <td>{{ $reportData['request_no'] }}</td>
             <th>رقم الإحالة</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->customer->name }}</td>
+            <td>{{ $reportData['customer'] }}</td>
             <th>اسم المستورد</th>
         </tr>
 

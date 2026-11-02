@@ -3,7 +3,7 @@
 use App\Livewire\Forms\SalesRepresentativeForm;
 use App\Livewire\Pages\BasePage;
 use App\Models\SalesRepresentative;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public SalesRepresentativeForm $form;
@@ -13,7 +13,7 @@ new class extends BasePage {
         $this->authorize('create', SalesRepresentative::class);
 
         $this->form->create();
-        ToastService::success('Sales representative created successfully.');
+        Flux::toast(variant: 'success', text: 'Sales representative created successfully.');
         $this->redirectRoute('administration.sales-representatives.index', navigate: true);
     }
 };

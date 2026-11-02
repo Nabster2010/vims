@@ -7,7 +7,7 @@ use App\Livewire\Pages\BasePage;
 use App\Models\Branch;
 use App\Models\User;
 use Livewire\Attributes\Computed;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public User $user;
@@ -27,7 +27,7 @@ new class extends BasePage {
     {
         $this->form->save($this->user);
 
-        ToastService::success('User updated successfully.');
+        Flux::toast(variant: 'success', text: 'User updated successfully.');
         $this->redirectRoute('users.index', navigate: true);
     }
 

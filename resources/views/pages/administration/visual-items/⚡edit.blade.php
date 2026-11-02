@@ -3,7 +3,7 @@
 use App\Livewire\Forms\VisualItemForm;
 use App\Models\VisualItem;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public VisualItem $visualItem;
@@ -23,7 +23,7 @@ new class extends BasePage {
     {
         $this->form->save($this->visualItem);
 
-        ToastService::success('Visual item updated successfully.');
+        Flux::toast(variant: 'success', text: 'Visual item updated successfully.');
 
         $this->redirectRoute('administration.visual-items.index', navigate: true);
     }

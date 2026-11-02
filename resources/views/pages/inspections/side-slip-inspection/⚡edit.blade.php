@@ -4,6 +4,7 @@ use App\Models\Inspection;
 use App\Enums\FuelType;
 use Livewire\Attributes\Computed;
 use App\Enums\InspectionResult;
+use Flux\Flux;
 use App\Livewire\Forms\SideSlipInspectionForm;
 use App\Services\SideSlipInspectionCalculator;
 use App\Services\Inspection\InspectionLockService;
@@ -30,7 +31,7 @@ new class extends BasePage {
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
-        ToastService::success('Side Slip inspection saved successfully.');
+        Flux::toast(variant: 'success', text: 'Side Slip inspection saved successfully.');
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
 };

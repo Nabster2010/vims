@@ -36,6 +36,7 @@ class ManufacturerPolicy
         ]);
     }
 
+
     public function update(User $user, Manufacturer $manufacturer): bool
     {
         return in_array($user->role, [

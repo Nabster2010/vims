@@ -3,7 +3,7 @@
 use App\Livewire\Forms\ColorForm;
 use App\Models\Color;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public Color $color;
@@ -23,7 +23,7 @@ new class extends BasePage {
     {
         $this->form->save($this->color);
 
-        ToastService::success('Color updated successfully.');
+        Flux::toast(variant: 'success', text: 'Color updated successfully.');
 
         $this->redirectRoute('administration.colors.index', navigate: true);
     }

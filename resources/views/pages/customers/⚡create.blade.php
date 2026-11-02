@@ -7,7 +7,7 @@ use App\Models\Customer;
 use App\Enums\IdentityType;
 use Livewire\Attributes\Url;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new #[Title('Create Customer')] class extends BasePage {
     public CustomerForm $form;
@@ -53,7 +53,7 @@ new #[Title('Create Customer')] class extends BasePage {
     {
         $data = $this->form->validate();
         $customer = Customer::create($data);
-        ToastService::success('Customer created successfully.');
+        Flux::toast(variant: 'success', text: 'Customer created successfully.');
 
         $parameters = [
             'customer_id' => $customer->id,

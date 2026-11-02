@@ -76,6 +76,14 @@ body {
     margin: 3mm 0;
 }
 
+.fail-result {
+    color: red;
+}
+
+.pass-result {
+    color: green
+}
+
 /* =======================================================
    HEADER
 ======================================================= */
@@ -633,7 +641,7 @@ body {
 
 .signature-image-cell {
 
-    height: 28mm;
+    height: 30mm;
 
     text-align: center;
 
@@ -644,13 +652,9 @@ body {
 .signature-image {
 
     display: block;
-
+    height: 29mm;
+    width: auto;
     margin: auto;
-
-    max-width: 28mm;
-
-    max-height: 22mm;
-
     object-fit: contain;
 
 }
@@ -1293,7 +1297,7 @@ body {
     width: 100%;
     display: table;
     margin: 0 auto;
-    padding-top: 10mm;
+    padding-top: 0mm;
 }
 
 .photo-row {
@@ -1307,9 +1311,9 @@ body {
 
     width: 98mm;
 
-    height: 78mm;
+    height: 64mm;
 
-    margin-bottom: 6mm;
+    margin-bottom: 0mm;
 
 }
 
@@ -1323,7 +1327,7 @@ body {
 
     width: 94mm;
 
-    height: 66mm;
+    height: 64mm;
 
     border: .25mm solid #000;
 
@@ -1345,13 +1349,9 @@ body {
 
 .photo-title {
 
-    height: 8mm;
-
-    line-height: 8mm;
-
     text-align: center;
 
-    font-size: 3.2mm;
+    font-size: 2.8mm;
 
     font-weight: bold;
 

@@ -1,62 +1,35 @@
 <?php
 
-$rows = [
+$technicalRequirements = [
     [
-        'sn' => 1,
+        'sn' => '1',
         'item' => 'Engine',
-        'ref' => '1/3/4',
-        'modified' => '',
-        'check' => 'Check Document<br>Inspection Report',
-        'requirements' => ['Weights if changed', 'Dimensions if changed', 'Brakes if applicable', 'Suspension if applicable', 'Vehicle upgraded using approved parts'],
-        'result' => 'PASS',
-        'final' => 'PASS',
+        'ref' => ['1/3/4'],
+        'check' => 'Check Document : Inspection report (1).',
+        'requirements' => ['Following items shall comply:', 'Weights if changed.', 'Dimensions if changed.', 'Brakes if applicable.', 'Suspension if applicable.', 'If applicable, the vehicle shall be upgraded with appropriate parts and equipment’s.'],
+        'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENGINE')->first()->result,
     ],
 
     [
         'sn' => 2,
         'item' => 'Transmission',
-        'ref' => '2/3/4',
-        'modified' => '',
-        'check' => 'Check Document<br>Inspection Report',
-        'requirements' => ['Gearbox', 'Automatic / Manual conversion allowed if safe'],
-        'result' => '--',
-        'final' => '--',
-    ],
-
-    [
-        'sn' => 3,
-        'item' => 'Exhaust System',
-        'ref' => 'A/3/3/4',
-        'modified' => '',
-        'check' => 'Visual Inspection',
-        'requirements' => ['Leak proof', 'Outlet direction', 'No passenger compartment intrusion'],
-        'result' => '--',
-        'final' => '--',
-    ],
-
-    [
-        'sn' => 4,
-        'item' => 'Fuel System',
-        'ref' => '4/3/4',
-        'modified' => '',
-        'check' => 'Visual Inspection',
-        'requirements' => ['Secure mounting', 'Leak proof', 'Away from hot surfaces', 'Tank not inside engine compartment'],
-        'result' => '--',
-        'final' => '--',
+        'ref' => ['2/3/4'],
+        'check' => 'Check Document : Inspection report (1).',
+        'requirements' => ['Following items shall comply:', 'Gearbox.', 'Transferring between a manual system to an automatic system or vice versa is allowed as long as it does not affect the movement and safety of vehicle.'],
+        'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'TRANSMISSION')->first()->result,
     ],
 ];
 ?>
 
-@props(['inspection'])
-
 
 <div class="report-page">
 
-    <x-reports.shared.header :inspection="$inspection" />
+    <x-reports.shared.header :reportData="$reportData" />
     <main class="report-content">
-        <x-reports.MDL.technical-requirements :inspection="$inspection" />
-        <x-reports.MDL.details-table :inspection="$inspection" :rows="$rows" />
+        <x-reports.MDL.technical-requirements :reportData="$reportData" />
+        <x-reports.MDL.details-table :reportData="$reportData" :rows="$technicalRequirements" />
+
     </main>
-    <x-reports.shared.footer :inspection="$inspection" :page="'Page 2 of 5'" />
+    <x-reports.shared.footer :reportData="$reportData" :page="'Page 2 of 7'" />
 
 </div>

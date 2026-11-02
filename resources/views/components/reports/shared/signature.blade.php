@@ -1,11 +1,11 @@
-{{-- resources/views/components/reports/shared/signature.blade.php --}}
-
 @props([
-    'inspection',
+    'reportData',
     'inspectorSignature' => asset('images/reports/signatures/inspector.png'),
     'managerSignature' => asset('images/reports/signatures/manager.png'),
     'stamp' => asset('images/reports/stamp.png'),
 ])
+
+
 
 <table class="signature-table">
 
@@ -34,14 +34,14 @@
     <tr>
 
         <td class="signature-name">
-            {{ $inspection->vehicleInformation->inspector->name ?? '' }}
+            {{ $reportData['inspector_name'] }}
         </td>
 
         <td class="signature-name">
         </td>
 
         <td class="signature-name">
-            {{ $inspection->branch->manager->name ?? '' }}
+            {{ $reportData['manager_name'] }}
         </td>
 
     </tr>
@@ -50,25 +50,21 @@
 
         <td class="signature-image-cell">
 
-            @if ($inspectorSignature)
-                <img src="{{ $inspectorSignature }}" class="signature-image" alt="Inspector Signature">
-            @endif
+            <img src="{{ asset($reportData['inspector_name'] . '-signature' . '.jpeg') }}" class="signature-image"
+                alt="Inspector Signature">
 
         </td>
 
         <td class="signature-image-cell">
 
-            @if ($stamp)
-                <img src="{{ $stamp }}" class="signature-image" alt="Stamp">
-            @endif
+            <img src="{{ asset($reportData['branch_code'] . '-stamp' . '.jpeg') }}" class="signature-image"
+                alt="Stamp">
 
         </td>
 
         <td class="signature-image-cell">
-
-            @if ($managerSignature)
-                <img src="{{ $managerSignature }}" class="signature-image" alt="Manager Signature">
-            @endif
+            <img src="{{ asset($reportData['manager_name'] . '-signature' . '.jpeg') }}" class="signature-image"
+                alt="Manager Signature">
 
         </td>
 

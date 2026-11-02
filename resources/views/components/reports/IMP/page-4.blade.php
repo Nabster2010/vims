@@ -1,13 +1,13 @@
-@props(['inspection'])
+@props(['reportData'])
 
 
 <div class="report-page">
-    <x-reports.shared.header :inspection="$inspection" />
+    <x-reports.shared.header :reportData="$reportData" />
     <main class="report-content">
 
-        <x-reports.shared.photos :inspection="$inspection" />
+        <x-reports.shared.photos :reportData="$reportData" />
 
 
     </main>
-    <x-reports.shared.footer :inspection="$inspection" :page="'Page 4 of 4'" />
+    <x-reports.shared.footer :reportData="$reportData" :page="'Page 4 of 4'" />
 </div>

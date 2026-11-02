@@ -3,7 +3,7 @@
 use App\Livewire\Forms\CountryForm;
 use App\Livewire\Pages\BasePage;
 use App\Models\Country;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public CountryForm $form;
@@ -17,7 +17,7 @@ new class extends BasePage {
     {
         $this->form->create();
 
-        ToastService::success('Country created successfully.');
+        Flux::toast(variant: 'success', text: 'Country created successfully.');
 
         $this->redirectRoute('administration.countries.index', navigate: true);
     }

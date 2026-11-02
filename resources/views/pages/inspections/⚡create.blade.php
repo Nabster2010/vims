@@ -13,6 +13,7 @@ use App\Livewire\Forms\InspectionForm;
 use App\Livewire\Pages\BasePage;
 use App\Models\Inspection;
 use App\Services\ToastService;
+use Flux\Flux;
 
 new #[Title('Create Inspection')] class extends BasePage {
     public InspectionForm $form;
@@ -137,7 +138,7 @@ new #[Title('Create Inspection')] class extends BasePage {
         $user = Auth::user();
         $data = [...$this->form->all(), 'branch_id' => $user->branch_id, 'created_by' => $user->id];
         $inspectionService->create($data);
-        ToastService::success('Inspection created successfully.');
+        Flux::toast(variant: 'success', text: 'Inspection created successfully.');
         $this->redirectRoute('inspections.index', navigate: true);
     }
 };

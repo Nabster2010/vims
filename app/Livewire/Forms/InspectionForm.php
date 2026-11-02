@@ -100,6 +100,7 @@ class InspectionForm extends Form
                     'current_type' => ['required'],
                     'target_type' => ['required'],
                     'owner_id' => ['required'],
+                    'request_date' => ['required']
 
                 ];
 

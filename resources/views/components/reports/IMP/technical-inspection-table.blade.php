@@ -1,4 +1,4 @@
-@props(['inspection'])
+@props(['reportData'])
 
 <div class="technical-section">
 
@@ -46,8 +46,9 @@
 
             <tr>
 
-                <td class="tech-status">
-                    {{ $inspection->emissionInspection->result }}
+                <td
+                    class="tech-status {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Fail ? 'fail-result ' : '' }}">
+                    {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
                 </td>
 
                 <td class="tech-result">
@@ -60,17 +61,17 @@
 
                             <td>HC</td>
 
-                            <td>Opacity</td>
+                            <td>Diesel</td>
 
                         </tr>
 
                         <tr>
 
-                            <td>{{ $inspection->emissionInspection->co }}</td>
+                            <td>{{ $reportData['emission_co'] }} %</td>
 
-                            <td>{{ $inspection->emissionInspection->hc }}</td>
+                            <td>{{ $reportData['emission_hc'] }} ppm</td>
 
-                            <td>{{ $inspection->emissionInspection->opacity }}%</td>
+                            <td>{{ $reportData['emission_opacity'] }} %</td>
 
                         </tr>
 
@@ -93,9 +94,9 @@
             {{-- Headlight -------------------------------------------------- --}}
 
             <tr>
-
-                <td class="tech-status">
-                    {{ $inspection->headLightInspection->result }}
+                <td
+                    class="tech-status {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Fail ? 'fail-result ' : '' }}">
+                    {{ $reportData['headlight_final_result'] === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
                 </td>
 
                 <td class="tech-result">
@@ -112,9 +113,9 @@
 
                         <tr>
 
-                            <td>{{ $inspection->headLightInspection->left }}</td>
+                            <td>{{ $reportData['headlight_left'] }} cd</td>
 
-                            <td>{{ $inspection->headLightInspection->right }}</td>
+                            <td>{{ $reportData['headlight_right'] }} cd</td>
 
                         </tr>
 
@@ -138,8 +139,10 @@
 
             <tr>
 
-                <td class="tech-status">
-                    {{ $inspection->sideSlipInspection->result }}
+                <td
+                    class="tech-status {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Fail ? 'fail-result ' : '' }}">
+
+                    {{ $reportData['side_slip_final_result'] === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
                 </td>
 
                 <td class="tech-result">
@@ -153,7 +156,7 @@
 
                         <tr>
 
-                            <td>{{ $inspection->sideSlipInspection->value }}</td>
+                            <td>{{ $reportData['side_slip_value'] }} m/km</td>
 
                         </tr>
 
@@ -177,8 +180,10 @@
 
             <tr>
 
-                <td class="tech-status">
-                    {{ $inspection->suspensionInspection->result }}
+                <td
+                    class="tech-status {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Fail ? 'fail-result ' : '' }}">
+
+                    {{ $reportData['suspension_final_result'] === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
                 </td>
 
                 <td class="tech-result">
@@ -199,13 +204,13 @@
 
                         <tr>
 
-                            <td>{{ $inspection->suspensionInspection->front_right }}%</td>
+                            <td>{{ $reportData['suspension_fr'] }} %</td>
 
-                            <td>{{ $inspection->suspensionInspection->front_left }}%</td>
+                            <td>{{ $reportData['suspension_fl'] }} %</td>
 
-                            <td>{{ $inspection->suspensionInspection->rear_right }}%</td>
+                            <td>{{ $reportData['suspension_rr'] }} %</td>
 
-                            <td>{{ $inspection->suspensionInspection->rear_left }}%</td>
+                            <td>{{ $reportData['suspension_rl'] }}%</td>
 
                         </tr>
 
@@ -229,8 +234,10 @@
 
             <tr>
 
-                <td class="tech-status">
-                    {{ $inspection->brakeInspection->result }}
+                <td
+                    class="tech-status {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Fail ? 'fail-result ' : '' }}">
+
+                    {{ $reportData['brake_final_result'] === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
                 </td>
 
                 <td class="tech-result">
@@ -249,11 +256,11 @@
 
                         <tr>
 
-                            <td>{{ $inspection->brakeInspection->parking }}</td>
+                            <td>{{ $reportData['parking_brake'] }} %</td>
 
-                            <td>{{ $inspection->brakeInspection->front }}</td>
+                            <td>{{ $reportData['front_brake'] }} %</td>
 
-                            <td>{{ $inspection->brakeInspection->rear }}</td>
+                            <td>{{ $reportData['rear_brake'] }} %</td>
 
                         </tr>
 

@@ -6,6 +6,7 @@ use App\Models\Inspection;
 use App\Services\Inspection\InspectionLockService;
 use App\Services\ToastService;
 use Livewire\WithFileUploads;
+use Flux\Flux;
 
 new class extends BasePage {
     use WithFileUploads;
@@ -38,7 +39,7 @@ new class extends BasePage {
 
         $this->form->save($this->inspection);
 
-        ToastService::success('Inspection photos saved successfully.');
+        Flux::toast(variant: 'success', text: 'Inspection photos saved successfully.');
 
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }

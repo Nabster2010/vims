@@ -4,11 +4,11 @@ use App\Models\Inspection;
 use App\Enums\FuelType;
 use Livewire\Attributes\Computed;
 use App\Enums\InspectionResult;
+use Flux\Flux;
 use App\Livewire\Forms\SuspensionInspectionForm;
 use App\Services\SuspensionInspectionCalculator;
 use App\Services\Inspection\InspectionLockService;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
 
 new class extends BasePage {
     public Inspection $inspection;
@@ -31,7 +31,7 @@ new class extends BasePage {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
 
-        ToastService::success('Suspension inspection saved successfully.');
+        Flux::toast(variant: 'success', text: 'Suspension inspection saved successfully.');
 
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }

@@ -5,7 +5,7 @@ use App\Models\Manufacturer;
 use App\Models\ModelType;
 use Livewire\Attributes\Computed;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public ModelType $modelType;
@@ -31,7 +31,7 @@ new class extends BasePage {
     {
         $this->form->save($this->modelType);
 
-        ToastService::success('Model type updated successfully.');
+        Flux::toast(variant: 'success', text: 'Model type updated successfully.');
 
         $this->redirectRoute('administration.model-types.index', navigate: true);
     }

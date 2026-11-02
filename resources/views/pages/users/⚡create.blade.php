@@ -8,6 +8,7 @@ use Livewire\Attributes\Computed;
 use App\Livewire\Pages\BasePage;
 use App\Models\User;
 use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public UserForm $form;
@@ -20,7 +21,7 @@ new class extends BasePage {
     {
         $user = $this->form->create();
 
-        ToastService::success('User created successfully.');
+        Flux::toast(variant: 'success', text: 'User created successfully.');
 
         $this->redirectRoute('users.index', navigate: true);
     }

@@ -1,7 +1,7 @@
 <h2 class="section-title">صور المركبة</h2>
 <div class="photo-grid">
 
-    @foreach ($inspection->photos as $photo)
+    @foreach ($reportData['photos'] as $photo)
         <div class="photo-card">
 
             <div class="photo-image">
@@ -12,9 +12,9 @@
 
             </div>
 
-            <div class="photo-title">
+            <h3 class="photo-title">
                 {{ $photo->photo_type->label() }}
-            </div>
+            </h3>
 
         </div>
     @endforeach

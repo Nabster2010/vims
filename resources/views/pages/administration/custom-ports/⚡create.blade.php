@@ -3,7 +3,7 @@
 use App\Livewire\Forms\CustomPortForm;
 use App\Livewire\Pages\BasePage;
 use App\Models\CustomPort;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public CustomPortForm $form;
@@ -14,7 +14,7 @@ new class extends BasePage {
 
         $this->form->create();
 
-        ToastService::success('Custom port created successfully.');
+        Flux::toast(variant: 'success', text: 'Custom port created successfully.');
 
         $this->redirectRoute('administration.custom-ports.index', navigate: true);
     }

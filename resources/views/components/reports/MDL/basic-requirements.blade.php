@@ -28,14 +28,14 @@
     <tr>
 
         <td rowspan="2">
-            1
+            {{ $reportData['total_weight'] }}
         </td>
 
         <td rowspan="2">
-            5
+            {{ $reportData['width'] }} × {{ $reportData['length'] }} × {{ $reportData['height'] }}
         </td>
         <td rowspan="2">
-            5
+            {{ $reportData['number_of_axles'] }}
         </td>
         <td>
             محور امامي </td>
@@ -54,14 +54,14 @@
 
 
         <td>
-            حسب المصنع
+            {{ $reportData['front_axle_weight'] }}
         </td>
 
         <td>
-            حسب المصنع
+            {{ $reportData['rear_axle_weight'] }}
         </td>
         <td>
-            حسب المصنع
+            {{ $reportData['other_axle_weight'] }}
         </td>
 
 

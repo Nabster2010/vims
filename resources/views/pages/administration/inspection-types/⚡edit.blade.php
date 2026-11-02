@@ -3,7 +3,7 @@
 use App\Livewire\Forms\InspectionTypeForm;
 use App\Models\InspectionType;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public InspectionType $inspectionType;
@@ -20,7 +20,7 @@ new class extends BasePage {
     {
         $this->form->save();
 
-        ToastService::success('Inspection type updated successfully.');
+        Flux::toast(variant: 'success', text: 'Inspection type updated successfully.');
 
         $this->redirectRoute('administration.inspection-types.index', navigate: true);
     }

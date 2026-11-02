@@ -6,7 +6,7 @@ use App\Enums\IdentityType;
 use App\Models\Customer;
 use Livewire\Attributes\Title;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new #[Title('Edit Customer')] class extends BasePage {
     public Customer $customer;
@@ -26,7 +26,7 @@ new #[Title('Edit Customer')] class extends BasePage {
     {
         $data = $this->form->validate();
         $this->customer->update($data);
-        ToastService::success('Customer updated successfully.');
+        Flux::toast(variant: 'success', text: 'Customer updated successfully.');
 
         return $this->redirectRoute('customers.index', navigate: true);
     }

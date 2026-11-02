@@ -9,6 +9,7 @@ use App\Services\HeadLightInspectionCalculator;
 use App\Services\Inspection\InspectionLockService;
 use App\Livewire\Pages\BasePage;
 use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public Inspection $inspection;
@@ -30,7 +31,7 @@ new class extends BasePage {
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
-        ToastService::success('Headlight inspection saved successfully.');
+        Flux::toast(variant: 'success', text: 'Headlight inspection saved successfully.');
 
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }

@@ -14,6 +14,7 @@ use Livewire\Attributes\Title;
 use App\Livewire\Pages\BasePage;
 use App\Services\ToastService;
 use App\Services\Inspection\InspectionResetService;
+use Flux\Flux;
 
 new #[Title('Edit Inspection')] class extends BasePage {
     public Inspection $inspection;
@@ -46,7 +47,7 @@ new #[Title('Edit Inspection')] class extends BasePage {
 
         $inspectionService->update($this->inspection, $this->form->data());
 
-        ToastService::success('Inspection updated successfully.');
+        Flux::toast(variant: 'success', text: 'Inspection updated successfully.');
 
         $this->redirectRoute('inspections.index', navigate: true);
     }

@@ -1,4 +1,5 @@
-@props(['inspection'])
+@props(['reportData'])
+
 
 <section class="report-vin">
 
@@ -8,7 +9,7 @@
 
             <td class="vin-value">
 
-                {{ $inspection->vin }}
+                {{ $reportData['vin'] }}
 
             </td>
 

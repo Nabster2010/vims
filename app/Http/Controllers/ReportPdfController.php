@@ -18,7 +18,7 @@ class ReportPdfController
         Gate::authorize('viewReport', $inspection);
 
         // we will use it to return inspection type specific data to report
-        $report = match ($inspection->inspectionType->code) {
+        $reportDate = match ($inspection->inspectionType->code) {
             'IMP' => app(ImportedVehicleReportService::class)->build($inspection),
             'SBG' => app(SaberVehicleReportService::class)->build($inspection),
             'SBE' => app(SaberVehicleReportService::class)->build($inspection),
@@ -30,7 +30,7 @@ class ReportPdfController
         };
 
         return Pdf::view('reports.pdf', [
-            'inspection' => $report,
+            'reportData' => $reportDate,
         ])
             ->format('A4')
             ->margins(0, 0, 0, 0)->name("{$inspection->reportNo}.pdf");

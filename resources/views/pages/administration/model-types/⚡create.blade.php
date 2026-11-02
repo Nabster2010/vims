@@ -5,7 +5,7 @@ use App\Models\Manufacturer;
 use App\Models\ModelType;
 use Livewire\Attributes\Computed;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public ModelTypeForm $form;
@@ -25,7 +25,7 @@ new class extends BasePage {
     {
         $this->form->create();
 
-        ToastService::success('Model type created successfully.');
+        Flux::toast(variant: 'success', text: 'Model type created successfully.');
 
         $this->redirectRoute('administration.model-types.index', navigate: true);
     }

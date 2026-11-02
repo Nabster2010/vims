@@ -2,31 +2,31 @@
 
 <x-reports.shared.layout>
 
-    @switch($inspection->inspectionType->code)
+    @switch($reportData['inspection_type_code'])
         @case('IMP')
-            <x-reports.IMP.imported-vehicle :inspection="$inspection" />
+            <x-reports.IMP.imported-vehicle :reportData="$reportData" />
         @break
 
         @case('MDL')
-            <x-reports.MDL.modified-vehicle-light :inspection="$inspection" />
+            <x-reports.MDL.modified-vehicle-light :reportData="$reportData" />
         @break
 
-        @case('MDH')
+        {{-- @case('MDH')
             <x-reports.MDH.modified-vehicle-heavy :inspection="$inspection" />
-        @break
+        @break --}}
 
-        @case('SBG')
+        {{-- @case('SBG')
             <x-reports.IMP.imported-vehicle :inspection="$inspection" />
             <x-reports.SABER.saber-info :inspection="$inspection" />
-        @break
+        @break --}}
 
-        @case('MTC')
+        {{-- @case('MTC')
             <x-reports.MTC.motorcycle :inspection="$inspection" />
-        @break
+        @break --}}
 
-        @case('TRL')
+        {{-- @case('TRL')
             <x-reports.TRL.trailer :inspection="$inspection" />
-        @break
+        @break  --}}
     @endswitch
 
 </x-reports.shared.layout>

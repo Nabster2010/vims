@@ -3,7 +3,7 @@
 use App\Livewire\Forms\SalesRepresentativeForm;
 use App\Models\SalesRepresentative;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public SalesRepresentative $salesRepresentative;
@@ -23,7 +23,7 @@ new class extends BasePage {
     {
         $this->form->save($this->salesRepresentative);
 
-        ToastService::success('Sales representative updated successfully.');
+        Flux::toast(variant: 'success', text: 'Sales representative updated successfully.');
 
         $this->redirectRoute('administration.sales-representatives.index', navigate: true);
     }

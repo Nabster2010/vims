@@ -3,7 +3,7 @@
 use App\Livewire\Forms\VisualItemForm;
 use App\Livewire\Pages\BasePage;
 use App\Models\VisualItem;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public VisualItemForm $form;
@@ -17,7 +17,7 @@ new class extends BasePage {
     {
         $this->form->create();
 
-        ToastService::success('Visual item created successfully.');
+        Flux::toast(variant: 'success', text: 'Visual item created successfully.');
 
         $this->redirectRoute('administration.visual-items.index', navigate: true);
     }

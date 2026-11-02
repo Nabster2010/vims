@@ -385,17 +385,17 @@ class VehicleInformationForm extends Form
 
                 $rules += [
                     'number_of_seats' => ['required', 'integer', 'min:1'],
-                    'engine_no' => ['required', 'string'],
-                    'number_of_cylinders' => ['required', 'integer', 'min:1'],
-                    'engine_displacement' => ['required', 'integer', 'min:1'],
+                    'engine_no' => ['nullable', 'string'],
+                    'number_of_cylinders' => ['nullable', 'integer', 'min:1'],
+                    'engine_displacement' => ['nullable', 'integer', 'min:1'],
                     'category_id' => ['required', 'exists:categories,id'],
                     'gross_weight' => ['required', 'integer', 'min:1'],
                     'width' => ['required', 'integer', 'min:1'],
                     'height' => ['required', 'integer', 'min:1'],
                     'length' => ['required', 'integer', 'min:1'],
                     'number_of_axles' => ['required', 'integer', 'min:1'],
-                    'front_axle_weight' => ['required', 'integer', 'min:1'],
-                    'rear_axle_weight' => ['required', 'integer', 'min:1'],
+                    'front_axle_weight' => ['nullable', 'integer', 'min:1'],
+                    'rear_axle_weight' => ['nullable', 'integer', 'min:1'],
                 ];
 
                 break;
@@ -403,14 +403,17 @@ class VehicleInformationForm extends Form
 
                 $rules += [
                     'number_of_seats' => ['required', 'integer', 'min:1'],
-                    'engine_no' => ['required', 'string', 'max:100'],
-                    'number_of_cylinders' => ['required', 'integer', 'min:1'],
-                    'engine_displacement' => ['required', 'integer', 'min:1'],
+                    'engine_no' => ['nullable', 'string', 'max:100'],
+                    'number_of_cylinders' => ['nullable', 'integer', 'min:1'],
+                    'engine_displacement' => ['nullable', 'integer', 'min:1'],
                     'category_id' => ['required', 'exists:categories,id'],
                     'gross_weight' => ['required', 'integer', 'min:1'],
                     'width' => ['required', 'integer', 'min:1'],
                     'height' => ['required', 'integer', 'min:1'],
                     'length' => ['required', 'integer', 'min:1'],
+                    'number_of_axles' => ['required', 'integer', 'min:1'],
+                    'front_axle_weight' => ['nullable', 'integer', 'min:1'],
+                    'rear_axle_weight' => ['nullable', 'integer', 'min:1'],
 
                 ];
 

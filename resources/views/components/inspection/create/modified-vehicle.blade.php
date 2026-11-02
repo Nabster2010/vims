@@ -10,4 +10,6 @@
     <flux:input wire:model.live.debounce.500ms="form.target_type" label="Target Type" />
 
     <flux:input wire:model.live.debounce.500ms="form.owner_id" label="Owner ID" />
+
+    <flux:input type='date' wire:model.live.debounce.500ms="form.request_date" label="Request Date" />
 </flux:card>

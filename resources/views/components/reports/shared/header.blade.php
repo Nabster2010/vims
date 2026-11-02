@@ -1,8 +1,5 @@
-@props(['inspection'])
+@props(['reportData'])
 
-@php
-    $branch = $inspection->branch->name;
-@endphp
 
 <header class="report-header">
 
@@ -25,12 +22,12 @@
                 </div>
 
                 <div class="title-ar">
-                    تقرير الفحص
+                    {{ $reportData['report_title'] }}
                 </div>
 
                 <div class="report-number">
                     <span>
-                        {{ $inspection->report_no }}
+                        {{ $reportData['report_no'] }}
                     </span>
                     <span>:</span>
 
@@ -43,13 +40,13 @@
 
                     <strong>التاريخ :</strong>
 
-                    {{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }}
+                    {{ $reportData['report_date_gregorian'] }}
 
                     <span class="date-space"></span>
 
                     <strong>الموافق:</strong>
 
-                    {{ app(\App\Services\DateService::class)->hijri($inspection->created_at) }}
+                    {{ $reportData['report_date_hijri'] }}
 
                 </div>
 
@@ -67,7 +64,7 @@
                 </div>
 
                 <div class="company-en">
-                    Inspection Center - {{ $branch }}
+                    Inspection Center - {{ $reportData['branch_name'] }}
                 </div>
 
             </td>

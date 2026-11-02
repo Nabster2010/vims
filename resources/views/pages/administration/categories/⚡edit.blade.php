@@ -3,7 +3,7 @@
 use App\Livewire\Forms\CategoryForm;
 use App\Models\Category;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public Category $category;
@@ -23,7 +23,7 @@ new class extends BasePage {
     {
         $this->form->save($this->category);
 
-        ToastService::success('Category updated successfully.');
+        Flux::toast(variant: 'success', text: 'Category updated successfully.');
 
         $this->redirectRoute('administration.categories.index', navigate: true);
     }

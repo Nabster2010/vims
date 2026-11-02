@@ -20,6 +20,7 @@ use App\Services\Inspection\InspectionLockService;
 use App\Livewire\Pages\BasePage;
 use App\Services\Inspection\VinDecoderService;
 use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public Inspection $inspection;
@@ -111,7 +112,7 @@ new class extends BasePage {
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
-        ToastService::success('Vehicle information saved successfully.');
+        Flux::toast(variant: 'success', text: 'Vehicle information saved successfully.');
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
 };

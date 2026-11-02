@@ -1,37 +1,37 @@
 {{-- resources/views/components/reports/IMP/vehicle-information.blade.php --}}
-@props(['inspection'])
+
 
 <section class="vehicle-information">
 
     <table class="info-table info-left">
 
         <tr>
-            <td>{{ $inspection->branch->name_ar }}</td>
+            <td>{{ $reportData['plate_number'] }}</td>
             <th>رقم اللوحة </th>
         </tr>
         <tr>
-            <td>{{ '7777' }}</td>
-            <th>نوع المركبة</th>
+            <td>{{ $reportData['manufacturer'] }}</td>
+            <th>الشركة المصنعة</th>
         </tr>
         <tr>
-            <td>{{ '7777' }}</td>
+            <td>{{ $reportData['modelType'] }}</td>
             <th> الطراز</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->mileage }}</td>
+            <td>{{ $reportData['model_year'] }}</td>
             <th> سنة الموديل </th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->mileage }}</td>
+            <td>{{ $reportData['color'] }}</td>
             <th> اللون </th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <td>{{ $reportData['old_model'] }}</td>
             <th>الطراز القديم</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <td>{{ $reportData['new_model'] }}</td>
             <th>الطراز الجديد</th>
         </tr>
 
@@ -45,34 +45,34 @@
 
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->number_of_seats }}</td>
+            <td>{{ $reportData['customer'] }}</td>
             <th> اسم المالك</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->modelType->name }}</td>
+            <td>{{ $reportData['owner_id'] }}</td>
             <th>رقم الحاسب</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->custom_declaration_no }}</td>
+            <td>{{ $reportData['request_date'] }}</td>
             <th>تاريخ الاحالة</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->custom_declaration_no }}</td>
+            <td>{{ $reportData['referral_source'] }}</td>
             <th>مصدر الاحالة</th>
         </tr>
         <tr>
-            <td>{{ $inspection->custom_declaration_no }}</td>
+            <td>{{ $reportData['modified_at_registered_facility'] }}</td>
             <th>التعديل بمنشأة مسجلة؟</th>
         </tr>
         <tr>
-            <td>{{ $inspection->custom_declaration_no }}</td>
+            <td>{{ $reportData['center_name'] }}</td>
             <th>اسم مركز التعديل</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <td>{{ $reportData['center_report_number'] }}</td>
             <th>رقم تقرير المركز</th>
         </tr>
 

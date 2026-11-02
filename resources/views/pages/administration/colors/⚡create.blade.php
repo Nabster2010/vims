@@ -3,7 +3,7 @@
 use App\Livewire\Forms\ColorForm;
 use App\Livewire\Pages\BasePage;
 use App\Models\Color;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public ColorForm $form;
@@ -14,7 +14,7 @@ new class extends BasePage {
 
         $color = $this->form->create();
 
-        ToastService::success('Color created successfully.');
+        Flux::toast(variant: 'success', text: 'Color created successfully.');
 
         $this->redirectRoute('administration.colors.index', navigate: true);
     }

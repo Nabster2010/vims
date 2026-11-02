@@ -8,6 +8,7 @@ use Livewire\Attributes\Computed;
 use App\Services\Inspection\InspectionLockService;
 use App\Livewire\Pages\BasePage;
 use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public Inspection $inspection;
@@ -42,7 +43,7 @@ new class extends BasePage {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
 
-        ToastService::success('Visual inspection saved successfully.');
+        Flux::toast(variant: 'success', text: 'Visual inspection saved successfully.');
 
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
@@ -66,7 +67,7 @@ new class extends BasePage {
                 </flux:heading>
 
                 @foreach ($this->groupedVisualItems as $category => $items)
-                    <flux:card class="mb-6">
+                    <div class="mb-6 space-y-4">
 
                         <flux:heading size="lg">
 
@@ -77,7 +78,7 @@ new class extends BasePage {
                         <div class="mt-4 space-y-4">
 
                             @foreach ($items as $item)
-                                <div class="border-b border-zinc-200 pb-4 last:border-0">
+                                <div class="border-b border-zinc-200 pb-4 last:border-0 space-y-4">
 
                                     <flux:heading size="sm">
 
@@ -86,10 +87,9 @@ new class extends BasePage {
                                     </flux:heading>
 
                                     <flux:select wire:model.live="form.items.{{ $item->id }}.result">
-
-                                        <option value="Pass">Pass</option>
-
-                                        <option value="Fail">Fail</option>
+                                        {{-- loop through enum --}}
+                                        <option value="{{ \App\Enums\InspectionResult::Pass->value }}">PASS</option>
+                                        <option value="{{ \App\Enums\InspectionResult::Fail->value }}">FAIL</option>
 
                                     </flux:select>
 
@@ -100,7 +100,7 @@ new class extends BasePage {
 
                         </div>
 
-                    </flux:card>
+                    </div>
                 @endforeach
             </flux:card>
         @endif

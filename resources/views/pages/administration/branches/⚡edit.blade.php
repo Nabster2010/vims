@@ -4,7 +4,7 @@ use App\Livewire\Forms\BranchForm;
 use App\Models\Branch;
 use App\Models\User;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 use Livewire\Attributes\Computed;
 
 new class extends BasePage {
@@ -28,7 +28,7 @@ new class extends BasePage {
     {
         $this->form->save($this->branch);
 
-        ToastService::success('Branch updated successfully.');
+        Flux::toast(variant: 'success', text: 'Branch updated successfully.');
 
         $this->redirectRoute('administration.branches.index', navigate: true);
     }

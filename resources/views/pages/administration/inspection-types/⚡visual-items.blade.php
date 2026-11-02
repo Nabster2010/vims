@@ -3,7 +3,7 @@
 use App\Models\InspectionType;
 use App\Models\VisualItem;
 use App\Livewire\Pages\BasePage;
-use App\Services\ToastService;
+use Flux\Flux;
 use Livewire\Attributes\Computed;
 use App\Livewire\Forms\InspectionTypeVisualInspectionForm;
 use Illuminate\Database\Eloquent\Collection;
@@ -47,7 +47,7 @@ new class extends BasePage {
     {
         $this->form->save($this->inspectionType);
 
-        ToastService::success('Visual inspection items updated successfully.');
+        Flux::toast(variant: 'success', text: 'Visual inspection items updated successfully.');
         $this->redirectRoute('administration.inspection-types.index', navigate: true);
     }
 };

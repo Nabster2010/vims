@@ -6,7 +6,7 @@ use Livewire\Attributes\Computed;
 use App\Models\Country;
 use App\Livewire\Pages\BasePage;
 use App\Models\Manufacturer;
-use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public ManufacturerForm $form;
@@ -25,7 +25,7 @@ new class extends BasePage {
     {
         $this->form->create();
 
-        ToastService::success('Manufacturer created successfully.');
+        Flux::toast(variant: 'success', text: 'Manufacturer created successfully.');
 
         $this->redirectRoute('administration.manufacturers.index', navigate: true);
     }

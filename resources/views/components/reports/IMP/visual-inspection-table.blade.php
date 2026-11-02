@@ -1,13 +1,3 @@
-<?php
-
-$visualInspection = $inspection->visualInspection->visualItemResults;
-
-$groups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
-
-$leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_economy', 'other'];
-
-?>
-
 <div class="visual-wrapper">
     <div class="section-title">
         تقرير الفحص الظاهري / ملحق (2)
@@ -21,33 +11,12 @@ $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_eco
             <col class="number-col">
         </colgroup>
 
-        <thead>
-
-            <tr>
-
-                <th colspan="3" class="table-title">
-                    الفحص الداخلي
-                </th>
-
-            </tr>
-
-            <tr>
-
-                <th>الحالة</th>
-
-                <th>البند</th>
-
-                <th>م</th>
-
-            </tr>
-
-        </thead>
 
         <tbody>
 
-            @foreach ($leftCategories as $category)
+            @foreach ($reportData['left_categories'] as $category)
                 @php
-                    $items = $groups[$category] ?? collect();
+                    $items = $reportData['visual_inspection_groups'][$category] ?? collect();
 
                     if ($items->isEmpty()) {
                         continue;
@@ -66,9 +35,8 @@ $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_eco
 
                 @foreach ($items as $row)
                     <tr>
-
                         <td class="result-cell">
-                            {{ $row->result }}
+                            {{ $row->result === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
                         </td>
 
                         <td class="item-cell">
@@ -118,11 +86,12 @@ $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_eco
 
         <tbody>
 
-            @foreach ($groups['external'] ?? [] as $row)
+            @foreach ($reportData['visual_inspection_groups']['external'] ?? [] as $row)
                 <tr>
 
-                    <td class="result-cell">
-                        {{ $row->result }}
+                    <td
+                        class="result-cell {{ $row->result === \App\Enums\InspectionResult::Fail ? 'fail-result' : '' }}">
+                        {{ $row->result === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
                     </td>
 
                     <td class="item-cell">

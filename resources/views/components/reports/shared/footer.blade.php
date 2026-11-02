@@ -1,8 +1,8 @@
-@props(['inspection', 'page'])
+@props(['reportData', 'page'])
 
 @php
-
-    $address = match ($inspection->branch->code) {
+    $version = '1.4.7 - 01/07/2023';
+    $address = match ($reportData['branch_code']) {
         'DMM' => [
             'ar' => 'الخالدية الجنوبية، الدمام، المملكة العربية السعودية',
             'en' => 'Al Khalidiyah, Dammam, Saudi Arabia',
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="footer-version">
-                    Version {{ $address['version'] }}
+                    Version {{ $version }}
                 </div>
 
             </td>

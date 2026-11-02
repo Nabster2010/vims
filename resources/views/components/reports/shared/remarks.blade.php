@@ -1,6 +1,8 @@
 {{-- resources/views/components/reports/shared/remarks.blade.php --}}
 
-@props(['inspection'])
+
+
+@props(['reportData'])
 
 <div class="remarks-section">
 
@@ -11,7 +13,7 @@
         </div>
 
         <div class="remarks-content">
-            {{ $inspection->vehicleInformation->remarks ?? '—' }}
+            {{ $reportData['remarks'] }}
         </div>
 
     </div>

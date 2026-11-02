@@ -9,6 +9,7 @@ use App\Services\BrakeInspectionCalculator;
 use App\Services\Inspection\InspectionLockService;
 use App\Livewire\Pages\BasePage;
 use App\Services\ToastService;
+use Flux\Flux;
 
 new class extends BasePage {
     public Inspection $inspection;
@@ -30,7 +31,8 @@ new class extends BasePage {
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
         $this->form->save($this->inspection);
-        ToastService::success('Brake inspection saved successfully.');
+
+        Flux::toast(variant: 'success', text: 'Brake Inspection saved successfully.');
 
         $this->redirectRoute('inspections.show', $this->inspection, navigate: true);
     }
