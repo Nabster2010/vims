@@ -22,6 +22,8 @@ class VisualInspectionForm extends Form
 
     public ?string $remarks = null;
 
+    public bool $is_modified = false;
+
 
     //this will initialize the items array with all active visual items related to specific inspection type 
     private function initializeItems(Inspection $inspection): void
@@ -35,6 +37,7 @@ class VisualInspectionForm extends Form
             $this->items[$item->id] = [
                 'result' => InspectionResult::Pass->value,
                 'remarks' => null,
+                'is_modified' => false,
             ];
         }
     }
@@ -50,6 +53,7 @@ class VisualInspectionForm extends Form
         }
         $this->result = $visualInspection->result;
         $this->remarks = $visualInspection->remarks;
+        $this->is_modified = $visualInspection->is_modified ?? false;
 
         foreach ($visualInspection->visualItemResults as $itemResult) {
 
@@ -62,6 +66,8 @@ class VisualInspectionForm extends Form
 
             $this->items[$itemResult->visual_item_id]['remarks']
                 = $itemResult->remarks;
+            $this->items[$itemResult->visual_item_id]['is_modified']
+                = $itemResult->is_modified;
         }
     }
 
@@ -77,6 +83,7 @@ class VisualInspectionForm extends Form
                 new Enum(InspectionResult::class)
             ];
             $rules["items.{$itemId}.remarks"] = ['nullable', 'string'];
+            $rules["items.{$itemId}.is_modified"] = ['nullable', 'boolean'];
         }
 
         return $rules;
@@ -103,6 +110,7 @@ class VisualInspectionForm extends Form
                     'result' => $result['result'],
                     'inspected_by' => Auth::id(),
                     'remarks' => $this->remarks,
+                    'is_modified' => $this->is_modified,
                 ]
             );
 
@@ -118,6 +126,7 @@ class VisualInspectionForm extends Form
                             : null,
 
                         'remarks' => $item['remarks'] ?? null,
+                        'is_modified' => $item['is_modified'] ?? false,
                     ],
                 );
             }

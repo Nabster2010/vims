@@ -8,6 +8,7 @@ $technicalRequirements = [
         'check' => 'Check Document : Inspection report (1).',
         'requirements' => ['Following items shall comply:', 'Weights if changed.', 'Dimensions if changed.', 'Brakes if applicable.', 'Suspension if applicable.', 'If applicable, the vehicle shall be upgraded with appropriate parts and equipment’s.'],
         'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENGINE')->first()->result,
+        'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENGINE')->first()->is_modified,
     ],
 
     [
@@ -17,6 +18,7 @@ $technicalRequirements = [
         'check' => 'Check Document : Inspection report (1).',
         'requirements' => ['Following items shall comply:', 'Gearbox.', 'Transferring between a manual system to an automatic system or vice versa is allowed as long as it does not affect the movement and safety of vehicle.'],
         'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'TRANSMISSION')->first()->result,
+        'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'TRANSMISSION')->first()->is_modified,
     ],
 ];
 ?>

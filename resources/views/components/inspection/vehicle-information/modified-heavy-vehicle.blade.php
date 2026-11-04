@@ -30,6 +30,7 @@
         <flux:input wire:model.blur="form.number_of_axles" type="text" label="Number Of Axles" />
         <flux:input wire:model.blur="form.front_axle_weight" type="text" label="Front Axle Weight" />
         <flux:input wire:model.blur="form.rear_axle_weight" type="text" label="Rear Axle Weight" />
+        <flux:input wire:model.blur="form.other_axle_weight" type="text" label="Other Axle Weight" />
 
 
 

@@ -22,6 +22,11 @@ class VisualItemForm extends Form
 
     public bool $is_active = true;
 
+    public ?string $description = null;
+
+    public ?string $description_ar = null;
+
+
     public function fillFromVisualItem(VisualItem $visualItem): void
     {
         $this->name = $visualItem->name;
@@ -31,6 +36,8 @@ class VisualItemForm extends Form
         $this->category_ar = $visualItem->category_ar;
         $this->sort_order = $visualItem->sort_order;
         $this->is_active = $visualItem->is_active;
+        $this->description = $visualItem->description;
+        $this->description_ar = $visualItem->description_ar;
     }
 
     public function rules(?VisualItem $visualItem = null): array
@@ -79,6 +86,20 @@ class VisualItemForm extends Form
                 'boolean',
             ],
 
+            'description' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
+
+            'description_ar' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
+
+
+
         ];
     }
 
@@ -99,6 +120,11 @@ class VisualItemForm extends Form
             'sort_order' => $this->sort_order,
 
             'is_active' => $this->is_active,
+
+            'description' => $this->description,
+
+            'description_ar' => $this->description_ar,
+
 
         ];
     }

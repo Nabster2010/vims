@@ -23,7 +23,6 @@ class Inspection extends Model
         'customer_id',
         'sales_representative_id',
 
-
         // common
         'vin',
         'payment_type',
@@ -45,6 +44,10 @@ class Inspection extends Model
         'current_type',
         'target_type',
         'owner_id',
+        'request_origin',
+        'modification_center_report_no',
+        'modification_description',
+        'is_authorized_modification_center',
 
         // Workflow
         'status',
@@ -58,8 +61,7 @@ class Inspection extends Model
         'remarks',
     ];
 
-
-    //report number accessor - call it by $inspection->report_no
+    // report number accessor - call it by $inspection->report_no
     protected $appends = [
         'report_no',
     ];
@@ -135,6 +137,8 @@ class Inspection extends Model
             'custom_declaration_date' => 'date',
 
             'payment_amount' => 'decimal:2',
+
+            'is_authorized_modification_center' => 'boolean',
 
             'status' => InspectionStatus::class,
 
@@ -231,7 +235,6 @@ class Inspection extends Model
     {
         return $this->hasOne(VisualInspection::class);
     }
-
 
     public function photos(): HasMany
     {

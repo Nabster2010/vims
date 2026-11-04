@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inspection;
-use App\Services\Reports\ImportedVehicleReportService;
-use App\Services\Reports\ModifiedVehicleReportService;
-use App\Services\Reports\MotorcycleReportService;
-use App\Services\Reports\SaberVehicleReportService;
+use App\Services\Reports\IMPReportService;
+use App\Services\Reports\MDHReportService;
+use App\Services\Reports\MDLReportService;
+use App\Services\Reports\MTCReportService;
+use App\Services\Reports\SaberReportService;
 use App\Services\Reports\TrailerReportService;
 use Spatie\LaravelPdf\Facades\Pdf;
 use Illuminate\Support\Facades\Gate;
@@ -19,12 +20,12 @@ class ReportPdfController
 
         // we will use it to return inspection type specific data to report
         $reportDate = match ($inspection->inspectionType->code) {
-            'IMP' => app(ImportedVehicleReportService::class)->build($inspection),
-            'SBG' => app(SaberVehicleReportService::class)->build($inspection),
-            'SBE' => app(SaberVehicleReportService::class)->build($inspection),
-            'MDL' => app(ModifiedVehicleReportService::class)->build($inspection),
-            'MDH' => app(ModifiedVehicleReportService::class)->build($inspection),
-            'MTC' => app(MotorcycleReportService::class)->build($inspection),
+            'IMP' => app(IMPReportService::class)->build($inspection),
+            'SBG' => app(SaberReportService::class)->build($inspection),
+            'SBE' => app(SaberReportService::class)->build($inspection),
+            'MDL' => app(MDLReportService::class)->build($inspection),
+            'MDH' => app(MDHReportService::class)->build($inspection),
+            'MTC' => app(MTCReportService::class)->build($inspection),
             'TRL' => app(TrailerReportService::class)->build($inspection),
             default => abort(404),
         };

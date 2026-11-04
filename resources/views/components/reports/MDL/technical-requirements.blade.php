@@ -1,13 +1,100 @@
 @php
-    function getResultByItemName($reportData, $code, $category)
-    {
-        $result = $reportData['mdl_basic_items']
-            ->where('visualItem.code', $code)
-            ->where('visualItem.category', $category)
-            ->first();
 
-        return $result?->result === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل';
-    }
+    $items = [
+        [
+            'no' => 1,
+            'reference' => '4.3.1',
+            'code' => 'ENGINE',
+            'category' => 'MDL-BASIC',
+            'name' => 'المحرك',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENGINE')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENGINE')->first()?->is_modified,
+        ],
+        [
+            'no' => 2,
+            'reference' => '4.3.2',
+            'code' => 'TRANSMISSION',
+            'category' => 'MDL-BASIC',
+            'name' => 'نظام نقل الحركة',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'TRANSMISSION')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'TRANSMISSION')->first()
+                ?->is_modified,
+        ],
+        [
+            'no' => 3,
+            'reference' => '4.3.3',
+            'code' => 'EXHAUST',
+            'category' => 'MDL-BASIC',
+            'name' => 'أنظمة العادم',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'EXHAUST')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'EXHAUST')->first()?->is_modified,
+        ],
+        [
+            'no' => 4,
+            'reference' => '4.3.4',
+            'code' => 'FUEL',
+            'category' => 'MDL-BASIC',
+            'name' => 'نظام الوقود',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'FUEL')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'FUEL')->first()?->is_modified,
+        ],
+        [
+            'no' => 5,
+            'reference' => '4.3.5',
+            'code' => 'BRAKE',
+            'category' => 'MDL-BASIC',
+            'name' => 'نظام الفرامل',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'BRAKE')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'BRAKE')->first()?->is_modified,
+        ],
+        [
+            'no' => 6,
+            'reference' => '4.3.6',
+            'code' => 'EDGES',
+            'category' => 'MDL-BASIC',
+            'name' => 'الحواف والنتوءات الخارجية',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'EDGES')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'EDGES')->first()?->is_modified,
+        ],
+        [
+            'no' => 7,
+            'reference' => '4.3.7',
+            'code' => 'STEERING',
+            'category' => 'MDL-BASIC',
+            'name' => 'عجلة القيادة',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'STEERING')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'STEERING')->first()
+                ?->is_modified,
+        ],
+        [
+            'no' => 8,
+            'reference' => '4.3.8',
+            'code' => 'TIRES',
+            'category' => 'MDL-BASIC',
+            'name' => 'الإطارات والعجلات',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'TIRES')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'TIRES')->first()?->is_modified,
+        ],
+        [
+            'no' => 9,
+            'reference' => '4.3.9',
+            'code' => 'ENTERTAINMENT',
+            'category' => 'MDL-BASIC',
+            'name' => 'أنظمة الترفيه',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENTERTAINMENT')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENTERTAINMENT')->first()
+                ?->is_modified,
+        ],
+        [
+            'no' => 10,
+            'reference' => '4.3.10',
+            'code' => 'CHASSIS',
+            'category' => 'MDL-BASIC',
+            'name' => 'الهيكل والشاسية',
+            'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'CHASSIS')->first()?->result,
+            'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'CHASSIS')->first()?->is_modified,
+        ],
+    ];
 
 @endphp
 <div class="section-title">
@@ -42,180 +129,27 @@
     </thead>
 
     <tbody>
+        @foreach ($items as $item)
+            <tr>
+                <td>
+                    {{ $item['no'] }}
+                </td>
+                <td>
+                    {{ $item['reference'] }}
+                </td>
+                <td class="item-cell">
+                    {{ $item['name'] }} </td>
+                <td class="check-cell">
+                    {{ $item['is_modified'] ? '✓' : '' }}
+                </td>
 
-        <tr>
-            <td>
-                1
-            </td>
-            <td>
-                4.3.1
-            </td>
-            <td class="item-cell">
-                المحرك </td>
-            <td class="check-cell">
-
-            </td>
 
 
-
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'ENGINE', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'ENGINE', 'MDL-BASIC') }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                2
-            </td>
-            <td>
-                4.3.2
-            </td>
-            <td class="item-cell">
-                نظام نقل الحركة </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'TRANSMISSION', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'TRANSMISSION', 'MDL-BASIC') }} </td>
-        </tr>
-        <tr>
-            <td>
-                3
-            </td>
-            <td>
-                4.3.3
-            </td>
-            <td class="item-cell">
-                أنظمة العادم </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'EXHAUST', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'EXHAUST', 'MDL-BASIC') }} </td>
-        </tr>
-        <tr>
-            <td>
-                4
-            </td>
-            <td>
-                4.3.4
-            </td>
-            <td class="item-cell">
-                نظام الوقود </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'FUEL', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'FUEL', 'MDL-BASIC') }} </td>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                5
-            </td>
-            <td>
-                4.3.5
-            </td>
-            <td class="item-cell">
-                نظام الفرامل </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'BRAKE', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'BRAKE', 'MDL-BASIC') }} </td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                6
-            </td>
-            <td>
-                4.3.6
-            </td>
-            <td class="item-cell">
-                الحواف والنتوءات الخارجية </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'EDGES', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'EDGES', 'MDL-BASIC') }} </td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                7
-            </td>
-            <td>
-                4.3.7
-            </td>
-            <td class="item-cell">
-                عجلة القيادة </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'STEERING', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'STEERING', 'MDL-BASIC') }} </td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                8
-            </td>
-            <td>
-                4.3.8
-            </td>
-            <td class="item-cell">
-                الإطارات والعجلات </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'TIRES', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'TIRES', 'MDL-BASIC') }} </td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                9
-            </td>
-            <td>
-                4.3.9
-            </td>
-            <td class="item-cell">
-                أنظمة الترفيه </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'ENTERTAINMENT', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'ENTERTAINMENT', 'MDL-BASIC') }} </td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                10
-            </td>
-            <td>
-                4.3.10
-            </td>
-            <td class="item-cell">
-                الهيكل والشاسية </td>
-            <td class="check-cell">
-
-            </td>
-            <td
-                class="pass-cell {{ getResultByItemName($reportData, 'CHASSIS', 'MDL-BASIC') === 'فشل' ? 'fail-result' : '' }}">
-                {{ getResultByItemName($reportData, 'CHASSIS', 'MDL-BASIC') }} </td>
-            </td>
-        </tr>
-
+                <td class="pass-cell {{ $item['result'] === 'فشل' ? 'fail-result' : '' }}">
+                    {{ $item['result'] }}
+                </td>
+            </tr>
+        @endforeach
     </tbody>
 
 </table>

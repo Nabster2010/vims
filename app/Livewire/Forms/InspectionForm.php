@@ -9,34 +9,56 @@ use Livewire\Form;
 
 class InspectionForm extends Form
 {
-    //Common Information
+    // Common Information
     public ?Inspection $inspection = null;
+
     public ?int $inspection_type_id = null;
+
     public ?int $customer_id = null;
+
     public ?int $sales_representative_id = null;
+
     public string $vin = '';
+
     public ?string $payment_type = null;
+
     public ?float $payment_amount = null;
+
     public ?int $inspection_id = null;
 
-    //Imported Vehicle
+    // Imported Vehicle
     public ?string $request_no = null;
+
     public ?string $request_date = null;
+
     public ?string $custom_declaration_no = null;
+
     public ?string $custom_declaration_date = null;
+
     public ?int $custom_port_id = null;
 
-    //Saber Inspection
+    // Saber Inspection
 
     public ?int $import_country_id = null;
 
-    //Modified Vehicle
+    // Modified Vehicle
     public ?string $plate_no = null;
+
     public ?string $modification_center = null;
+
     public ?string $current_type = null;
+
     public ?string $target_type = null;
+
     public ?string $owner_id = null;
 
+    public ?string $request_origin = null;
+
+    public ?string $modification_center_report_no = null;
+
+    public ?string $modification_description = null;
+
+    public ?bool $is_authorized_modification_center = false;
 
     protected function rules(): array
     {
@@ -100,7 +122,11 @@ class InspectionForm extends Form
                     'current_type' => ['required'],
                     'target_type' => ['required'],
                     'owner_id' => ['required'],
-                    'request_date' => ['required']
+                    'request_date' => ['required'],
+                    'request_origin' => ['nullable', 'string'],
+                    'modification_center_report_no' => ['nullable', 'string'],
+                    'modification_description' => ['nullable', 'string'],
+                    'is_authorized_modification_center' => ['required', 'boolean'],
 
                 ];
 
@@ -132,6 +158,10 @@ class InspectionForm extends Form
             'current_type' => $inspection->current_type,
             'target_type' => $inspection->target_type,
             'owner_id' => $inspection->owner_id,
+            'request_origin' => $inspection->request_origin,
+            'modification_center_report_no' => $inspection->modification_center_report_no,
+            'modification_description' => $inspection->modification_description,
+            'is_authorized_modification_center' => $inspection->is_authorized_modification_center,
         ]);
 
         $this->inspection_id = $inspection->id;
@@ -151,6 +181,10 @@ class InspectionForm extends Form
             'current_type' => null,
             'target_type' => null,
             'owner_id' => null,
+            'request_origin' => null,
+            'modification_center_report_no' => null,
+            'modification_description' => null,
+            'is_authorized_modification_center' => false,
         ]);
     }
 

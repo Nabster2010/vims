@@ -14,6 +14,8 @@ class VisualInspection extends Model
         'result',
         'inspected_by',
         'remarks',
+        'description',
+        'description_ar',
     ];
 
     protected function casts(): array

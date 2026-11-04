@@ -13,4 +13,15 @@ enum FuelType: string
     case Phev = 'PHEV';
 
     case Ev = 'EV';
+
+    public function label_ar(): string
+    {
+        return match ($this) {
+            self::Gasoline => 'بنزين',
+            self::Diesel => 'ديزل',
+            self::Hybrid => 'هجين',
+            self::Phev => ' هجين بقابس',
+            self::Ev => 'كهربائي',
+        };
+    }
 }

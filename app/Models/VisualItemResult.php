@@ -12,6 +12,7 @@ class VisualItemResult extends Model
         'visual_inspection_id',
         'visual_item_id',
         'result',
+        'is_modified',
         'remarks',
     ];
 
@@ -19,6 +20,7 @@ class VisualItemResult extends Model
     {
         return [
             'result' => InspectionResult::class,
+            'is_modified' => 'boolean',
         ];
     }
 

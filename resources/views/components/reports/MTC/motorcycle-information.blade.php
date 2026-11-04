@@ -1,5 +1,5 @@
 {{-- resources/views/components/reports/IMP/vehicle-information.blade.php --}}
-@props(['inspection'])
+@props(['reportData'])
 
 <section class="vehicle-information">
 
@@ -7,43 +7,43 @@
 
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->manufacturer->name }}</td>
+            <td>{{ $reportData['manufacturer'] }}</td>
             <th>اسم الصانع </th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->modelType->name }}</td>
+            <td>{{ $reportData['modelType'] }}</td>
             <th>الطراز</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->model_division }}</td>
+            <td>{{ $reportData['model_division'] }}</td>
             <th>الطراز الفرعي </th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->fuel_type }}</td>
+            <td>{{ $reportData['fuel_type'] }}</td>
             <th> نوع الوقود </th>
         </tr>
 
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->number_of_seats }}</td>
+            <td>{{ $reportData['number_of_seats'] }}</td>
             <th>عدد الركاب</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->mileage }}</td>
+            <td>{{ $reportData['mileage'] }}</td>
             <th> عداد المسافات</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->color->name_ar }}</td>
+            <td>{{ $reportData['color'] }}</td>
             <th>اللون</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->length }}</td>
+            <td>{{ $reportData['length'] }}</td>
             <th> الطول</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->gross_weight }}</td>
+            <td>{{ $reportData['gross_weight'] }}</td>
             <th> الوزن</th>
         </tr>
 
@@ -53,43 +53,43 @@
     <table class="info-table info-right">
 
         <tr>
-            <td>{{ $inspection->customer->name }}</td>
+            <td>{{ $reportData['customer'] }}</td>
             <th>اسم المستورد</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->request_no }}</td>
+            <td>{{ $reportData['request_no'] }}</td>
             <th>رقم الطلب</th>
         </tr>
 
         <tr>
-            <td>{{ app(\App\Services\DateService::class)->gregorian($inspection->request_date) }}</td>
+            <td>{{ $reportData['request_date'] }}</td>
             <th>تاريخ الطلب</th>
         </tr>
 
         <tr>
-            <td>{{ app(\App\Services\DateService::class)->gregorian($inspection->created_at) }}</td>
+            <td>{{ $reportData['created_at'] }}</td>
             <th>تاريخ التفتيش</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->model_year }}</td>
+            <td>{{ $reportData['model_year'] }}</td>
             <th>سنة الموديل</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->manufacturing_year }}</td>
+            <td>{{ $reportData['manufacturing_year'] }}</td>
             <th>سنة التصنيع</th>
         </tr>
 
         <tr>
-            <td>{{ $inspection->vehicleInformation->originCountry->name_ar }}</td>
+            <td>{{ $reportData['originCountry'] }}</td>
             <th>بلد المنشأ</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->motorcycle_category }}</td>
+            <td>{{ $reportData['motorcycle_category'] }}</td>
             <th> تصنيف الدراجة</th>
         </tr>
         <tr>
-            <td>{{ $inspection->vehicleInformation->engine_displacement }}</td>
+            <td>{{ $reportData['engine_displacement'] }}</td>
             <th> سعة المحرك</th>
         </tr>
 

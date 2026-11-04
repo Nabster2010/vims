@@ -11,6 +11,10 @@
             <td>{{ $reportData['number_of_seats'] }}</td>
             <th>عدد الركاب</th>
         </tr>
+        <tr>
+            <td>{{ $reportData['fuel_type'] }}</td>
+            <th>نوع الوقود</th>
+        </tr>
 
         <tr>
             <td>{{ $reportData['mileage'] }}</td>

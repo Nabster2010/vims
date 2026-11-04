@@ -7,6 +7,7 @@ $technicalRequirements = [
         'check' => 'Visual Inspection',
         'requirements' => ['If applicable, The modified steering wheel must be circular – fully or partially.', 'If applicable, the steering system must remain unobstructed for its complete rotation.'],
         'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'STEERING')->first()->result,
+        'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'STEERING')->first()->is_modified,
     ],
 
     [
@@ -16,6 +17,7 @@ $technicalRequirements = [
         'check' => 'Visual Inspection',
         'requirements' => ['If applicable, the replaced wheels shall comply the requirements, refer to annex 1 Visual external inspection.', 'If applicable, the replaced tires shall not be in contact with any part of the vehicle\'s body while travelling.', 'If applicable, it’s obligatory to adhere to the limits of the classified load of the replaced wheels.'],
         'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'TIRES')->first()->result,
+        'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'TIRES')->first()->is_modified,
     ],
 
     [
@@ -25,6 +27,7 @@ $technicalRequirements = [
         'check' => 'Visual Inspection',
         'requirements' => ['When installing the visual display units of the entertainment system inside the vehicle, they must not interfere with the driver\'s field of vision.', 'The electrical system shall be adequately protected from fire hazards.'],
         'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENTERTAINMENT')->first()->result,
+        'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'ENTERTAINMENT')->first()->is_modified,
     ],
 
     [
@@ -34,6 +37,7 @@ $technicalRequirements = [
         'check' => 'Visual Inspection',
         'requirements' => ['The modified vehicle\'s structure shall be composed of structural beams or channels, or structural tubes, capable of supporting the vehicle, its load and torque in all opening conditions.', 'The chassis must be solid, free of cracks and apparent weakness indicators.'],
         'result' => $reportData['mdl_basic_items']->where('visualItem.code', 'CHASSIS')->first()->result,
+        'is_modified' => $reportData['mdl_basic_items']->where('visualItem.code', 'CHASSIS')->first()->is_modified,
     ],
 ];
 

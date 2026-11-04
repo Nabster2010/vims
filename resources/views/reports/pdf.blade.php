@@ -11,18 +11,18 @@
             <x-reports.MDL.modified-vehicle-light :reportData="$reportData" />
         @break
 
-        {{-- @case('MDH')
-            <x-reports.MDH.modified-vehicle-heavy :inspection="$inspection" />
-        @break --}}
+        @case('MDH')
+            <x-reports.MDH.modified-vehicle-heavy :reportData="$reportData" />
+        @break
 
-        {{-- @case('SBG')
-            <x-reports.IMP.imported-vehicle :inspection="$inspection" />
-            <x-reports.SABER.saber-info :inspection="$inspection" />
-        @break --}}
+        @case('SBG')
+            <x-reports.SABER.saber-vehicle :reportData="$reportData" />
+            <x-reports.SABER.saber-info :reportData="$reportData" />
+        @break
 
-        {{-- @case('MTC')
-            <x-reports.MTC.motorcycle :inspection="$inspection" />
-        @break --}}
+        @case('MTC')
+            <x-reports.MTC.motorcycle :reportData="$reportData" />
+        @break
 
         {{-- @case('TRL')
             <x-reports.TRL.trailer :inspection="$inspection" />

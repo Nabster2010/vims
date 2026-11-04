@@ -52,7 +52,7 @@ new class extends BasePage {
 
 <x-ui.page>
 
-    <flux:heading size="xl">
+    <flux:heading size="xl" class="text-center">
         Inspection {{ $this->inspection->inspection_no }} Visual inspection
     </flux:heading>
     <form wire:submit="save" class="mt-6 space-y-6">
@@ -61,22 +61,16 @@ new class extends BasePage {
                 Please complete Vehicle Information first.
             </flux:callout>
         @else
-            <flux:card class="space-y-6">
-                <flux:heading size="lg">
+            <div class="space-y-6">
+                <flux:heading size="xl" class="text-center">
                     Visual Inspection Checklist
                 </flux:heading>
 
+
+
                 @foreach ($this->groupedVisualItems as $category => $items)
-                    <div class="mb-6 space-y-4">
-
-                        <flux:heading size="lg">
-
-                            {{ $category }}
-
-                        </flux:heading>
-
+                    <x-ui.accordion :title="$category">
                         <div class="mt-4 space-y-4">
-
                             @foreach ($items as $item)
                                 <div class="border-b border-zinc-200 pb-4 last:border-0 space-y-4">
 
@@ -90,19 +84,22 @@ new class extends BasePage {
                                         {{-- loop through enum --}}
                                         <option value="{{ \App\Enums\InspectionResult::Pass->value }}">PASS</option>
                                         <option value="{{ \App\Enums\InspectionResult::Fail->value }}">FAIL</option>
+                                        <option value="{{ \App\Enums\InspectionResult::NotApplicable->value }}">N/A
+                                        </option>
 
                                     </flux:select>
 
                                     <flux:textarea wire:model="form.items.{{ $item->id }}.remarks"
                                         label="Remarks" />
+                                    <flux:checkbox wire:model="form.items.{{ $item->id }}.is_modified"
+                                        label="Is Modified" />
                                 </div>
                             @endforeach
 
                         </div>
-
-                    </div>
+                    </x-ui.accordion>
                 @endforeach
-            </flux:card>
+            </div>
         @endif
 
 

@@ -14,6 +14,10 @@
             <th>الشركة المصنعة</th>
         </tr>
         <tr>
+            <td>{{ $reportData['fuel_type'] }}</td>
+            <th>نوع الوقود</th>
+        </tr>
+        <tr>
             <td>{{ $reportData['modelType'] }}</td>
             <th> الطراز</th>
         </tr>
@@ -60,20 +64,24 @@
         </tr>
 
         <tr>
-            <td>{{ $reportData['referral_source'] }}</td>
+            <td>{{ $reportData['request_origin'] }}</td>
             <th>مصدر الاحالة</th>
         </tr>
         <tr>
-            <td>{{ $reportData['modified_at_registered_facility'] }}</td>
+            <td>{{ $reportData['is_authorized_modification_center'] ? 'نعم' : 'لا' }}</td>
             <th>التعديل بمنشأة مسجلة؟</th>
         </tr>
         <tr>
-            <td>{{ $reportData['center_name'] }}</td>
+            <td>{{ $reportData['modification_center_name'] }}</td>
             <th>اسم مركز التعديل</th>
         </tr>
         <tr>
-            <td>{{ $reportData['center_report_number'] }}</td>
+            <td>{{ $reportData['modification_center_report_number'] }}</td>
             <th>رقم تقرير المركز</th>
+        </tr>
+        <tr>
+            <td>{{ $reportData['modification_description'] }}</td>
+            <th>وصف التعديل</th>
         </tr>
 
     </table>

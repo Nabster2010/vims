@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
 
-
-
 class VehicleInformationForm extends Form
 {
     /**
@@ -133,26 +131,28 @@ class VehicleInformationForm extends Form
     public ?int $equivalent_fuel_economy = null;
 
     public ?ComplianceStatus $energy_efficiency_compliance = ComplianceStatus::PASS;
+
     public ?ComplianceStatus $fuel_economy_compliance = ComplianceStatus::PASS;
+
     public ?ComplianceStatus $vehicle_age_compliance = ComplianceStatus::PASS;
+
     public ?ComplianceStatus $is_vehicle_rare = ComplianceStatus::PASS;
 
     public ?string $remarks = null;
-
-
 
     /**
      * Load inspection data
      */
     public function fillFromInspection(Inspection $inspection): void
     {
-        //load relations
+        // load relations
         $inspection->loadMissing('inspectionType', 'vehicleInformation');
         $this->inspectionTypeCode = $inspection->inspectionType->code;
         $vehicle = $inspection->vehicleInformation;
         if (! $vehicle) {
             $this->inspection_date = today()->toDateString();
             $this->vehicle_condition = VehicleCondition::Used;
+
             return;
         }
 
@@ -166,12 +166,13 @@ class VehicleInformationForm extends Form
     {
         return $this->all();
     }
+
     /**
      * Validation Rules
      */
     protected function rules(): array
     {
-        $rules =  [
+        $rules = [
             'inspection_date' => ['required', 'date'],
             'manufacturer_id' => ['required', 'exists:manufacturers,id'],
             'model_type_id' => ['required', 'exists:model_types,id'],
@@ -396,6 +397,8 @@ class VehicleInformationForm extends Form
                     'number_of_axles' => ['required', 'integer', 'min:1'],
                     'front_axle_weight' => ['nullable', 'integer', 'min:1'],
                     'rear_axle_weight' => ['nullable', 'integer', 'min:1'],
+                    'other_axle_weight' => ['nullable', 'integer', 'min:1'],
+
                 ];
 
                 break;
@@ -414,6 +417,7 @@ class VehicleInformationForm extends Form
                     'number_of_axles' => ['required', 'integer', 'min:1'],
                     'front_axle_weight' => ['nullable', 'integer', 'min:1'],
                     'rear_axle_weight' => ['nullable', 'integer', 'min:1'],
+                    'other_axle_weight' => ['nullable', 'integer', 'min:1'],
 
                 ];
 

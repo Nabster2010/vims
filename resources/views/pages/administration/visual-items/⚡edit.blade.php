@@ -57,12 +57,15 @@ new class extends BasePage {
 
                 <flux:input wire:model="form.code" label="Code" required />
 
-                <flux:input wire:model="form.sort_order" type="number" label="Sort Order" />
+                <flux:input wire:model="form.category" label="Category" />
+
+                <flux:input wire:model="form.category_ar" label="Arabic Category" />
 
                 <flux:input wire:model="form.category" label="Category" />
 
                 <flux:input wire:model="form.category_ar" label="Arabic Category" />
 
+                <flux:input wire:model="form.sort_order" type="number" label="Sort Order" />
             </div>
 
             <flux:checkbox wire:model="form.is_active" label="Active" />

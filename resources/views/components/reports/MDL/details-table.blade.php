@@ -2,6 +2,7 @@
     Technical Requirement for Modified Vehicle
 </div>
 
+
 <table class="modified-english-table">
     <thead>
 
@@ -71,7 +72,7 @@
                 </td>
 
                 <td>
-                    --
+                    {{ $row['is_modified'] ? 'YES' : 'NO' }}
                 </td>
 
                 <td class="text-left">

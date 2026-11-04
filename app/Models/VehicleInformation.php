@@ -60,6 +60,7 @@ class VehicleInformation extends Model
         'load_weight',
         'front_axle_weight',
         'rear_axle_weight',
+        'other_axle_weight',
         'wheelbase',
         'width',
         'height',
@@ -114,7 +115,6 @@ class VehicleInformation extends Model
         return $this->belongsTo(ModelType::class);
     }
 
-
     public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class);
@@ -134,8 +134,8 @@ class VehicleInformation extends Model
     {
         return $this->belongsTo(Country::class, 'shipment_country_id');
     }
-    public function inspector(): BelongsTo
 
+    public function inspector(): BelongsTo
     {
 
         return $this->belongsTo(User::class, 'inspected_by');

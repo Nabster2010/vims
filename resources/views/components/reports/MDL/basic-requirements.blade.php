@@ -64,10 +64,7 @@
             {{ $reportData['other_axle_weight'] }}
         </td>
 
-
-
-
-
     </tr>
+
 
 </table>
