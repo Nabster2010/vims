@@ -329,9 +329,6 @@ class VehicleInformationForm extends Form
                     'category_id' => ['required', 'exists:categories,id'],
                     'air_intake' => ['required', new Enum(AirIntake::class)],
                     'drive_line' => ['required', new Enum(DriveLine::class)],
-                    'engine_displacement' => ['required', 'integer'],
-                    'engine_power' => ['required', 'integer'],
-                    'number_of_cylinders' => ['required', 'integer'],
                     'number_of_axles' => ['required', 'integer'],
                     'front_axle_weight' => ['required', 'integer'],
                     'rear_axle_weight' => ['required', 'integer'],
@@ -346,13 +343,22 @@ class VehicleInformationForm extends Form
                     'length' => ['required', 'integer'],
                     'service_brake' => ['required', 'string', 'max:255'],
                     'emergency_brake' => ['required', 'string', 'max:255'],
+                    // Electric Vehicle Information
+                    'electric_motor_power' => ['required', 'integer'],
+                    'battery_type' => ['required', 'string', 'max:255'],
+                    'battery_capacity' => ['required', 'numeric'],
+                    'battery_voltage' => ['required', 'integer'],
+                    'battery_charge_time' => ['required', 'integer'],
+                    'electric_consumption' => ['required', 'numeric'],
+                    'equivalent_fuel_economy' => ['required', 'integer'],
                     // Compliance
-                    'fuel_economy' => ['required', 'numeric'],
                     'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
                     'fuel_economy_compliance' => ['required', new Enum(ComplianceStatus::class)],
                     'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
                     'is_vehicle_rare' => ['required', new Enum(ComplianceStatus::class)],
+
                 ];
+
                 break;
             case 'MTC':
                 $rules += [

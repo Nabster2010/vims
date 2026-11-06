@@ -10,21 +10,27 @@ class EmissionInspectionPolicy
 {
     public function view(User $user, EmissionInspection $emissionInspection): bool
     {
+        if ($user->role === UserRole::SuperAdmin) {
+            return true;
+        }
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
             UserRole::Inspector,
             // UserRole::Receptionist,
-        ]);
+        ]) && $user->branch_id === $emissionInspection->inspection->branch_id;
     }
 
     public function update(User $user, EmissionInspection $emissionInspection): bool
     {
+        if ($user->role === UserRole::SuperAdmin) {
+            return true;
+        }
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
             UserRole::Inspector,
-        ]);
+        ]) && $user->branch_id === $emissionInspection->inspection->branch_id;
     }
 
     public function delete(User $user, EmissionInspection $emissionInspection): bool

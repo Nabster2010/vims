@@ -41,7 +41,7 @@ class CustomerPolicy
     {
         return in_array($user->role, [
             UserRole::SuperAdmin,
-            UserRole::Receptionist,
+            // UserRole::Receptionist,
             UserRole::BranchManager,
         ]);
     }

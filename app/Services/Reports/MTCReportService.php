@@ -23,7 +23,7 @@ class MTCReportService
             'sideSlipInspection',
             'suspensionInspection',
             'emissionInspection',
-            'photos' => fn($query) => $query->whereIn('photo_type', [
+            'photos' => fn ($query) => $query->whereIn('photo_type', [
                 PhotoType::FRONT,
                 PhotoType::REAR,
                 PhotoType::LEFT,
@@ -32,6 +32,9 @@ class MTCReportService
                 PhotoType::ODOMETER,
             ]),
         ]);
+
+        $visualInspection = $inspection->visualInspection->visualItemResults;
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
         $mtcBasicItems = $inspection->visualInspection
             ->visualItemResults
             ->load('visualItem')
@@ -40,6 +43,7 @@ class MTCReportService
             'report_title' => 'تقرير فحص دراجة نارية',
             'report_no' => $inspection->reportNo,
             'inspection_type_code' => $inspection->inspectionType->code,
+            'inspection_type_name' => $inspection->inspectionType->name,
             'report_date_gregorian' => app(DateService::class)->gregorian($inspection->created_at),
             'report_date_hijri' => app(DateService::class)->hijri($inspection->created_at),
             'branch_code' => $inspection->branch->code,
@@ -72,7 +76,7 @@ class MTCReportService
             'remarks' => $inspection->vehicleInformation->remarks ?? '—',
             'inspector_name' => $inspection->vehicleInformation->inspector->name ?? '',
             'manager_name' => $inspection->branch->manager->name ?? '',
-            'emission_final_result' => $inspection->emissionInspection->result  ?? '',
+            'emission_final_result' => $inspection->emissionInspection->result ?? '',
             'headlight_final_result' => $inspection->headLightInspection->result ?? '',
             'brake_final_result' => $inspection->brakeInspection->result ?? '',
             'suspension_final_result' => $inspection->suspensionInspection->result ?? '',
@@ -93,7 +97,7 @@ class MTCReportService
             'parking_brake' => $inspection->brakeInspection->parking ?? '',
             'final_result' => ($inspection->final_result?->value ?? $inspection->final_result) == 'Pass' ? 'مطابق' : 'غير مطابق',
             'mtcBasicItems' => $mtcBasicItems,
-
+            'visual_inspection_groups' => $visualInspectionGroups,
 
         ];
 

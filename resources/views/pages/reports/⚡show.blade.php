@@ -6,8 +6,8 @@ use App\Services\Reports\IMPReportService;
 use App\Services\Reports\MDLReportService;
 use App\Services\Reports\MDHReportService;
 use App\Services\Reports\SaberReportService;
-use App\Services\Reports\MotorcycleReportService;
-use App\Services\Reports\TrailerReportService;
+use App\Services\Reports\MTCReportService;
+use App\Services\Reports\TRLReportService;
 use Spatie\LaravelPdf\Facades\Pdf;
 
 new class extends Component {
@@ -21,27 +21,10 @@ new class extends Component {
             'SBE' => app(SaberReportService::class)->build($this->inspection),
             'MDL' => app(MDLReportService::class)->build($this->inspection),
             'MDH' => app(MDHReportService::class)->build($this->inspection),
-            'MTC' => app(MotorcycleReportService::class)->build($this->inspection),
-            'TRL' => app(TrailerReportService::class)->build($this->inspection),
+            'MTC' => app(MTCReportService::class)->build($this->inspection),
+            'TRL' => app(TRLReportService::class)->build($this->inspection),
         };
     }
-
-    // public $reportData = [];
-
-    // public function mount(Inspection $inspection): void
-    // {
-    //     $this->inspection = $inspection;
-    //     $this->reportData = match ($inspection->inspectionType->code) {
-    //         'IMP' => app(IMPReportService::class)->build($inspection),
-    //         'SBG' => app(SaberReportService::class)->build($inspection),
-    //         'SBE' => app(SaberReportService::class)->build($inspection),
-    //         'MDL' => app(MDLReportService::class)->build($inspection),
-    //         'MDH' => app(MDHReportService::class)->build($inspection),
-    //         'MTC' => app(MotorcycleReportService::class)->build($inspection),
-    //         'TRL' => app(TrailerReportService::class)->build($inspection),
-    //         default => abort(404),
-    //     };
-    // }
 };
 
 ?>

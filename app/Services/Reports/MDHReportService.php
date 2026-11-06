@@ -23,8 +23,8 @@ class MDHReportService
             'emissionInspection',
             'photos',
         ]);
-
-
+        $visualInspection = $inspection->visualInspection->visualItemResults;
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
         $mdhBasicItems = $inspection->visualInspection
             ->visualItemResults
             ->load('visualItem')
@@ -34,6 +34,7 @@ class MDHReportService
             'report_title' => 'تقرير فحص مركبة معدلة أكبر من 3500 كجم',
             'report_no' => $inspection->reportNo,
             'inspection_type_code' => $inspection->inspectionType->code,
+            'inspection_type_name' => $inspection->inspectionType->name,
             'report_date_gregorian' => app(DateService::class)->gregorian($inspection->created_at),
             'report_date_hijri' => app(DateService::class)->hijri($inspection->created_at),
             'branch_code' => $inspection->branch->code,
@@ -81,9 +82,9 @@ class MDHReportService
             'final_result' => ($inspection->final_result?->value ?? $inspection->final_result) == 'Pass' ? 'مطابق' : 'غير مطابق',
             'inspection' => $inspection,
             'mdh_basic_items' => $mdhBasicItems,
+            'visual_inspection_groups' => $visualInspectionGroups,
 
         ];
-
 
         return $reportData;
     }

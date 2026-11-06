@@ -13,7 +13,7 @@ return [
         InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
     ],
-
+    //saber gasoline & diesel & mild hybrid
     'SBG' => [
         InspectionModule::VehicleInformation,
         InspectionModule::EmissionInspection,
@@ -24,7 +24,19 @@ return [
         InspectionModule::VisualInspection,
     ],
 
+    //saber electric EV
     'SBE' => [
+        InspectionModule::VehicleInformation,
+        // InspectionModule::EmissionInspection,
+        InspectionModule::HeadLightInspection,
+        InspectionModule::SideSlipInspection,
+        InspectionModule::SuspensionInspection,
+        InspectionModule::BrakeInspection,
+        InspectionModule::VisualInspection,
+    ],
+
+    //saber hybrid
+    'SBH' => [
         InspectionModule::VehicleInformation,
         InspectionModule::EmissionInspection,
         InspectionModule::HeadLightInspection,

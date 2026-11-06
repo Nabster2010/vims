@@ -2,6 +2,7 @@
 
 use App\Models\Inspection;
 use App\Models\InspectionType;
+use App\Enums\UserRole;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Computed;
@@ -36,6 +37,7 @@ new #[Title('Inspections')] class extends BasePage {
         //using local Scope in Inspection Model
         return Inspection::query()
             ->with(['customer', 'inspectionType', 'branch'])
+            ->when(auth()->user()->role !== UserRole::SuperAdmin, fn($query) => $query->where('branch_id', auth()->user()->branch_id))
             ->search($this->search)
             ->filterStatus($this->status)
             ->filterInspectionTypeId($this->inspectionTypeId)

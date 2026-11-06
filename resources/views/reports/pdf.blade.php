@@ -17,16 +17,15 @@
 
         @case('SBG')
             <x-reports.SABER.saber-vehicle :reportData="$reportData" />
-            <x-reports.SABER.saber-info :reportData="$reportData" />
         @break
 
         @case('MTC')
             <x-reports.MTC.motorcycle :reportData="$reportData" />
         @break
 
-        {{-- @case('TRL')
-            <x-reports.TRL.trailer :inspection="$inspection" />
-        @break  --}}
+        @case('TRL')
+            <x-reports.TRL.trailer :reportData="$reportData" />
+        @break
     @endswitch
 
 </x-reports.shared.layout>

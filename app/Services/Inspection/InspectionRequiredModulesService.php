@@ -10,6 +10,7 @@ class InspectionRequiredModulesService
     {
         $inspection->loadMissing('inspectionType');
 
+
         return config(
             "inspection-modules.{$inspection->inspectionType->code}",
             [],

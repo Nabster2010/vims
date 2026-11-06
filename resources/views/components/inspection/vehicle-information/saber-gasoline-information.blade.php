@@ -2,7 +2,7 @@
           <flux:card>
               <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <flux:heading size="xl">
-                      Saber Gasoline & Diesel vehicle Information
+                      Saber Gasoline & Diesel & Hev vehicle Information
                   </flux:heading>
 
                   <flux:input wire:model.live="form.model_division" type="text" label="Model Division" />

@@ -2,8 +2,6 @@
           <flux:heading size="xl">
               Saber Plug-in Hybrid vehicle (PHEV) Information
           </flux:heading>
-
-
           <flux:input wire:model.live="form.model_division" label="Model Division" />
           <flux:input wire:model.live="form.manufacturing_year" type="text" label="Manufacturing Year" />
           <flux:input wire:model.live="form.number_of_doors" type="text" label="Number Of Doors" />
