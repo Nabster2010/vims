@@ -116,9 +116,9 @@ class InspectionPolicy
 
     public function viewReport(User $user, Inspection $inspection): bool
     {
-        if ($user->role === UserRole::SuperAdmin) {
-            return true;
-        }
+        // if ($user->role === UserRole::SuperAdmin) {
+        //     return true;
+        // }
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -132,9 +132,9 @@ class InspectionPolicy
 
     public function downloadReport(User $user, Inspection $inspection): bool
     {
-        if ($user->role === UserRole::SuperAdmin) {
-            return true;
-        }
+        // if ($user->role === UserRole::SuperAdmin) {
+        //     return true;
+        // }
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,

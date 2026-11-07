@@ -1,9 +1,5 @@
 {{-- resources/views/components/reports/shared/remarks.blade.php --}}
 
-
-
-@props(['reportData'])
-
 <div class="remarks-section">
 
     <div class="remarks-box">

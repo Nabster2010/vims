@@ -252,11 +252,16 @@ class Inspection extends Model
             $query
                 ->where('inspection_no', 'like', "%{$search}%")
                 ->orWhere('vin', 'like', "%{$search}%")
+                ->orWhere('request_no', 'like', "%{$search}%")
                 ->orWhereHas('customer', function (Builder $query) use ($search) {
                     $query
                         ->where('name', 'like', "%{$search}%")
                         ->orWhere('identity_number', 'like', "%{$search}%")
                         ->orWhere('mobile', 'like', "%{$search}%");
+                })
+                ->orWhereHas('vehicleInformation.modelType', function (Builder $query) use ($search) {
+                    $query
+                        ->where('name', 'like', "%{$search}%");
                 });
         });
     }

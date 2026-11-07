@@ -2,7 +2,6 @@
 
 namespace App\Services\Inspection;
 
-use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
 use App\Models\Inspection;
 use DomainException;
@@ -24,7 +23,6 @@ class InspectionLockService
     {
         $inspection->update([
             'status' => InspectionStatus::PendingApproval,
-            // 'final_result' => InspectionResult::Pending,
             'approved_by' => null,
             'approved_at' => null,
             'is_locked' => false,

@@ -1,5 +1,3 @@
-@props(['reportData'])
-
 @php
     $sections = [
         'General Information' => [

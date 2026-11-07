@@ -2,10 +2,7 @@
 use App\Models\Inspection;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Computed;
-use App\Services\Inspection\InspectionModuleStatusService;
-use App\Services\Inspection\InspectionFinalResultService;
-use App\Services\Inspection\InspectionStepperService;
-use App\Services\Inspection\InspectionSummaryService;
+use App\Services\Inspection\InspectionEvaluationService;
 use App\Services\Inspection\InspectionApprovalService;
 use App\Services\Inspection\InspectionReinspectionService;
 use App\Services\Inspection\InspectionLockService;
@@ -21,23 +18,9 @@ new #[Title('Inspection Summary')] class extends BasePage {
     }
 
     #[Computed]
-    public function summary(): array
+    public function evaluation(): array
     {
-        return app(InspectionSummaryService::class)->summary($this->inspection->refresh());
-    }
-    #[Computed]
-    public function moduleResults(): array
-    {
-        $results = [];
-        foreach ($this->summary['steps'] as $step) {
-            if (!$step['module']) {
-                continue;
-            }
-
-            $results[$step['module']->value] = app(InspectionFinalResultService::class)->calculateModule($this->inspection, $step['module'])['result'];
-        }
-
-        return $results;
+        return app(InspectionEvaluationService::class)->evaluate($this->inspection->refresh());
     }
 
     public function approve(): void
@@ -95,7 +78,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
                 </flux:text>
 
                 <flux:text>
-                    {{ $this->summary['inspection']->report_no }}
+                    {{ $this->inspection->report_no }}
                 </flux:text>
             </div>
 
@@ -105,7 +88,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
                 </flux:text>
 
                 <flux:text>
-                    {{ $this->summary['inspection']->inspectionType->name }}
+                    {{ $this->inspection->inspectionType->name }}
                 </flux:text>
             </div>
 
@@ -115,7 +98,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
                 </flux:text>
 
                 <flux:text>
-                    {{ $this->summary['inspection']->customer->name }}
+                    {{ $this->inspection->customer->name }}
                 </flux:text>
             </div>
 
@@ -125,7 +108,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
                 </flux:text>
 
                 <flux:text class="font-mono">
-                    {{ $this->summary['inspection']->vin }}
+                    {{ $this->inspection->vin }}
                 </flux:text>
             </div>
 
@@ -135,7 +118,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
                 </flux:text>
 
                 <flux:text>
-                    {{ $this->summary['inspection']->branch->name }}
+                    {{ $this->inspection->branch->name }}
                 </flux:text>
             </div>
 
@@ -156,9 +139,9 @@ new #[Title('Inspection Summary')] class extends BasePage {
                     Workflow Status
                 </flux:text>
 
-                <flux:badge :color="$this->summary['inspection']->status->badgeColor()">
+                <flux:badge :color="$this->inspection->status->badgeColor()">
 
-                    {{ $this->summary['inspection']->status->label() }}
+                    {{ $this->inspection->status->label() }}
 
                 </flux:badge>
 
@@ -170,9 +153,9 @@ new #[Title('Inspection Summary')] class extends BasePage {
                     Final Result
                 </flux:text>
 
-                <flux:badge :color="$this->summary['result']['result']->color()">
+                <flux:badge :color="$this->evaluation['result']->color()">
 
-                    {{ $this->summary['result']['result']->label() }}
+                    {{ $this->evaluation['result']->label() }}
 
                 </flux:badge>
 
@@ -185,11 +168,11 @@ new #[Title('Inspection Summary')] class extends BasePage {
 
                 <div class="flex items-center gap-2">
 
-                    <flux:icon :name="$this->summary['inspection']->is_locked ? 'lock-closed' : 'lock-open'" />
+                    <flux:icon :name="$this->inspection->is_locked ? 'lock-closed' : 'lock-open'" />
 
-                    <flux:badge :color="$this->summary['inspection']->is_locked ? 'red' : 'green'">
+                    <flux:badge :color="$this->inspection->is_locked ? 'red' : 'green'">
 
-                        {{ $this->summary['inspection']->is_locked ? 'Locked' : 'Unlocked' }}
+                        {{ $this->inspection->is_locked ? 'Locked' : 'Unlocked' }}
 
                     </flux:badge>
 
@@ -209,10 +192,10 @@ new #[Title('Inspection Summary')] class extends BasePage {
 
             <div class="space-y-3">
 
-                @foreach ($this->summary['steps'] as $step)
+                @foreach ($this->evaluation['modules'] as $module)
                     @php
 
-                        $color = match ($step['status']) {
+                        $color = match ($module['status']) {
                             'completed' => 'green',
                             'current' => 'blue',
                             default => 'zinc',
@@ -220,26 +203,26 @@ new #[Title('Inspection Summary')] class extends BasePage {
 
                     @endphp
 
-                    <a href="{{ $step['route'] }}"
+                    <a href="{{ $module['route'] }}"
                         class="block rounded-xl border border-zinc-200 p-4 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900">
 
                         <div class="flex items-center justify-between">
 
                             <div class="space-y-1">
 
-                                @if ($step['module'])
+                                @if ($module['module'])
                                     <div class="flex items-center gap-2">
 
-                                        <flux:icon :name="$step['module']->icon()" />
+                                        <flux:icon :name="$module['module']->icon()" />
 
                                         <span class="font-medium">
-                                            {{ $step['module']->label() }}
+                                            {{ $module['module']->label() }}
                                         </span>
 
                                     </div>
                                 @else
                                     <span class="font-medium">
-                                        {{ $step['label'] }}
+                                        {{ $module['label'] }}
                                     </span>
                                 @endif
 
@@ -249,7 +232,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
 
                                 <flux:badge :color="$color">
 
-                                    {{ ucfirst($step['status']) }}
+                                    {{ ucfirst($module['status']) }}
 
                                 </flux:badge>
 
@@ -263,29 +246,6 @@ new #[Title('Inspection Summary')] class extends BasePage {
                     </a>
                 @endforeach
 
-                <a href="{{ route('inspections.photos.edit', $inspection) }}"
-                    class="block rounded-xl border border-zinc-200 p-4 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900">
-
-                    <div class="flex items-center justify-between">
-
-                        <div class="space-y-1">
-
-                            <span class="font-medium">
-                                Photos
-                            </span>
-
-                        </div>
-
-                        <div class="flex items-center gap-2">
-
-                            <flux:icon name="chevron-right" class="text-zinc-400" />
-
-                        </div>
-
-                    </div>
-
-                </a>
-
             </div>
 
         </flux:card>
@@ -296,7 +256,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
             Failed Modules
         </flux:heading>
 
-        @forelse($this->summary['result']['failedModules'] as $module)
+        @forelse($this->evaluation['failedModules'] as $module)
             <div class="flex items-center justify-between rounded-lg border p-3">
 
                 <div class="flex items-center gap-2">
@@ -315,9 +275,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
 
         @empty
 
-
-
-            @if ($this->summary['result']['isCompleted'])
+            @if ($this->evaluation['isCompleted'])
                 <div class="text-green-600">
                     All inspection modules passed.
                 </div>
@@ -335,7 +293,7 @@ new #[Title('Inspection Summary')] class extends BasePage {
             Failed Items
         </flux:heading>
 
-        @forelse($this->summary['result']['failedItems'] as $item)
+        @forelse($this->evaluation['failedItems'] as $item)
             <div class="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-3">
 
                 <flux:icon name="x-circle" class="text-red-600" />
@@ -349,22 +307,25 @@ new #[Title('Inspection Summary')] class extends BasePage {
             </div>
 
         @empty
+            @if ($this->evaluation['isCompleted'])
+                <div class="rounded-lg border border-green-200 bg-green-50 p-4">
+                    <div class="flex items-center gap-2">
 
-            <div class="rounded-lg border border-green-200 bg-green-50 p-4">
+                        <flux:icon name="check-circle" class="text-green-600" />
 
-                <div class="flex items-center gap-2">
+                        <span>
 
-                    <flux:icon name="check-circle" class="text-green-600" />
+                            No failed items.
 
-                    <span>
+                        </span>
 
-                        No failed items.
-
-                    </span>
-
+                    </div>
                 </div>
-
-            </div>
+            @else
+                <div class="text-zinc-500">
+                    Inspection is not completed yet.
+                </div>
+            @endif
         @endforelse
 
     </flux:card>

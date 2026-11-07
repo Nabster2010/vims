@@ -19,7 +19,7 @@ class UserForm extends Form
 
     public string $email;
 
-    public ?string $password;
+    public ?string $password = null;
 
     public UserRole $role;
 
@@ -134,7 +134,7 @@ class UserForm extends Form
         $user->update(
             $this->data()
         );
-        $this->password = '';
+        $this->password = null;
     }
 
     public function create(): User
@@ -146,7 +146,7 @@ class UserForm extends Form
         $user = User::create(
             $this->data()
         );
-        $this->password = '';
+        $this->password = null;
 
         return $user;
     }

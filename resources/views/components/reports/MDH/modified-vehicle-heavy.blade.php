@@ -1,5 +1,3 @@
-@props(['reportData'])
-
 <x-reports.MDH.page-1 :reportData="$reportData" />
 <div class="page-break"></div>
 <x-reports.MDH.page-2 :reportData="$reportData" />

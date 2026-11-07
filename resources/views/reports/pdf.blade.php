@@ -15,7 +15,7 @@
             <x-reports.MDH.modified-vehicle-heavy :reportData="$reportData" />
         @break
 
-        @case('SBG')
+        @case('SBR')
             <x-reports.SABER.saber-vehicle :reportData="$reportData" />
         @break
 

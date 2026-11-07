@@ -1,8 +1,4 @@
 {{-- resources/views/components/reports/shared/inspection-result.blade.php --}}
-
-
-@props(['reportData'])
-
 <div class="inspection-result">
 
     <table class="inspection-result-table">

@@ -26,7 +26,7 @@
     </flux:select>
     <flux:input wire:model.blur="form.number_of_cylinders" type="text" label="Number Of Cylinders" />
     <flux:input wire:model.blur="form.engine_displacement" type="text" label="Engine Displacement" />
-    <flux:select wire:model.live="form.energy_efficiency_compliance" label="Energy Efficiency Compliance">
+    <flux:select wire:model.live="form.fuel_economy_compliance" label="Fuel Economy Compliance">
         <option value="">Select</option>
 
         @foreach (\App\Enums\ComplianceStatus::cases() as $status)

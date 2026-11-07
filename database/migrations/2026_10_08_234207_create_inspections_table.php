@@ -32,8 +32,9 @@ return new class extends Migration
                 ->restrictOnDelete();
 
             $table->foreignId('sales_representative_id')
+                ->nullable()
                 ->constrained()
-                ->restrictOnDelete();
+                ->nullOnDelete();
 
             $table->string('vin', 17)->unique();
 
@@ -45,6 +46,15 @@ return new class extends Migration
             $table->string('request_no')->nullable();
 
             $table->date('request_date')->nullable();
+
+            $table->string('request_origin')->nullable();
+
+            $table->string('modification_center_report_no')->nullable();
+
+            $table->text('modification_description')->nullable();
+
+            $table->boolean('is_authorized_modification_center')
+                ->default(false);
 
             $table->string('custom_declaration_no')->nullable();
 

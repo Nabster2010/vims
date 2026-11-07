@@ -16,6 +16,10 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->string('name')->unique();
             $table->string('name_ar')->unique();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Branch;
+use App\Models\Inspection;
 use App\Models\InspectionType;
 
 class InspectionNumberGenerator
@@ -32,6 +33,18 @@ class InspectionNumberGenerator
 
             $sequence,
 
+        );
+    }
+    public function regenerate(Inspection $inspection, string $newCode): string
+    {
+        $parts = explode('-', $inspection->inspection_no);
+
+        return sprintf(
+            '%s-%s-%s-%s',
+            $parts[0],
+            $newCode,
+            $parts[2],
+            $parts[3],
         );
     }
 }

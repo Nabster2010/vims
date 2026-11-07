@@ -10,13 +10,19 @@ use App\Services\EmissionInspectionCalculator;
 use App\Services\HeadLightInspectionCalculator;
 use App\Services\SideSlipInspectionCalculator;
 use App\Services\SuspensionInspectionCalculator;
+use App\Services\VehicleInformationComplianceCalculator;
 use App\Services\VisualInspectionCalculator;
 
-class InspectionFinalResultService
+class InspectionEvaluationService
 {
-    public function calculate(Inspection $inspection): array
+    public function __construct(
+        private InspectionRequiredModulesService $requiredModules,
+    ) {}
+
+    public function evaluate(Inspection $inspection): array
     {
         $inspection->load([
+            'inspectionType',
             'vehicleInformation',
             'emissionInspection',
             'headLightInspection',
@@ -24,55 +30,69 @@ class InspectionFinalResultService
             'suspensionInspection',
             'brakeInspection',
             'visualInspection.visualItemResults',
+            'photos',
+            'customer',
         ]);
 
-        $requiredModules = app(
-            InspectionRequiredModulesService::class
-        )->modules($inspection);
-
+        $modules = [];
         $failedModules = [];
         $failedItems = [];
-        $hasPendingModules = false;
+        $pendingModules = [];
 
-        foreach ($requiredModules as $module) {
-            if ($module === InspectionModule::VehicleInformation) {
-                continue;
+        foreach ($this->requiredModules->modules($inspection) as $module) {
+
+            $evaluation = $this->evaluateModule($inspection, $module);
+
+            if ($evaluation['result'] === InspectionResult::Fail) {
+                $failedModules[] = $module;
+
+                $failedItems = array_merge(
+                    $failedItems,
+                    $evaluation['failedItems']
+                );
             }
 
-            $result = $this->calculateModule(
-                $inspection,
-                $module,
-            );
-
-            if ($result['result'] === InspectionResult::Pending) {
-                $hasPendingModules = true;
+            if ($evaluation['result'] === InspectionResult::Pending) {
+                $pendingModules[] = $module;
             }
 
-            $this->collectFailures(
-                $module,
-                $result,
-                $failedModules,
-                $failedItems,
-            );
-        }
+            $modules[$module->value] = [
+                'module' => $module,
+                'route' => route($module->route(), $inspection),
 
-        $finalResult = InspectionResult::Pass;
+                'status' => request()->routeIs($module->route())
+                    ? 'current'
+                    : ($evaluation['result'] === InspectionResult::Pending
+                        ? 'pending'
+                        : 'completed'),
 
-        if ($hasPendingModules) {
-            $finalResult = InspectionResult::Pending;
-        } elseif (! empty($failedModules)) {
-            $finalResult = InspectionResult::Fail;
+                'result' => $evaluation['result'],
+
+                'failedItems' => $evaluation['failedItems'],
+            ];
         }
 
         return [
-            'result' => $finalResult,
+
+            'result' => ! empty($pendingModules)
+                ? InspectionResult::Pending
+                : (! empty($failedModules)
+                    ? InspectionResult::Fail
+                    : InspectionResult::Pass),
+
+            'modules' => $modules,
+
             'failedModules' => $failedModules,
+
             'failedItems' => $failedItems,
-            'isCompleted' => ! $hasPendingModules,
+
+            'pendingModules' => $pendingModules,
+
+            'isCompleted' => empty($pendingModules),
         ];
     }
 
-    public function calculateModule(
+    private function evaluateModule(
         Inspection $inspection,
         InspectionModule $module,
     ): array {
@@ -85,10 +105,13 @@ class InspectionFinalResultService
             |--------------------------------------------------------------------------
             */
 
-            // InspectionModule::VehicleInformation => [
-            //     'result' => InspectionResult::Pending,
-            //     'failedItems' => [],
-            // ],
+            InspectionModule::VehicleInformation => ! $inspection->vehicleInformation
+                ? [
+                    'result' => InspectionResult::Pending,
+                    'failedItems' => [],
+                ]
+                : app(VehicleInformationComplianceCalculator::class)
+                ->calculate($inspection),
 
             /*
             |--------------------------------------------------------------------------
@@ -204,25 +227,20 @@ class InspectionFinalResultService
                     return app(VisualInspectionCalculator::class)
                         ->calculate($items);
                 })(),
+
+            /*
+            |--------------------------------------------------------------------------
+            | Photos
+            |--------------------------------------------------------------------------
+            */
+
+            InspectionModule::Photos => [
+                'result' => $inspection->photos->count() >= 5
+                    ? InspectionResult::Pass
+                    : InspectionResult::Pending,
+
+                'failedItems' => [],
+            ],
         };
-    }
-
-    private function collectFailures(
-        InspectionModule $module,
-        array $result,
-        array &$failedModules,
-        array &$failedItems,
-    ): void {
-
-        if ($result['result'] !== InspectionResult::Fail) {
-            return;
-        }
-
-        $failedModules[] = $module;
-
-        $failedItems = array_merge(
-            $failedItems,
-            $result['failedItems'],
-        );
     }
 }

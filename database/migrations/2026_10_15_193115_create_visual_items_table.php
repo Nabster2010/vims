@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->string('name');
+            $table->string('name_ar')->after('name')->nullable();
             $table->string('code')->unique();
             $table->string('category')->nullable();
+            $table->string('category_ar')->nullable();
+            $table->text('description')->nullable();
+            $table->text('description_ar')->nullable();
             $table->integer('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
 

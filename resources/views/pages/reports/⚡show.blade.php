@@ -17,8 +17,7 @@ new class extends Component {
     {
         return match ($this->inspection->inspectionType->code) {
             'IMP' => app(IMPReportService::class)->build($this->inspection),
-            'SBG' => app(SaberReportService::class)->build($this->inspection),
-            'SBE' => app(SaberReportService::class)->build($this->inspection),
+            'SBR' => app(SaberReportService::class)->build($this->inspection),
             'MDL' => app(MDLReportService::class)->build($this->inspection),
             'MDH' => app(MDHReportService::class)->build($this->inspection),
             'MTC' => app(MTCReportService::class)->build($this->inspection),

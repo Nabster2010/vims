@@ -1,4 +1,3 @@
-@props(['reportData'])
 @php
     $rows = [
         [

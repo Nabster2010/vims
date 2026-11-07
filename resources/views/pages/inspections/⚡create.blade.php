@@ -16,19 +16,28 @@ use App\Services\ToastService;
 use Flux\Flux;
 
 new #[Title('Create Inspection')] class extends BasePage {
+    private const PAYMENT_AMOUNTS = [
+        'IMP' => 345.0,
+        'SBR' => 575.0,
+        'MTC' => 400.0,
+        'TRL' => 750.0,
+        'MDL' => 575.0,
+        'MDH' => 575.0,
+    ];
+
     public InspectionForm $form;
     #[Url]
     public ?int $inspection_type_id = null;
     #[Url]
     public ?int $customer_id = null;
     #[Url]
-    public ?int $sales_representative_id = null;
+    public ?int $sales_representative_id = 1;
     #[Url]
     public string $vin = '';
     #[Url]
     public ?string $payment_type = 'Card';
     #[Url]
-    public ?float $payment_amount = 345.0;
+    public ?float $payment_amount = null;
     #[Url]
     public ?string $request_date = null;
     #[Url]
@@ -82,6 +91,8 @@ new #[Title('Create Inspection')] class extends BasePage {
             return;
         }
 
+        $type = InspectionType::find($this->form->inspection_type_id);
+
         $this->form->fill([
             'request_no' => null,
             'request_date' => today()->toDateString(),
@@ -91,6 +102,7 @@ new #[Title('Create Inspection')] class extends BasePage {
             'import_country_id' => null,
             'plate_no' => null,
             'modification_center' => null,
+            'payment_amount' => self::PAYMENT_AMOUNTS[$type?->code] ?? null,
             'current_type' => null,
             'target_type' => null,
             'owner_id' => null,
@@ -154,7 +166,9 @@ new #[Title('Create Inspection')] class extends BasePage {
             <x-inspection.create.imported-vehicle />
         @endif
 
-        @if (in_array($this->inspectionTypeCode, ['SBG', 'SBE', 'MTC', 'SBP', 'SBH']))
+
+
+        @if ($this->inspectionTypeCode === 'SBR')
             <x-inspection.create.saber-cars-information />
         @endif
 
@@ -163,6 +177,9 @@ new #[Title('Create Inspection')] class extends BasePage {
         @endif
         @if ($this->inspectionTypeCode === 'TRL')
             <x-inspection.create.trailer />
+        @endif
+        @if ($this->inspectionTypeCode === 'MTC')
+            <x-inspection.create.motorcycle />
         @endif
 
         <div class="flex justify-end">

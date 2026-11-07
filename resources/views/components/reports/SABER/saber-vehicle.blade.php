@@ -1,9 +1,6 @@
 {{-- resources/views/components/reports/IMP/imported-vehicle.blade.php --}}
 
 
-@props(['reportData'])
-
-
 <x-reports.IMP.page-1 :reportData="$reportData" />
 
 <div class="page-break"></div>

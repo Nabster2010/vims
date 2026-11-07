@@ -26,25 +26,14 @@ class InspectionTypeSeeder extends Seeder
 
             [
 
-                'code' => 'SBG',
-
-                'name' => 'Saber - Gasoline & Diesel Vehicle Inspection',
-                'name_ar' => 'سابر بنزين وديزل',
-
-                'prefix' => 'SBG',
+                'code' => 'SBR',
+                'name' => 'Saber - Vehicle Inspection',
+                'name_ar' => 'فحص مركبة - منصة سابر',
+                'prefix' => 'SBR',
 
             ],
 
-            [
 
-                'code' => 'SBE',
-
-                'name' => 'Saber - EV / HEV Vehicle Inspection',
-                'name_ar' => 'سابر كهربائية',
-
-                'prefix' => 'SBE',
-
-            ],
 
             [
 
@@ -74,6 +63,15 @@ class InspectionTypeSeeder extends Seeder
                 'name' => 'Motorcycle Inspection',
                 'name_ar' => 'دراجات نارية',
                 'prefix' => 'MTC',
+
+            ],
+            [
+
+                'code' => 'TRL',
+
+                'name' => 'Trailers Inspection',
+                'name_ar' => 'فحص مقطورات ونصف المقطورات',
+                'prefix' => 'TRL',
 
             ],
 

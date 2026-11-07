@@ -110,6 +110,8 @@ return new class extends Migration
             $table->unsignedSmallInteger('front_axle_weight')->nullable();
 
             $table->unsignedSmallInteger('rear_axle_weight')->nullable();
+            $table->unsignedSmallInteger('other_axle_weight')->nullable();
+
 
             $table->unsignedSmallInteger('wheelbase')->nullable();
 

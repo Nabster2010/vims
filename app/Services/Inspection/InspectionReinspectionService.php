@@ -2,6 +2,7 @@
 
 namespace App\Services\Inspection;
 
+use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
 use App\Models\Inspection;
 use Illuminate\Support\Facades\DB;
@@ -14,23 +15,17 @@ class InspectionReinspectionService
 
             $inspection->vehicleInformation()->delete();
             $inspection->emissionInspection()->delete();
-
             $inspection->headLightInspection()->delete();
-
             $inspection->sideSlipInspection()->delete();
-
             $inspection->suspensionInspection()->delete();
-
             $inspection->brakeInspection()->delete();
-
             $inspection->visualInspection()->delete();
-
             $inspection->update([
                 'reinspection_count' => $inspection->reinspection_count + 1,
 
                 'status' => InspectionStatus::Reinspection,
 
-                'final_result' => null,
+                'final_result' => InspectionResult::Pending,
 
                 'approved_by' => null,
 

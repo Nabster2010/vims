@@ -100,12 +100,20 @@ new #[Title('Edit Inspection')] class extends BasePage {
             <x-inspection.create.imported-vehicle />
         @endif
 
-        @if (in_array($this->inspectionTypeCode, ['SBG', 'SBE', 'SBP', 'SBH', 'MTC']))
+
+        @if ($this->inspectionTypeCode === 'SBR')
             <x-inspection.create.saber-cars-information />
         @endif
 
         @if (in_array($this->inspectionTypeCode, ['MDL', 'MDH']))
             <x-inspection.create.modified-vehicle />
+        @endif
+
+        @if ($this->inspectionTypeCode === 'MTC')
+            <x-inspection.create.motorcycle />
+        @endif
+        @if ($this->inspectionTypeCode === 'TRL')
+            <x-inspection.create.trailer />
         @endif
 
         <div class="flex justify-end">

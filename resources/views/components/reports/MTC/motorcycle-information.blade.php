@@ -1,5 +1,4 @@
 {{-- resources/views/components/reports/IMP/vehicle-information.blade.php --}}
-@props(['reportData'])
 
 <section class="vehicle-information">
 

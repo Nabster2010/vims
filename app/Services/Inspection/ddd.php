@@ -40,6 +40,10 @@ class InspectionModuleStatusService
                 ? InspectionModuleStatus::Completed
                 : InspectionModuleStatus::NotStarted,
 
+            InspectionModule::Photos->value => $inspection->photos()->exists()
+                ? InspectionModuleStatus::Completed
+                : InspectionModuleStatus::NotStarted,
+
         ];
     }
 }

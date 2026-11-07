@@ -60,6 +60,9 @@ new class extends BasePage {
     #[Computed]
     public function fuelTypes()
     {
+        if ($this->inspection->inspectionType->code === 'IMP') {
+            return [FuelType::Gasoline, FuelType::Diesel, FuelType::Hybrid];
+        }
         return FuelType::cases();
     }
     #[Computed]
@@ -83,7 +86,7 @@ new class extends BasePage {
     #[Computed]
     public function Categories()
     {
-        return Category::active()->orderBy('name')->get();
+        return Category::active()->get();
     }
     #[Computed]
     public function motorcycleUses(): array
@@ -124,22 +127,10 @@ new class extends BasePage {
         @if ($this->inspection->inspectionType->code === 'IMP')
             <x-inspection.vehicle-information.imported-vehicle />
         @endif
-        {{-- gasoline & diesel & hev --}}
-        @if ($this->inspection->inspectionType->code === 'SBG')
-            <x-inspection.vehicle-information.saber-gasoline-information />
+        @if ($this->inspection->inspectionType->code === 'SBR')
+            <x-inspection.vehicle-information.saber-vehicle />
         @endif
 
-        {{-- @if ($this->inspection->inspectionType->code === 'SBP')
-            <x-inspection.vehicle-information.saber-phev-information />
-        @endif --}}
-        {{-- ev --}}
-        @if ($this->inspection->inspectionType->code === 'SBE')
-            <x-inspection.vehicle-information.saber-ev-information />
-        @endif
-        {{-- Phev --}}
-        @if ($this->inspection->inspectionType->code === 'SBH')
-            <x-inspection.vehicle-information.saber-phev-information />
-        @endif
         @if ($this->inspection->inspectionType->code === 'MDL')
             <x-inspection.vehicle-information.modified-light-vehicle />
         @endif

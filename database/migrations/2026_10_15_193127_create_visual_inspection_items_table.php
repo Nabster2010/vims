@@ -22,6 +22,8 @@ return new class extends Migration
                 ->restrictOnDelete();
             $table->string('result', 20)->nullable();
             $table->text('remarks')->nullable();
+            $table->boolean('is_modified')
+                ->default(false);
             $table->timestamps();
         });
     }

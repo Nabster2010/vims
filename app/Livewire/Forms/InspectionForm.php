@@ -83,9 +83,7 @@ class InspectionForm extends Form
             return $rules;
         }
         switch ($inspectionType->code) {
-
             case 'IMP':
-
                 $rules += [
                     'request_no' => ['required', 'string'],
                     'request_date' => ['required', 'date'],
@@ -94,29 +92,11 @@ class InspectionForm extends Form
                     'custom_port_id' => ['required', 'exists:custom_ports,id'],
 
                 ];
-
-                break;
-
-            case 'SBG':
-            case 'SBE':
-            case 'MTC':
-            case 'SBP':
-            case 'SBH':
-            case 'TRL':
-
-                $rules += [
-                    'request_no' => ['required', 'string'],
-                    'request_date' => ['required', 'date'],
-                    'import_country_id' => ['required', 'exists:countries,id'],
-                ];
-
                 break;
 
             case 'MDL':
             case 'MDH':
-
                 $rules += [
-
                     'plate_no' => ['required'],
                     'modification_center' => ['nullable', 'string'],
                     'current_type' => ['required'],
@@ -127,9 +107,16 @@ class InspectionForm extends Form
                     'modification_center_report_no' => ['nullable', 'string'],
                     'modification_description' => ['nullable', 'string'],
                     'is_authorized_modification_center' => ['required', 'boolean'],
-
                 ];
-
+                break;
+            case 'SBR':
+            case 'MTC':
+            case 'TRL':
+                $rules += [
+                    'request_no' => ['required', 'string'],
+                    'request_date' => ['required', 'date'],
+                    'import_country_id' => ['required', 'exists:countries,id'],
+                ];
                 break;
         }
 

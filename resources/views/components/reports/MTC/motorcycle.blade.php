@@ -1,6 +1,3 @@
-@props(['reportData'])
-
-
 <x-reports.MTC.page-1 :reportData="$reportData" />
 
 

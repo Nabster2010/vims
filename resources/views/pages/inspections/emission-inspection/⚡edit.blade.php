@@ -2,9 +2,9 @@
 
 use App\Livewire\Forms\EmissionInspectionForm;
 use App\Models\Inspection;
-use App\Enums\FuelType;
 use Livewire\Attributes\Computed;
 use App\Enums\InspectionResult;
+use App\Enums\FuelType;
 use App\Services\EmissionInspectionCalculator;
 use App\Services\Inspection\InspectionLockService;
 use App\Livewire\Pages\BasePage;
@@ -44,6 +44,7 @@ new class extends BasePage {
     public function save(): void
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
+
         $this->form->save($this->inspection);
 
         Flux::toast(variant: 'success', text: 'Emission inspection saved successfully.');

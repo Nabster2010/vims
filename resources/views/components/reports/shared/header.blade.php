@@ -1,6 +1,3 @@
-@props(['reportData'])
-
-
 <header class="report-header">
 
     <table class="header-table">

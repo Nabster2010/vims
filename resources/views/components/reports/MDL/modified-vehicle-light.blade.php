@@ -1,5 +1,3 @@
-@props(['reportData'])
-
 <x-reports.MDL.page-1 :reportData="$reportData" />
 
 <div class="page-break"></div>

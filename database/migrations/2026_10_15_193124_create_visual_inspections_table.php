@@ -27,7 +27,8 @@ return new class extends Migration
                 ->nullOnDelete();
 
             $table->text('remarks')->nullable();
-
+            $table->text('description')->nullable();
+            $table->text('description_ar')->nullable();
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
 use App\Models\Branch;
 use App\Models\Inspection;
@@ -22,11 +23,21 @@ class InspectionService
         $data['inspection_no'] = $this->numberGenerator->generate($branch, $inspectionType);
         $data['status'] = InspectionStatus::Registered;
         $data['registered_at'] = now();
+        $data['final_result'] = InspectionResult::Pending->value;
         return Inspection::create($data);
     }
 
     public function update(Inspection $inspection, array $data): Inspection
     {
+        if ($inspection->inspection_type_id !== (int) $data['inspection_type_id']) {
+
+            $code = InspectionType::findOrFail(
+                $data['inspection_type_id']
+            )->code;
+
+            $data['inspection_no'] = $this->numberGenerator
+                ->regenerate($inspection, $code);
+        }
         $inspection->update($data);
         return $inspection->fresh();
     }

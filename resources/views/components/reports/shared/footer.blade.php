@@ -1,5 +1,3 @@
-@props(['reportData', 'page'])
-
 @php
     $version = '1.4.7 - 01/07/2023';
     $address = match ($reportData['branch_code']) {

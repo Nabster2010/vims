@@ -21,8 +21,7 @@ class ReportPdfController
         // we will use it to return inspection type specific data to report
         $reportDate = match ($inspection->inspectionType->code) {
             'IMP' => app(IMPReportService::class)->build($inspection),
-            'SBG' => app(SaberReportService::class)->build($inspection),
-            'SBE' => app(SaberReportService::class)->build($inspection),
+            'SBR' => app(SaberReportService::class)->build($inspection),
             'MDL' => app(MDLReportService::class)->build($inspection),
             'MDH' => app(MDHReportService::class)->build($inspection),
             'MTC' => app(MTCReportService::class)->build($inspection),

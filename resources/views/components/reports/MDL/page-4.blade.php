@@ -42,7 +42,6 @@ $technicalRequirements = [
 ];
 
 ?>
-@props(['reportData'])
 
 <div class="report-page">
     <x-reports.shared.header :reportData="$reportData" />

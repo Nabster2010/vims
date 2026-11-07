@@ -12,9 +12,10 @@ return [
         InspectionModule::SuspensionInspection,
         InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
+        InspectionModule::Photos,
     ],
-    //saber gasoline & diesel & mild hybrid
-    'SBG' => [
+
+    'SBR' => [
         InspectionModule::VehicleInformation,
         InspectionModule::EmissionInspection,
         InspectionModule::HeadLightInspection,
@@ -22,29 +23,9 @@ return [
         InspectionModule::SuspensionInspection,
         InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
+        InspectionModule::Photos,
     ],
 
-    //saber electric EV
-    'SBE' => [
-        InspectionModule::VehicleInformation,
-        // InspectionModule::EmissionInspection,
-        InspectionModule::HeadLightInspection,
-        InspectionModule::SideSlipInspection,
-        InspectionModule::SuspensionInspection,
-        InspectionModule::BrakeInspection,
-        InspectionModule::VisualInspection,
-    ],
-
-    //saber hybrid
-    'SBH' => [
-        InspectionModule::VehicleInformation,
-        InspectionModule::EmissionInspection,
-        InspectionModule::HeadLightInspection,
-        InspectionModule::SideSlipInspection,
-        InspectionModule::SuspensionInspection,
-        InspectionModule::BrakeInspection,
-        InspectionModule::VisualInspection,
-    ],
 
 
     'MDL' => [
@@ -54,6 +35,7 @@ return [
         // InspectionModule::SuspensionInspection,
         // InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
+        InspectionModule::Photos,
     ],
 
     'MDH' => [
@@ -63,6 +45,7 @@ return [
         // InspectionModule::SuspensionInspection,
         // InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
+        InspectionModule::Photos,
     ],
 
     'MTC' => [
@@ -70,12 +53,14 @@ return [
         // InspectionModule::HeadLightInspection,
         // InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
+        InspectionModule::Photos,
     ],
     'TRL' => [
         InspectionModule::VehicleInformation,
         // InspectionModule::HeadLightInspection,
         // InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
+        InspectionModule::Photos,
     ],
 
 ];

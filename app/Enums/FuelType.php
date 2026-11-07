@@ -21,7 +21,7 @@ enum FuelType: string
             self::Diesel => 'ديزل',
             self::Hybrid => 'هجين',
             self::Phev => ' هجين بقابس',
-            self::Ev => 'كهربائي',
+            self::Ev => ' كهربائية ',
         };
     }
 }

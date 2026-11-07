@@ -17,6 +17,7 @@ enum InspectionModule: string
     case BrakeInspection = 'brake-inspection';
 
     case VisualInspection = 'visual-inspection';
+    case Photos = 'photos';
 
     public function label(): string
     {
@@ -35,6 +36,8 @@ enum InspectionModule: string
             self::BrakeInspection => 'Brake Inspection',
 
             self::VisualInspection => 'Visual Inspection',
+
+            self::Photos => 'Photos',
         };
     }
 
@@ -55,6 +58,8 @@ enum InspectionModule: string
             self::BrakeInspection => 'brakeInspection',
 
             self::VisualInspection => 'visualInspection',
+
+            self::Photos => 'photos',
         };
     }
 
@@ -82,6 +87,9 @@ enum InspectionModule: string
 
             self::VisualInspection =>
             'inspections.visual-inspection.edit',
+
+            self::Photos =>
+            'inspections.photos.edit',
         };
     }
 
@@ -102,6 +110,8 @@ enum InspectionModule: string
             self::BrakeInspection => 'stop-circle',
 
             self::VisualInspection => 'eye',
+
+            self::Photos => 'camera',
         };
     }
 }

@@ -1,6 +1,3 @@
-@props(['reportData'])
-
-
 <x-reports.TRL.page-1 :reportData="$reportData" />
 
 

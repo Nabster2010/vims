@@ -1,5 +1,4 @@
 {{-- resources/views/components/reports/IMP/vehicle-information.blade.php --}}
-@props(['reportData'])
 
 
 
@@ -12,6 +11,8 @@
             <th>عدد الركاب</th>
         </tr>
         <tr>
+
+
             <td>{{ $reportData['fuel_type'] }}</td>
             <th>نوع الوقود</th>
         </tr>

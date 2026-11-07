@@ -48,9 +48,9 @@ class VehicleInformationForm extends Form
 
     public ?int $shipment_country_id = null;
 
-    public ?FuelType $fuel_type = null;
+    public ?FuelType $fuel_type = FuelType::Gasoline;
 
-    public ?GearboxType $gearbox_type = null;
+    public ?GearboxType $gearbox_type = GearboxType::Automatic;
 
     public ?DriveLine $drive_line = null;
 
@@ -167,6 +167,10 @@ class VehicleInformationForm extends Form
         return $this->all();
     }
 
+    //function to get return an array of inspection Types
+
+
+
     /**
      * Validation Rules
      */
@@ -197,7 +201,8 @@ class VehicleInformationForm extends Form
                 ];
 
                 break;
-            case 'SBG':
+
+            case 'SBR':
                 $rules += [
                     'model_division' => ['required', 'string'],
                     'manufacturing_year' => ['required', 'integer'],
@@ -224,142 +229,38 @@ class VehicleInformationForm extends Form
                     'length' => ['required', 'integer'],
                     'service_brake' => ['required', 'string'],
                     'emergency_brake' => ['required', 'string'],
+                    //compliance 
+                    'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
+                    'fuel_economy_compliance' => ['required', new Enum(ComplianceStatus::class)],
+                    'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
+                    'is_vehicle_rare' => ['required', new Enum(ComplianceStatus::class)],
+                    //specific
                     'fuel_economy' => ['required', 'numeric'],
-                    'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'fuel_economy_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'is_vehicle_rare' => ['required', new Enum(ComplianceStatus::class)],
                 ];
-                break;
-            case 'SBE':
+                if (in_array($this->fuel_type, [FuelType::Diesel, FuelType::Gasoline, FuelType::Hybrid, FuelType::Phev])) {
 
-                $rules += [
-                    'model_division' => ['nullable', 'string', 'max:255'],
-                    'manufacturing_year' => ['required', 'integer'],
-                    'number_of_doors' => ['required', 'integer'],
-                    'mileage' => ['required', 'integer'],
-                    'shipment_country_id' => ['required', 'exists:countries,id'],
-                    'production_country_id' => ['required', 'exists:countries,id'],
-                    'category_id' => ['required', 'exists:categories,id'],
-                    'air_intake' => ['required', new Enum(AirIntake::class)],
-                    'drive_line' => ['required', new Enum(DriveLine::class)],
-                    'number_of_axles' => ['required', 'integer'],
-                    'front_axle_weight' => ['required', 'integer'],
-                    'rear_axle_weight' => ['required', 'integer'],
-                    'front_track_width' => ['required', 'integer'],
-                    'rear_track_width' => ['required', 'integer'],
-                    'gross_weight' => ['required', 'integer'],
-                    'curb_weight' => ['required', 'integer'],
-                    'load_weight' => ['required', 'integer'],
-                    'wheelbase' => ['required', 'integer'],
-                    'width' => ['required', 'integer'],
-                    'height' => ['required', 'integer'],
-                    'length' => ['required', 'integer'],
-                    'service_brake' => ['required', 'string', 'max:255'],
-                    'emergency_brake' => ['required', 'string', 'max:255'],
-                    // Electric Vehicle Information
-                    'electric_motor_power' => ['required', 'integer'],
-                    'battery_type' => ['required', 'string', 'max:255'],
-                    'battery_capacity' => ['required', 'numeric'],
-                    'battery_voltage' => ['required', 'integer'],
-                    'battery_charge_time' => ['required', 'integer'],
-                    'electric_consumption' => ['required', 'numeric'],
-                    'equivalent_fuel_economy' => ['required', 'integer'],
-                    // Compliance
-                    'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'fuel_economy_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'is_vehicle_rare' => ['required', new Enum(ComplianceStatus::class)],
+                    $rules += [
+                        'fuel_economy' => ['required', 'numeric'],
+                    ];
+                } else {
+                    $rules += [
+                        'equivalent_fuel_economy' => ['required', 'integer'],
+                    ];
+                }
+                if (in_array($this->fuel_type, [FuelType::Phev, FuelType::Ev])) {
 
-                ];
-                break;
-            case 'SBP':
-
-                $rules += [
-                    'model_division' => ['nullable', 'string', 'max:255'],
-                    'manufacturing_year' => ['required', 'integer'],
-                    'number_of_doors' => ['required', 'integer'],
-                    'mileage' => ['required', 'integer'],
-                    'shipment_country_id' => ['required', 'exists:countries,id'],
-                    'production_country_id' => ['required', 'exists:countries,id'],
-                    'category_id' => ['required', 'exists:categories,id'],
-                    'air_intake' => ['required', new Enum(AirIntake::class)],
-                    'drive_line' => ['required', new Enum(DriveLine::class)],
-                    'engine_displacement' => ['required', 'integer'],
-                    'engine_power' => ['required', 'integer'],
-                    'number_of_cylinders' => ['required', 'integer'],
-                    'number_of_axles' => ['required', 'integer'],
-                    'front_axle_weight' => ['required', 'integer'],
-                    'rear_axle_weight' => ['required', 'integer'],
-                    'front_track_width' => ['required', 'integer'],
-                    'rear_track_width' => ['required', 'integer'],
-                    'gross_weight' => ['required', 'integer'],
-                    'curb_weight' => ['required', 'integer'],
-                    'load_weight' => ['required', 'integer'],
-                    'wheelbase' => ['required', 'integer'],
-                    'width' => ['required', 'integer'],
-                    'height' => ['required', 'integer'],
-                    'length' => ['required', 'integer'],
-                    'service_brake' => ['required', 'string', 'max:255'],
-                    'emergency_brake' => ['required', 'string', 'max:255'],
-                    // Electric Vehicle Information
-                    'electric_motor_power' => ['required', 'integer'],
-                    'battery_type' => ['required', 'string', 'max:255'],
-                    'battery_capacity' => ['required', 'numeric'],
-                    'battery_voltage' => ['required', 'integer'],
-                    'battery_charge_time' => ['required', 'integer'],
-                    'electric_consumption' => ['required', 'numeric'],
-                    // Compliance
-                    'fuel_economy' => ['required', 'numeric'],
-                    'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'fuel_economy_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'is_vehicle_rare' => ['required', new Enum(ComplianceStatus::class)],
-                ];
-                break;
-            case 'SBH':
-
-                $rules += [
-                    'model_division' => ['nullable', 'string', 'max:255'],
-                    'manufacturing_year' => ['required', 'integer'],
-                    'number_of_doors' => ['required', 'integer'],
-                    'mileage' => ['required', 'integer'],
-                    'shipment_country_id' => ['required', 'exists:countries,id'],
-                    'production_country_id' => ['required', 'exists:countries,id'],
-                    'category_id' => ['required', 'exists:categories,id'],
-                    'air_intake' => ['required', new Enum(AirIntake::class)],
-                    'drive_line' => ['required', new Enum(DriveLine::class)],
-                    'number_of_axles' => ['required', 'integer'],
-                    'front_axle_weight' => ['required', 'integer'],
-                    'rear_axle_weight' => ['required', 'integer'],
-                    'front_track_width' => ['required', 'integer'],
-                    'rear_track_width' => ['required', 'integer'],
-                    'gross_weight' => ['required', 'integer'],
-                    'curb_weight' => ['required', 'integer'],
-                    'load_weight' => ['required', 'integer'],
-                    'wheelbase' => ['required', 'integer'],
-                    'width' => ['required', 'integer'],
-                    'height' => ['required', 'integer'],
-                    'length' => ['required', 'integer'],
-                    'service_brake' => ['required', 'string', 'max:255'],
-                    'emergency_brake' => ['required', 'string', 'max:255'],
-                    // Electric Vehicle Information
-                    'electric_motor_power' => ['required', 'integer'],
-                    'battery_type' => ['required', 'string', 'max:255'],
-                    'battery_capacity' => ['required', 'numeric'],
-                    'battery_voltage' => ['required', 'integer'],
-                    'battery_charge_time' => ['required', 'integer'],
-                    'electric_consumption' => ['required', 'numeric'],
-                    'equivalent_fuel_economy' => ['required', 'integer'],
-                    // Compliance
-                    'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'fuel_economy_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
-                    'is_vehicle_rare' => ['required', new Enum(ComplianceStatus::class)],
-
-                ];
+                    $rules += [
+                        'electric_motor_power' => ['required', 'integer'],
+                        'battery_type' => ['required', 'string', 'max:255'],
+                        'battery_capacity' => ['required', 'numeric'],
+                        'battery_voltage' => ['required', 'integer'],
+                        'battery_charge_time' => ['required', 'integer'],
+                        'electric_consumption' => ['required', 'numeric'],
+                    ];
+                }
 
                 break;
+
             case 'MTC':
                 $rules += [
                     'motorcycle_use' => ['required', new Enum(MotorcycleUse::class)],
@@ -453,6 +354,7 @@ class VehicleInformationForm extends Form
                 break;
         }
 
+
         return $rules;
     }
 
@@ -461,6 +363,7 @@ class VehicleInformationForm extends Form
      */
     public function save(Inspection $inspection): VehicleInformation
     {
+
 
         $this->inspectionTypeCode = $inspection->inspectionType->code;
         $this->validate();
@@ -481,7 +384,6 @@ class VehicleInformationForm extends Form
         }
         app(InspectionWorkflowService::class)
             ->sync($inspection);
-
         return $vehicle;
     }
 }

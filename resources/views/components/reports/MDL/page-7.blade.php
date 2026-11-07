@@ -1,6 +1,3 @@
-@props(['reportData'])
-
-
 <div class="report-page">
     <x-reports.shared.header :reportData="$reportData" />
     <main class="report-content">

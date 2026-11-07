@@ -2,6 +2,7 @@
 
 namespace App\Services\Inspection;
 
+use App\Enums\InspectionModule;
 use App\Enums\InspectionStatus;
 use App\Models\Inspection;
 
@@ -9,7 +10,7 @@ class InspectionWorkflowService
 {
     public function __construct(
         private InspectionRequiredModulesService $requiredModules,
-        private InspectionFinalResultService $finalResult,
+        private InspectionEvaluationService $evaluationService,
     ) {}
 
     public function sync(Inspection $inspection): void
@@ -23,8 +24,8 @@ class InspectionWorkflowService
             'suspensionInspection',
             'brakeInspection',
             'visualInspection',
+            'photos',
         ]);
-        // dd($this->requiredModules->modules($inspection));
 
         if (! $this->allRequiredModulesCompleted($inspection)) {
             $this->markInProgress($inspection);
@@ -43,23 +44,19 @@ class InspectionWorkflowService
 
         $inspection->update([
             'status' => InspectionStatus::InProgress,
+            'final_result' => null,
         ]);
     }
 
     private function completeInspection(Inspection $inspection): void
     {
-        // if (
-        //     $inspection->status === InspectionStatus::PendingApproval ||
-        //     $inspection->status === InspectionStatus::Approved
-        // ) {
-        //     return;
-        // }
 
-        $result = $this->finalResult->calculate($inspection);
+
+        $evaluation = $this->evaluationService->evaluate($inspection);
 
         $inspection->update([
             'status' => InspectionStatus::PendingApproval,
-            'final_result' => $result['result'],
+            'final_result' => $evaluation['result'],
         ]);
     }
 
@@ -68,6 +65,15 @@ class InspectionWorkflowService
     ): bool {
 
         foreach ($this->requiredModules->modules($inspection) as $module) {
+
+            if ($module === InspectionModule::Photos) {
+
+                if ($inspection->photos->count() < 5) {
+                    return false;
+                }
+
+                continue;
+            }
 
             if (! $inspection->{$module->relation()}) {
                 return false;

@@ -1,6 +1,3 @@
-@props(['reportData'])
-
-
 <section class="report-vin">
 
     <table class="vin-table">

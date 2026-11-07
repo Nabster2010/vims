@@ -1,9 +1,8 @@
-@props(['reportData'])
-
 <div class="technical-section">
 
     <h2 class="section-title">
         تقرير الفحوصات الفنية
+
     </h2>
 
     <table class="technical-table">
@@ -43,53 +42,70 @@
         <tbody>
 
             {{-- Exhaust ---------------------------------------------------- --}}
+            @if ($reportData['fuel_type'] === \App\Enums\FuelType::Ev)
+                <tr>
+                    <td>
+                        لا ينطبق
+                    </td>
+                    <td> لا ينطبق </td>
+                    <td class="tech-name">
+                        فحص غازات العادم
+                    </td>
 
-            <tr>
+                    <td>1/4/6</td>
 
-                <td
-                    class="tech-status {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Fail ? 'fail-result ' : '' }}">
-                    {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
-                </td>
+                    <td>SASO 2864</td>
 
-                <td class="tech-result">
+                    <td>1</td>
 
-                    <table class="inner-table">
+                </tr>
+            @else
+                <tr>
+                    <td
+                        class="tech-status {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Fail ? 'fail-result ' : '' }}">
+                        {{ $reportData['emission_final_result'] === \App\Enums\InspectionResult::Pass ? 'اجتياز' : 'فشل' }}
+                    </td>
 
-                        <tr class="inner-head">
+                    <td class="tech-result">
 
-                            <td>CO</td>
+                        <table class="inner-table">
 
-                            <td>HC</td>
+                            <tr class="inner-head">
 
-                            <td>Diesel</td>
+                                <td>CO</td>
 
-                        </tr>
+                                <td>HC</td>
 
-                        <tr>
+                                <td>Diesel</td>
 
-                            <td>{{ $reportData['emission_co'] }} %</td>
+                            </tr>
 
-                            <td>{{ $reportData['emission_hc'] }} ppm</td>
+                            <tr>
 
-                            <td>{{ $reportData['emission_opacity'] }} %</td>
+                                <td>{{ $reportData['emission_co'] }} %</td>
 
-                        </tr>
+                                <td>{{ $reportData['emission_hc'] }} ppm</td>
 
-                    </table>
+                                <td>{{ $reportData['emission_opacity'] }} %</td>
 
-                </td>
+                            </tr>
 
-                <td class="tech-name">
-                    فحص غازات العادم
-                </td>
+                        </table>
 
-                <td>1/4/6</td>
+                    </td>
 
-                <td>SASO 2864</td>
+                    <td class="tech-name">
+                        فحص غازات العادم
+                    </td>
 
-                <td>1</td>
+                    <td>1/4/6</td>
 
-            </tr>
+                    <td>SASO 2864</td>
+
+                    <td>1</td>
+
+                </tr>
+            @endif
 
             {{-- Headlight -------------------------------------------------- --}}
 
