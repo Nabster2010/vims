@@ -32,7 +32,12 @@ return [
                 [
                     'label' => 'Dashboard',
                     'icon' => 'home',
-                    'route' => 'dashboard',
+                    'route' => 'dashboard.index',
+                    'active' => ['dashboard.*'],
+                    'can' => [
+                        'viewAny',
+                        Inspection::class,
+                    ],
                 ],
 
             ],
@@ -224,20 +229,24 @@ return [
         |--------------------------------------------------------------------------
         */
 
-        // [
-        //     'heading' => 'Reports',
+        [
+            'heading' => 'Reports',
 
-        //     'items' => [
+            'items' => [
 
-        //         [
-        //             'label' => 'Reports',
-        //             'icon' => 'chart-bar',
-        //             'route' => 'reports.show',
-        //             'active' => ['reports.*'],
-        //         ],
+                [
+                    'label' => 'Reports',
+                    'icon' => 'chart-bar',
+                    'route' => 'reports.index',
+                    'active' => ['reports.*'],
+                    'can' => [
+                        'viewAny',
+                        Inspection::class,
+                    ],
+                ],
 
-        //     ],
-        // ],
+            ],
+        ],
 
     ],
 

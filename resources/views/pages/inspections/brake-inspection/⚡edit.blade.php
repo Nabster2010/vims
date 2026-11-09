@@ -27,6 +27,13 @@ new class extends BasePage {
     {
         return app(BrakeInspectionCalculator::class)->calculate($this->form->data());
     }
+    #[Computed]
+    public function limits(): array
+    {
+        $fuel = $this->inspection->vehicleInformation?->fuel_type?->value;
+
+        return config('test-limits.brake', []);
+    }
     public function save(): void
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
@@ -57,10 +64,18 @@ new class extends BasePage {
                 </flux:heading>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-                    <flux:input wire:model.live.debounce.500ms="form.front" type="text" label="Front (%)" />
-                    <flux:input wire:model.live.debounce.500ms="form.rear" type="text" label="Rear (%)" />
-                    <flux:input wire:model.live.debounce.500ms="form.parking" type="text" label="Parking (%)" />
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.front" type="text" label="Front (%)" />
+                        <x-inspection.test-limit :limit="$this->limits['front'] ?? null" />
+                    </div>
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.rear" type="text" label="Rear (%)" />
+                        <x-inspection.test-limit :limit="$this->limits['rear'] ?? null" />
+                    </div>
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.parking" type="text" label="Parking (%)" />
+                        <x-inspection.test-limit :limit="$this->limits['parking'] ?? null" />
+                    </div>
                 </div>
 
             </flux:card>

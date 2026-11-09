@@ -30,10 +30,11 @@ return [
 
     'MDL' => [
         InspectionModule::VehicleInformation,
-        // InspectionModule::HeadLightInspection,
-        // InspectionModule::SideSlipInspection,
-        // InspectionModule::SuspensionInspection,
-        // InspectionModule::BrakeInspection,
+        InspectionModule::EmissionInspection,
+        InspectionModule::HeadLightInspection,
+        InspectionModule::SideSlipInspection,
+        InspectionModule::SuspensionInspection,
+        InspectionModule::BrakeInspection,
         InspectionModule::VisualInspection,
         InspectionModule::Photos,
     ],

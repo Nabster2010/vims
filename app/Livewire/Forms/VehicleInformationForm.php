@@ -370,13 +370,10 @@ class VehicleInformationForm extends Form
         $old_fuel_type = $inspection->vehicleInformation?->fuel_type;
         $vehicle = $inspection->vehicleInformation()->updateOrCreate(
             [],
-            array_merge(
-                $this->all(),
-                [
-                    'inspected_by' => Auth::id(),
-                ]
-            )
-
+            [
+                ...$this->all(),
+                'inspected_by' => Auth::id(),
+            ]
         );
 
         if ($old_fuel_type !== $this->fuel_type) {

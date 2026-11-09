@@ -23,7 +23,7 @@ class IMPReportService
             'sideSlipInspection',
             'suspensionInspection',
             'emissionInspection',
-            'photos' => fn ($query) => $query->whereIn('photo_type', [
+            'photos' => fn($query) => $query->whereIn('photo_type', [
                 PhotoType::FRONT,
                 PhotoType::REAR,
                 PhotoType::LEFT,
@@ -33,7 +33,7 @@ class IMPReportService
             ]),
         ]);
         $visualInspection = $inspection->visualInspection->visualItemResults;
-        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
         $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_economy', 'other'];
 
         $reportData = [
@@ -54,9 +54,15 @@ class IMPReportService
             'modelType' => $inspection->vehicleInformation->modelType->name,
             'model_year' => $inspection->vehicleInformation->model_year,
             'color' => $inspection->vehicleInformation->color->name_ar,
+            'category' => $inspection->vehicleInformation->category->name,
+            'vehicle_condition' => $inspection->vehicleInformation->vehicle_condition,
             'originCountry' => $inspection->vehicleInformation->originCountry->name_ar,
             'branch' => $inspection->branch->name_ar,
             'customPort' => $inspection->customPort->name_ar,
+            'number_of_cylinders' => $inspection->vehicleInformation->number_of_cylinders,
+            'engine_displacement' => $inspection->vehicleInformation->engine_displacement,
+            'fuel_economy_compliance' => $inspection->vehicleInformation->fuel_economy_compliance,
+            'vehicle_age_compliance' => $inspection->vehicleInformation->vehicle_age_compliance,
             'created_at' => app(DateService::class)->gregorian($inspection->created_at),
             'custom_declaration_no' => $inspection->custom_declaration_no,
             'custom_declaration_date' => app(DateService::class)->hijri($inspection->custom_declaration_date),

@@ -27,6 +27,13 @@ new class extends BasePage {
     {
         return app(SideSlipInspectionCalculator::class)->calculate($this->form->data());
     }
+    #[Computed]
+    public function limits(): array
+    {
+        $fuel = $this->inspection->vehicleInformation?->fuel_type?->value;
+
+        return config('test-limits.sideSlip', []);
+    }
     public function save(): void
     {
         app(InspectionLockService::class)->ensureUnlocked($this->inspection);
@@ -56,7 +63,10 @@ new class extends BasePage {
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                    <flux:input wire:model.live.debounce.500ms="form.value" type="text" label="Value (m/km)" />
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.value" type="text" label="Value (m/km)" />
+                        <x-inspection.test-limit :limit="$this->limits['value'] ?? null" />
+                    </div>
                 </div>
 
             </flux:card>

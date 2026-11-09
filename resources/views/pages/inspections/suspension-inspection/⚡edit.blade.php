@@ -22,6 +22,14 @@ new class extends BasePage {
     }
 
     #[Computed]
+    public function limits(): array
+    {
+        $fuel = $this->inspection->vehicleInformation?->fuel_type?->value;
+
+        return config('test-limits.suspension', []);
+    }
+
+    #[Computed]
     public function calculatedResult(): ?array
     {
         return app(SuspensionInspectionCalculator::class)->calculate($this->form->data());
@@ -57,12 +65,26 @@ new class extends BasePage {
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
-                    <flux:input wire:model.live.debounce.500ms="form.front_left" type="text" label="Front Left (%)" />
-                    <flux:input wire:model.live.debounce.500ms="form.front_right" type="text"
-                        label="Front Right (%)" />
-                    <flux:input wire:model.live.debounce.500ms="form.rear_left" type="text" label="Rear Left (%)" />
-                    <flux:input wire:model.live.debounce.500ms="form.rear_right" type="text"
-                        label="Rear Right (%)" />
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.front_left" type="text"
+                            label="Front Left (%)" />
+                        <x-inspection.test-limit :limit="$this->limits['front_left'] ?? null" />
+                    </div>
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.front_right" type="text"
+                            label="Front Right (%)" />
+                        <x-inspection.test-limit :limit="$this->limits['front_right'] ?? null" />
+                    </div>
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.rear_left" type="text"
+                            label="Rear Left (%)" />
+                        <x-inspection.test-limit :limit="$this->limits['rear_left'] ?? null" />
+                    </div>
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.rear_right" type="text"
+                            label="Rear Right (%)" />
+                        <x-inspection.test-limit :limit="$this->limits['rear_right'] ?? null" />
+                    </div>
                 </div>
 
             </flux:card>

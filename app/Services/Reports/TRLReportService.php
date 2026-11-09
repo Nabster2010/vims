@@ -23,7 +23,7 @@ class TRLReportService
             'photos',
         ]);
         $visualInspection = $inspection->visualInspection->visualItemResults;
-        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
         $trlBasicItems = $inspection->visualInspection
             ->visualItemResults
             ->load('visualItem')
@@ -53,6 +53,7 @@ class TRLReportService
             'request_date' => app(DateService::class)->gregorian($inspection->request_date),
             // to be added to database
             'request_origin' => $inspection->request_origin ?? '---',
+            'category' => $inspection->vehicleInformation->category->name ?? '--',
             // to be added to database
             'is_authorized_modification_center' => $inspection->is_authorized_modification_center,
             'modification_description' => $inspection->modification_description ?? '--',

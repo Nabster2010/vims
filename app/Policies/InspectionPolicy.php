@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Enums\InspectionResult;
+use App\Enums\InspectionStatus;
 use App\Enums\UserRole;
 use App\Models\Inspection;
 use App\Models\User;
@@ -114,7 +115,7 @@ class InspectionPolicy
         return false;
     }
 
-    public function viewReport(User $user, Inspection $inspection): bool
+    public function printReport(User $user, Inspection $inspection): bool
     {
         // if ($user->role === UserRole::SuperAdmin) {
         //     return true;
@@ -124,13 +125,14 @@ class InspectionPolicy
             UserRole::BranchManager,
             UserRole::Inspector,
             UserRole::Receptionist,
-        ]) && in_array($inspection->final_result, [
+
+        ]) && $inspection->status === InspectionStatus::Approved && in_array($inspection->final_result, [
             InspectionResult::Pass,
             InspectionResult::Fail,
         ]) && $user->branch_id === $inspection->branch_id;
     }
 
-    public function downloadReport(User $user, Inspection $inspection): bool
+    public function viewReport(User $user, Inspection $inspection): bool
     {
         // if ($user->role === UserRole::SuperAdmin) {
         //     return true;

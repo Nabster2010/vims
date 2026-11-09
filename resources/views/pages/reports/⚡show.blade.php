@@ -55,8 +55,9 @@ new class extends Component {
                 Report template not implemented.
             </div>
     @endswitch --}}
-
-    <flux:button href="{{ route('reports.pdf', $inspection) }}" target="_blank" variant="primary">
-        Download PDF
-    </flux:button>
+    @can('printReport', $inspection)
+        <flux:button href="{{ route('reports.pdf', $inspection) }}" target="_blank" variant="primary">
+            Download PDF
+        </flux:button>
+    @endcan
 </x-ui.page>

@@ -57,7 +57,10 @@ new #[Title('Inspection Summary')] class extends BasePage {
                     <flux:button variant="outline" icon="eye" :href="route('reports.show', $inspection)">
                         View Result
                     </flux:button>
-                    <flux:button variant="outline" icon="document-text" :href="route('reports.pdf', $inspection)">
+                @endcan
+                @can('printReport', $this->inspection)
+                    <flux:button variant="outline" icon="document-text" target="_blank"
+                        :href="route('reports.pdf', $inspection)">
                         Download Pdf
                     </flux:button>
                 @endcan

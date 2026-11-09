@@ -28,6 +28,13 @@ new class extends BasePage {
     {
         return $this->inspection->vehicleInformation?->fuel_type;
     }
+    #[Computed]
+    public function limits(): array
+    {
+        $fuel = $this->inspection->vehicleInformation?->fuel_type?->value;
+
+        return config("test-limits.emission.$fuel", []);
+    }
 
     #[Computed]
     public function calculatedResult(): ?array

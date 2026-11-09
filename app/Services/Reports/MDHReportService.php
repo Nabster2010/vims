@@ -24,7 +24,7 @@ class MDHReportService
             'photos',
         ]);
         $visualInspection = $inspection->visualInspection->visualItemResults;
-        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
         $mdhBasicItems = $inspection->visualInspection
             ->visualItemResults
             ->load('visualItem')
@@ -80,7 +80,11 @@ class MDHReportService
             'manager_name' => $inspection->branch->manager->name ?? '',
             'visual_final_result' => $inspection->visualInspection->result,
             'final_result' => ($inspection->final_result?->value ?? $inspection->final_result) == 'Pass' ? 'مطابق' : 'غير مطابق',
-            'inspection' => $inspection,
+            'engine_no' => $inspection->vehicleInformation->engine_no ?? '--',
+            'engine_displacement' => $inspection->vehicleInformation->engine_displacement ?? '--',
+            'number_of_cylinders' => $inspection->vehicleInformation->number_of_cylinders ?? '--',
+            'category' => $inspection->vehicleInformation->category->name ?? '--',
+            'gross_weight' => $inspection->vehicleInformation->gross_weight ?? '--',
             'mdh_basic_items' => $mdhBasicItems,
             'visual_inspection_groups' => $visualInspectionGroups,
 

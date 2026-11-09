@@ -4,6 +4,8 @@
     $sections = [
         'General Information' => [
             'Report No' => $reportData['report_no'] ?? '',
+            'Final Result' => $reportData['final_result'] ?? '',
+            'Branch' => $reportData['branch'] ?? '',
             'Inspection Type' => $reportData['inspection_type_name'] ?? '',
             'Plate Number' => $reportData['plate_number'] ?? '',
             'VIN' => $reportData['vin'] ?? '',
@@ -15,12 +17,19 @@
             'Model Year' => $reportData['model_year'] ?? '',
             'Vehicle Category' => $reportData['category'] ?? '',
             'Motorcycle Category' => $reportData['motorcycle_category'] ?? '',
+            'Motorcycle Use' => $reportData['motorcycle_use'] ?? '',
             'Color' => $reportData['color'] ?? '',
             'Production Country' => $reportData['productionCountry'] ?? '',
             'Origin Country' => $reportData['originCountry'] ?? '',
             'Shipment Country' => $reportData['shipmentCountry'] ?? '',
             'Vehicle Condition' => $reportData['vehicle_condition'] ?? '',
             'Inspection Date' => $reportData['inspection_date'] ?? '',
+            'Modification Center Name' => $reportData['modification_center_name'] ?? '',
+            'Modification Center Report No' => $reportData['modification_center_report_no'] ?? '',
+            'Old Model' => $reportData['old_model'] ?? '',
+            'New Model' => $reportData['new_model'] ?? '',
+            'Request Origin' => $reportData['request_origin'] ?? '',
+            'Modification Description' => $reportData['modification_description'] ?? '',
         ],
 
         'Powertrain' => [
@@ -33,6 +42,11 @@
             'Engine Power' => $reportData['engine_power'] ?? '',
             'Engine Power RPM' => $reportData['engine_power_rpm'] ?? '',
             'Number of Cylinders' => $reportData['number_of_cylinders'] ?? '',
+            'Front Brake Type' => $reportData['front_brake_type'] ?? '',
+            'Rear Brake Type' => $reportData['rear_brake_type'] ?? '',
+            'Service Brake Type' => $reportData['service_brake'] ?? '',
+            'Emergency Brake Type' => $reportData['emergency_brake'] ?? '',
+            'Maximum Speed' => $reportData['maximum_speed'] ?? '',
         ],
 
         'Electric Vehicle Information' => [
@@ -114,124 +128,8 @@
             'Left Headlight' => $reportData['headlight_left'] ?? '',
             'Right Headlight' => $reportData['headlight_right'] ?? '',
         ],
-
-        // Visual Inspection is rendered separately from:
-        // $reportData['visual_inspection_groups']
     ];
-    // $sections = [
-    //     'General Information' => [
-    //         'Report No' => $reportData['report_no'] ?? '',
-    //         'Inspection Type' => $reportData['inspection_type_name'] ?? '',
-    //         'Plate Number' => $reportData['plate_number'] ?? '',
-    //         'VIN' => $reportData['vin'],
-    //         'Manufacturer' => $reportData['manufacturer'],
-    //         'Model Type' => $reportData['modelType'],
-    //         'Model Division' => $reportData['model_division'] ?? '',
-    //         'Manufacturing Year' => $reportData['manufacturing_year'] ?? '',
-    //         'Manufacturing Month' => $reportData['manufacturing_month'] ?? '',
-    //         'Model Year' => $reportData['model_year'] ?? '',
-    //         'Vehicle Category' => $reportData['category'] ?? '',
-    //         'Motorcycle Category' => $reportData['motorcycle_category'] ?? '',
-    //         'Color' => $reportData['color'] ?? '',
-    //         'Production Country' => $reportData['productionCountry'] ?? '',
-    //         'Origin Country' => $reportData['originCountry'] ?? '',
-    //         'Shipment Country' => $reportData['shipmentCountry'] ?? '',
-    //         'Vehicle Condition' => $reportData['vehicle_condition'] ?? '',
-    //     ],
 
-    //     'Powertrain' => [
-    //         'Fuel Type' => $reportData['fuel_type'] ?? '',
-    //         'Gearbox Type' => $reportData['gearbox_type'] ?? '',
-    //         'Drive Line' => $reportData['drive_line'] ?? '',
-    //         'Air Intake' => $reportData['air_intake'] ?? '',
-    //         'Engine Number' => $reportData['engine_no'] ?? '',
-    //         'Engine Displacement' => $reportData['engine_displacement'] ?? '',
-    //         'Engine Power' => $reportData['engine_power'] ?? '',
-    //         'Engine Power RPM' => $reportData['engine_power_rpm'] ?? '',
-    //         'Number of Cylinders' => $reportData['number_of_cylinders'] ?? '',
-    //     ],
-
-    //     'Electric Vehicle Information' => [
-    //         'Electric Motor Power' => $reportData['electric_motor_power'] ?? '',
-    //         'Battery Type' => $reportData['battery_type'] ?? '',
-    //         'Battery Capacity' => $reportData['battery_capacity'] ?? '',
-    //         'Battery Voltage' => $reportData['battery_voltage'] ?? '',
-    //         'Battery Charge Time' => $reportData['battery_charge_time'] ?? '',
-    //         'Electric Consumption' => $reportData['electric_consumption'] ?? '',
-    //     ],
-
-    //     'Capacity & Dimensions' => [
-    //         'Number of Seats' => $reportData['number_of_seats'] ?? '',
-    //         'Mileage' => $reportData['mileage'] ?? '',
-    //         'Number of Doors' => $reportData['number_of_doors'] ?? '',
-    //         'Number of Axles' => $reportData['number_of_axles'] ?? '',
-    //         'Gross Weight' => $reportData['gross_weight'] ?? '',
-    //         'Curb Weight' => $reportData['curb_weight'] ?? '',
-    //         'Load Weight' => $reportData['load_weight'] ?? '',
-    //         'Front Axle Weight' => $reportData['front_axle_weight'] ?? '',
-    //         'Rear Axle Weight' => $reportData['rear_axle_weight'] ?? '',
-    //         'Other Axle Weight' => $reportData['other_axle_weight'] ?? '',
-    //         'Wheelbase' => $reportData['wheelbase'] ?? '',
-    //         'Length' => $reportData['length'] ?? '',
-    //         'Width' => $reportData['width'] ?? '',
-    //         'Height' => $reportData['height'] ?? '',
-    //         'Front Track Width' => $reportData['front_track_width'] ?? '',
-    //         'Rear Track Width' => $reportData['rear_track_width'] ?? '',
-    //     ],
-
-    //     'Braking & Performance' => [
-    //         'Service Brake' => $reportData['service_brake'] ?? '',
-    //         'Emergency Brake' => $reportData['emergency_brake'] ?? '',
-    //         'Front Brake' => $reportData['front_brake'] ?? '',
-    //         'Rear Brake' => $reportData['rear_brake'] ?? '',
-    //         'Maximum Speed' => $reportData['maximum_speed'] ?? '',
-    //     ],
-
-    //     'Fuel Economy & Compliance' => [
-    //         'Fuel Economy' => $reportData['fuel_economy'] ?? '',
-    //         'Equivalent Fuel Economy' => $reportData['equivalent_fuel_economy'] ?? '',
-    //         'Energy Efficiency Compliance' => $reportData['energy_efficiency_compliance'] ?? '',
-    //         'Fuel Economy Compliance' => $reportData['fuel_economy_compliance'] ?? '',
-    //         'Vehicle Age Compliance' => $reportData['vehicle_age_compliance'] ?? '',
-    //         'Rare Vehicle' => $reportData['is_vehicle_rare'] ?? '',
-    //     ],
-
-    //     'Additional Information' => [
-    //         'Motorcycle Use' => $reportData['motorcycle_use'] ?? '',
-    //         'Remarks' => $reportData['remarks'] ?? '',
-    //         'Inspected By' => $reportData['inspector']?->name ?? '',
-    //         // 'Inspection Date' => optional($reportData['inspection_date'])?->format('d/m/Y') ?? '',
-    //     ],
-
-    //     'Emisson' => [
-    //         'Final Result' => $reportData['emission_final_result'] ?? '',
-    //         'CO' => $reportData['emission_co'] ?? '',
-    //         'HC' => $reportData['emission_hc'] ?? '',
-    //         'Opacity' => $reportData['emission_opacity'] ?? '',
-    //     ],
-    //     'Headlight' => [
-    //         'FinalResult' => $reportData['headlight_final_result'] ?? '',
-    //         'Headlight Left' => $reportData['headlight_left'] ?? '',
-    //         'Headlight Right' => $reportData['headlight_right'] ?? '',
-    //     ],
-    //     'Side Slip' => [
-    //         'Final Result' => $reportData['side_slip_final_result'] ?? '',
-    //         'Side Slip Value' => $reportData['side_slip_value'] ?? '',
-    //     ],
-    //     'Suspension' => [
-    //         'Final Result' => $reportData['suspension_final_result'] ?? '',
-    //         'Suspension Front Right' => $reportData['suspension_fr'] ?? '',
-    //         'Suspension Front Left' => $reportData['suspension_fl'] ?? '',
-    //         'Suspension Rear Right' => $reportData['suspension_rr'] ?? '',
-    //         'Suspension Rear Left' => $reportData['suspension_rl'] ?? '',
-    //     ],
-    //     'Brake' => [
-    //         'Final Result' => $reportData['brake_final_result'] ?? '',
-    //         'Front Brake' => $reportData['front_brake'] ?? '',
-    //         'Rear Brake' => $reportData['rear_brake'] ?? '',
-    //         'Parking Brake' => $reportData['parking_brake'] ?? '',
-    //     ],
-    // ];
 @endphp
 
 <div class="space-y-6">
@@ -304,7 +202,9 @@
 
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="border px-3 py-2">Item</th>
+                            <th class="border px-3 py-2 w-96">Item</th>
+                            <th class="border px-3 py-2  ">Remarks</th>
+                            <th class="border px-3 py-2 w-16">Modified?</th>
                             <th class="border px-3 py-2 w-24">Result</th>
                         </tr>
                     </thead>
@@ -314,6 +214,12 @@
                             <tr>
                                 <td class="border px-3 py-2">
                                     {{ $item->visualItem?->name ?? '—' }}
+                                </td>
+                                <td class="border px-3 py-2">
+                                    {{ $item->remarks ?? '—' }}
+                                </td>
+                                <td class="border px-3 py-2">
+                                    {{ $item->is_modified ? 'Yes' : 'No' }}
                                 </td>
 
                                 <td class="border px-3 py-2">

@@ -1,17 +1,41 @@
-    <details
-        class="group border border-slate-200 bg-white rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden"
-        close>
-        <summary
-            class="flex uppercase bg-slate-50 items-center justify-between p-5 text-slate-800 font-medium cursor-pointer list-none hover:bg-slate-100 transition-colors duration-200">
-            <span>{{ $title }}</span>
-            <span class="transition duration-300 group-open:-rotate-180">
-                <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                    class="w-5 h-5 text-slate-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                </svg>
-            </span>
-        </summary>
-        <div class="p-5 pt-0 border-t border-slate-100 text-sm text-slate-600 leading-relaxed">
-            {{ $slot }}
+@props(['title', 'count' => null, 'defaultOpen' => false])
+
+<div x-data="{ open: @js($defaultOpen) }"
+    class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+
+    <button type="button" @click="open = !open"
+        class="flex w-full items-center justify-between bg-slate-50 px-5 py-4 transition hover:bg-slate-100 dark:bg-zinc-800 dark:hover:bg-zinc-700">
+
+        <div class="flex items-center gap-3">
+
+            <h3 class="text-sm font-semibold uppercase tracking-wide">
+                {{ $title }}
+            </h3>
+
+            @if ($count)
+                <span
+                    class="rounded-full bg-slate-200 px-2 py-1 text-xs font-medium text-slate-700 dark:bg-zinc-700 dark:text-zinc-200">
+
+                    {{ $count }} Items
+
+                </span>
+            @endif
+
         </div>
-    </details>
+
+        <flux:icon.chevron-down class="h-5 w-5 transition-transform duration-200"
+            x-bind:class="{ 'rotate-180': open }" />
+
+    </button>
+
+    <div x-show="open" x-collapse x-cloak>
+
+        <div class="border-t border-slate-200 p-5 dark:border-zinc-700">
+
+            {{ $slot }}
+
+        </div>
+
+    </div>
+
+</div>

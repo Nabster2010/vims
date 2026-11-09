@@ -4,7 +4,8 @@
         Motorcycle Information
     </flux:heading>
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+
 
         <flux:select wire:model.live="form.motorcycle_use" label="Motorcycle Use">
 

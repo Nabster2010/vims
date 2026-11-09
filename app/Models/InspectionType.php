@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class InspectionType extends Model
 {
@@ -34,6 +35,10 @@ class InspectionType extends Model
             ])
             ->orderByPivot('sort_order')
             ->withTimestamps();
+    }
+    public function inspections(): HasMany
+    {
+        return $this->hasMany(Inspection::class);
     }
 
     public function scopeActive(Builder $query): Builder

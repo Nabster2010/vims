@@ -43,7 +43,7 @@ return new class extends Migration
 | Inspection Type Specific Fields
 |--------------------------------------------------------------------------
             */
-            $table->string('request_no')->nullable();
+            $table->string('request_no')->nullable()->index();
 
             $table->date('request_date')->nullable();
 
@@ -56,7 +56,7 @@ return new class extends Migration
             $table->boolean('is_authorized_modification_center')
                 ->default(false);
 
-            $table->string('custom_declaration_no')->nullable();
+            $table->string('custom_declaration_no')->nullable()->index();
 
             $table->date('custom_declaration_date')->nullable();
 
@@ -84,9 +84,9 @@ return new class extends Migration
 
             $table->string('owner_id', 20)->nullable();
 
-            $table->string('status');
+            $table->string('status')->index();
 
-            $table->string('final_result')->nullable();
+            $table->string('final_result')->nullable()->index();
 
             $table->foreignId('created_by')
                 ->constrained('users')
@@ -102,7 +102,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->restrictOnDelete();
 
-            $table->timestamp('registered_at');
+            $table->timestamp('registered_at')->index();
 
             $table->timestamp('inspection_started_at')->nullable();
 
@@ -118,8 +118,15 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->index('status');
-            $table->index('registered_at');
+            $table->index(['branch_id', 'status']);
+
+            $table->index(['inspection_type_id', 'status']);
+
+            $table->index(['branch_id', 'registered_at']);
+
+            $table->index(['inspector_id', 'status']);
+
+            $table->index(['status', 'registered_at']);
         });
     }
 

@@ -25,7 +25,7 @@ class MDLReportService
         ]);
 
         $visualInspection = $inspection->visualInspection->visualItemResults;
-        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
         $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_economy', 'other'];
 
         $mdlBasicItems = $inspection->visualInspection
@@ -103,6 +103,11 @@ class MDLReportService
             'final_result' => ($inspection->final_result?->value ?? $inspection->final_result) == 'Pass' ? 'مطابق' : 'غير مطابق',
             'inspection' => $inspection,
             'visual_inspection_groups' => $visualInspectionGroups,
+            'engine_no' => $inspection->vehicleInformation->engine_no ?? '--',
+            'engine_displacement' => $inspection->vehicleInformation->engine_displacement ?? '--',
+            'number_of_cylinders' => $inspection->vehicleInformation->number_of_cylinders ?? '--',
+            'category' => $inspection->vehicleInformation->category->name ?? '--',
+            'gross_weight' => $inspection->vehicleInformation->gross_weight ?? '--',
             'left_categories' => $leftCategories,
             'mdl_basic_items' => $mdlBasicItems,
 

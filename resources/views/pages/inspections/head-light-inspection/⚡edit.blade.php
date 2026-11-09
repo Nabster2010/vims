@@ -21,6 +21,13 @@ new class extends BasePage {
         $this->inspection = $inspection->loadMissing('headLightInspection', 'vehicleInformation');
         $this->form->fillFromInspection($this->inspection);
     }
+    #[Computed]
+    public function limits(): array
+    {
+        $fuel = $this->inspection->vehicleInformation?->fuel_type?->value;
+
+        return config('test-limits.headLight', []);
+    }
 
     #[Computed]
     public function calculatedResult(): ?array
@@ -56,10 +63,15 @@ new class extends BasePage {
                 </flux:heading>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.left" type="text" label="Left (cd)" />
+                        <x-inspection.test-limit :limit="$this->limits['left'] ?? null" />
+                    </div>
 
-                    <flux:input wire:model.live.debounce.500ms="form.left" type="text" label="Left (cd)" />
-
-                    <flux:input wire:model.live.debounce.500ms="form.right" type="text" label="Right (cd)" />
+                    <div>
+                        <flux:input wire:model.live.debounce.500ms="form.right" type="text" label="Right (cd)" />
+                        <x-inspection.test-limit :limit="$this->limits['right'] ?? null" />
+                    </div>
                 </div>
 
             </flux:card>

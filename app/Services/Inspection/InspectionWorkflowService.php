@@ -3,6 +3,7 @@
 namespace App\Services\Inspection;
 
 use App\Enums\InspectionModule;
+use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
 use App\Models\Inspection;
 
@@ -44,7 +45,7 @@ class InspectionWorkflowService
 
         $inspection->update([
             'status' => InspectionStatus::InProgress,
-            'final_result' => null,
+            'final_result' => InspectionResult::Pending,
         ]);
     }
 

@@ -13,6 +13,7 @@ use Flux\Flux;
 new class extends BasePage {
     public Inspection $inspection;
     public VisualInspectionForm $form;
+    public array $expandedRemarks = [];
 
     public function mount(Inspection $inspection): void
     {
@@ -69,32 +70,80 @@ new class extends BasePage {
 
 
                 @foreach ($this->groupedVisualItems as $category => $items)
-                    <x-ui.accordion :title="$category">
+                    <x-ui.accordion :title="$category" :count="$items->count()">
                         <div class="mt-4 space-y-4">
                             @foreach ($items as $item)
-                                <div class="border-b border-zinc-200 pb-4 last:border-0 space-y-4">
+                                {{--  --}}
 
-                                    <flux:heading size="sm">
+                                <div class="border-b border-zinc-200 py-3 last:border-0">
 
-                                        {{ $item->name }}
+                                    <div class="grid items-center gap-4 md:grid-cols-12">
 
-                                    </flux:heading>
+                                        {{-- Item --}}
+                                        <div class="md:col-span-4">
 
-                                    <flux:select wire:model.live="form.items.{{ $item->id }}.result">
-                                        {{-- loop through enum --}}
-                                        <option value="{{ \App\Enums\InspectionResult::Pass->value }}">PASS</option>
-                                        <option value="{{ \App\Enums\InspectionResult::Fail->value }}">FAIL</option>
-                                        <option value="{{ \App\Enums\InspectionResult::NotApplicable->value }}">N/A
-                                        </option>
+                                            <flux:text class="font-medium">
+                                                {{ $item->name }}
+                                            </flux:text>
 
-                                    </flux:select>
+                                        </div>
 
-                                    <flux:textarea wire:model="form.items.{{ $item->id }}.remarks"
-                                        label="Remarks" />
-                                    <flux:checkbox wire:model="form.items.{{ $item->id }}.is_modified"
-                                        label="Is Modified" />
+                                        {{-- Result --}}
+                                        <div class="md:col-span-4">
+
+                                            <div class="flex gap-2">
+
+                                                <flux:button type="button" size="sm"
+                                                    variant="{{ ($form->items[$item->id]['result'] ?? null) === \App\Enums\InspectionResult::Pass->value ? 'primary' : 'ghost' }}"
+                                                    wire:click="$set('form.items.{{ $item->id }}.result', '{{ \App\Enums\InspectionResult::Pass->value }}')">
+                                                    PASS
+                                                </flux:button>
+
+                                                <flux:button type="button" size="sm"
+                                                    variant="{{ ($form->items[$item->id]['result'] ?? null) === \App\Enums\InspectionResult::Fail->value ? 'danger' : 'ghost' }}"
+                                                    wire:click="$set('form.items.{{ $item->id }}.result', '{{ \App\Enums\InspectionResult::Fail->value }}')">
+                                                    FAIL
+                                                </flux:button>
+
+                                                <flux:button type="button" size="sm"
+                                                    variant="{{ ($form->items[$item->id]['result'] ?? null) === \App\Enums\InspectionResult::NotApplicable->value ? 'filled' : 'ghost' }}"
+                                                    wire:click="$set('form.items.{{ $item->id }}.result', '{{ \App\Enums\InspectionResult::NotApplicable->value }}')">
+                                                    N/A
+                                                </flux:button>
+
+                                            </div>
+
+                                        </div>
+
+                                        {{-- Modified --}}
+                                        <div class="md:col-span-2">
+
+                                            <flux:checkbox wire:model.live="form.items.{{ $item->id }}.is_modified"
+                                                label="Modified" />
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <flux:button type="button" size="sm" variant="ghost"
+                                                wire:click="$toggle('expandedRemarks.{{ $item->id }}')"
+                                                :icon="($expandedRemarks[$item->id] ?? false) ? 'chevron-up' : 'chevron-down'">
+                                                More
+                                            </flux:button>
+
+                                        </div>
+                                    </div>
+
+                                    @if ($expandedRemarks[$item->id] ?? false)
+                                        <div class="mt-3">
+
+                                            <flux:textarea wire:model="form.items.{{ $item->id }}.remarks"
+                                                placeholder="Remarks..." />
+
+                                        </div>
+                                    @endif
+
                                 </div>
                             @endforeach
+                            {{--  --}}
+
 
                         </div>
                     </x-ui.accordion>

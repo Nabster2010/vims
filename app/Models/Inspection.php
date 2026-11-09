@@ -113,6 +113,7 @@ class Inspection extends Model
         $this->emissionInspection()->delete();
         $this->update([
             'final_result' => null,
+            'status' => InspectionStatus::InProgress,
         ]);
     }
 

@@ -16,7 +16,7 @@ class ReportPdfController
 {
     public function __invoke(Inspection $inspection)
     {
-        Gate::authorize('viewReport', $inspection);
+        Gate::authorize('printReport', $inspection);
 
         // we will use it to return inspection type specific data to report
         $reportDate = match ($inspection->inspectionType->code) {

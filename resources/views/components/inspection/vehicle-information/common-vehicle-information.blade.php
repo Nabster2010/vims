@@ -5,15 +5,18 @@
     </flux:heading>
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <flux:input wire:model.blur="form.inspection_date" label="Inspection Date" type="date" />
+        @if ($this->inspection->inspectionType->code !== 'TRL')
+            <flux:select wire:model.live="form.fuel_type" label="Fuel Type">
+                <option value="">Select Fuel Type</option>
+                @foreach ($this->fuelTypes as $fuelType)
+                    <option value="{{ $fuelType->value }}">
+                        {{ $fuelType->value }}
+                    </option>
+                @endforeach
+            </flux:select>
 
-        <flux:select wire:model.live="form.fuel_type" label="Fuel Type">
-            <option value="">Select Fuel Type</option>
-            @foreach ($this->fuelTypes as $fuelType)
-                <option value="{{ $fuelType->value }}">
-                    {{ $fuelType->value }}
-                </option>
-            @endforeach
-        </flux:select>
+        @endif
+
         <flux:select wire:model.live="form.manufacturer_id" label="Manufacturer">
             <option value="">Select Manufacturer</option>
             @foreach ($this->manufacturers as $manufacturer)
