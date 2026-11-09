@@ -50,21 +50,21 @@
 
         <td class="signature-image-cell">
 
-            <img src="{{ asset($reportData['inspector_name'] . '-signature' . '.jpeg') }}" class="signature-image"
-                alt="Inspector Signature">
+            <img src="{{ asset('images/' . $reportData['inspector_name'] . '-signature' . '.jpeg') }}"
+                class="signature-image" alt="Inspector Signature">
 
         </td>
 
         <td class="signature-image-cell">
 
-            <img src="{{ asset($reportData['branch_code'] . '-stamp' . '.jpeg') }}" class="signature-image"
+            <img src="{{ asset('images/' . $reportData['branch_code'] . '-stamp' . '.jpeg') }}" class="signature-image"
                 alt="Stamp">
 
         </td>
 
         <td class="signature-image-cell">
-            <img src="{{ asset($reportData['manager_name'] . '-signature' . '.jpeg') }}" class="signature-image"
-                alt="Manager Signature">
+            <img src="{{ asset('images/' . $reportData['manager_name'] . '-signature' . '.jpeg') }}"
+                class="signature-image" alt="Manager Signature">
 
         </td>
 

@@ -60,7 +60,7 @@
 
             <td class="footer-center">
 
-                <img src="{{ asset('tahaqoq-logo.png') }}" alt="TAHAQOQ">
+                <img src="{{ asset('images/tahaqoq-logo.png') }}" alt="TAHAQOQ">
 
                 <div class="footer-page">
 
