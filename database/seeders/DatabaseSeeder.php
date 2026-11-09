@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
 
             SuperAdminSeeder::class,
+            InspectionTypeVisualItemSeeder::class,
         ]);
     }
 }
