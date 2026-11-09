@@ -20,30 +20,30 @@
 
     <div class="grid grid-cols-2 gap-4">
 
-        <div class="rounded-lg bg-zinc-50 p-4 dark:bg-zinc-800/50">
-            <div class="text-sm text-zinc-500">Registered</div>
+        <div class="rounded-lg bg-zinc-50 p-4 dark:bg-zinc-950/30">
+            <div class="text-sm text-zinc-500 dark:text-zinc-400">Registered</div>
             <div class="mt-1 text-2xl font-bold">
                 {{ number_format($registered) }}
             </div>
         </div>
 
-        <div class="rounded-lg bg-zinc-50 p-4 dark:bg-zinc-800/50">
-            <div class="text-sm text-zinc-500">In Progress</div>
-            <div class="mt-1 text-2xl font-bold">
+        <div class="rounded-lg bg-blue-50 p-4 dark:bg-blue-950/30">
+            <div class="text-sm text-blue-700 dark:text-blue-300">In Progress</div>
+            <div class="mt-1 text-2xl font-bold text-blue-700 dark:text-blue-300">
                 {{ number_format($inProgress) }}
             </div>
         </div>
 
-        <div class="rounded-lg bg-zinc-50 p-4 dark:bg-zinc-800/50">
-            <div class="text-sm text-zinc-500">Pending Approval</div>
-            <div class="mt-1 text-2xl font-bold">
+        <div class="rounded-lg bg-amber-50 p-4 dark:bg-amber-950/30">
+            <div class="text-sm text-amber-700 dark:text-amber-300">Pending Approval</div>
+            <div class="mt-1 text-2xl font-bold text-amber-700 dark:text-amber-300">
                 {{ number_format($pendingApproval) }}
             </div>
         </div>
 
-        <div class="rounded-lg bg-zinc-50 p-4 dark:bg-zinc-800/50">
-            <div class="text-sm text-zinc-500">Reinspection</div>
-            <div class="mt-1 text-2xl font-bold">
+        <div class="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950/30">
+            <div class="text-sm text-red-700 dark:text-red-300">Reinspection</div>
+            <div class="mt-1 text-2xl font-bold text-red-700 dark:text-red-300">
                 {{ number_format($reinspection) }}
             </div>
         </div>
