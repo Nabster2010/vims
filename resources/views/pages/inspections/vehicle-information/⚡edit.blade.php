@@ -106,9 +106,14 @@ new class extends BasePage {
         return VehicleCondition::cases();
     }
     // reset model type when manufacturer changes
+
     public function updatedFormManufacturerId(): void
     {
         $this->form->model_type_id = null;
+
+        $manufacturer = $this->manufacturers->firstWhere('id', $this->form->manufacturer_id);
+
+        $this->form->origin_country_id = $manufacturer?->country_id;
     }
 
     public function save(): void

@@ -56,14 +56,15 @@ new class extends BasePage {
                 <flux:input wire:model="form.name_ar" label="Arabic Name" required />
 
                 <flux:input wire:model="form.code" label="Code" required />
+                <flux:input wire:model="form.standard" label="Standard" />
 
                 <flux:input wire:model="form.category" label="Category" />
 
                 <flux:input wire:model="form.category_ar" label="Arabic Category" />
 
-                <flux:input wire:model="form.category" label="Category" />
+                <flux:textarea wire:model="form.description" label="Description" />
 
-                <flux:input wire:model="form.category_ar" label="Arabic Category" />
+                <flux:textarea wire:model="form.description_ar" label="Arabic Description" />
 
                 <flux:input wire:model="form.sort_order" type="number" label="Sort Order" />
             </div>

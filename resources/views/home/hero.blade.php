@@ -4,10 +4,8 @@
     <div class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
 
         <div class="mx-auto max-w-4xl text-center">
-
-            <div
-                class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-zinc-900 text-5xl font-black text-white dark:bg-white dark:text-zinc-900">
-                V
+            <div class="mb-8 flex justify-center items-center gap-3">
+                <img src="{{ asset('images/vims-logo.png') }}" alt="VIMS" class="h-20 w-auto" />
             </div>
 
             <h1 class="text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl">

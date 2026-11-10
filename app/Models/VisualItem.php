@@ -12,8 +12,11 @@ class VisualItem extends Model
         'name',
         'name_ar',
         'code',
+        'standard',
         'category',
         'category_ar',
+        'description',
+        'description_ar',
         'sort_order',
         'is_active',
     ];

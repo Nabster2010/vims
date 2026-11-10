@@ -367,7 +367,7 @@ class VehicleInformationForm extends Form
 
         $this->inspectionTypeCode = $inspection->inspectionType->code;
         $this->validate();
-        $old_fuel_type = $inspection->vehicleInformation?->fuel_type;
+        $oldFuelType = $inspection->vehicleInformation?->fuel_type;
         $vehicle = $inspection->vehicleInformation()->updateOrCreate(
             [],
             [
@@ -376,7 +376,7 @@ class VehicleInformationForm extends Form
             ]
         );
 
-        if ($old_fuel_type !== $this->fuel_type) {
+        if ($oldFuelType !== $this->fuel_type) {
             $inspection->resetEmissionInspection();
         }
         app(InspectionWorkflowService::class)

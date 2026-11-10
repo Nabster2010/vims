@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('visual_items', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
             $table->string('name_ar')->after('name')->nullable();
             $table->string('code')->unique();
+            $table->string('standard')->nullable();
             $table->string('category')->nullable();
             $table->string('category_ar')->nullable();
             $table->text('description')->nullable();

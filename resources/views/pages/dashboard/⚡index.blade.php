@@ -14,15 +14,27 @@ new #[Title('Dashboard')] class extends BasePage {
     public function stats(): array
     {
         return [
-            'inspections' => Inspection::count(),
+            'inspections' => Inspection::where('branch_id', auth()->user()->branch_id)->count(),
             'customers' => Customer::count(),
-            'users' => User::count(),
-            'today' => Inspection::whereDate('created_at', today())->count(),
-            'registered' => Inspection::where('status', InspectionStatus::Registered)->count(),
-            'in_progress' => Inspection::where('status', InspectionStatus::InProgress)->count(),
-            'pending_approval' => Inspection::where('status', InspectionStatus::PendingApproval)->count(),
-            'reinspection' => Inspection::where('status', InspectionStatus::Reinspection)->count(),
-            'approved' => Inspection::where('status', InspectionStatus::Approved)->count(),
+            'users' => User::where('branch_id', auth()->user()->branch_id)->count(),
+            'today' => Inspection::whereDate('created_at', today())
+                ->where('branch_id', auth()->user()->branch_id)
+                ->count(),
+            'registered' => Inspection::where('status', InspectionStatus::Registered)
+                ->where('branch_id', auth()->user()->branch_id)
+                ->count(),
+            'in_progress' => Inspection::where('status', InspectionStatus::InProgress)
+                ->where('branch_id', auth()->user()->branch_id)
+                ->count(),
+            'pending_approval' => Inspection::where('status', InspectionStatus::PendingApproval)
+                ->where('branch_id', auth()->user()->branch_id)
+                ->count(),
+            'reinspection' => Inspection::where('status', InspectionStatus::Reinspection)
+                ->where('branch_id', auth()->user()->branch_id)
+                ->count(),
+            'approved' => Inspection::where('status', InspectionStatus::Approved)
+                ->where('branch_id', auth()->user()->branch_id)
+                ->count(),
             'branches' => Branch::count(),
         ];
     }
@@ -32,6 +44,7 @@ new #[Title('Dashboard')] class extends BasePage {
     {
         return Inspection::query()
             ->with(['customer', 'inspectionType', 'branch'])
+            ->where('branch_id', auth()->user()->branch_id)
             ->latest()
             ->take(10)
             ->get();
@@ -42,6 +55,7 @@ new #[Title('Dashboard')] class extends BasePage {
         return Inspection::query()
             ->with(['customer', 'inspectionType'])
             ->whereDate('created_at', today())
+            ->where('branch_id', auth()->user()->branch_id)
             ->latest()
             ->take(10)
             ->get();

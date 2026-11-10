@@ -2,6 +2,7 @@
 
 namespace App\Services\Inspection;
 
+use App\Enums\CustomerType;
 use App\Enums\InspectionModule;
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
@@ -15,12 +16,22 @@ use App\Services\VisualInspectionCalculator;
 
 class InspectionEvaluationService
 {
+
     public function __construct(
         private InspectionRequiredModulesService $requiredModules,
+        private BrakeInspectionCalculator $brakeCalculator,
+        private EmissionInspectionCalculator $emissionCalculator,
+        private HeadLightInspectionCalculator $headLightCalculator,
+        private SideSlipInspectionCalculator $sideSlipCalculator,
+        private SuspensionInspectionCalculator $suspensionCalculator,
+        private VehicleInformationComplianceCalculator $vehicleCalculator,
+        private VisualInspectionCalculator $visualCalculator,
     ) {}
 
     public function evaluate(Inspection $inspection): array
     {
+
+
         $inspection->load([
             'inspectionType',
             'vehicleInformation',
@@ -29,7 +40,7 @@ class InspectionEvaluationService
             'sideSlipInspection',
             'suspensionInspection',
             'brakeInspection',
-            'visualInspection.visualItemResults',
+            'visualInspection.visualItemResults.visualItem',
             'photos',
             'customer',
         ]);
@@ -110,8 +121,7 @@ class InspectionEvaluationService
                     'result' => InspectionResult::Pending,
                     'failedItems' => [],
                 ]
-                : app(VehicleInformationComplianceCalculator::class)
-                ->calculate($inspection),
+                : $this->vehicleCalculator->calculate($inspection),
 
             /*
             |--------------------------------------------------------------------------
@@ -124,7 +134,7 @@ class InspectionEvaluationService
                     'result' => InspectionResult::Pending,
                     'failedItems' => [],
                 ]
-                : app(BrakeInspectionCalculator::class)->calculate([
+                : $this->brakeCalculator->calculate([
                     'front' => $inspection->brakeInspection->front,
                     'rear' => $inspection->brakeInspection->rear,
                     'parking' => $inspection->brakeInspection->parking,
@@ -144,7 +154,7 @@ class InspectionEvaluationService
                     'result' => InspectionResult::Pending,
                     'failedItems' => [],
                 ]
-                : app(EmissionInspectionCalculator::class)->calculate(
+                : $this->emissionCalculator->calculate(
                     $inspection->vehicleInformation->fuel_type,
                     [
                         'hc' => $inspection->emissionInspection->hc,
@@ -165,7 +175,7 @@ class InspectionEvaluationService
                     'result' => InspectionResult::Pending,
                     'failedItems' => [],
                 ]
-                : app(HeadLightInspectionCalculator::class)->calculate([
+                : $this->headLightCalculator->calculate([
                     'left' => $inspection->headLightInspection->left,
                     'right' => $inspection->headLightInspection->right,
                 ]),
@@ -181,7 +191,7 @@ class InspectionEvaluationService
                     'result' => InspectionResult::Pending,
                     'failedItems' => [],
                 ]
-                : app(SideSlipInspectionCalculator::class)->calculate([
+                :   $this->sideSlipCalculator->calculate([
                     'value' => $inspection->sideSlipInspection->value,
                 ]),
 
@@ -196,7 +206,7 @@ class InspectionEvaluationService
                     'result' => InspectionResult::Pending,
                     'failedItems' => [],
                 ]
-                : app(SuspensionInspectionCalculator::class)->calculate([
+                : $this->suspensionCalculator->calculate([
                     'front_left' => $inspection->suspensionInspection->front_left,
                     'front_right' => $inspection->suspensionInspection->front_right,
                     'rear_left' => $inspection->suspensionInspection->rear_left,
@@ -219,13 +229,18 @@ class InspectionEvaluationService
                     $items = [];
 
                     foreach ($inspection->visualInspection->visualItemResults as $item) {
+                        if ($item->visualItem->code === 'FUEL-ECONOMY-STANDARD' && $inspection->customer->customer_type->value === CustomerType::INDIVIDUAL->value) {
+                            //skip this item for individual customers
+                            continue;
+                        }
+
+
                         $items[$item->visual_item_id] = [
                             'result' => $item->result,
                         ];
                     }
 
-                    return app(VisualInspectionCalculator::class)
-                        ->calculate($items);
+                    return $this->visualCalculator->calculate($items);
                 })(),
 
             /*

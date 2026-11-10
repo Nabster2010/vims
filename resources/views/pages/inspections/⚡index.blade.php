@@ -106,7 +106,7 @@ new #[Title('Inspections')] class extends BasePage {
     }
     public function resetFilters(): void
     {
-        $this->reset('search', 'status', 'inspectionTypeId', 'branchId', 'fromDate', 'toDate', 'finalResult', 'createdBy');
+        $this->reset('search', 'status', 'inspectionTypeId', 'branchId', 'fromDate', 'toDate', 'finalResult');
 
         $this->sort = 'registered_at';
         $this->direction = 'desc';

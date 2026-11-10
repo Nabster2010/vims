@@ -53,7 +53,9 @@
             <div class="grid items-end gap-4 md:grid-cols-12">
 
                 <div class="md:col-span-2">
-                    <flux:select wire:model.live="branchId" label="Branch">
+
+                    <flux:select wire:model.live="branchId" label="Branch"
+                        :disabled="auth()->user()->role !== \App\Enums\UserRole::SuperAdmin">
                         <option value="">All Branches</option>
 
                         @foreach ($this->branches as $branch)
@@ -62,6 +64,7 @@
                             </option>
                         @endforeach
                     </flux:select>
+
                 </div>
 
                 <div class="md:col-span-2">

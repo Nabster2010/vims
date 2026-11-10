@@ -21,6 +21,7 @@ class VisualInspectionCalculator
 
         foreach ($items as $visualItemId => $item) {
 
+
             $result = $item['result'] ?? null;
 
             if (blank($result)) {
@@ -37,11 +38,6 @@ class VisualInspectionCalculator
                 $visualItem = VisualItem::find($visualItemId);
 
                 $failedItems[] = $visualItem?->name;
-                // [
-                //     'id' => $visualItemId,
-                //     'name' => $visualItem?->name,
-                //      'name_ar' => $visualItem?->name_ar,
-                // ];
             }
         }
 

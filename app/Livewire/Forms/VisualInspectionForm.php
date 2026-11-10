@@ -34,6 +34,7 @@ class VisualInspectionForm extends Form
             ->orderBy('visual_items.sort_order')
             ->get();
         foreach ($visualItems as $item) {
+
             $this->items[$item->id] = [
                 'result' => InspectionResult::Pass->value,
                 'remarks' => null,
