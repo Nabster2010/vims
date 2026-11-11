@@ -19,6 +19,10 @@ class VisualInspectionCalculator
         $failedItems = [];
         $hasValues = false;
 
+
+        $names = VisualItem::whereIn('id', array_keys($items))
+            ->pluck('name', 'id');
+
         foreach ($items as $visualItemId => $item) {
 
 
@@ -35,9 +39,7 @@ class VisualInspectionCalculator
                 $result === InspectionResult::Fail
             ) {
 
-                $visualItem = VisualItem::find($visualItemId);
-
-                $failedItems[] = $visualItem?->name;
+                $failedItems[] = $names[$visualItemId] ?? null;
             }
         }
 

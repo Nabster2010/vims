@@ -27,6 +27,12 @@ class VehicleInformationComplianceCalculator
             ) {
                 continue;
             }
+            if (
+                $field === 'vehicle_age_compliance'
+
+            ) {
+                continue;
+            }
 
             $failedItems[] = $field;
         }
