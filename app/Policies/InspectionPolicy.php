@@ -129,7 +129,7 @@ class InspectionPolicy
         ]) && $inspection->status === InspectionStatus::Approved && in_array($inspection->final_result, [
             InspectionResult::Pass,
             InspectionResult::Fail,
-        ]) && $user->branch_id === $inspection->branch_id;
+        ]) && ($user->branch_id === $inspection->branch_id || $user->role === UserRole::SuperAdmin);
     }
 
     public function viewReport(User $user, Inspection $inspection): bool
@@ -145,6 +145,6 @@ class InspectionPolicy
         ])  && in_array($inspection->final_result, [
             InspectionResult::Pass,
             InspectionResult::Fail,
-        ]) && $user->branch_id === $inspection->branch_id;
+        ]) && ($user->branch_id === $inspection->branch_id || $user->role === UserRole::SuperAdmin);
     }
 }

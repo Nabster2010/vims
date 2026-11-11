@@ -10,12 +10,7 @@
             <td>{{ $reportData['number_of_seats'] }}</td>
             <th>عدد الركاب</th>
         </tr>
-        <tr>
 
-
-            <td>{{ $reportData['fuel_type'] }}</td>
-            <th>نوع الوقود</th>
-        </tr>
 
         <tr>
             <td>{{ $reportData['mileage'] }}</td>
@@ -51,10 +46,10 @@
 
     <table class="info-table info-right">
 
-        <tr>
+        {{-- <tr>
             <td>{{ $reportData['branch'] }}</td>
             <th>مكان الفحص</th>
-        </tr>
+        </tr> --}}
 
         <tr>
             <td>{{ $reportData['customPort'] }}</td>
@@ -85,6 +80,11 @@
             <td>{{ $reportData['customer'] }}</td>
             <th>اسم المستورد</th>
         </tr>
+        <tr>
+            <td>{{ $reportData['fuel_type'] }}</td>
+            <th>نوع الوقود</th>
+        </tr>
+
 
     </table>
 

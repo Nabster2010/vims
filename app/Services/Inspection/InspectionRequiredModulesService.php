@@ -18,7 +18,6 @@ class InspectionRequiredModulesService
             "inspection-modules.{$inspection->inspectionType->code}",
             [],
         );
-        //if fuel type is diesel, remove emission inspection
         if ($fuelType === FuelType::Ev) {
             $modules = array_filter($modules, fn($module) => $module !== InspectionModule::EmissionInspection);
         }
