@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Enums\InspectionResult;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SideSlipInspection extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'inspection_id',
         'value',

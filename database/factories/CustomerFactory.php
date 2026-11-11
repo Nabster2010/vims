@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\CustomerType;
+use App\Enums\IdentityType;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -13,11 +14,11 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'customer_type'   => CustomerType::COMPANY,
-            'identity_type'   => 'Commercial Registration',
-            'name'            => fake()->company(),
+            'customer_type'   => CustomerType::INDIVIDUAL,
+            'identity_type'   => IdentityType::NationalID,
+            'name'            => fake()->name(),
             'identity_number' => fake()->unique()->numerify('##########'),
-            'vat_number'      => fake()->numerify('###############'),
+            'vat_number'      => null,
             'mobile'          => '05' . fake()->numerify('########'),
             'email'           => fake()->safeEmail(),
             'address'         => fake()->address(),
@@ -30,7 +31,7 @@ class CustomerFactory extends Factory
     {
         return $this->state(fn() => [
             'customer_type' => CustomerType::COMPANY,
-            'identity_type' => 'Commercial Registration',
+            'identity_type' => IdentityType::CommercialRegistration,
             'name' => fake()->company(),
             'vat_number' => fake()->numerify('###############'),
         ]);
@@ -40,7 +41,7 @@ class CustomerFactory extends Factory
     {
         return $this->state(fn() => [
             'customer_type' => CustomerType::INDIVIDUAL,
-            'identity_type' => 'National ID',
+            'identity_type' => IdentityType::NationalID,
             'name' => fake()->name(),
             'vat_number' => null,
         ]);

@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Enums\PhotoType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Photo extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'inspection_id',
         'photo_type',
