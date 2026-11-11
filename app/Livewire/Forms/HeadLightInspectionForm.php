@@ -51,6 +51,7 @@ class HeadLightInspectionForm extends Form
             'remarks' => ['nullable', 'string'],
         ];
     }
+
     /**
      * @return array<string, mixed>
      */
@@ -69,9 +70,9 @@ class HeadLightInspectionForm extends Form
         $this->validate();
         $result =
             app(HeadlightInspectionCalculator::class)
-            ->calculate(
-                $this->data(),
-            );
+                ->calculate(
+                    $this->data(),
+                );
         $data = [
             ...$this->data(),
             'inspected_by' => Auth::id(),

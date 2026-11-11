@@ -71,6 +71,7 @@ class CountryForm extends Form
 
         ];
     }
+
     /**
      * @return array<string, mixed>
      */
