@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
-use App\Models\VisualItem;
 use App\Services\Inspection\InspectionWorkflowService;
 use App\Services\VisualInspectionCalculator;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +13,6 @@ use Livewire\Form;
 
 class VisualInspectionForm extends Form
 {
-
     // 1. Items array structure: [item_id => ['result' => 'Pass|Fail', 'remarks' => '...']]
     public array $items = [];
 
@@ -24,8 +22,7 @@ class VisualInspectionForm extends Form
 
     public bool $is_modified = false;
 
-
-    //this will initialize the items array with all active visual items related to specific inspection type 
+    // this will initialize the items array with all active visual items related to specific inspection type
     private function initializeItems(Inspection $inspection): void
     {
         $visualItems = $inspection->inspectionType->visualItems()
@@ -81,7 +78,7 @@ class VisualInspectionForm extends Form
         foreach ($this->items as $itemId => $item) {
             $rules["items.{$itemId}.result"] = [
                 'required',
-                new Enum(InspectionResult::class)
+                new Enum(InspectionResult::class),
             ];
             $rules["items.{$itemId}.remarks"] = ['nullable', 'string'];
             $rules["items.{$itemId}.is_modified"] = ['nullable', 'boolean'];

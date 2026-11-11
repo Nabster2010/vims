@@ -24,6 +24,7 @@ class InspectionService
         $data['status'] = InspectionStatus::Registered;
         $data['registered_at'] = now();
         $data['final_result'] = InspectionResult::Pending;
+
         return Inspection::create($data);
     }
 
@@ -39,6 +40,7 @@ class InspectionService
                 ->regenerate($inspection, $code);
         }
         $inspection->update($data);
+
         return $inspection->fresh();
     }
 }

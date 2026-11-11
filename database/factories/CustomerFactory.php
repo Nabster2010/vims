@@ -14,22 +14,22 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'customer_type'   => CustomerType::INDIVIDUAL,
-            'identity_type'   => IdentityType::NationalID,
-            'name'            => fake()->name(),
+            'customer_type' => CustomerType::INDIVIDUAL,
+            'identity_type' => IdentityType::NationalID,
+            'name' => fake()->name(),
             'identity_number' => fake()->unique()->numerify('##########'),
-            'vat_number'      => null,
-            'mobile'          => '05' . fake()->numerify('########'),
-            'email'           => fake()->safeEmail(),
-            'address'         => fake()->address(),
-            'notes'           => null,
-            'is_active'       => true,
+            'vat_number' => null,
+            'mobile' => '05'.fake()->numerify('########'),
+            'email' => fake()->safeEmail(),
+            'address' => fake()->address(),
+            'notes' => null,
+            'is_active' => true,
         ];
     }
 
     public function company(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'customer_type' => CustomerType::COMPANY,
             'identity_type' => IdentityType::CommercialRegistration,
             'name' => fake()->company(),
@@ -39,7 +39,7 @@ class CustomerFactory extends Factory
 
     public function individual(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'customer_type' => CustomerType::INDIVIDUAL,
             'identity_type' => IdentityType::NationalID,
             'name' => fake()->name(),
@@ -49,7 +49,7 @@ class CustomerFactory extends Factory
 
     public function inactive(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'is_active' => false,
         ]);
     }

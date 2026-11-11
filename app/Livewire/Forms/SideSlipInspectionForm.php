@@ -2,18 +2,16 @@
 
 namespace App\Livewire\Forms;
 
-
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Services\Inspection\InspectionWorkflowService;
 use App\Services\SideSlipInspectionCalculator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
-use Illuminate\Support\Facades\Auth;
 
 class SideSlipInspectionForm extends Form
 {
-
     public ?float $value = null;
 
     public ?InspectionResult $result = null;
@@ -38,7 +36,6 @@ class SideSlipInspectionForm extends Form
         );
     }
 
-
     public function rules(): array
     {
         return [
@@ -62,9 +59,9 @@ class SideSlipInspectionForm extends Form
         $this->validate();
         $result =
             app(SideSlipInspectionCalculator::class)
-            ->calculate(
-                $this->data(),
-            );
+                ->calculate(
+                    $this->data(),
+                );
         $data = [
             ...$this->data(),
             'result' => $result['result'],

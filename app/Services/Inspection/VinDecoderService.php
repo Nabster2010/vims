@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\Inspection;
-
 
 class VinDecoderService
 {

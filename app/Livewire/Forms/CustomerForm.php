@@ -10,18 +10,14 @@ use Livewire\Form;
 
 class CustomerForm extends Form
 {
-
     #[Validate('required')]
     public CustomerType $customer_type = CustomerType::INDIVIDUAL;
-
 
     #[Validate('required')]
     public IdentityType $identity_type = IdentityType::NationalID;
 
-
     #[Validate('required|string|max:255')]
     public string $name = '';
-
 
     #[Validate('required|string|max:255')]
     public string $identity_number = '';
@@ -40,7 +36,6 @@ class CustomerForm extends Form
 
     #[Validate('nullable|string|max:1000')]
     public ?string $notes = null;
-
 
     /**
      * Populate the form from an existing customer.

@@ -42,14 +42,14 @@ class BranchFactory extends Factory
 
     public function inactive(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'is_active' => false,
         ]);
     }
 
     public function withManager(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'manager_id' => User::factory(),
         ]);
     }

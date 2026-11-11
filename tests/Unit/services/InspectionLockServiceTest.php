@@ -71,7 +71,7 @@ it('ensure unlocked throws exception when inspection is locked', function () {
 
     $inspection = Inspection::factory()->locked()->create();
 
-    expect(fn() => app(InspectionLockService::class)
+    expect(fn () => app(InspectionLockService::class)
         ->ensureUnlocked($inspection))
         ->toThrow(
             DomainException::class,

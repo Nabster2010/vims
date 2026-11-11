@@ -46,7 +46,7 @@ it('throws exception when inspection is not pending approval', function () {
         'final_result' => InspectionResult::Pass,
     ]);
 
-    expect(fn() => app(InspectionApprovalService::class)
+    expect(fn () => app(InspectionApprovalService::class)
         ->approve($inspection, $user))
         ->toThrow(
             DomainException::class,
@@ -74,7 +74,7 @@ it('throws exception when inspection result is pending', function () {
         'final_result' => InspectionResult::Pending,
     ]);
 
-    expect(fn() => app(InspectionApprovalService::class)
+    expect(fn () => app(InspectionApprovalService::class)
         ->approve($inspection, $user))
         ->toThrow(
             DomainException::class,

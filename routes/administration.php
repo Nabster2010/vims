@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('administration')->name('administration.')->group(function () {
@@ -52,10 +51,7 @@ Route::prefix('administration')->name('administration.')->group(function () {
 
     )->name('branches.edit');
 
-
-
     // category--------
-
 
     Route::livewire(
         '/categories',
@@ -74,7 +70,6 @@ Route::prefix('administration')->name('administration.')->group(function () {
 
     // VisualItems--------
 
-
     Route::livewire(
         '/visual-items',
         'pages::administration.visual-items.index'
@@ -89,8 +84,6 @@ Route::prefix('administration')->name('administration.')->group(function () {
         '/visual-items/{visualItem}/edit',
         'pages::administration.visual-items.edit'
     )->name('visual-items.edit');
-
-
 
     // --------colors--------
 
@@ -109,9 +102,7 @@ Route::prefix('administration')->name('administration.')->group(function () {
         'pages::administration.colors.edit'
     )->name('colors.edit');
 
-
     // -----SalesRepresentative---------
-
 
     Route::livewire(
         '/sales-representatives',
@@ -127,8 +118,6 @@ Route::prefix('administration')->name('administration.')->group(function () {
         '/sales-representatives/{salesRepresentative}/edit',
         'pages::administration.sales-representatives.edit'
     )->name('sales-representatives.edit');
-
-
 
     // --------countries ------------
 
@@ -147,8 +136,6 @@ Route::prefix('administration')->name('administration.')->group(function () {
         'pages::administration.countries.edit'
     )->name('countries.edit');
 
-
-
     // -------manufacturers--------
     Route::livewire(
         '/manufacturers',
@@ -165,7 +152,6 @@ Route::prefix('administration')->name('administration.')->group(function () {
         'pages::administration.manufacturers.edit'
     )->name('manufacturers.edit');
 
-
     // --------modelTypes---------
     Route::livewire(
         '/model-types',
@@ -181,7 +167,6 @@ Route::prefix('administration')->name('administration.')->group(function () {
         '/model-types/{modelType}/edit',
         'pages::administration.model-types.edit'
     )->name('model-types.edit');
-
 
     // ---------Custom Ports --------
 

@@ -3,20 +3,25 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Branch;
-use Livewire\Form;
 use Illuminate\Support\Str;
-
-
+use Livewire\Form;
 
 class BranchForm extends Form
 {
     public $name;
+
     public $name_ar;
+
     public $code;
+
     public $address;
+
     public $phone;
+
     public $email;
+
     public $manager_id;
+
     public $is_active;
 
     public function fillFromBranch($branch)
@@ -57,7 +62,7 @@ class BranchForm extends Form
             'address' => [
                 'nullable',
                 'string',
-                'required'
+                'required',
             ],
 
             'phone' => [
@@ -120,6 +125,7 @@ class BranchForm extends Form
     public function create(): Branch
     {
         $this->validate($this->rules());
+
         return Branch::create([
             ...$this->data(),
             'uuid' => Str::uuid(),

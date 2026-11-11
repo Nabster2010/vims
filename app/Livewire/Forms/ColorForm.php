@@ -71,7 +71,7 @@ class ColorForm extends Form
         return Color::create(
             [
                 ...$this->data(),
-                'uuid' => Str::uuid()
+                'uuid' => Str::uuid(),
             ]
         );
     }

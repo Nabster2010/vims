@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Enums\InspectionResult;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class HeadLightInspection extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'inspection_id',
         'left',
@@ -31,8 +32,8 @@ class HeadLightInspection extends Model
     {
         return $this->belongsTo(Inspection::class);
     }
-    public function inspector(): BelongsTo
 
+    public function inspector(): BelongsTo
     {
 
         return $this->belongsTo(User::class, 'inspected_by');

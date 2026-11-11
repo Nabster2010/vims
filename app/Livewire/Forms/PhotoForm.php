@@ -6,24 +6,30 @@ use App\Models\Inspection;
 use App\Services\Inspection\InspectionWorkflowService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Form;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\Form;
 
 class PhotoForm extends Form
 {
     public mixed $front = null;
+
     public mixed $rear = null;
+
     public mixed $left = null;
+
     public mixed $right = null;
+
     public mixed $vin = null;
 
     public mixed $dashboard = null;
+
     public mixed $engine = null;
+
     public mixed $odometer = null;
 
     public function fillFromInspection(Inspection $inspection): void
     {
-        //output [front=>path, rear=>path, left=>path, right=>path, vin=>path, dashboard=>path, engine=>path, odometer=>path]
+        // output [front=>path, rear=>path, left=>path, right=>path, vin=>path, dashboard=>path, engine=>path, odometer=>path]
         foreach ($inspection->photos as $photo) {
             $this->{$photo->photo_type->value} = $photo->path;
         }

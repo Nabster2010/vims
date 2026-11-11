@@ -23,7 +23,7 @@ class IMPReportService
             'sideSlipInspection',
             'suspensionInspection',
             'emissionInspection',
-            'photos' => fn($query) => $query->whereIn('photo_type', [
+            'photos' => fn ($query) => $query->whereIn('photo_type', [
                 PhotoType::FRONT,
                 PhotoType::REAR,
                 PhotoType::LEFT,
@@ -33,7 +33,7 @@ class IMPReportService
             ]),
         ]);
         $visualInspection = $inspection->visualInspection->visualItemResults;
-        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
         $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_economy', 'other'];
 
         $reportData = [

@@ -2,18 +2,16 @@
 
 namespace App\Livewire\Forms;
 
-
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Services\HeadlightInspectionCalculator;
 use App\Services\Inspection\InspectionWorkflowService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
-use Illuminate\Support\Facades\Auth;
 
 class HeadLightInspectionForm extends Form
 {
-
     public ?float $left = null;
 
     public ?float $right = null;
@@ -41,7 +39,6 @@ class HeadLightInspectionForm extends Form
         );
     }
 
-
     public function rules(): array
     {
         return [
@@ -67,9 +64,9 @@ class HeadLightInspectionForm extends Form
         $this->validate();
         $result =
             app(HeadlightInspectionCalculator::class)
-            ->calculate(
-                $this->data(),
-            );
+                ->calculate(
+                    $this->data(),
+                );
         $data = [
             ...$this->data(),
             'inspected_by' => Auth::id(),

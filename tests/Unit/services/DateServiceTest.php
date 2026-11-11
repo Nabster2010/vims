@@ -5,7 +5,7 @@ use Carbon\Carbon;
 
 it('formats gregorian date from carbon instance', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     $date = Carbon::create(2026, 11, 12);
 
@@ -15,7 +15,7 @@ it('formats gregorian date from carbon instance', function () {
 
 it('formats gregorian date from string', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     expect($service->gregorian('2026-11-12'))
         ->toBe('12/11/2026');
@@ -23,7 +23,7 @@ it('formats gregorian date from string', function () {
 
 it('formats gregorian date using custom format', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     expect($service->gregorian(
         '2026-11-12',
@@ -33,7 +33,7 @@ it('formats gregorian date using custom format', function () {
 
 it('returns null when gregorian date is null', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     expect($service->gregorian(null))
         ->toBeNull();
@@ -41,7 +41,7 @@ it('returns null when gregorian date is null', function () {
 
 it('formats hijri date', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     expect($service->hijri('2026-11-12'))
         ->not->toBeNull();
@@ -49,7 +49,7 @@ it('formats hijri date', function () {
 
 it('returns null when hijri date is null', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     expect($service->hijri(null))
         ->toBeNull();
@@ -57,7 +57,7 @@ it('returns null when hijri date is null', function () {
 
 it('returns both gregorian and hijri dates', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     $result = $service->both('2026-11-12');
 
@@ -68,7 +68,7 @@ it('returns both gregorian and hijri dates', function () {
 
 it('returns both dates using custom separator', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     $result = $service->both(
         '2026-11-12',
@@ -81,7 +81,7 @@ it('returns both dates using custom separator', function () {
 
 it('returns null when both date is null', function () {
 
-    $service = new DateService();
+    $service = new DateService;
 
     expect($service->both(null))
         ->toBeNull();

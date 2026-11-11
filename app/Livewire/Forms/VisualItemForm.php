@@ -26,7 +26,6 @@ class VisualItemForm extends Form
 
     public ?string $description_ar = null;
 
-
     public function fillFromVisualItem(VisualItem $visualItem): void
     {
         $this->name = $visualItem->name;
@@ -98,8 +97,6 @@ class VisualItemForm extends Form
                 'max:1000',
             ],
 
-
-
         ];
     }
 
@@ -124,7 +121,6 @@ class VisualItemForm extends Form
             'description' => $this->description,
 
             'description_ar' => $this->description_ar,
-
 
         ];
     }

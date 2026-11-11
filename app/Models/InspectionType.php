@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class InspectionType extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'code',
         'name',
@@ -19,12 +20,14 @@ class InspectionType extends Model
         'is_active',
         'description',
     ];
+
     protected function casts(): array
     {
         return [
             'is_active' => 'boolean',
         ];
     }
+
     public function visualItems(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -38,6 +41,7 @@ class InspectionType extends Model
             ->orderByPivot('sort_order')
             ->withTimestamps();
     }
+
     public function inspections(): HasMany
     {
         return $this->hasMany(Inspection::class);

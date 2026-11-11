@@ -61,21 +61,24 @@ class VehicleInformationFactory extends Factory
             'inspected_by' => User::factory(),
         ];
     }
+
     public function electric(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'fuel_type' => FuelType::Ev,
         ]);
     }
+
     public function diesel(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'fuel_type' => FuelType::Diesel,
         ]);
     }
+
     public function hybrid(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'fuel_type' => FuelType::Hybrid,
         ]);
     }

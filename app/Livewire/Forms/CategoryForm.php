@@ -71,7 +71,7 @@ class CategoryForm extends Form
         return Category::create(
             [
                 ...$this->data(),
-                'uuid' => Str::uuid()
+                'uuid' => Str::uuid(),
             ]
         );
     }

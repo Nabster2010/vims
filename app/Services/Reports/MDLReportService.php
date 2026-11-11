@@ -25,7 +25,7 @@ class MDLReportService
         ]);
 
         $visualInspection = $inspection->visualInspection->visualItemResults;
-        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
         $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_economy', 'other'];
 
         $mdlBasicItems = $inspection->visualInspection

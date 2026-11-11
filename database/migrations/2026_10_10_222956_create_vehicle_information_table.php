@@ -58,7 +58,6 @@ return new class extends Migration
                 ->constrained('countries')
                 ->restrictOnDelete();
 
-
             $table->string('fuel_type')->nullable();
 
             $table->string('gearbox_type')->nullable();
@@ -111,7 +110,6 @@ return new class extends Migration
 
             $table->unsignedSmallInteger('rear_axle_weight')->nullable();
             $table->unsignedSmallInteger('other_axle_weight')->nullable();
-
 
             $table->unsignedSmallInteger('wheelbase')->nullable();
 

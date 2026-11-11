@@ -19,12 +19,10 @@ class VisualInspectionCalculator
         $failedItems = [];
         $hasValues = false;
 
-
         $names = VisualItem::whereIn('id', array_keys($items))
             ->pluck('name', 'id');
 
         foreach ($items as $visualItemId => $item) {
-
 
             $result = $item['result'] ?? null;
 

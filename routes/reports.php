@@ -1,8 +1,8 @@
 <?php
+
 // reports.php - Reports routes
 
 use App\Http\Controllers\ReportPdfController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('reports')

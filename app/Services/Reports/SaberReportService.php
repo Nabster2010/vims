@@ -2,7 +2,6 @@
 
 namespace App\Services\Reports;
 
-use App\Enums\FuelType;
 use App\Enums\PhotoType;
 use App\Models\Inspection;
 use App\Services\DateService;
@@ -23,7 +22,7 @@ class SaberReportService
             'sideSlipInspection',
             'suspensionInspection',
             'emissionInspection',
-            'photos' => fn($query) => $query->whereIn('photo_type', [
+            'photos' => fn ($query) => $query->whereIn('photo_type', [
                 PhotoType::FRONT,
                 PhotoType::REAR,
                 PhotoType::LEFT,
@@ -33,7 +32,7 @@ class SaberReportService
             ]),
         ]);
         $visualInspection = $inspection->visualInspection->visualItemResults;
-        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn($result) => $result->visualItem->category);
+        $visualInspectionGroups = $visualInspection->load('visualItem')->groupBy(fn ($result) => $result->visualItem->category);
         $leftCategories = ['internal', 'interior', 'safety', 'modern_systems', 'fuel_economy', 'other'];
 
         $reportData = [
@@ -58,7 +57,7 @@ class SaberReportService
             'vehicle_condition' => $inspection->vehicleInformation->vehicle_condition,
             // vehicle details
             'gearbox' => $inspection->vehicleInformation->gearbox_type,
-            'model_division' => $inspection->vehicleInformation->model_division ?? "",
+            'model_division' => $inspection->vehicleInformation->model_division ?? '',
             'category' => $inspection->vehicleInformation->category->name,
             'originCountry' => $inspection->vehicleInformation->originCountry->name_ar,
             'productionCountry' => $inspection->vehicleInformation->productionCountry->name_ar,
@@ -99,14 +98,13 @@ class SaberReportService
             'vehicle_age_compliance' => $inspection->vehicleInformation->vehicle_age_compliance,
             'is_vehicle_rare' => $inspection->vehicleInformation->is_vehicle_rare,
 
-
-            //------
+            // ------
 
             'branch' => $inspection->branch->name_ar,
-            'customPort' => $inspection->customPort->name_ar ?? "----",
+            'customPort' => $inspection->customPort->name_ar ?? '----',
             'created_at' => app(DateService::class)->gregorian($inspection->created_at),
-            'custom_declaration_no' => $inspection->custom_declaration_no ?? "---",
-            'custom_declaration_date' => app(DateService::class)->hijri($inspection->custom_declaration_date) ?? "---",
+            'custom_declaration_no' => $inspection->custom_declaration_no ?? '---',
+            'custom_declaration_date' => app(DateService::class)->hijri($inspection->custom_declaration_date) ?? '---',
             'request_no' => $inspection->request_no,
             'customer' => $inspection->customer->name,
             'photos' => $inspection->photos,

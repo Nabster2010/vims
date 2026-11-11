@@ -67,29 +67,21 @@ enum InspectionModule: string
     {
         return match ($this) {
 
-            self::VehicleInformation =>
-            'inspections.vehicle-information.edit',
+            self::VehicleInformation => 'inspections.vehicle-information.edit',
 
-            self::EmissionInspection =>
-            'inspections.emission-inspection.edit',
+            self::EmissionInspection => 'inspections.emission-inspection.edit',
 
-            self::HeadLightInspection =>
-            'inspections.head-light-inspection.edit',
+            self::HeadLightInspection => 'inspections.head-light-inspection.edit',
 
-            self::SideSlipInspection =>
-            'inspections.side-slip-inspection.edit',
+            self::SideSlipInspection => 'inspections.side-slip-inspection.edit',
 
-            self::SuspensionInspection =>
-            'inspections.suspension-inspection.edit',
+            self::SuspensionInspection => 'inspections.suspension-inspection.edit',
 
-            self::BrakeInspection =>
-            'inspections.brake-inspection.edit',
+            self::BrakeInspection => 'inspections.brake-inspection.edit',
 
-            self::VisualInspection =>
-            'inspections.visual-inspection.edit',
+            self::VisualInspection => 'inspections.visual-inspection.edit',
 
-            self::Photos =>
-            'inspections.photos.edit',
+            self::Photos => 'inspections.photos.edit',
         };
     }
 

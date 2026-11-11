@@ -5,7 +5,6 @@ use App\Enums\CustomerType;
 use App\Enums\InspectionResult;
 use App\Models\Customer;
 use App\Models\Inspection;
-use App\Models\InspectionType;
 use App\Models\VehicleInformation;
 use App\Services\VehicleInformationComplianceCalculator;
 

@@ -23,7 +23,7 @@ class InspectionTypeFactory extends Factory
 
     public function imported(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'code' => 'IMP',
             'name' => 'Imported Vehicle',
             'name_ar' => 'مركبة مستوردة',
@@ -33,7 +33,7 @@ class InspectionTypeFactory extends Factory
 
     public function saber(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'code' => 'SBR',
             'name' => 'Saber Vehicle',
             'name_ar' => 'مطابقة سابر',
@@ -43,7 +43,7 @@ class InspectionTypeFactory extends Factory
 
     public function modifiedLight(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'code' => 'MDL',
             'name' => 'Modified Light Vehicle',
             'name_ar' => 'مركبة معدلة خفيفة',
@@ -53,7 +53,7 @@ class InspectionTypeFactory extends Factory
 
     public function modifiedHeavy(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'code' => 'MDH',
             'name' => 'Modified Heavy Vehicle',
             'name_ar' => 'مركبة معدلة ثقيلة',
@@ -63,7 +63,7 @@ class InspectionTypeFactory extends Factory
 
     public function motorcycle(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'code' => 'MTC',
             'name' => 'Motorcycle',
             'name_ar' => 'دراجة نارية',
@@ -73,7 +73,7 @@ class InspectionTypeFactory extends Factory
 
     public function trailer(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'code' => 'TRL',
             'name' => 'Trailer',
             'name_ar' => 'مقطورة',
@@ -83,7 +83,7 @@ class InspectionTypeFactory extends Factory
 
     public function inactive(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'is_active' => false,
         ]);
     }

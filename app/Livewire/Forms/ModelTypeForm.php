@@ -40,7 +40,7 @@ class ModelTypeForm extends Form
                 'max:255',
 
                 Rule::unique('model_types')
-                    ->where(fn($query) => $query->where(
+                    ->where(fn ($query) => $query->where(
                         'manufacturer_id',
                         $this->manufacturer_id
                     ))
@@ -53,7 +53,7 @@ class ModelTypeForm extends Form
                 'max:255',
 
                 Rule::unique('model_types')
-                    ->where(fn($query) => $query->where(
+                    ->where(fn ($query) => $query->where(
                         'manufacturer_id',
                         $this->manufacturer_id
                     ))

@@ -167,9 +167,7 @@ class VehicleInformationForm extends Form
         return $this->all();
     }
 
-    //function to get return an array of inspection Types
-
-
+    // function to get return an array of inspection Types
 
     /**
      * Validation Rules
@@ -229,12 +227,12 @@ class VehicleInformationForm extends Form
                     'length' => ['required', 'integer'],
                     'service_brake' => ['required', 'string'],
                     'emergency_brake' => ['required', 'string'],
-                    //compliance 
+                    // compliance
                     'energy_efficiency_compliance' => ['required', new Enum(ComplianceStatus::class)],
                     'fuel_economy_compliance' => ['required', new Enum(ComplianceStatus::class)],
                     'vehicle_age_compliance' => ['required', new Enum(ComplianceStatus::class)],
                     'is_vehicle_rare' => ['required', new Enum(ComplianceStatus::class)],
-                    //specific
+                    // specific
                     'fuel_economy' => ['required', 'numeric'],
                 ];
                 if (in_array($this->fuel_type, [FuelType::Diesel, FuelType::Gasoline, FuelType::Hybrid, FuelType::Phev])) {
@@ -354,7 +352,6 @@ class VehicleInformationForm extends Form
                 break;
         }
 
-
         return $rules;
     }
 
@@ -363,7 +360,6 @@ class VehicleInformationForm extends Form
      */
     public function save(Inspection $inspection): VehicleInformation
     {
-
 
         $this->inspectionTypeCode = $inspection->inspectionType->code;
         $this->validate();
@@ -381,6 +377,7 @@ class VehicleInformationForm extends Form
         }
         app(InspectionWorkflowService::class)
             ->sync($inspection);
+
         return $vehicle;
     }
 }

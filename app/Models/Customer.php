@@ -4,15 +4,16 @@ namespace App\Models;
 
 use App\Enums\CustomerType;
 use App\Enums\IdentityType;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $fillable = [
         'customer_type',
         'identity_type',
@@ -45,6 +46,7 @@ class Customer extends Model
         if (blank($search)) {
             return $query;
         }
+
         return $query->where(function ($query) use ($search) {
             $query->where('name', 'like', "%{$search}%")
                 ->orWhere('identity_number', 'like', "%{$search}%")

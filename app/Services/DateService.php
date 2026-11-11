@@ -12,7 +12,7 @@ class DateService
         DateTimeInterface|string|null $date,
         string $format = 'd/m/Y'
     ): ?string {
-        if (!$date) {
+        if (! $date) {
             return null;
         }
 
@@ -23,7 +23,7 @@ class DateService
         DateTimeInterface|string|null $date,
         string $format = 'd/m/Y'
     ): ?string {
-        if (!$date) {
+        if (! $date) {
             return null;
         }
 
@@ -34,12 +34,12 @@ class DateService
         DateTimeInterface|string|null $date,
         string $separator = ' الموافق '
     ): ?string {
-        if (!$date) {
+        if (! $date) {
             return null;
         }
 
         return $this->gregorian($date)
-            . $separator
-            . $this->hijri($date);
+            .$separator
+            .$this->hijri($date);
     }
 }

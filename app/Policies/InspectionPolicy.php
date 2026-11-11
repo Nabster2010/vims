@@ -25,6 +25,7 @@ class InspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -47,6 +48,7 @@ class InspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -60,6 +62,7 @@ class InspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -72,6 +75,7 @@ class InspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -83,6 +87,7 @@ class InspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -94,6 +99,7 @@ class InspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -142,7 +148,7 @@ class InspectionPolicy
             UserRole::BranchManager,
             UserRole::Inspector,
             UserRole::Receptionist,
-        ])  && in_array($inspection->final_result, [
+        ]) && in_array($inspection->final_result, [
             InspectionResult::Pass,
             InspectionResult::Fail,
         ]) && ($user->branch_id === $inspection->branch_id || $user->role === UserRole::SuperAdmin);

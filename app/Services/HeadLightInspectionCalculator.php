@@ -13,7 +13,7 @@ class HeadLightInspectionCalculator
         $hasInput = false;
         $failedItems = [];
 
-        $limits = config("test-limits.headLight");
+        $limits = config('test-limits.headLight');
 
         foreach ($limits as $field => $limit) {
 

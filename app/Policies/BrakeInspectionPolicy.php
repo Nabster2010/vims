@@ -3,8 +3,8 @@
 namespace App\Policies;
 
 use App\Enums\UserRole;
-use App\Models\User;
 use App\Models\BrakeInspection;
+use App\Models\User;
 
 class BrakeInspectionPolicy
 {
@@ -13,6 +13,7 @@ class BrakeInspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -26,6 +27,7 @@ class BrakeInspectionPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,

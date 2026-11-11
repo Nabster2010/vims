@@ -35,6 +35,7 @@ class InspectionNumberGenerator
 
         );
     }
+
     public function regenerate(Inspection $inspection, string $newCode): string
     {
         $parts = explode('-', $inspection->inspection_no);

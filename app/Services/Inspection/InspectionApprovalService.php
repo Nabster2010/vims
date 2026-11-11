@@ -6,7 +6,6 @@ use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
 use App\Models\Inspection;
 use App\Models\User;
-use App\Services\Inspection\InspectionLockService;
 use DomainException;
 
 class InspectionApprovalService

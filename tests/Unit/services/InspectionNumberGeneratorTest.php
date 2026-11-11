@@ -18,7 +18,7 @@ it('generates the first inspection number', function () {
         ->generate($branch, $type);
 
     expect($number)
-        ->toBe('RUH-IMP-' . now()->year . '-000001');
+        ->toBe('RUH-IMP-'.now()->year.'-000001');
 
     expect($branch->fresh()->last_inspection_sequence)
         ->toBe(1);
@@ -36,7 +36,7 @@ it('increments inspection sequence', function () {
         ->generate($branch, $type);
 
     expect($number)
-        ->toBe('RUH-IMP-' . now()->year . '-000026');
+        ->toBe('RUH-IMP-'.now()->year.'-000026');
 
     expect($branch->fresh()->last_inspection_sequence)
         ->toBe(26);

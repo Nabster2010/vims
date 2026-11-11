@@ -16,7 +16,6 @@ use App\Services\VisualInspectionCalculator;
 
 class InspectionEvaluationService
 {
-
     public function __construct(
         private InspectionRequiredModulesService $requiredModules,
         private BrakeInspectionCalculator $brakeCalculator,
@@ -30,7 +29,6 @@ class InspectionEvaluationService
 
     public function evaluate(Inspection $inspection): array
     {
-
 
         $inspection->load([
             'inspectionType',
@@ -191,7 +189,7 @@ class InspectionEvaluationService
                     'result' => InspectionResult::Pending,
                     'failedItems' => [],
                 ]
-                :   $this->sideSlipCalculator->calculate([
+                : $this->sideSlipCalculator->calculate([
                     'value' => $inspection->sideSlipInspection->value,
                 ]),
 
@@ -230,10 +228,9 @@ class InspectionEvaluationService
 
                     foreach ($inspection->visualInspection->visualItemResults as $item) {
                         if ($item->visualItem->code === 'FUEL-ECONOMY-STANDARD' && $inspection->customer->customer_type->value === CustomerType::INDIVIDUAL->value) {
-                            //skip this item for individual customers
+                            // skip this item for individual customers
                             continue;
                         }
-
 
                         $items[$item->visual_item_id] = [
                             'result' => $item->result,

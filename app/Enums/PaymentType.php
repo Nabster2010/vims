@@ -13,7 +13,6 @@ enum PaymentType: string
     case Online = 'Online';
 
     public function label(): string
-
     {
 
         return match ($this) {

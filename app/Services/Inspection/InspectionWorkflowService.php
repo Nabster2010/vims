@@ -52,7 +52,6 @@ class InspectionWorkflowService
     private function completeInspection(Inspection $inspection): void
     {
 
-
         $evaluation = $this->evaluationService->evaluate($inspection);
 
         $inspection->update([

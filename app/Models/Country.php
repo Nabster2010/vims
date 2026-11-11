@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Country extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'name_ar',
@@ -17,6 +18,7 @@ class Country extends Model
         'iso3',
         'is_active',
     ];
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);

@@ -28,14 +28,14 @@ class SalesRepresentativeFactory extends Factory
 
     public function inactive(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'is_active' => false,
         ]);
     }
 
     public function company(string $company): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'company_name' => $company,
         ]);
     }

@@ -26,8 +26,6 @@ return [
         InspectionModule::Photos,
     ],
 
-
-
     'MDL' => [
         InspectionModule::VehicleInformation,
         InspectionModule::EmissionInspection,

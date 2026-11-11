@@ -2,21 +2,22 @@
 
 namespace App\Livewire\Forms;
 
-
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Services\Inspection\InspectionWorkflowService;
 use App\Services\SuspensionInspectionCalculator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
-use Illuminate\Support\Facades\Auth;
 
 class SuspensionInspectionForm extends Form
 {
-
     public ?float $front_left = null;
+
     public ?float $front_right = null;
+
     public ?float $rear_left = null;
+
     public ?float $rear_right = null;
 
     public ?InspectionResult $result = null;
@@ -43,7 +44,6 @@ class SuspensionInspectionForm extends Form
             ]
         );
     }
-
 
     public function rules(): array
     {
@@ -74,9 +74,9 @@ class SuspensionInspectionForm extends Form
         $this->validate();
         $result =
             app(SuspensionInspectionCalculator::class)
-            ->calculate(
-                $this->data(),
-            );
+                ->calculate(
+                    $this->data(),
+                );
         $data = [
             ...$this->data(),
             'result' => $result['result'],

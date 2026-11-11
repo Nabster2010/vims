@@ -100,7 +100,7 @@ class InspectionFactory extends Factory
 
     public function inProgress(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'status' => InspectionStatus::InProgress,
             'inspection_started_at' => now(),
         ]);
@@ -108,7 +108,7 @@ class InspectionFactory extends Factory
 
     public function pendingApproval(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'status' => InspectionStatus::PendingApproval,
             'inspection_started_at' => now()->subMinutes(30),
             'inspection_completed_at' => now(),
@@ -117,7 +117,7 @@ class InspectionFactory extends Factory
 
     public function approved(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'status' => InspectionStatus::Approved,
             'approved_by' => User::factory(),
             'approved_at' => now(),
@@ -126,21 +126,21 @@ class InspectionFactory extends Factory
 
     public function passed(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'final_result' => InspectionResult::Pass,
         ]);
     }
 
     public function failed(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'final_result' => InspectionResult::Fail,
         ]);
     }
 
     public function reinspection(int $count = 1): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'status' => InspectionStatus::Reinspection,
             'reinspection_count' => $count,
         ]);
@@ -148,18 +148,19 @@ class InspectionFactory extends Factory
 
     public function locked(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'is_locked' => true,
         ]);
     }
 
     public function withInspector(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'inspector_id' => User::factory(),
             'inspection_started_at' => now(),
         ]);
     }
+
     public function imported(): static
     {
         return $this->state(function () {
@@ -235,6 +236,7 @@ class InspectionFactory extends Factory
             ];
         });
     }
+
     public function motorcycle(): static
     {
         return $this->state(function () {

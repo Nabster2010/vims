@@ -13,14 +13,14 @@ class InspectionRequiredModulesService
         $fuelType = $inspection->vehicleInformation?->fuel_type;
         $inspection->loadMissing('inspectionType');
 
-
         $modules = config(
             "inspection-modules.{$inspection->inspectionType->code}",
             [],
         );
         if ($fuelType === FuelType::Ev) {
-            $modules = array_filter($modules, fn($module) => $module !== InspectionModule::EmissionInspection);
+            $modules = array_filter($modules, fn ($module) => $module !== InspectionModule::EmissionInspection);
         }
+
         return $modules;
     }
 }

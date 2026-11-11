@@ -13,8 +13,6 @@ use Livewire\Form;
 
 class EmissionInspectionForm extends Form
 {
-
-
     protected ?FuelType $fuel_type = null;
 
     public ?float $hc = null;
@@ -28,8 +26,6 @@ class EmissionInspectionForm extends Form
     public ?InspectionResult $result = null;
 
     public ?string $remarks = null;
-
-
 
     /**
      * Load inspection data
@@ -55,7 +51,6 @@ class EmissionInspectionForm extends Form
             ])
         );
     }
-
 
     public function rules(): array
     {
@@ -107,10 +102,10 @@ class EmissionInspectionForm extends Form
         $this->validate();
         $result =
             app(EmissionInspectionCalculator::class)
-            ->calculate(
-                $this->fuel_type,
-                $this->data(),
-            );
+                ->calculate(
+                    $this->fuel_type,
+                    $this->data(),
+                );
         $data = [
             ...$this->data(),
             'result' => $result['result'],

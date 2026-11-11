@@ -4,7 +4,7 @@ use App\Services\Inspection\VinDecoderService;
 
 it('returns model year for valid vin', function () {
 
-    $service = new VinDecoderService();
+    $service = new VinDecoderService;
 
     expect($service->modelYear('1HGCM8263AT123456'))
         ->toBe(2010);
@@ -27,7 +27,7 @@ it('returns model year for valid vin', function () {
 
 it('returns null for vin with invalid length', function () {
 
-    $service = new VinDecoderService();
+    $service = new VinDecoderService;
 
     expect($service->modelYear('123456'))
         ->toBeNull();
@@ -41,7 +41,7 @@ it('returns null for vin with invalid length', function () {
 
 it('returns null for unknown model year code', function () {
 
-    $service = new VinDecoderService();
+    $service = new VinDecoderService;
 
     expect($service->modelYear('1HGCM8263ZT123456'))
         ->toBeNull();
@@ -55,7 +55,7 @@ it('returns null for unknown model year code', function () {
 
 it('accepts lowercase model year code', function () {
 
-    $service = new VinDecoderService();
+    $service = new VinDecoderService;
 
     expect($service->modelYear('1HGCM8263aT123456'))
         ->toBe(2010);

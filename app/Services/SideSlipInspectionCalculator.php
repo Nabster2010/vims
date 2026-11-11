@@ -13,7 +13,7 @@ class SideSlipInspectionCalculator
         $hasInput = false;
         $failedItems = [];
 
-        $limits = config("test-limits.sideSlip");
+        $limits = config('test-limits.sideSlip');
 
         foreach ($limits as $field => $limit) {
 

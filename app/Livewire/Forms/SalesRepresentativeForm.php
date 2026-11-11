@@ -86,6 +86,7 @@ class SalesRepresentativeForm extends Form
     public function create()
     {
         $this->validate($this->rules());
+
         return SalesRepresentative::create($this->data());
     }
 

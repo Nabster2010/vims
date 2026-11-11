@@ -13,6 +13,7 @@ class VehicleInformationPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,
@@ -26,6 +27,7 @@ class VehicleInformationPolicy
         if ($user->role === UserRole::SuperAdmin) {
             return true;
         }
+
         return in_array($user->role, [
             UserRole::SuperAdmin,
             UserRole::BranchManager,

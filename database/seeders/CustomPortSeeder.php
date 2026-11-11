@@ -56,8 +56,7 @@ class CustomPortSeeder extends Seeder
                 ];
             })
             ->unique(
-                fn(array $port) =>
-                $port['name'] . '|' . $port['code']
+                fn (array $port) => $port['name'].'|'.$port['code']
             )
             ->values();
 

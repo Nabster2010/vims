@@ -29,28 +29,28 @@ class VisualItemResultFactory extends Factory
 
     public function passed(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'result' => InspectionResult::Pass,
         ]);
     }
 
     public function failed(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'result' => InspectionResult::Fail,
         ]);
     }
 
     public function pending(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'result' => InspectionResult::Pending,
         ]);
     }
 
     public function modified(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'is_modified' => true,
         ]);
     }

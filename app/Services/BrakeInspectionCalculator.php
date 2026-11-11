@@ -11,7 +11,7 @@ class BrakeInspectionCalculator
     ): array {
 
         $hasInput = false;
-        $limits = config("test-limits.brake");
+        $limits = config('test-limits.brake');
         $failedItems = [];
 
         foreach ($limits as $field => $limit) {
@@ -24,7 +24,6 @@ class BrakeInspectionCalculator
             }
 
             $hasInput = true;
-
 
             if (! $this->passes($value, $limit)) {
                 $failedItems[] = $limit['label'];

@@ -10,7 +10,6 @@ class InspectionTypeVisualInspectionForm extends Form
 {
     public array $items = [];
 
-
     public function fillFromInspectionType(InspectionType $inspectionType, Collection $visualItems): void
     {
         $inspectionType = $inspectionType->loadMissing('visualItems');
@@ -19,10 +18,11 @@ class InspectionTypeVisualInspectionForm extends Form
             $this->items[$visualItem->id] = [
                 'selected' => $pivot !== null,
                 'required' => $pivot?->is_required ?? true,
-                'sort_order' => $pivot?->sort_order ?? $visualItem->sort_order
+                'sort_order' => $pivot?->sort_order ?? $visualItem->sort_order,
             ];
         }
     }
+
     public function rules(): array
     {
         $rules = [];
@@ -42,12 +42,14 @@ class InspectionTypeVisualInspectionForm extends Form
 
         return $rules;
     }
+
     public function data(): array
     {
         return [
             'items' => $this->items,
         ];
     }
+
     public function save(InspectionType $inspectionType): void
     {
         $this->validate();
@@ -58,7 +60,7 @@ class InspectionTypeVisualInspectionForm extends Form
             }
             $syncData[$itemId] = [
                 'is_required' => $item['required'],
-                'sort_order' => $item['sort_order']
+                'sort_order' => $item['sort_order'],
             ];
         }
         $inspectionType->visualItems()->sync($syncData);

@@ -13,7 +13,7 @@ class CustomPortFactory extends Factory
     {
         return [
 
-            'name' => fake()->unique()->city() . ' Port',
+            'name' => fake()->unique()->city().' Port',
 
             'name_ar' => fake()->unique()->city(),
 
@@ -25,7 +25,7 @@ class CustomPortFactory extends Factory
 
     public function inactive(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'is_active' => false,
         ]);
     }

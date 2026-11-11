@@ -13,7 +13,7 @@ class SuspensionInspectionCalculator
         $hasInput = false;
         $failedItems = [];
 
-        $limits = config("test-limits.suspension");
+        $limits = config('test-limits.suspension');
 
         foreach ($limits as $field => $limit) {
 

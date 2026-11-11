@@ -10,14 +10,14 @@ return [
             'hc' => [
                 'min' => 0,
                 'max' => 1200,
-                'unit' => "ppm",
-                'label' => "Emission Hydrocarbons"
+                'unit' => 'ppm',
+                'label' => 'Emission Hydrocarbons',
             ],
             'co' => [
                 'min' => 0,
                 'max' => 3.5,
-                'unit' => "%",
-                'label' => "Emission Carbon Monoxide"
+                'unit' => '%',
+                'label' => 'Emission Carbon Monoxide',
             ],
 
         ],
@@ -25,14 +25,14 @@ return [
             'hc' => [
                 'min' => 0,
                 'max' => 1200,
-                'unit' => "ppm",
-                'label' => "Emission Hydrocarbons"
+                'unit' => 'ppm',
+                'label' => 'Emission Hydrocarbons',
             ],
             'co' => [
                 'min' => 0,
                 'max' => 3.5,
-                'unit' => "%",
-                'label' => "Emission Carbon Monoxide"
+                'unit' => '%',
+                'label' => 'Emission Carbon Monoxide',
             ],
 
         ],
@@ -40,14 +40,14 @@ return [
             'hc' => [
                 'min' => 0,
                 'max' => 1200,
-                'unit' => "ppm",
-                'label' => "Emission Hydrocarbons"
+                'unit' => 'ppm',
+                'label' => 'Emission Hydrocarbons',
             ],
             'co' => [
                 'min' => 0,
                 'max' => 3.5,
-                'unit' => "%",
-                'label' => "Emission Carbon Monoxide"
+                'unit' => '%',
+                'label' => 'Emission Carbon Monoxide',
             ],
 
         ],
@@ -56,82 +56,81 @@ return [
             'opacity' => [
                 'min' => 0,
                 'max' => 40,
-                'unit' => "%",
-                'label' => "Diesel Opacity"
-            ]
+                'unit' => '%',
+                'label' => 'Diesel Opacity',
+            ],
         ],
     ],
     'headLight' => [
         'left' => [
             'min' => 0,
             'max' => 250,
-            'unit' => "cd",
-            'label' => "Head Light Left"
+            'unit' => 'cd',
+            'label' => 'Head Light Left',
         ],
         'right' => [
             'min' => 0,
             'max' => 250,
-            'unit' => "cd",
-            'label' => "Head Light Right"
-        ]
+            'unit' => 'cd',
+            'label' => 'Head Light Right',
+        ],
 
     ],
     'sideSlip' => [
         'value' => [
             'min' => 0,
             'max' => 7,
-            'unit' => "m/km",
-            'label' => "Side Slip"
-        ]
+            'unit' => 'm/km',
+            'label' => 'Side Slip',
+        ],
     ],
 
     'suspension' => [
         'front_left' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%",
-            'label' => "Suspension Front Left"
+            'unit' => '%',
+            'label' => 'Suspension Front Left',
         ],
         'front_right' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%",
-            'label' => "Suspension Front Right"
+            'unit' => '%',
+            'label' => 'Suspension Front Right',
         ],
         'rear_left' => [
             'min' => 20,
             'max' => 100,
-            'unit' => "%",
-            'label' => "Suspension Rear Left"
+            'unit' => '%',
+            'label' => 'Suspension Rear Left',
         ],
         'rear_right' => [
             'min' => 20,
             'max' => 100,
-            'unit' => "%",
-            'label' => "Suspension Rear Right"
-        ]
+            'unit' => '%',
+            'label' => 'Suspension Rear Right',
+        ],
     ],
 
     'brake' => [
         'front' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%",
-            'label' => "Brake Front"
+            'unit' => '%',
+            'label' => 'Brake Front',
         ],
         'rear' => [
             'min' => 30,
             'max' => 100,
-            'unit' => "%",
-            'label' => "Brake Rear"
+            'unit' => '%',
+            'label' => 'Brake Rear',
         ],
         'parking' => [
             'min' => 20,
             'max' => 100,
-            'unit' => "%",
-            'label' => "Brake Parking"
-        ]
+            'unit' => '%',
+            'label' => 'Brake Parking',
+        ],
     ],
-
 
 ];

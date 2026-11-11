@@ -33,8 +33,6 @@ class InspectionTypeSeeder extends Seeder
 
             ],
 
-
-
             [
 
                 'code' => 'MDL',

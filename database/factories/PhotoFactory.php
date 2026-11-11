@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Photo;
 use App\Models\Inspection;
+use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,7 +28,7 @@ class PhotoFactory extends Factory
                 'interior',
             ]),
 
-            'path' => 'photos/' . fake()->uuid() . '.jpg',
+            'path' => 'photos/'.fake()->uuid().'.jpg',
 
             'remarks' => fake()->optional()->sentence(),
 
@@ -40,7 +40,7 @@ class PhotoFactory extends Factory
 
     public function withoutUploader(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'uploaded_by' => null,
         ]);
     }

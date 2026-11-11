@@ -18,7 +18,7 @@ class EmissionInspectionCalculator
         if ($fuelType === FuelType::Ev) {
             return [
                 'result' => null,
-                'failedItems' => []
+                'failedItems' => [],
             ];
         }
 
@@ -27,7 +27,7 @@ class EmissionInspectionCalculator
         if (! $limits) {
             return [
                 'result' => null,
-                'failedItems' => []
+                'failedItems' => [],
             ];
         }
 

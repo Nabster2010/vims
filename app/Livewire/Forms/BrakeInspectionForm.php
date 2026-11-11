@@ -2,22 +2,24 @@
 
 namespace App\Livewire\Forms;
 
-
 use App\Enums\InspectionResult;
 use App\Models\Inspection;
 use App\Services\BrakeInspectionCalculator;
 use App\Services\Inspection\InspectionWorkflowService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Form;
-use Illuminate\Support\Facades\Auth;
 
 class BrakeInspectionForm extends Form
 {
-
     public ?float $front = null;
+
     public ?float $rear = null;
+
     public ?float $parking = null;
+
     public ?InspectionResult $result = null;
+
     public ?string $remarks = null;
 
     /**
@@ -39,7 +41,6 @@ class BrakeInspectionForm extends Form
             ]
         );
     }
-
 
     public function rules(): array
     {
@@ -68,9 +69,9 @@ class BrakeInspectionForm extends Form
         $this->validate();
         $result =
             app(BrakeInspectionCalculator::class)
-            ->calculate(
-                $this->data(),
-            );
+                ->calculate(
+                    $this->data(),
+                );
         $data = [
             ...$this->data(),
             'result' => $result['result'],
