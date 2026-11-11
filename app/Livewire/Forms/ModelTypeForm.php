@@ -24,6 +24,7 @@ class ModelTypeForm extends Form
         $this->name_ar = $modelType->name_ar;
         $this->is_active = $modelType->is_active;
     }
+
     /**
      * @return array<string, mixed>
      */
@@ -42,7 +43,7 @@ class ModelTypeForm extends Form
                 'max:255',
 
                 Rule::unique('model_types')
-                    ->where(fn($query) => $query->where(
+                    ->where(fn ($query) => $query->where(
                         'manufacturer_id',
                         $this->manufacturer_id
                     ))
@@ -55,7 +56,7 @@ class ModelTypeForm extends Form
                 'max:255',
 
                 Rule::unique('model_types')
-                    ->where(fn($query) => $query->where(
+                    ->where(fn ($query) => $query->where(
                         'manufacturer_id',
                         $this->manufacturer_id
                     ))
@@ -68,6 +69,7 @@ class ModelTypeForm extends Form
 
         ];
     }
+
     /**
      * @return array<string, mixed>
      */

@@ -72,9 +72,9 @@ class BrakeInspectionForm extends Form
         $this->validate();
         $result =
             app(BrakeInspectionCalculator::class)
-            ->calculate(
-                $this->data(),
-            );
+                ->calculate(
+                    $this->data(),
+                );
         $data = [
             ...$this->data(),
             'result' => $result['result'],

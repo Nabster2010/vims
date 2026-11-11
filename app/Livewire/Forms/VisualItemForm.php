@@ -38,6 +38,7 @@ class VisualItemForm extends Form
         $this->description = $visualItem->description;
         $this->description_ar = $visualItem->description_ar;
     }
+
     /**
      * @return array<string, mixed>
      */
@@ -101,6 +102,7 @@ class VisualItemForm extends Form
 
         ];
     }
+
     /**
      * @return array<string, mixed>
      */

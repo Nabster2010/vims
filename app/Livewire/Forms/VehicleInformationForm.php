@@ -161,6 +161,7 @@ class VehicleInformationForm extends Form
         }
         $this->inspection_date = $vehicle->inspection_date?->format('Y-m-d');
     }
+
     /**
      * @return array<string, mixed>
      */

@@ -24,6 +24,7 @@ class ManufacturerForm extends Form
         $this->is_active = $manufacturer->is_active;
         $this->country_id = $manufacturer->country_id;
     }
+
     /**
      * @return array<string, mixed>
      */
@@ -59,6 +60,7 @@ class ManufacturerForm extends Form
 
         ];
     }
+
     /**
      * @return array<string, mixed>
      */

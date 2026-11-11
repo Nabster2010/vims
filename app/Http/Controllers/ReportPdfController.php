@@ -9,9 +9,9 @@ use App\Services\Reports\MDLReportService;
 use App\Services\Reports\MTCReportService;
 use App\Services\Reports\SaberReportService;
 use App\Services\Reports\TRLReportService;
-use Spatie\LaravelPdf\PdfBuilder;
 use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\LaravelPdf\PdfBuilder;
 
 class ReportPdfController
 {

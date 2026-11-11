@@ -26,6 +26,7 @@ class CountryForm extends Form
         $this->iso3 = $country->iso3;
         $this->is_active = $country->is_active;
     }
+
     /**
      * @return array<string, mixed>
      */

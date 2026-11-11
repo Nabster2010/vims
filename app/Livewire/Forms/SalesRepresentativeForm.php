@@ -29,6 +29,7 @@ class SalesRepresentativeForm extends Form
         $this->notes = $salesRepresentative->notes;
         $this->is_active = $salesRepresentative->is_active;
     }
+
     /**
      * @return array<string, mixed>
      */
@@ -72,6 +73,7 @@ class SalesRepresentativeForm extends Form
             ],
         ];
     }
+
     /**
      * @return array<string, mixed>
      */
