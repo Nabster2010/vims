@@ -88,6 +88,9 @@ class EmissionInspectionForm extends Form
         return $rules;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [
@@ -105,10 +108,10 @@ class EmissionInspectionForm extends Form
         $this->validate();
         $result =
             app(EmissionInspectionCalculator::class)
-                ->calculate(
-                    $this->fuel_type,
-                    $this->data(),
-                );
+            ->calculate(
+                $this->fuel_type,
+                $this->data(),
+            );
         $data = [
             ...$this->data(),
             'result' => $result['result'],

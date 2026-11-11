@@ -42,7 +42,9 @@ class InspectionTypeVisualInspectionForm extends Form
 
         return $rules;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [

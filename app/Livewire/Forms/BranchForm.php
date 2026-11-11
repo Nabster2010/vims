@@ -8,32 +8,32 @@ use Livewire\Form;
 
 class BranchForm extends Form
 {
-    public $name = '';
+    public string $name = '';
 
-    public $name_ar = '';
+    public string $name_ar = '';
 
-    public $code = '';
+    public string $code = '';
 
-    public $address = '';
+    public string $address = '';
 
-    public $phone = '';
+    public string $phone = '';
 
-    public $email = '';
+    public string $email = '';
 
-    public $manager_id = '';
+    public ?int $manager_id = null;
 
-    public $is_active = true;
+    public bool $is_active = true;
 
     public function fillFromBranch(?Branch $branch = null): void
     {
-        $this->name = $branch?->name ?? '';
-        $this->name_ar = $branch?->name_ar ?? '';
-        $this->code = $branch?->code ?? '';
-        $this->address = $branch?->address ?? '';
-        $this->phone = $branch?->phone ?? '';
-        $this->email = $branch?->email ?? '';
-        $this->manager_id = $branch?->manager_id ?? '';
-        $this->is_active = $branch?->is_active ?? true;
+        $this->name = $branch?->name;
+        $this->name_ar = $branch?->name_ar;
+        $this->code = $branch?->code;
+        $this->address = $branch?->address;
+        $this->phone = $branch?->phone;
+        $this->email = $branch?->email;
+        $this->manager_id = $branch?->manager_id;
+        $this->is_active = $branch?->is_active;
     }
 
     /**

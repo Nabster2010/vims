@@ -61,7 +61,9 @@ class CustomPortForm extends Form
 
         ];
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [

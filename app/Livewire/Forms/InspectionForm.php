@@ -177,7 +177,9 @@ class InspectionForm extends Form
             'is_authorized_modification_center' => false,
         ]);
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return $this->all();
