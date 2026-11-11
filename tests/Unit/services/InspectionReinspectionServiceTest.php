@@ -1,38 +1,76 @@
 <?php
 
-namespace App\Services\Inspection;
-
 use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
+use App\Models\BrakeInspection;
+use App\Models\EmissionInspection;
+use App\Models\HeadLightInspection;
 use App\Models\Inspection;
-use Illuminate\Support\Facades\DB;
+use App\Models\SideSlipInspection;
+use App\Models\SuspensionInspection;
+use App\Models\VehicleInformation;
+use App\Models\VisualInspection;
+use App\Services\Inspection\InspectionReinspectionService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class InspectionReinspectionService
-{
-    public function create(Inspection $inspection): void
-    {
-        DB::transaction(function () use ($inspection) {
+uses(RefreshDatabase::class);
 
-            $inspection->vehicleInformation()->delete();
-            $inspection->emissionInspection()->delete();
-            $inspection->headLightInspection()->delete();
-            $inspection->sideSlipInspection()->delete();
-            $inspection->suspensionInspection()->delete();
-            $inspection->brakeInspection()->delete();
-            $inspection->visualInspection()->delete();
-            $inspection->update([
-                'reinspection_count' => $inspection->reinspection_count + 1,
+it('creates a reinspection successfully', function () {
+    $inspection = Inspection::factory()->create([
+        'status' => InspectionStatus::Approved,
+        'final_result' => InspectionResult::Fail,
+        'reinspection_count' => 0,
+        'approved_by' => 1,
+        'approved_at' => now(),
+        'is_locked' => true,
+    ]);
 
-                'status' => InspectionStatus::Reinspection,
+    VehicleInformation::factory()->create([
+        'inspection_id' => $inspection->id,
+    ]);
 
-                'final_result' => InspectionResult::Pending,
+    EmissionInspection::factory()->create([
+        'inspection_id' => $inspection->id,
+    ]);
 
-                'approved_by' => null,
+    HeadLightInspection::factory()->create([
+        'inspection_id' => $inspection->id,
+    ]);
 
-                'approved_at' => null,
+    SideSlipInspection::factory()->create([
+        'inspection_id' => $inspection->id,
+    ]);
 
-                'is_locked' => false,
-            ]);
-        });
-    }
-}
+    SuspensionInspection::factory()->create([
+        'inspection_id' => $inspection->id,
+    ]);
+
+    BrakeInspection::factory()->create([
+        'inspection_id' => $inspection->id,
+    ]);
+
+    VisualInspection::factory()->create([
+        'inspection_id' => $inspection->id,
+    ]);
+
+    $service = app(InspectionReinspectionService::class);
+
+    $service->create($inspection);
+
+    $inspection->refresh();
+
+    expect($inspection->reinspection_count)->toBe(1)
+        ->and($inspection->status)->toBe(InspectionStatus::Reinspection)
+        ->and($inspection->final_result)->toBe(InspectionResult::Pending)
+        ->and($inspection->approved_by)->toBeNull()
+        ->and($inspection->approved_at)->toBeNull()
+        ->and($inspection->is_locked)->toBeFalse();
+
+    expect(VehicleInformation::count())->toBe(0);
+    expect(EmissionInspection::count())->toBe(0);
+    expect(HeadLightInspection::count())->toBe(0);
+    expect(SideSlipInspection::count())->toBe(0);
+    expect(SuspensionInspection::count())->toBe(0);
+    expect(BrakeInspection::count())->toBe(0);
+    expect(VisualInspection::count())->toBe(0);
+});
