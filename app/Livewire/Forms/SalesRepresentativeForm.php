@@ -29,7 +29,9 @@ class SalesRepresentativeForm extends Form
         $this->notes = $salesRepresentative->notes;
         $this->is_active = $salesRepresentative->is_active;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(?SalesRepresentative $salesRepresentative = null): array
     {
         return [
@@ -70,7 +72,9 @@ class SalesRepresentativeForm extends Form
             ],
         ];
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data()
     {
         return [

@@ -68,7 +68,9 @@ class VisualInspectionForm extends Form
                 = $itemResult->is_modified;
         }
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         $rules = [
@@ -86,7 +88,9 @@ class VisualInspectionForm extends Form
 
         return $rules;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return $this->items;

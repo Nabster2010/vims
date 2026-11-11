@@ -38,7 +38,9 @@ class VisualItemForm extends Form
         $this->description = $visualItem->description;
         $this->description_ar = $visualItem->description_ar;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(?VisualItem $visualItem = null): array
     {
         return [
@@ -99,7 +101,9 @@ class VisualItemForm extends Form
 
         ];
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [

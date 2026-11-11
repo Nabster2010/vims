@@ -34,7 +34,9 @@ class PhotoForm extends Form
             $this->{$photo->photo_type->value} = $photo->path;
         }
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [
@@ -95,7 +97,9 @@ class PhotoForm extends Form
 
         app(InspectionWorkflowService::class)->sync($inspection);
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [

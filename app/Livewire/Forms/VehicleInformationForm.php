@@ -161,7 +161,9 @@ class VehicleInformationForm extends Form
         }
         $this->inspection_date = $vehicle->inspection_date?->format('Y-m-d');
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return $this->all();
@@ -171,6 +173,9 @@ class VehicleInformationForm extends Form
 
     /**
      * Validation Rules
+     */
+    /**
+     * @return array<string, mixed>
      */
     protected function rules(): array
     {

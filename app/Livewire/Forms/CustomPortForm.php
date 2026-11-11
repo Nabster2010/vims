@@ -23,7 +23,9 @@ class CustomPortForm extends Form
         $this->code = $customPort->code;
         $this->is_active = $customPort->is_active;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(?CustomPort $customPort = null): array
     {
         return [

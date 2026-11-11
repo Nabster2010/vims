@@ -8,34 +8,40 @@ use Livewire\Form;
 
 class BranchForm extends Form
 {
-    public $name;
+    public $name = "";
 
-    public $name_ar;
+    public $name_ar = "";
 
-    public $code;
+    public $code = "";
 
-    public $address;
+    public $address = "";
 
-    public $phone;
+    public $phone = "";
 
-    public $email;
+    public $email = "";
 
-    public $manager_id;
+    public $manager_id = "";
 
-    public $is_active;
+    public $is_active = true;
 
-    public function fillFromBranch($branch)
+    public function fillFromBranch(?Branch $branch = null): void
     {
-        $this->name = $branch->name;
-        $this->name_ar = $branch->name_ar;
-        $this->code = $branch->code;
-        $this->address = $branch->address;
-        $this->phone = $branch->phone;
-        $this->email = $branch->email;
-        $this->manager_id = $branch->manager_id;
-        $this->is_active = $branch->is_active;
+        $this->name = $branch?->name ?? "";
+        $this->name_ar = $branch?->name_ar ?? "";
+        $this->code = $branch?->code ?? "";
+        $this->address = $branch?->address ?? "";
+        $this->phone = $branch?->phone ?? "";
+        $this->email = $branch?->email ?? "";
+        $this->manager_id = $branch?->manager_id ?? "";
+        $this->is_active = $branch?->is_active ?? true;
     }
 
+
+
+    /**
+     *
+     * @return array<string, mixed>
+     */
     public function rules(?Branch $branch = null): array
     {
         return [
@@ -89,6 +95,12 @@ class BranchForm extends Form
         ];
     }
 
+
+    /**
+
+     * @return array<string, mixed>
+
+     */
     public function data(): array
     {
         return [
@@ -112,6 +124,10 @@ class BranchForm extends Form
         ];
     }
 
+    /**
+     * @param Branch $branch
+     * @return void
+     */
     public function save(Branch $branch): void
     {
         $this->validate(
@@ -122,6 +138,9 @@ class BranchForm extends Form
         );
     }
 
+    /**
+     * @return Branch
+     */
     public function create(): Branch
     {
         $this->validate($this->rules());

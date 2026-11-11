@@ -21,7 +21,9 @@ class ColorForm extends Form
         $this->name_ar = $color->name_ar;
         $this->is_active = $color->is_active;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(?Color $color = null): array
     {
         return [

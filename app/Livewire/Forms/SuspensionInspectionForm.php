@@ -44,7 +44,9 @@ class SuspensionInspectionForm extends Form
             ]
         );
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [
@@ -56,7 +58,9 @@ class SuspensionInspectionForm extends Form
             'remarks' => ['nullable', 'string'],
         ];
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [
@@ -74,9 +78,9 @@ class SuspensionInspectionForm extends Form
         $this->validate();
         $result =
             app(SuspensionInspectionCalculator::class)
-                ->calculate(
-                    $this->data(),
-                );
+            ->calculate(
+                $this->data(),
+            );
         $data = [
             ...$this->data(),
             'result' => $result['result'],

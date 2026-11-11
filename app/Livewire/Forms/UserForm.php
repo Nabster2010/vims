@@ -43,7 +43,9 @@ class UserForm extends Form
 
         $this->force_password_change = $user->force_password_change;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(?User $user = null): array
     {
         return [
@@ -97,7 +99,9 @@ class UserForm extends Form
 
         ];
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         $data = [

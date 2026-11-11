@@ -59,7 +59,9 @@ class InspectionForm extends Form
     public ?string $modification_description = null;
 
     public ?bool $is_authorized_modification_center = false;
-
+    /**
+     * @return array<string, mixed>
+     */
     protected function rules(): array
     {
         $rules = [

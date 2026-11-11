@@ -35,7 +35,9 @@ class SideSlipInspectionForm extends Form
             ]
         );
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [
@@ -44,7 +46,9 @@ class SideSlipInspectionForm extends Form
             'remarks' => ['nullable', 'string'],
         ];
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [
@@ -59,9 +63,9 @@ class SideSlipInspectionForm extends Form
         $this->validate();
         $result =
             app(SideSlipInspectionCalculator::class)
-                ->calculate(
-                    $this->data(),
-                );
+            ->calculate(
+                $this->data(),
+            );
         $data = [
             ...$this->data(),
             'result' => $result['result'],

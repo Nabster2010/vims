@@ -24,7 +24,9 @@ class ManufacturerForm extends Form
         $this->is_active = $manufacturer->is_active;
         $this->country_id = $manufacturer->country_id;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(?Manufacturer $manufacturer = null): array
     {
         return [
@@ -57,7 +59,9 @@ class ManufacturerForm extends Form
 
         ];
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function data(): array
     {
         return [

@@ -20,14 +20,16 @@ class InspectionTypeForm extends Form
     public ?string $description = null;
 
     public bool $is_active = true;
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],
             'name_ar' => ['required', 'string', 'max:255'],
             'prefix' => ['required', 'string', 'max:10'],
-            'code' => ['required', 'string', 'max:10', 'unique:inspection_types,code,'.$this->id],
+            'code' => ['required', 'string', 'max:10', 'unique:inspection_types,code,' . $this->id],
             'description' => ['nullable', 'string'],
             'is_active' => ['boolean'],
         ];

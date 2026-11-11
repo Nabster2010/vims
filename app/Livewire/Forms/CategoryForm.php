@@ -21,7 +21,9 @@ class CategoryForm extends Form
         $this->name_ar = $category->name_ar;
         $this->is_active = $category->is_active;
     }
-
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(?Category $category = null): array
     {
         return [
@@ -48,7 +50,11 @@ class CategoryForm extends Form
 
         ];
     }
+    /**
 
+     * @return array<string, mixed>
+
+     */
     public function data(): array
     {
         return [
@@ -62,6 +68,9 @@ class CategoryForm extends Form
         ];
     }
 
+    /**
+     * @return Category
+     */
     public function create(): Category
     {
         $this->validate(
@@ -76,6 +85,10 @@ class CategoryForm extends Form
         );
     }
 
+    /**
+     * @param Category $category
+     * @return void
+     */
     public function save(Category $category): void
     {
         $this->validate(
