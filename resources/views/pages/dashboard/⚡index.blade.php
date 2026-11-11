@@ -8,17 +8,17 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use App\Models\Branch;
 use App\Enums\InspectionStatus;
-
+use App\Enums\UserRole;
 new #[Title('Dashboard')] class extends BasePage {
     #[Computed]
     public function stats(): array
     {
         return [
-            'inspections' => Inspection::where('branch_id', auth()->user()->branch_id)->count(),
+            'inspections' => Inspection::when(auth()->user()->role !== UserRole::SuperAdmin, fn($q) => $q->where('branch_id', auth()->user()->branch_id))->count(),
             'customers' => Customer::count(),
-            'users' => User::where('branch_id', auth()->user()->branch_id)->count(),
+            'users' => User::when(auth()->user()->role !== UserRole::SuperAdmin, fn($q) => $q->where('branch_id', auth()->user()->branch_id))->count(),
             'today' => Inspection::whereDate('created_at', today())
-                ->where('branch_id', auth()->user()->branch_id)
+                ->when(auth()->user()->role !== UserRole::SuperAdmin, fn($q) => $q->where('branch_id', auth()->user()->branch_id))
                 ->count(),
             'registered' => Inspection::where('status', InspectionStatus::Registered)
                 ->where('branch_id', auth()->user()->branch_id)
@@ -43,19 +43,20 @@ new #[Title('Dashboard')] class extends BasePage {
     public function latestInspections()
     {
         return Inspection::query()
+            ->when(auth()->user()->role !== UserRole::SuperAdmin, fn($q) => $q->where('branch_id', auth()->user()->branch_id))
             ->with(['customer', 'inspectionType', 'branch'])
-            ->where('branch_id', auth()->user()->branch_id)
             ->latest()
             ->take(10)
             ->get();
     }
+
     #[Computed]
     public function todayInspections()
     {
         return Inspection::query()
+            ->when(auth()->user()->role !== UserRole::SuperAdmin, fn($q) => $q->where('branch_id', auth()->user()->branch_id))
             ->with(['customer', 'inspectionType'])
             ->whereDate('created_at', today())
-            ->where('branch_id', auth()->user()->branch_id)
             ->latest()
             ->take(10)
             ->get();

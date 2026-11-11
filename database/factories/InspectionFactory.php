@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
 use App\Models\Branch;
 use App\Models\Customer;
@@ -60,7 +61,7 @@ class InspectionFactory extends Factory
 
             'status' => InspectionStatus::Registered,
 
-            'final_result' => null,
+            'final_result' => InspectionResult::Pending,
 
             'created_by' => User::factory(),
 

@@ -23,7 +23,7 @@ class InspectionService
         $data['inspection_no'] = $this->numberGenerator->generate($branch, $inspectionType);
         $data['status'] = InspectionStatus::Registered;
         $data['registered_at'] = now();
-        $data['final_result'] = InspectionResult::Pending->value;
+        $data['final_result'] = InspectionResult::Pending;
         return Inspection::create($data);
     }
 
