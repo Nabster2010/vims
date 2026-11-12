@@ -159,6 +159,7 @@ class Inspection extends Model
             'is_locked' => 'boolean',
         ];
     }
+
     /**
      * @return BelongsTo<Branch, Inspection>
      */
@@ -166,6 +167,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
     /**
      * @return BelongsTo<InspectionType, Inspection>
      */
@@ -173,6 +175,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(InspectionType::class);
     }
+
     /**
      * @return BelongsTo<Customer, Inspection>
      */
@@ -180,6 +183,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
     /**
      * @return BelongsTo<SalesRepresentative, Inspection>
      */
@@ -187,6 +191,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(SalesRepresentative::class);
     }
+
     /**
      * @return BelongsTo<CustomPort, Inspection>
      */
@@ -194,6 +199,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(CustomPort::class);
     }
+
     /**
      * @return BelongsTo<Country, Inspection>
      */
@@ -201,6 +207,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(Country::class, 'import_country_id');
     }
+
     /**
      * @return BelongsTo<User, Inspection>
      */
@@ -208,6 +215,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
     /**
      * @return BelongsTo<User, Inspection>
      */
@@ -215,6 +223,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(User::class, 'inspector_id');
     }
+
     /**
      * @return BelongsTo<User, Inspection>
      */
@@ -222,6 +231,7 @@ class Inspection extends Model
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
+
     /**
      * @return HasOne<VehicleInformation, Inspection>
      */
@@ -229,6 +239,7 @@ class Inspection extends Model
     {
         return $this->hasOne(VehicleInformation::class);
     }
+
     /**
      * @return HasOne<EmissionInspection, Inspection>
      */
@@ -236,6 +247,7 @@ class Inspection extends Model
     {
         return $this->hasOne(EmissionInspection::class);
     }
+
     /**
      * @return HasOne<HeadLightInspection, Inspection>
      */
@@ -253,6 +265,7 @@ class Inspection extends Model
     {
         return $this->hasOne(SuspensionInspection::class);
     }
+
     /**
      * @return HasOne<BrakeInspection, Inspection>
      */
@@ -260,6 +273,7 @@ class Inspection extends Model
     {
         return $this->hasOne(BrakeInspection::class);
     }
+
     /**
      * @return HasOne<VisualInspection, Inspection>
      */
@@ -267,7 +281,6 @@ class Inspection extends Model
     {
         return $this->hasOne(VisualInspection::class);
     }
-
 
     /**
      * @return HasMany<Photo, Inspection>

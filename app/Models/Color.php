@@ -29,6 +29,7 @@ class Color extends Model
     {
         return $query->where('is_active', true);
     }
+
     /**
      * @return HasMany<VehicleInformation, Color>
      */

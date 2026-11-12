@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
 class Photo extends Model
 {
     use HasFactory;
@@ -20,7 +19,6 @@ class Photo extends Model
         'sort_order',
         'uploaded_by',
     ];
-
 
     /**
      * @return array<string, string>

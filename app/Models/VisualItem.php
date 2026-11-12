@@ -24,7 +24,6 @@ class VisualItem extends Model
         'is_active',
     ];
 
-
     /**
      * @return array<string, string>
      */

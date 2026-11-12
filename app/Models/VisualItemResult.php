@@ -38,7 +38,6 @@ class VisualItemResult extends Model
         return $this->belongsTo(VisualInspection::class);
     }
 
-
     /**
      * @return BelongsTo<VisualItem, VisualItemResult>
      */

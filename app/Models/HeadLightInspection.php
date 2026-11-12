@@ -30,6 +30,7 @@ class HeadLightInspection extends Model
             'result' => InspectionResult::class,
         ];
     }
+
     /**
      * @return BelongsTo<Inspection, HeadLightInspection>
      */

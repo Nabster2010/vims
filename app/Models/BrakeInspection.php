@@ -27,6 +27,7 @@ class BrakeInspection extends Model
             'result' => InspectionResult::class,
         ];
     }
+
     /**
      * @return BelongsTo<Inspection, BrakeInspection>
      */
@@ -34,6 +35,7 @@ class BrakeInspection extends Model
     {
         return $this->belongsTo(Inspection::class);
     }
+
     /**
      * @return BelongsTo<User, BrakeInspection>
      */
