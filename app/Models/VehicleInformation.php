@@ -11,12 +11,16 @@ use App\Enums\GearboxType;
 use App\Enums\MotorcycleCategory;
 use App\Enums\MotorcycleUse;
 use App\Enums\VehicleCondition;
+use Database\Factories\VehicleInformationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class VehicleInformation extends Model
 {
+    /**
+     * @use HasFactory<VehicleInformationFactory>
+     */
     use HasFactory;
 
     protected $table = 'vehicle_information';

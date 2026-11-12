@@ -104,6 +104,7 @@ class EmissionInspectionForm extends Form
 
     public function save(Inspection $inspection): void
     {
+
         $this->fuel_type = $inspection->vehicleInformation->fuel_type;
         $this->validate();
         $result =

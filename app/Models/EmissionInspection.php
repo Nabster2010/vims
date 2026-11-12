@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Enums\InspectionResult;
+use Database\Factories\EmissionInspectionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EmissionInspection extends Model
 {
+    /**
+     * @use HasFactory<EmissionInspectionFactory>
+     */
     use HasFactory;
 
     protected $fillable = [

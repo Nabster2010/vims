@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Enums\InspectionResult;
+use Database\Factories\VisualItemResultFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class VisualItemResult extends Model
 {
+    /**
+     * @use HasFactory<VisualItemResultFactory>
+     */
     use HasFactory;
 
     protected $fillable = [

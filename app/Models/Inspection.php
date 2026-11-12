@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\InspectionResult;
 use App\Enums\InspectionStatus;
+use Database\Factories\InspectionFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inspection extends Model
 {
+    /**
+     * @use HasFactory<InspectionFactory>
+     */
     use HasFactory;
 
     protected $fillable = [
