@@ -21,21 +21,28 @@ class HeadLightInspection extends Model
 
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
             'result' => InspectionResult::class,
         ];
     }
-
+    /**
+     * @return BelongsTo<Inspection, HeadLightInspection>
+     */
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
     }
 
+    /**
+     * @return BelongsTo<User, HeadLightInspection>
+     */
     public function inspector(): BelongsTo
     {
-
         return $this->belongsTo(User::class, 'inspected_by');
     }
 }

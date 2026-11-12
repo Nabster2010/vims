@@ -84,6 +84,9 @@ class VehicleInformation extends Model
         'inspected_by',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -103,47 +106,74 @@ class VehicleInformation extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Inspection, VehicleInformation>
+     */
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
     }
 
+    /**
+     * @return BelongsTo<Manufacturer, VehicleInformation>
+     */
     public function manufacturer(): BelongsTo
     {
         return $this->belongsTo(Manufacturer::class);
     }
 
+    /**
+     * @return BelongsTo<ModelType, VehicleInformation>
+     */
     public function modelType(): BelongsTo
     {
         return $this->belongsTo(ModelType::class);
     }
 
+    /**
+     * @return BelongsTo<Color, VehicleInformation>
+     */
     public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
 
+    /**
+     * @return BelongsTo<Country, VehicleInformation>
+     */
     public function productionCountry(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'production_country_id');
     }
 
+    /**
+     * @return BelongsTo<Country, VehicleInformation>
+     */
     public function originCountry(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'origin_country_id');
     }
 
+    /**
+     * @return BelongsTo<Country, VehicleInformation>
+     */
     public function shipmentCountry(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'shipment_country_id');
     }
 
+    /**
+     * @return BelongsTo<User, VehicleInformation>
+     */
     public function inspector(): BelongsTo
     {
 
         return $this->belongsTo(User::class, 'inspected_by');
     }
 
+    /**
+     * @return BelongsTo<Category, VehicleInformation>
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

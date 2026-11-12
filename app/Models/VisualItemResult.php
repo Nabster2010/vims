@@ -19,6 +19,9 @@ class VisualItemResult extends Model
         'remarks',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -27,11 +30,18 @@ class VisualItemResult extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<VisualInspection, VisualItemResult>
+     */
     public function visualInspection(): BelongsTo
     {
         return $this->belongsTo(VisualInspection::class);
     }
 
+
+    /**
+     * @return BelongsTo<VisualItem, VisualItemResult>
+     */
     public function visualItem(): BelongsTo
     {
         return $this->belongsTo(VisualItem::class);

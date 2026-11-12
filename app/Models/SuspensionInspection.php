@@ -22,6 +22,9 @@ class SuspensionInspection extends Model
         'remarks',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -29,11 +32,17 @@ class SuspensionInspection extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Inspection, SuspensionInspection>
+     */
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
     }
 
+    /**
+     * @return BelongsTo<User, SuspensionInspection>
+     */
     public function inspector(): BelongsTo
     {
         return $this->belongsTo(User::class, 'inspected_by');

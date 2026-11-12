@@ -27,12 +27,16 @@ class BrakeInspection extends Model
             'result' => InspectionResult::class,
         ];
     }
-
+    /**
+     * @return BelongsTo<Inspection, BrakeInspection>
+     */
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
     }
-
+    /**
+     * @return BelongsTo<User, BrakeInspection>
+     */
     public function inspector(): BelongsTo
     {
         return $this->belongsTo(User::class, 'inspected_by');

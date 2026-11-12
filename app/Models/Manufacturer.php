@@ -20,6 +20,9 @@ class Manufacturer extends Model
         'country_id',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -27,21 +30,34 @@ class Manufacturer extends Model
         ];
     }
 
+    /**
+     * @return HasMany<ModelType, Manufacturer>
+     */
     public function modelTypes(): HasMany
     {
         return $this->hasMany(ModelType::class);
     }
 
+    /**
+     * @return HasMany<VehicleInformation, Manufacturer>
+     */
     public function vehicleInformation(): HasMany
     {
         return $this->hasMany(VehicleInformation::class);
     }
 
+    /**
+     * @return BelongsTo<Country, Manufacturer>
+     */
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
 
+    /**
+     * @param  Builder<Manufacturer>  $query
+     * @return Builder<Manufacturer>
+     */
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);

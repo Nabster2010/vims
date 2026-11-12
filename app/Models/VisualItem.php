@@ -24,6 +24,10 @@ class VisualItem extends Model
         'is_active',
     ];
 
+
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -32,11 +36,17 @@ class VisualItem extends Model
         ];
     }
 
+    /**
+     * @return HasMany<VisualItemResult, VisualItem>
+     */
     public function visualItemResults(): HasMany
     {
         return $this->hasMany(VisualItemResult::class);
     }
 
+    /**
+     * @return BelongsToMany<InspectionType, VisualItem>
+     */
     public function inspectionTypes(): BelongsToMany
     {
         return $this->belongsToMany(

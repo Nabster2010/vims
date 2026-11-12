@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class CustomPort extends Model
 {
     use HasFactory;
@@ -17,11 +18,18 @@ class CustomPort extends Model
         'is_active',
     ];
 
+    /**
+     * @param  Builder<CustomPort>  $query
+     * @return Builder<CustomPort>
+     */
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [

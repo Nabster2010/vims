@@ -20,6 +20,9 @@ class SalesRepresentative extends Model
         'is_active',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -27,11 +30,18 @@ class SalesRepresentative extends Model
         ];
     }
 
+    /**
+     * @return HasMany<Inspection, SalesRepresentative>
+     */
     public function inspections(): HasMany
     {
         return $this->hasMany(Inspection::class);
     }
 
+    /**
+     * @param  Builder<SalesRepresentative>  $query
+     * @return Builder<SalesRepresentative>
+     */
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);

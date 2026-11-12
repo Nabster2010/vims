@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Customer extends Model
 {
@@ -36,11 +37,18 @@ class Customer extends Model
         ];
     }
 
+    /**
+     * @return HasMany<Inspection, Customer>
+     */
     public function inspections(): HasMany
     {
         return $this->hasMany(Inspection::class);
     }
 
+    /**
+     * @param  Builder<Customer>  $query
+     * @return Builder<Customer>
+     */
     public function scopeSearch($query, ?string $search)
     {
         if (blank($search)) {

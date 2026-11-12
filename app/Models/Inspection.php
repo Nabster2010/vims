@@ -159,62 +159,86 @@ class Inspection extends Model
             'is_locked' => 'boolean',
         ];
     }
-
+    /**
+     * @return BelongsTo<Branch, Inspection>
+     */
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class);
     }
-
+    /**
+     * @return BelongsTo<InspectionType, Inspection>
+     */
     public function inspectionType(): BelongsTo
     {
         return $this->belongsTo(InspectionType::class);
     }
-
+    /**
+     * @return BelongsTo<Customer, Inspection>
+     */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
-
+    /**
+     * @return BelongsTo<SalesRepresentative, Inspection>
+     */
     public function salesRepresentative(): BelongsTo
     {
         return $this->belongsTo(SalesRepresentative::class);
     }
-
+    /**
+     * @return BelongsTo<CustomPort, Inspection>
+     */
     public function customPort(): BelongsTo
     {
         return $this->belongsTo(CustomPort::class);
     }
-
+    /**
+     * @return BelongsTo<Country, Inspection>
+     */
     public function importCountry(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'import_country_id');
     }
-
+    /**
+     * @return BelongsTo<User, Inspection>
+     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-
+    /**
+     * @return BelongsTo<User, Inspection>
+     */
     public function inspector(): BelongsTo
     {
         return $this->belongsTo(User::class, 'inspector_id');
     }
-
+    /**
+     * @return BelongsTo<User, Inspection>
+     */
     public function approvedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
-
+    /**
+     * @return HasOne<VehicleInformation, Inspection>
+     */
     public function vehicleInformation(): HasOne
     {
         return $this->hasOne(VehicleInformation::class);
     }
-
+    /**
+     * @return HasOne<EmissionInspection, Inspection>
+     */
     public function emissionInspection(): HasOne
     {
         return $this->hasOne(EmissionInspection::class);
     }
-
+    /**
+     * @return HasOne<HeadLightInspection, Inspection>
+     */
     public function headLightInspection(): HasOne
     {
         return $this->hasOne(HeadLightInspection::class);
@@ -229,23 +253,35 @@ class Inspection extends Model
     {
         return $this->hasOne(SuspensionInspection::class);
     }
-
+    /**
+     * @return HasOne<BrakeInspection, Inspection>
+     */
     public function brakeInspection(): HasOne
     {
         return $this->hasOne(BrakeInspection::class);
     }
-
+    /**
+     * @return HasOne<VisualInspection, Inspection>
+     */
     public function visualInspection(): HasOne
     {
         return $this->hasOne(VisualInspection::class);
     }
 
+
+    /**
+     * @return HasMany<Photo, Inspection>
+     */
     public function photos(): HasMany
     {
         return $this->hasMany(Photo::class)
             ->orderBy('sort_order');
     }
 
+    /**
+     * @param  Builder<Inspection>  $query
+     * @return Builder<Inspection>
+     */
     public function scopeSearch(Builder $query, ?string $search): Builder
     {
         if (blank($search)) {
@@ -270,6 +306,10 @@ class Inspection extends Model
         });
     }
 
+    /**
+     * @param  Builder<Inspection>  $query
+     * @return Builder<Inspection>
+     */
     public function scopeFilterStatus(Builder $query, ?string $status): Builder
     {
         if (blank($status)) {
@@ -279,6 +319,10 @@ class Inspection extends Model
         return $query->where('status', InspectionStatus::from($status));
     }
 
+    /**
+     * @param  Builder<Inspection>  $query
+     * @return Builder<Inspection>
+     */
     public function scopeFilterInspectionTypeId(Builder $query, ?int $inspectionTypeId): Builder
     {
         if (blank($inspectionTypeId)) {

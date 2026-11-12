@@ -21,6 +21,9 @@ class InspectionType extends Model
         'description',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -28,6 +31,9 @@ class InspectionType extends Model
         ];
     }
 
+    /**
+     * @return BelongsToMany<VisualItem, InspectionType>
+     */
     public function visualItems(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -42,11 +48,18 @@ class InspectionType extends Model
             ->withTimestamps();
     }
 
+    /**
+     * @return HasMany<Inspection, InspectionType>
+     */
     public function inspections(): HasMany
     {
         return $this->hasMany(Inspection::class);
     }
 
+    /**
+     * @param  Builder<InspectionType>  $query
+     * @return Builder<InspectionType>
+     */
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);

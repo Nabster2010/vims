@@ -20,6 +20,9 @@ class ModelType extends Model
         'is_active',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -27,16 +30,26 @@ class ModelType extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Manufacturer, ModelType>
+     */
     public function manufacturer(): BelongsTo
     {
         return $this->belongsTo(Manufacturer::class);
     }
 
+    /**
+     * @return HasMany<VehicleInformation, ModelType>
+     */
     public function vehicleInformation(): HasMany
     {
         return $this->hasMany(VehicleInformation::class);
     }
 
+    /**
+     * @param  Builder<ModelType>  $query
+     * @return Builder<ModelType>
+     */
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);

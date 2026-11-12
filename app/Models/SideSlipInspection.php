@@ -19,6 +19,9 @@ class SideSlipInspection extends Model
         'remarks',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -26,11 +29,17 @@ class SideSlipInspection extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Inspection, SideSlipInspection>
+     */
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
     }
 
+    /**
+     * @return BelongsTo<User, SideSlipInspection>
+     */
     public function inspector(): BelongsTo
     {
         return $this->belongsTo(User::class, 'inspected_by');

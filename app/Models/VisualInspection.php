@@ -21,6 +21,9 @@ class VisualInspection extends Model
         'description_ar',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -28,16 +31,25 @@ class VisualInspection extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Inspection, VisualInspection>
+     */
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
     }
 
+    /**
+     * @return BelongsTo<User, VisualInspection>
+     */
     public function inspector(): BelongsTo
     {
         return $this->belongsTo(User::class, 'inspected_by');
     }
 
+    /**
+     * @return HasMany<VisualItemResult, VisualInspection>
+     */
     public function visualItemResults(): HasMany
     {
         return $this->hasMany(VisualItemResult::class);

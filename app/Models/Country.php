@@ -24,6 +24,9 @@ class Country extends Model
         return $query->where('is_active', true);
     }
 
+    /**
+     * @return HasMany<VehicleInformation, Country>
+     */
     public function productionVehicles(): HasMany
     {
         return $this->hasMany(
@@ -32,6 +35,9 @@ class Country extends Model
         );
     }
 
+    /**
+     * @return HasMany<VehicleInformation, Country>
+     */
     public function originVehicles(): HasMany
     {
         return $this->hasMany(
@@ -40,6 +46,9 @@ class Country extends Model
         );
     }
 
+    /**
+     * @return HasMany<VehicleInformation, Country>
+     */
     public function shipmentVehicles(): HasMany
     {
         return $this->hasMany(

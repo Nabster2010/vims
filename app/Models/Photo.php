@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+
 class Photo extends Model
 {
     use HasFactory;
@@ -20,6 +21,10 @@ class Photo extends Model
         'uploaded_by',
     ];
 
+
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -28,11 +33,17 @@ class Photo extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Inspection, Photo>
+     */
     public function inspection(): BelongsTo
     {
         return $this->belongsTo(Inspection::class);
     }
 
+    /**
+     * @return BelongsTo<User, Photo>
+     */
     public function uploader(): BelongsTo
     {
         return $this->belongsTo(User::class, 'uploaded_by');
